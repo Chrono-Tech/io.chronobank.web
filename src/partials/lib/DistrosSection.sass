@@ -1,0 +1,71 @@
+@import "src/styles/partials/mixins"
+
+.root.distros-section
+  padding-top: 32px
+  padding-bottom: 40px
+  overflow: visible
+  background: #f7f9ff
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 640px
+    position: relative
+    box-sizing: border-box
+    .heading
+      display: table
+      width: 100%
+      text-align: center
+      margin-bottom: 64px
+      img
+        width: 32px
+        height: 32px
+        text-align: center
+      h2
+        text-align: center
+        font-weight: 300
+        font-size: 2.4rem
+    .content
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+      .group
+        flex: 0 0 auto
+        margin-bottom: 24px
+        h4
+          font-weight: bold
+          font-size: 1.8rem
+          line-height: 2.4rem
+        ul
+          list-style: none
+          padding: 0
+          li
+            flex: 0 0 auto
+            margin: 26px 0 8px
+            a
+              border-radius: 2px
+              color: #2962FF
+              transition: all 0.3s
+              box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+              display: block
+              img
+                width: 159px
+                height: 48px
+              &:hover
+                box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+
+
+  @include screen-max-width(1023px)
+    .wrap
+      .content
+        .group
+          h4
+            font-size: 1.6rem
+
+  @include screen-max-width(767px)
+    .wrap
+      .content
+        align-items: center
+        flex-direction: column
+        .group
+          h4
+            text-align: center

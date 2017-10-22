@@ -1,0 +1,114 @@
+@import "src/styles/partials/mixins"
+
+.root.product-features-section
+  padding-top: 65px
+  padding-bottom: 65px
+  background: #FFFFFF
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    padding: 0 16px
+    .heading
+      padding: 0
+      box-sizing: border-box
+      h3
+        margin-bottom: 32px
+        font-size: 2.4rem
+        line-height: 3.4rem
+        font-weight: bold
+    .content
+      display: flex
+      .left
+        box-sizing: border-box
+        flex: 0 0 40%
+        ul
+          list-style: none
+          li
+            position: relative
+            margin-bottom: 16px
+            a
+              position: relative
+              display: block
+              cursor: pointer
+              padding: 16px 24px 16px 48px
+              font-size: 2.0rem
+              line-height: 1.6
+              background: #f7f9ff
+              font-weight: 500
+              color: #0039cb
+              transition: all 0.3s
+              border-radius: 2px
+              &::before
+                content: ""
+                @include position(absolute, 20px, auto, auto, 12px)
+                width: 24px
+                height: 24px
+                background-image: url('/static/images/symbols/check.svg')
+            .inline
+              display: none
+              position: relative
+              transition: all 0.6s
+              height: 0
+              overflow: hidden
+              opacity: 0
+              img
+                display: block
+                box-sizing: border-box
+                margin: 32px auto
+                transition: all 0.6s
+                max-height: 236px
+                transform: translateY(-100%)
+            &.active
+              a
+                background: #2962ff
+                color: #FFFFFF
+                box-shadow: 0 16px 24px 0 rgba(118, 143, 255, 0.2)
+              .inline
+                opacity: 1
+                height: 300px
+                img
+                  transform: translateY(0%)
+      .main
+        box-sizing: border-box
+        flex: 0 0 60%
+        padding: 0 0 0 48px
+        .image
+          min-height: 600px
+          img
+            max-width: 100%
+            transition: all 0.3s
+            height: auto
+          &.active
+            display: block
+
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 640px
+      .heading
+        h3
+          font-size: 1.8rem
+          line-height: normal
+      .content
+        display: block
+        .left
+          ul
+            li
+              a
+                font-size: 1.6rem
+                line-height: 1.5
+                padding: 10px 16px 10px 48px
+                &::before
+                  content: ""
+                  @include position(absolute, 10px, auto, auto, 12px)
+                  width: 24px
+                  height: 24px
+                  background-image: url('/static/images/symbols/check.svg')
+              .inline
+                display: block
+        .main
+          display: none
+  @include screen-max-width(767px)
+    .wrap
+      max-width: 480px

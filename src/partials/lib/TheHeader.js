@@ -27,7 +27,8 @@ export default class TheHeader extends React.Component {
         'background-dark': header.background === 'dark',
         'background-light': header.background === 'light',
         'stereotype-default': header.stereotype === 'default',
-        'stereotype-splash': header.stereotype === 'splash'
+        'stereotype-splash': header.stereotype === 'splash',
+        'stereotype-product': header.stereotype === 'product'
       })}>
         <style jsx>{styles}</style>
         <div className='wrap'>
@@ -49,7 +50,7 @@ export default class TheHeader extends React.Component {
                       <ul className='dropdown-panel'>
                         {products.map(product => (
                           <li key={product._id}>
-                            <Link href={`/products/${product.slug}`}>
+                            <Link route={`/products/${product.slug}`}>
                               <div className='product'>
                                 <div className='product-icon'>
                                   {!product.icon ? null : (
