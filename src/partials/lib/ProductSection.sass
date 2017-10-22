@@ -1,0 +1,204 @@
+@import "src/styles/partials/mixins"
+
+.root.product-section
+  padding-top: 33px
+  padding-bottom: 33px
+  overflow: visible
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    .heading
+      display: table
+      width: 100%
+      h2
+        position: relative
+        margin-bottom: 32px
+        text-align: center
+        font-weight: 500
+        font-size: 4.8rem
+        padding-top: 76px
+        img
+          margin-left: -7px
+          transform: translateX(-50%)
+          width: 64px
+          height: 64px
+          border-radius: 15px
+          display: block
+          position: absolute
+          left: 50%
+          top: 0
+          display: block
+          text-align: center
+    .content
+      display: flex
+      flex-wrap: wrap-reverse
+      // margin-top: 65px
+      // margin-bottom: 63px
+      align-items: center
+      justify-content: center
+      .left
+        flex: 0 0 auto
+        width: 100%
+        .text
+          max-width: 421px
+          margin: 0 auto
+          \:global(h3)
+            font-size: 2.4rem
+            line-height: 3.4rem
+            font-weight: bold
+            margin-bottom: 23px
+          \:global(p)
+            font-size: 1.6rem
+            margin-bottom: 10px
+            color: #66669f
+          \:global(ul)
+            list-style: none
+            \:global(li)
+              font-size: 1.6rem
+              line-height: 2.4rem
+              padding: 0 0 11px 40px
+              position: relative
+              &:before
+                content: ''
+                position: absolute
+                left: 0
+                top: 6px
+                width: 24px
+                height: 24px
+                background-image: url('/static/images/symbols/check.svg')
+              \:global(p)
+                padding: 5px 0px 0px 0px
+                margin: 0
+              \:global(strong)
+                font-weight: normal
+                color: #00005f
+      .right
+        flex: 0 0 auto
+        width: 100%
+        text-align: center
+        transform-style: preserve-3d
+        perspective: 370px
+        img
+          margin: 0px 0px 50px 0px
+          position: relative
+          box-sizing: border-box
+          transition: all 0.3s
+          display: inline-block
+          box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+          max-width: 448px
+          width: 100%
+    .downloads
+      padding: 26px 17px 32px 24px
+      position: absolute
+      bottom: -16px
+      left: 50%
+      // transform: translateX(-60px)
+      border-radius: 2px
+      background-color: #f7f9ff
+      box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+      h4
+        font-weight: bold
+        font-size: 1.8rem
+        line-height: 2.4rem
+      ul
+        display: flex
+        flex-wrap: wrap
+        list-style: none
+        justify-content: space-around
+        align-items: center
+        align-content: center
+        padding: 0
+        li
+          flex: 0 0 auto
+          margin: 26px 16px 8px 16px
+          a
+            border-radius: 2px
+            color: #2962FF
+            transition: all 0.3s
+            box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+            display: block
+            img
+              width: 159px
+              height: 48px
+            &:hover
+              box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+          &:last-child
+            margin-right: 8px
+  &.background-dark
+    background: #f7f9ff
+    .wrap
+      .content
+        .left
+  &.background-light
+    background: #FFFFFF
+    .wrap
+      .content
+        .left
+
+  &.stereotype-default
+    .wrap
+      .content
+        flex-direction: row
+        @include screen-min-width(1024px)
+          margin-bottom: 63px
+        .left
+          flex-direction: column
+          @include screen-min-width(1024px)
+            flex: 1 0 auto
+            width: 50%
+        .right
+          @include screen-min-width(1024px)
+            flex: 1 0 auto
+            width: 50%
+          img
+            @include screen-min-width(1024px)
+              top: -60px
+              height: 618px
+              max-width: fit-content
+              // right: -50px
+              transform: rotate3d(0,1,0,-10deg) translate(-15px,30px)
+  &.stereotype-mirrored
+    .wrap
+      .content
+        flex-direction: row-reverse
+        align-items: flex-end
+        @include screen-min-width(1024px)
+          margin-bottom: 63px
+        .left
+          // margin-top: -30px
+          flex-direction: column-reverse
+          @include screen-min-width(1024px)
+            flex: 1 0 auto
+            width: 50%
+        .right
+          @include screen-min-width(1024px)
+            flex: 1 0 auto
+            width: 50%
+          img
+            @include screen-min-width(1024px)
+              top: -60px
+              right: -60px
+              height: 618px
+              max-width: fit-content
+              // left: -50px
+              transform: rotate3d(0,1,0,10deg) translate(-85px,30px)
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 480px
+      .content
+        .left
+          h3
+            display: block
+            text-align: center
+        // .right
+        //   display: none
+      .downloads
+        text-align: center
+        position: relative
+        width: 100%
+        box-sizing: border-box
+        left: auto
+        transform: translate(0, 30px)

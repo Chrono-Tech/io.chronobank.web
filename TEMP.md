@@ -1,0 +1,3 @@
+- Migrate to JSX, React and NEXT.js
+- Devlop API and Admin panel based on Keystone.js
+- Wire frontend app to API

@@ -1,0 +1,49 @@
+@import "src/styles/partials/mixins"
+
+.root.snackbar-panel
+  @include position(fixed, 0, 0, 0, 0)
+  z-index: 200
+  -webkit-overflow-scrolling: touch
+  overflow-y: auto
+  overflow-x: hidden
+  opacity: 0
+  transition: opacity .3s
+
+  &-open
+    opacity: 1
+
+  .panel
+    display: block
+    position: relative
+    box-shadow: none
+    .content
+      position: relative
+      overflow: auto
+    .close
+      position: absolute
+      color: #FFFFFF
+      cursor: pointer
+      opacity: 0.8
+      width: 16px
+      height: 16px
+      padding: 10px
+      margin: 12px 10px
+      display: block
+      position: absolute
+      right: 0
+      top: 0
+      cursor: pointer
+      img
+        display: block
+        max-width: fit-content
+        max-height: fit-content
+      &:hover
+        opacity: 1
+  &-top >.panel
+   @include position(fixed, 0, 0, auto, 0)
+  &-right >.panel
+   @include position(fixed, 0, 0, 0, auto)
+  &-bottom >.panel
+   @include position(fixed, auto, 0, 0, 0)
+  &-left >.panel
+   @include position(fixed, 0, auto, 0, 0)

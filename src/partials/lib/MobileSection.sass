@@ -1,0 +1,116 @@
+@import "src/styles/partials/mixins"
+
+.root.mobile-section
+  padding-top: 33px
+  padding-bottom: 100px
+  margin-bottom: 130px
+  background: #f7f9ff
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    .content
+      display: flex
+      padding-top: 33px
+      padding-bottom: 63px
+      .right
+        flex: 1 0 auto
+        width: 50%
+        .text
+          // width: 415px
+          // margin: 0 auto
+          \:global(h3)
+            font-size: 2.4rem
+            line-height: 3.4rem
+            font-weight: bold
+            margin-bottom: 23px
+          \:global(p)
+            font-size: 1.6rem
+            margin-bottom: 10px
+            color: #66669f
+          \:global(ul)
+            list-style: none
+            \:global(li)
+              font-size: 1.6rem
+              line-height: 2.4rem
+              padding: 0 0 11px 40px
+              position: relative
+              \:global(p)
+                padding: 5px 0px 0px 0px
+                margin: 0
+              \:global(strong)
+                font-weight: normal
+                color: #00005f
+      .left
+        flex: 1 0 auto
+        position: relative
+        width: 50%
+        // margin: 0 -30px
+        text-align: center
+        transform-style: preserve-3d
+        perspective: 370px
+        h3
+          font-size: 1.8rem
+          line-height: normal
+          font-weight: bold
+          display: none
+        img
+          margin: 50px auto -126px auto
+          border-radius: 45px
+          transition: all 0.3s
+          display: inline-block
+          box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+    .downloads
+      padding: 26px 17px 32px 24px
+      position: absolute
+      bottom: -140px
+      left: 50%
+      transform: translateX(-60px)
+      border-radius: 2px
+      background-color: #FFFFFF
+      box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+      h4
+        font-weight: bold
+        font-size: 1.8rem
+        line-height: 2.4rem
+      ul
+        display: flex
+        flex-wrap: wrap
+        list-style: none
+        justify-content: space-around
+        align-items: center
+        align-content: center
+        padding: 0
+        li
+          flex: 0 0 auto
+          margin: 26px 16px 8px 16px
+          a
+            border-radius: 2px
+            color: #2962FF
+            transition: all 0.3s
+            box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+            display: block
+            img
+              width: 159px
+              height: 48px
+            &:hover
+              box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 480px
+      .content
+        .left
+          h3
+            display: block
+            text-align: center
+        .right
+          display: none
+      .downloads
+        text-align: center
+        position: relative
+        width: 100%
+        box-sizing: border-box
+        left: auto
+        transform: translate(0, -20px)

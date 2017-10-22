@@ -1,0 +1,246 @@
+@import "src/styles/partials/mixins"
+
+.root.footer-section
+  background: linear-gradient(-125deg,#644EBF,#262448)
+  padding-top: 40px
+  padding-bottom: 24px
+  color: #FFFFFF
+  .wrap
+    max-width: 1120px
+    margin: 0 auto
+    position: relative
+    .columns
+      display: flex
+      flex-wrap: wrap
+      .col-1
+        flex: 1 1 auto
+        width: 100%
+        padding: 0px 15px
+        box-sizing: border-box
+        display: none
+        @include screen-min-width(1024px)
+          display: block
+      .col-2
+        flex: 1 0 auto
+        width: 100%
+        padding: 0px 15px
+        box-sizing: border-box
+      .col-3
+        flex: 1 0 auto
+        width: 100%
+        padding: 0px 15px
+        box-sizing: border-box
+      .col-4
+        flex: 1 0 auto
+        width: 100%
+        padding: 0px 15px
+        box-sizing: border-box
+      @include screen-min-width(768px)
+        .col-1
+          flex: 1 1 auto
+          width: auto
+        .col-2
+          flex: 1 0 auto
+          width: 17%
+        .col-3
+          flex: 1 0 auto
+          width: 25%
+        .col-4
+          flex: 1 0 auto
+          width: 28%
+    .scrolltop
+      position: absolute
+      top: 0
+      right: 0
+      transform: translateY(-70px)
+      width: 56px
+      height: 56px
+      display: block
+      border-radius: 50%
+      cursor: pointer
+      z-index: 10
+      background: white
+      box-shadow: 0 6px 6px 0 rgba(0,0,0,0.24), 0 0 6px 0 rgba(0,0,0,0.12)
+      transition: all 0.3s
+      color: #2962FF
+      text-decoration: none
+      &:hover
+        box-shadow: 0 12px 12px 0 rgba(0,0,0,0.24), 0 0 12px 0 rgba(0,0,0,0.12)
+      &::before
+        content: ''
+        display: block
+        position: absolute
+        left: 24px
+        top: 26px
+        box-sizing: border-box
+        width: 9px
+        height: 9px
+        border: solid #2962FF
+        border-width: 2px 0 0 2px
+        transform: rotate(45deg)
+    .logo
+      display: table
+      width: 100%
+      margin-bottom: 4px
+      img
+        width: 150px
+        &.logo-mobile
+          display: none
+        &.logo-desktop
+          display: block
+    .publications
+      display: table
+      width: 100%
+      ul
+        margin: 12px 0
+        li
+          padding: 12px 0
+          font-weight: bold
+          font-size: 1.6rem
+          line-height: 2rem
+          a
+            font-weight: normal
+            color: #768FFF
+            text-decoration: none
+    .menu
+      display: table
+      width: 100%
+      ul
+        li
+          padding: 7px 0
+          a
+            display: block
+            font-weight: bold
+            font-size: 1.8rem
+            line-height: 2.1rem
+            color: #FFFFFF
+            font-weight: normal
+            text-decoration: none
+    .contacts
+      display: table
+      width: 100%
+      dl
+        font-size: 1.6rem
+        line-height: 2.1rem
+        dt
+          font-weight: 300
+          -webkit-font-smoothing: antialiased
+        dd
+          margin: 0 0 10px 0
+          a
+            font-weight: bold
+            color: #768FFF
+            text-decoration: none
+            &:hover
+              text-decoration: underline
+    .socials
+      display: table
+      width: 200px
+      margin-top: 25px
+      a
+        display: inline-block
+        margin: 0 16px 16px 0
+        img
+
+          width: 32px
+          height: 32px
+          opacity: 0.6
+          transition: opacity 0.3s
+          &:hover
+            opacity: 1
+        &:last-child
+          margin-right: 0
+    .downloads
+      display: table
+      ul
+        li
+          margin: 16px 0
+          a
+            span
+              vertical-align: middle
+              margin-left: 24px
+              font-size: 1.6rem
+              color: #768fff
+            img
+              display: inline-block
+              vertical-align: middle
+              width: 32px
+              height: 32px
+              opacity: 0.6
+              transition: opacity 0.3s
+            &:hover
+              img
+                opacity: 1
+    .subscribe
+      display: table
+      width: 100%
+      padding: 15px
+      margin: 10px 0 0 0
+      box-sizing: border-box
+      background: rgba(255,255,255,0.1)
+      border-radius: 2px
+      .block
+        padding: 8px 0
+        .field
+          vertical-align: middle
+          font-size: 1.6rem
+          line-height: 2rem
+          border: 0
+          border-bottom: 1px solid rgba(255,255,255,0.6)
+          padding: 5px 0
+          width: 100%
+          box-sizing: border-box
+          background: none
+          color: white
+          font-weight: 300
+          outline: none
+          border-radius: 0
+          transition: all 0.3s
+          @include placeholder()
+            color: rgba(255,255,255,0.5)
+        .button
+          box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+          transition: all 0.3s
+          border-radius: 2px
+          background-color: white
+          color: #2962FF
+          position: relative
+          overflow: hidden
+          text-align: center
+          font-size: 1.4rem
+          line-height: 1.7rem
+          min-width: 107px
+          font-weight: 500
+          padding: 10px 15px 9px
+          cursor: pointer
+          text-transform: uppercase
+          float: right
+          &:hover
+            box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+    address
+      position: absolute
+      bottom: -12px
+      left: 0
+      font-style: normal
+      font-size: 1.2rem
+      font-weight: 300
+      width: 100%
+      margin-top: 24px
+      color: white
+      padding: 0px 16px
+      box-sizing: border-box
+    h4
+      font-size: 1.6rem
+      text-transform: uppercase
+      color: rgba(255,255,255,0.5)
+      font-weight: 500
+      margin-bottom: 10px
+    @include screen-max-width(767px)
+      address
+        position: static
+      .menu, .publications, .subscribe, .downloads, .socials, .contacts, address
+        text-align: center
+        margin: 0 auto
+        max-width: 360px
+        width: 100%
+        margin-bottom: 20px

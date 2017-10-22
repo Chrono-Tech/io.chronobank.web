@@ -1,0 +1,35 @@
+@import "src/styles/partials/mixins"
+
+.root.job-dialog
+  background: #FFFFFF
+  padding: 24px 64px 72px 64px
+  max-width: 672px
+  box-sizing: border-box
+  border-radius: 2px
+  .text
+    margin-bottom: 60px
+    \:global(h4)
+      font-size: 2.4rem
+      font-weight: 300
+    \:global(h5)
+      font-size: 2.4rem
+      font-weight: bold
+    \:global(p)
+      font-size: 1.4rem
+      color: #66669f
+
+  form
+    max-width: 350px
+    .buttons
+      margin-top: 15px
+      .button
+        @include button(primary)
+    .field
+      @include form-field()
+      textarea
+        height: 130px
+
+  @include screen-min-width(1024px)
+    width: 672px
+  @include screen-max-width(639px)
+    padding: 32px 16px

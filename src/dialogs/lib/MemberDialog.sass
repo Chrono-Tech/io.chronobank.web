@@ -1,0 +1,74 @@
+@import "src/styles/partials/mixins"
+
+.root.member-dialog
+  background: #FFFFFF
+  padding: 64px
+  max-width: 672px
+  min-height: 672px
+  border-radius: 2px
+  box-sizing: border-box
+  .swiper-container
+    position: static
+    .swiper-wrapper
+      position: relative
+      width: 100%
+      height: 100%
+      .swiper-slide
+        >img
+          width: 184px
+          height: auto
+          margin-bottom: 24px
+          border-radius: 50%
+          box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+        >h4
+          font-size: 2.4rem
+          font-weight: 300
+          line-height: 2.8rem
+          margin-bottom: 4px
+          max-width: 180px
+        >h5
+          font-size: 1.4rem
+          margin-bottom: 24px
+          text-transform: uppercase
+          color: #0039cb
+          font-weight: normal
+          max-width: 180px
+    .swiper-button-prev
+      @include position(absolute, 50%, auto, auto, 12px)
+      transform: translateY(-50%)
+      background: none
+      padding: 12px
+      img
+        width: 12px
+        height: 12px
+    .swiper-button-next
+      @include position(absolute, 50%, 12px, auto, auto)
+      transform: translateY(-50%)
+      background: none
+      padding: 12px
+      img
+        width: 12px
+        height: 12px
+    .swiper-pagination
+      @include position(absolute, auto, 0, 37px, 0)
+      \:global(.swiper-pagination-bullet)
+        border: 5px solid #FFFFFF
+        box-sizing: content-box
+        width: 8px
+        height: 8px
+        display: inline-block
+        border-radius: 100%
+        background: rgba(0,0,0,0.2)
+        cursor: pointer
+      \:global(.swiper-pagination-bullet-active)
+        background: #007aff
+
+  @include screen-min-width(1024px)
+    width: 672px
+  @include screen-max-width(640px)
+    padding: 32px
+    .swiper-container
+      .swiper-button-prev
+        left: 2px
+      .swiper-button-next
+        right: 2px

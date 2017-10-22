@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="126px" height="222px" viewBox="0 0 126 222" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>FF5318C9-7093-4F54-8F82-7B1F88C375CC</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <filter x="-29.8%" y="-10.5%" width="159.6%" height="129.3%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="8" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.462745098   0 0 0 0 0.560784314   0 0 0 0 1  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M0,174.180741 L0,15.9514016 C0,6.58041318 4.8851454,0 16.2809914,0 C27.7124521,6.64528396e-16 72.805494,1.15872737e-15 77.4975192,0 C84.9647281,-1.15872739e-15 93.5614308,3.1891094 93.5614308,15.9514016 L93.5614308,174.180741 C93.5614308,179.488257 92.0251242,190.132143 77.1718994,190.132143 L16.2809914,190.132143 C1.60075217,190.132143 0,179.547361 0,174.180741 Z" id="path-2"></path>
+        <rect id="path-3" x="0" y="0" width="81.3264745" height="143.495957"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="laptop-cm" transform="translate(-2371.000000, -4239.000000)">
+            <g id="Mockup-Copy-4" filter="url(#filter-1)" transform="translate(2387.000000, 4247.000000)">
+                <g id="Mockup-/-Device-/-iPhone-7">
+                    <g id="Mockup-/-_Assets-/-iPhone-7-/-_Linear">
+                        <g id="iPhone">
+                            <g id="Phone">
+                                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                                <use fill="#F7F9FF" xlink:href="#path-2"></use>
+                            </g>
+                            <path d="M46.7807154,185.34191 L46.7807154,185.34191 C50.2879021,185.34191 53.1310388,182.507557 53.1310388,179.011206 C53.1310388,175.514855 50.2879021,172.680502 46.7807154,172.680502 C43.2735287,172.680502 40.430392,175.514855 40.430392,179.011206 C40.430392,182.507557 43.2735287,185.34191 46.7807154,185.34191 L46.7807154,185.34191 Z M46.7807154,186.186004 L46.7807154,186.186004 C42.8059038,186.186004 39.5836823,182.973738 39.5836823,179.011206 C39.5836823,175.048675 42.8059038,171.836408 46.7807154,171.836408 C50.755527,171.836408 53.9777485,175.048675 53.9777485,179.011206 C53.9777485,182.973738 50.755527,186.186004 46.7807154,186.186004 L46.7807154,186.186004 Z" id="Home-button" fill-opacity="0.2" fill="#66669F" fill-rule="nonzero"></path>
+                            <rect id="Pulse" stroke-opacity="0.2" stroke="#66669F" stroke-width="0.5" x="38.6262788" y="11.7762025" width="16.3088733" height="1.28467664" rx="0.64233832"></rect>
+                            <ellipse id="Sensor" stroke-opacity="0.2" stroke="#66669F" stroke-width="0.5" cx="46.7831277" cy="6.42629657" rx="1.0753645" ry="1.07347723"></ellipse>
+                            <ellipse id="Camera" stroke-opacity="0.2" stroke="#66669F" stroke-width="0.5" cx="32.674892" cy="12.4762934" rx="1.55927853" ry="1.55654198"></ellipse>
+                            <path d="M6.33319826,24.0355728 L87.2282325,24.0355728 C87.3473715,24.0355728 87.4439526,24.1316047 87.4439526,24.250066 L87.4439526,167.317036 C87.4439526,167.435498 87.3473715,167.53153 87.2282325,167.53153 L6.33319826,167.53153 C6.21405934,167.53153 6.11747817,167.435498 6.11747817,167.317036 L6.11747817,24.250066 C6.11747817,24.1316047 6.21405934,24.0355728 6.33319826,24.0355728 Z" id="Edge"></path>
+                        </g>
+                    </g>
+                    <g id="🔮Screen" transform="translate(6.117478, 24.035573)">
+                        <g id="State-/-Screen-/-Wireframe">
+                            <g id="Fill-/-White">
+                                <mask id="mask-4" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="Fill" fill="#FFFFFF" xlink:href="#path-3"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

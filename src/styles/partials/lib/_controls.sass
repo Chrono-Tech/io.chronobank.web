@@ -1,0 +1,59 @@
+@mixin button($type: primary)
+  position: relative
+  text-decoration: none
+  transition: all 0.3s
+  border-radius: 2px
+  box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+  overflow: hidden
+  text-align: center
+  font-size: 1.4rem
+  line-height: 1.7rem
+  box-sizing: border-box
+  display: inline-block
+  vertical-align: top
+  min-width: 107px
+  font-weight: 500
+  padding: 10px 15px 9px
+  cursor: pointer
+  text-transform: uppercase
+  &:hover
+    box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+  img
+    margin-right: 5px
+  @if $type == primary
+    background-color: #2962FF
+    color: #FFFFFF
+  @if $type == secondary
+    background-color: white
+    color: #2962FF
+
+@mixin form-field()
+  position: relative
+  margin-bottom: 16px
+  label
+    display: block
+    position: absolute
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0
+    font-size: 1.6rem
+    line-height: 2rem
+    color: #00005F
+    opacity: .6
+    padding: 16px
+    transition: all 0.3s
+    vertical-align: middle
+  input, textarea
+    font-size: 1.6rem
+    line-height: 2rem
+    border: 0
+    border-bottom: 2px solid #abc0ff
+    width: 100%
+    box-sizing: border-box
+    color: #00005F
+    outline: none
+    background: rgba(117,143,255,0.2)
+    min-height: 56px
+    padding: 28px 16px 6px
+    border-radius: 4px

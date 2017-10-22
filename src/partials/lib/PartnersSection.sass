@@ -1,0 +1,54 @@
+@import "src/styles/partials/mixins"
+
+.root.partners-section
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 1120px
+    position: relative
+    .content
+      display: flex
+      flex-wrap: wrap
+      padding: 15px 15px
+      margin: -25px -15px
+      justify-content: center
+      .item
+        flex: 1 1 auto
+        min-width: 270px
+        max-width: 480px
+        box-sizing: border-box
+        width: 30%
+        background: #f7f9ff
+        color: #00005F
+        padding: 24px 16px
+        transition: all 0.3s
+        border: 2px
+        margin: 10px
+        cursor: pointer
+        .icon
+          height: 80px
+          position: relative
+          img
+            max-height: 80px
+            max-width: 300px
+            position: absolute
+            left: 0
+            top: 50%
+            transform: translateY(-50%)
+        .text
+          margin: 15px 0 0 0
+          \:global(h4)
+            font-size: 1.8rem
+            line-height: 2.1rem
+            font-weight: bold
+            margin: 10px 0
+          \:global(p)
+            font-size: 1.6rem
+            line-height: 2.4rem
+            color: #66669f
+
+        &:hover
+          box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 480px

@@ -1,0 +1,74 @@
+@import "src/styles/partials/mixins"
+
+.root.modal-dialog
+
+  @include position(fixed, 0, 0, 0, 0)
+  z-index: 200
+  display: flex
+  align-items: center
+  justify-content: space-around
+  // padding: 75px 75px
+  -webkit-overflow-scrolling: touch
+  overflow-y: auto
+  overflow-x: hidden
+  background: rgba(0,0,0,0.3)
+  opacity: 0
+  transition: opacity .3s
+  padding: 50px 50px 50px 50px
+
+  &-open
+    opacity: 1
+
+  .dialog
+    display: block
+    position: relative
+    box-shadow: none
+    flex: 0 0 auto
+    max-width: 100%
+    max-height: 100%
+    box-sizing: border-box
+    display: flex
+    align-items: flex-start
+
+    .content
+      flex: 0 0 auto
+      max-width: 100%
+      position: relative
+      overflow: auto
+      margin-bottom: 50px
+
+    .close
+      position: absolute
+      color: #FFFFFF
+      cursor: pointer
+      opacity: 0.8
+      width: 26px
+      height: 26px
+      display: block
+      position: absolute
+      right: -70px
+      top: -70px
+      padding: 30px
+      -webkit-transform: rotate(45deg)
+      transform: rotate(45deg)
+      cursor: pointer
+      &::before
+        content: ''
+        display: block
+        position: absolute
+        background: white
+        width: 26px
+        height: 2px
+        top: 42px
+        left: 30px
+      &::after
+        content: ''
+        display: block
+        position: absolute
+        background: white
+        height: 26px
+        width: 2px
+        left: 42px
+        top: 30px
+      &:hover
+        opacity: 1

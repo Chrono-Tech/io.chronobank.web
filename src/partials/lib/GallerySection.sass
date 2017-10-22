@@ -1,0 +1,70 @@
+@import "src/styles/partials/mixins"
+
+.root.gallery-section
+  position: relative
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    z-index: 2
+    width: 100%
+    .content
+      .popup
+        @include position(absolute, -186px, 60px, auto, auto, 350px)
+        box-sizing: border-box
+        border-radius: 2px
+        box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+        transition: all 0.3s
+        .inner
+          background: #FFFFFF
+          padding: 32px
+          .text
+            \:global(h4)
+              font-size: 1.8rem
+              font-weight: bold
+              line-height: normal
+              margin-bottom: 16px
+              \:global(a)
+                color: #0039cb
+            \:global(p)
+              font-size: 1.6rem
+              line-height: 1.5
+              color: #66669f
+              margin-bottom: 6px
+          .buttons
+            margin-top: 25px
+            .button
+              @include button(primary)
+  .swiper-container
+    .swiper-slide
+      height: auto
+      width: auto
+      // max-width: fit-content
+      // max-height: fit-content
+
+  @include screen-max-width(1023px)
+    .wrap
+      .content
+        .popup
+          // position: absolute
+          // max-width: 90%
+          box-sizing: border-box
+          top: auto
+          // left: 50%
+          height: auto
+          bottom: -50px
+          // transform: translateX(-50%)
+    .swiper-container
+      .swiper-slide
+        width: 100%
+        height: inherit
+  @include screen-max-width(639px)
+    .wrap
+      .content
+        .popup
+          max-width: 90%
+          bottom: -20px
+          left: 50%
+          transform: translateX(-50%)
+          width: fit-content

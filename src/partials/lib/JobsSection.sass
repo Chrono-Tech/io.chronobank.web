@@ -1,0 +1,53 @@
+@import "src/styles/partials/mixins"
+
+.root.jobs-section
+  padding-top: 15px
+  padding-bottom: 15px
+  background: #f7f9ff
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    padding: 0px 16px
+    .content
+      padding: 65px 16px 65px
+      h3
+        text-align: center
+        margin-bottom: 40px
+        font-size: 2.4rem
+        line-height: 3.4rem
+        font-weight: bold
+      ul
+        display: flex
+        flex-direction: row
+        justify-content: center
+        flex-wrap: wrap
+        margin: -24px -12px
+        li
+          width: 270px
+          padding: 24px 12px
+          box-sizing: border-box
+          flex: 0 0 auto
+          .text
+            font-size: 1.6rem
+            line-height: 2.4rem
+            color: #66669f
+            \:global(h4)
+              font-size: 1.8rem
+              line-height: 2.4rem
+              margin-bottom: 16px
+              font-weight: bold
+              color: #00005F
+            \:global(p)
+              margin-bottom: 10px
+          .buttons
+            margin-top: 25px
+            .button
+              @include button(primary)
+
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 480px
+      .content
+        padding: 24px 0

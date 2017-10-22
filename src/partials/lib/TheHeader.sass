@@ -1,0 +1,315 @@
+@import "src/styles/partials/mixins"
+
+.root.the-header
+  min-height: 700px
+  height: 100vh
+  background: no-repeat center center linear-gradient(197deg,#644ebf,#262448)
+  padding: 22px 0 80px
+  position: relative
+  overflow: hidden
+  .image
+    @include position(absolute, 0, 0, 0, 0)
+    z-index: 1
+    max-width: 1120px
+    margin: 0 auto
+    img
+      max-width: fit-content
+      max-height: fit-content
+      display: none
+      position: absolute
+      top: 45%
+      right: 0
+      transform: translate(0, -50%)
+      @include screen-min-width(1024px)
+        &.image-1280
+          display: block
+          right: -25px
+      @include screen-between-width(640px, 1023px)
+        &.image-640
+          display: block
+          position: absolute
+          top: 30%
+          right: 50%
+          transform: translate(50%, -50%)
+      @include screen-between-width(480px, 639px)
+        &.image-480
+          display: block
+          position: absolute
+          top: 40%
+          right: 50%
+          transform: translate(50%, -50%)
+      @include screen-between-width(320px, 479px)
+        &.image-320
+          display: block
+          position: absolute
+          top: 50%
+          right: 50%
+          transform: translate(50%, -50%)
+  .wrap
+    max-width: 1120px
+    height: 100%
+    margin: 0 auto
+    position: relative
+    z-index: 2
+    .top
+      display: flex
+      position: relative
+      z-index: 10
+      align-items: center
+      .logo
+        flex: 1 1 auto
+        padding: 0px 5px
+        img
+          height: 33px
+          width: 300px
+          max-width: fit-content
+          &.logo-mobile
+            display: inline-block
+            width: 200px
+            margin-left: 10px
+          &.logo-desktop
+            display: none
+          @include screen-min-width(1024px)
+            &.logo-mobile
+              display: none
+            &.logo-desktop
+              display: inline-block
+      .menu-desktop
+        display: block
+        flex: 0 0 auto
+        >ul
+          flex: 0 0 auto
+          display: flex
+          >li
+            flex: 0 0 auto
+            padding: 0 24px
+            position: relative
+            .link
+              color: #FFFFFF
+              transition: all 0.3s
+              font-size: 1.8rem
+              font-weight: 500
+              line-height: 5rem
+              >img
+                width: 18px
+                height: 18px
+                margin-right: 10px
+            .dropdown
+              position: relative
+              .dropdown-panel
+                opacity: 0
+                @include position(absolute, 0, auto, auto, 0)
+                border-radius: 2px
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24)
+                background: #FFFFFF
+                transform-origin: 50% -50px
+                transform: rotateX(-40deg)
+                transition: opacity 0.3s, transform 0.5s
+                padding: 10px 0
+                font-size: 1.8rem
+                line-height: 2.1rem
+                top: 50px
+                width: 255px
+                left: 10000px
+                list-style: none
+                li
+                  border-bottom: 1px solid #e9efff
+                  .product
+                    display: flex
+                    cursor: pointer
+                    .product-icon
+                      flex: 0 0 auto
+                      padding: 16px
+                      img
+                        width: 40px
+                        height: 40px
+                    .product-info
+                      flex: 1 1 auto
+                      padding: 16px
+                      .info-title
+                        color: #00005F
+                        font-weight: bold
+                      .info-details
+                        font-size: 1.2rem
+                        line-height: 1.5rem
+                        padding-top: 6px
+                        color: #2962FF
+                        white-space: normal
+                  &:last-child
+                    border-bottom: none
+              &:hover
+                >.dropdown-panel
+                  // display: block
+                  opacity: 1
+                  transform: none
+                  left: 0
+      .menu-mobile
+        display: none
+        flex: 0 0 auto
+        padding: 0px 16px
+        >.dropdown-toggle
+          margin-top: -12px
+          >img
+            width: 20px
+            height: 20px
+          &-dark
+            display: none
+          &-light
+            display: block
+        >.dropdown-panel
+          background: #FFFFFF
+          @include position(fixed, 0, 0, auto, 0)
+          height: 300px
+          >ul
+            display: block
+            >li
+              >a
+                color: #FFFFFF
+                transition: all 0.3s
+                font-size: 1.8rem
+                font-weight: 500
+                line-height: 5rem
+                >img
+                  width: 18px
+                  height: 18px
+                  margin-right: 10px
+                &:hover
+                  opacity: 0.6
+    .news
+      position: relative
+      padding: 20px 16px
+      .rotate
+        position: relative
+        overflow: hidden
+        display: inline-block
+        max-width: 80%
+        .item
+          display: flex
+          position: relative
+          overflow: hidden
+          white-space: nowrap
+          background: #412b8a
+          padding: 4px 10px 4px 4px
+          border-radius: 2px
+          font-size: 1.2rem
+          color: #FFFFFF
+          .label
+            position: relative
+            float: left
+            background-color: #FFAB00
+            border-radius: 2px
+            text-transform: uppercase
+            padding: 0px 10px
+            margin-right: 16px
+            color: white
+            font-size: 1.2rem
+            font-weight: bold
+          .info
+            position: relative
+            float: left
+            position: relative
+            width: 100%
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            .title
+    .content
+      position: relative
+      padding: 10px 16px
+      .text
+        display: table
+        color: #FFFFFF
+        max-width: 600px
+        @include screen-min-width(1024px)
+          margin-top: 67px
+        \:global(h1)
+          line-height: normal
+          font-weight: 300
+          display: block
+          font-size: 2.8rem
+          margin-bottom: 9px
+          @include screen-min-width(1024px)
+            font-size: 6.3rem
+        \:global(h2)
+          font-size: 1.8rem
+          margin-bottom: 9px
+          line-height: normal
+          font-weight: 300
+          margin-bottom: 23px
+          @include screen-min-width(1024px)
+            font-size: 3.6rem
+        \:global(p)
+          font-size: 1.2rem
+          margin-bottom: 10px
+          @include screen-min-width(1024px)
+            font-size: 1.6rem
+      .video
+        display: table
+        margin-top: 14px
+        a
+          font-size: 1.6rem
+          line-height: 2rem
+          color: white
+          cursor: pointer
+          img
+            vertical-align: middle
+            width: 25px
+            height: 25px
+            margin-right: 16px
+          span
+            transition: all 0.3s
+            vertical-align: middle
+          &:hover
+            span
+              opacity: .6
+  &.stereotype-splash
+  &.stereotype-default
+    height: auto
+    min-height: 515px
+    .wrap
+      .news
+        display: none
+      .content
+        .text
+          max-width: 550px
+    .image
+      img
+        &.image-1280
+          top: 55%
+          right: -50px
+        &.image-640, &.image-480, &.image-320
+          top: 60%
+          right: 50%
+      // right: -10px
+  &.background-dark
+  &.background-light
+    background: #f7f9ff
+    .wrap
+      .top
+        .menu-desktop
+          ul li .link
+            color: #00005F
+        .menu-mobile
+          >.dropdown-toggle
+            &-dark
+              display: block
+            &-light
+              display: none
+      .content
+        .text
+          margin-top: 140px
+          color: #00005F
+
+  @include screen-max-width(1023px)
+    .wrap
+      .top
+        .menu-desktop
+          display: none
+        .menu-mobile
+          display: block
+    &.stereotype-default
+      .wrap
+        .content
+          .text
+            margin-top: 30px
+            max-width: 288px

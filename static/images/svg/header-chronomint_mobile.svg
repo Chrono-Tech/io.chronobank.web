@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="252px" height="447px" viewBox="0 0 252 447" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>B02480C8-5197-4903-9E5E-59630ABF2B81</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <filter x="-29.8%" y="-10.4%" width="160.1%" height="129.5%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="16" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="16" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.462745098   0 0 0 0 0.560784314   0 0 0 0 1  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M0,350.86768 L0,32.1323198 C0,13.2555086 9.81608904,0 32.7146172,0 C55.6847085,1.33861835e-15 146.293539,2.33412707e-15 155.721578,0 C170.726001,-2.33412713e-15 188,6.42410526 188,32.1323198 L188,350.86768 C188,361.559078 184.912984,383 155.067285,383 L32.7146172,383 C3.21651138,383 0,361.678137 0,350.86768 Z" id="path-2"></path>
+        <rect id="path-3" x="0" y="0" width="163.415385" height="289.056604"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="laptop-cm" transform="translate(-2427.000000, -1812.000000)">
+            <g id="Mockup-Copy-3" filter="url(#filter-1)" transform="translate(2459.000000, 1828.000000)">
+                <g id="Mockup-/-Device-/-iPhone-7">
+                    <g id="Mockup-/-_Assets-/-iPhone-7-/-_Linear">
+                        <g id="iPhone">
+                            <g id="Phone">
+                                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                                <use fill="#F7F9FF" xlink:href="#path-2"></use>
+                            </g>
+                            <path d="M94,373.35061 L94,373.35061 C101.047253,373.35061 106.760181,367.641123 106.760181,360.598113 C106.760181,353.555103 101.047253,347.845616 94,347.845616 C86.9527466,347.845616 81.239819,353.555103 81.239819,360.598113 C81.239819,367.641123 86.9527466,373.35061 94,373.35061 L94,373.35061 Z M94,375.050943 L94,375.050943 C86.0131128,375.050943 79.5384615,368.580191 79.5384615,360.598113 C79.5384615,352.616036 86.0131128,346.145283 94,346.145283 C101.986887,346.145283 108.461538,352.616036 108.461538,360.598113 C108.461538,368.580191 101.986887,375.050943 94,375.050943 L94,375.050943 Z" id="Home-button" fill-opacity="0.2" fill="#66669F" fill-rule="nonzero"></path>
+                            <rect id="Pulse" stroke-opacity="0.2" stroke="#66669F" stroke-width="0.6" x="77.6146789" y="23.7218468" width="32.7706422" height="2.58783784" rx="1.29391892"></rect>
+                            <ellipse id="Sensor" stroke-opacity="0.2" stroke="#66669F" stroke-width="0.6" cx="94.0048472" cy="12.9450578" rx="2.16081055" ry="2.16240018"></ellipse>
+                            <ellipse id="Camera" stroke-opacity="0.2" stroke="#66669F" stroke-width="0.6" cx="65.6561111" cy="25.1321019" rx="3.1331753" ry="3.13548025"></ellipse>
+                            <path d="M12.7257703,48.4169811 L175.27423,48.4169811 C175.513625,48.4169811 175.707692,48.6104266 175.707692,48.8490538 L175.707692,337.041512 C175.707692,337.280139 175.513625,337.473585 175.27423,337.473585 L12.7257703,337.473585 C12.4863755,337.473585 12.2923077,337.280139 12.2923077,337.041512 L12.2923077,48.8490538 C12.2923077,48.6104266 12.4863755,48.4169811 12.7257703,48.4169811 Z" id="Edge"></path>
+                        </g>
+                    </g>
+                    <g id="🔮Screen" transform="translate(12.292308, 48.416981)">
+                        <g id="State-/-Screen-/-Wireframe">
+                            <g id="Fill-/-White">
+                                <mask id="mask-4" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="Fill" fill="#FFFFFF" xlink:href="#path-3"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

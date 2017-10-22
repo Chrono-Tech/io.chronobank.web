@@ -1,0 +1,82 @@
+@import "src/styles/partials/mixins"
+
+.root.testimonial-section
+  padding-top: 33px
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    padding: 0 16px
+    position: relative
+    box-sizing: border-box
+    .content
+      display: flex
+      background: #FFFFFF
+      box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+      .left
+        flex: 0 0 auto
+        img
+          position: relative
+          transition: all 0.3s
+          display: inline-block
+          &.image-480
+            display: none
+          &.image-1024
+            display: block
+      .right
+        flex: 1 1 auto
+        box-sizing: border-box
+        padding: 32px 63px 32px 47px
+        h3
+          font-size: 2.4rem
+          font-weight: 300
+          line-height: normal
+        h4
+          font-size: 1.4rem
+          color: #0039cb
+          text-transform: uppercase
+          font-weight: normal
+        blockquote
+          position: relative
+          padding-left: 60px
+          margin-top: 85px
+          &::before
+            content: "“"
+            font-size: 14.4rem
+            font-weight: bold
+            font-style: italic
+            top: 0
+            left: -20px
+            display: block
+            position: absolute
+            opacity: 0.6
+            line-height: 0
+            z-index: 10
+          .text
+            font-size: 1.4rem
+            font-style: italic
+            font-weight: normal
+            line-height: normal
+            color: #00005F
+            max-height: 300px
+            overflow: hidden
+            text-overflow: ellipsis
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 480px
+      .content
+        flex-wrap: wrap
+        .left
+          width: 100%
+          img
+            &.image-480
+              display: block
+              width: 100%
+            &.image-1024
+              display: none
+        .right
+          width: 100%
+          min-width: inherit
+          padding: 20px 24px
+          blockquote
+            padding-top: 20px
+            padding-left: 0px

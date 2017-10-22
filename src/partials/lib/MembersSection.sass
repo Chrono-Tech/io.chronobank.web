@@ -1,0 +1,80 @@
+@import "src/styles/partials/mixins"
+
+.root.members-section
+  padding-top: 65px
+  padding-bottom: 65px
+  background: #FFFFFF
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    .content
+      ul
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        margin: -32px 0px
+        @include media(desktop, medium)
+          margin: -32px 0px
+        li
+          padding: 32px 40px
+          box-sizing: border-box
+          flex: 0 0 auto
+          width: 200px
+          box-sizing: content-box
+          >img
+            width: 184px
+            height: 184px
+            margin-bottom: 24px
+            border-radius: 50%
+            cursor: pointer
+            &:hover
+              box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
+          h4
+            font-size: 2.4rem
+            font-weight: 300
+            line-height: 2.8rem
+            margin-bottom: 4px
+            max-width: 180px
+          h5
+            font-size: 1.4rem
+            margin-bottom: 24px
+            text-transform: uppercase
+            color: #0039cb
+            font-weight: normal
+            max-width: 180px
+          .actions
+            a
+              cursor: pointer
+              img
+                display: inline-block
+                width: 14px
+                height: 6px
+                transition: all 0.3s
+              &:hover
+                img
+                  margin-left: 5px
+          &.general
+            flex: 0 1 480px
+            h3
+              margin-bottom: 24px
+              font-size: 1.8rem
+              line-height: 2.8rem
+              font-weight: bold
+              @include media(desktop, small)
+                font-size: 2.4rem
+                line-height: 3.4rem
+            .text
+              font-size: 1.4rem
+              line-height: 2.4rem
+              color: #66669f
+              @include media(desktop, small)
+                font-size: 1.6rem
+
+
+  @include screen-max-width(1023px)
+    .wrap
+      .content
+        ul
+          margin: -32px 0px

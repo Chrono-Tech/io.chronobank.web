@@ -1,0 +1,128 @@
+@import "src/styles/partials/mixins"
+
+.root.articles-section
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    position: relative
+    .buttons
+      text-align: center
+      transform: translateY(-50%)
+      .button
+        box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+        transition: all 0.3s
+        border-radius: 2px
+        text-decoration: none
+        text-align: center
+        font-size: 1.4rem
+        line-height: 1.7rem
+        color: white
+        box-sizing: border-box
+        display: inline-block
+        min-width: 107px
+        font-weight: 500
+        padding: 10px 15px 9px
+        cursor: pointer
+        background-color: #2962FF
+        text-transform: uppercase
+        &:hover
+          box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+    .content
+      .item
+        color: #00005F
+        transition: all 0.3s
+        cursor: pointer
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        .left
+          flex: 0 0 50%
+          // width: 560px
+          position: relative
+          box-sizing: border-box
+          border-bottom: 2px solid #2962FF
+          img
+            max-height: 120px
+            max-width: 200px
+            position: absolute
+            right: 100px
+            top: 50%
+            transform: translateY(-50%)
+        .right
+          flex: 0 0 50%
+          // width: 560px
+          position: relative
+          background: #f7f9ff
+          padding: 32px 16px 32px 16px
+          box-sizing: border-box
+          border-bottom: 2px solid #2962FF
+          .text
+            \:global(h4)
+              font-size: 24px
+              font-weight: 300
+              margin-bottom: 27px
+            \:global(p)
+              font-size: 1.8rem
+              line-height: 2.4rem
+              margin-bottom: 19px
+          .more
+            text-transform: uppercase
+            font-size: 1.4rem
+            line-height: 2rem
+            font-weight: 500
+            color: #2962ff
+            img
+              width: 20px
+              height: 20px
+              margin-right: 22px
+              vertical-align: middle
+          &:hover
+            span
+              text-decoration: underline
+        &:last-child
+          .left
+            border: none
+            padding-bottom: 80px
+          .right
+            border: none
+            padding-bottom: 80px
+  @include screen-max-width(1023px)
+    background: #f7f9ff
+    .wrap
+      max-width: 440px
+      margin: 0 auto
+      .buttons
+        padding: 32px 0
+        transform: translateY(48px)
+        margin-top: -32px
+      .content
+        .item
+          border-bottom: 1px solid #2962FF
+          .left
+            padding: 32px 16px 0px 16px
+            flex: 0 0 100%
+            border-bottom: none
+            img
+              transform: none
+              position: static
+          .right
+            padding: 32px 16px 32px 16px
+            flex: 0 0 100%
+            border-bottom: none
+            .text
+              padding-right: 25%
+              \:global(h4)
+                font-size: 1.8rem
+                line-height: 2.4rem
+                font-weight: 300
+                margin-bottom: 16px
+              \:global(p)
+                font-size: 1.6rem
+                line-height: 2rem
+                margin-bottom: 16px
+          &:last-child
+            padding-bottom: 0
+            .left
+              padding-bottom: 0px
+            .right
+              padding-bottom: 32px

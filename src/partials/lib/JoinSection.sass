@@ -1,0 +1,84 @@
+@import "src/styles/partials/mixins"
+
+.root.join-section
+  margin-top: 63px
+  margin-bottom: 63px
+  background: #FFFFFF
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 1120px
+    position: relative
+    .content
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 30px 96px
+      background-image: linear-gradient(to left,#644ebf,#262448)
+      position: relative
+      overflow: hidden
+      box-shadow: 0 16px 24px 0 rgba(100, 78, 191, 0.2)
+      p
+        position: relative
+        width: 325px
+        margin: 0
+        font-size: 4.8rem
+        line-height: 6.6rem
+        text-align: center
+        font-weight: 300
+        color: #FFFFFF
+      a
+        position: relative
+        text-decoration: none
+        transition: all 0.3s
+        border-radius: 2px
+        box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+        overflow: hidden
+        text-align: center
+        font-size: 1.4rem
+        line-height: 1.7rem
+        box-sizing: border-box
+        display: block
+        min-width: 107px
+        font-weight: 500
+        padding: 10px 15px 9px
+        cursor: pointer
+        text-transform: uppercase
+        img
+          margin-right: 5px
+        &.btn-white
+          background-color: white
+          color: #2962FF
+        &.btn-blue
+          background-color: #2962FF
+          color: #FFFFFF
+        &:hover
+          box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+    .bg-left
+      position: absolute
+      top: -6px
+      left: -21px
+      opacity: 0.4
+    .bg-right
+      position: absolute
+      top: -6px
+      right: -21px
+      opacity: 0.4
+  @include screen-max-width(1023px)
+    .wrap
+      max-width: 480px
+      box-sizing: border-box
+      .content
+        flex-direction: column
+        padding: 130px 16px
+        p
+          order: 1
+          margin: 16px 0
+          font-size: 3.6rem
+          line-height: 5rem
+        a
+          margin: 16px 0
+          &.btn-white
+            order: 2
+          &.btn-blue
+            order: 3

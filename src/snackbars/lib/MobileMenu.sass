@@ -1,0 +1,57 @@
+@import "src/styles/partials/mixins"
+
+.root.mobile-menu
+  min-height: 100px
+  background: #FFFFFF
+  position: relative
+  overflow: hidden
+  .wrap
+    position: relative
+    .top
+      padding: 26px 0px 16px
+      position: relative
+      align-items: center
+      .logo
+        padding: 0px 5px
+        img
+          max-width: fit-content
+          display: inline-block
+          width: 200px
+          margin-left: 10px
+  .content
+    ul
+      font-size: 1.8rem
+      line-height: 2.1rem
+      list-style: none
+      // border-bottom: 1px solid #e9efff
+      li
+        box-sizing: border-box
+        >a
+          color: #00005F
+          display: block
+          padding: 13px 16px
+          font-weight: 500
+          >img
+            width: 18px
+            height: 18px
+            margin: 0 16px 0 0
+            &.icon-large
+              width: 32px
+              height: 32px
+              margin: -7px 16px -7px 0
+        &.highlight
+          background: #f7f9ff
+          >a
+            color: #6768a2
+        &.border-bottom
+          border-bottom: 1px solid #e9efff
+          padding-bottom: 6px
+          margin-bottom: 6px
+        >label
+          font-size: 1.8rem
+          line-height: 2.1rem
+          color: #66669f
+          padding: 13px 16px
+          text-transform: uppercase
+          font-weight: 500
+          display: block

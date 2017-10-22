@@ -1,0 +1,44 @@
+.root.posts-section
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
+    .content
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+      margin: -24px 12px
+      padding: 24px 0
+      .item
+        flex: 1 1 50%
+        min-width: 280px
+        max-width: 480px
+        padding: 24px
+        box-sizing: border-box
+        color: #00005F
+        transition: all 0.3s
+        border: 2px
+        cursor: pointer
+        h3
+          font-size: 2.4rem
+          line-height: 3.2rem
+          font-weight: bold
+          margin-bottom: 19px
+        .image
+          margin-bottom: 16px
+        .text
+          margin: 15px 0 0 0
+          \:global(h4)
+            font-size: 1.8rem
+            line-height: 2.1rem
+            font-weight: bold
+            margin: 10px 0
+          \:global(p)
+            font-size: 1.6rem
+            line-height: 2.4rem
+            color: #66669f
+
+        &:hover
+          box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
