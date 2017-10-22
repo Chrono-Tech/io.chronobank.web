@@ -1,4 +1,5 @@
 export { default as ProductSection } from './lib/ProductSection'
+export { default as ProductFeaturesSection } from './lib/ProductFeaturesSection'
 export { default as TestimonialSection } from './lib/TestimonialSection'
 export { default as MobileSection } from './lib/MobileSection'
 export { default as JoinSection } from './lib/JoinSection'
@@ -13,6 +14,7 @@ export { default as ArticlesSection } from './lib/ArticlesSection'
 export { default as StorySection } from './lib/StorySection'
 export { default as MembersSection } from './lib/MembersSection'
 export { default as GallerySection } from './lib/GallerySection'
+export { default as DistrosSection } from './lib/DistrosSection'
 
 export { default as TheTitle } from './lib/TheTitle'
 export { default as TheHeader } from './lib/TheHeader'

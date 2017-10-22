@@ -41,12 +41,13 @@ class ProductsDetails extends React.Component {
   }
 
   render () {
+    const { details } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
         <style jsx>{styles}</style>
         <Head>
-          <title>ChronoBank.io: {this.props.details.title}</title>
+          <title>ChronoBank.io: {details.title}</title>
           <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width' />
         </Head>
         <components.ModalStack />
@@ -56,6 +57,21 @@ class ProductsDetails extends React.Component {
           this.props.products.laborx
         ]} />
         <main className='main'>
+          {(details.distros && details.distros.length)
+            ? (
+              <partials.DistrosSection
+                title={`${details.title} downloads`}
+                distros={details.distros}
+              />
+            )
+            : null
+          }
+          {(details.features && details.features.length)
+            ? (<partials.ProductFeaturesSection
+              features={details.features}
+            />)
+            : null
+          }
         </main>
         <partials.TheFooter />
       </div>

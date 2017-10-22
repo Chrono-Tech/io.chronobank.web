@@ -91,7 +91,7 @@ export default class RoadmapSection extends React.Component {
             <div className='swiper-container' ref={(swiper) => { this.swiperElement = swiper }}>
               <div className='swiper-wrapper' ref={(swiperWrapper) => { this.swiperWrapperElement = swiperWrapper}}>
                 <div className='line' ref={(swiperPaginationLine) => { this.swiperPaginationLineElement = swiperPaginationLine}}>
-                  <div className='point' style={{left: `${progress * 100}%`}}>
+                  <div className='point' style={{left: `${Math.round(progress * 100)}%`}}>
                     <div className='point-label'>
                       <img src='/static/images/symbols/geopoint.svg' />
                       <span>We are here</span>
