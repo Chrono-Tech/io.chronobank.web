@@ -24,7 +24,7 @@ export class MobileMenu extends React.Component {
         <div className='root mobile-menu'>
           <div className='wrap'>
             <div className='top'>
-              <Link href='/'>
+              <Link route='/'>
                 <a className='logo'>
                   <img className='logo-mobile' src='/static/images/logo/logo-mobile-header.svg' />
                 </a>
@@ -38,7 +38,7 @@ export class MobileMenu extends React.Component {
                     <ul className='compact'>
                       {products.map(product => (
                         <li key={product._id}>
-                          <Link href={`/products/${product.slug}`}>
+                          <Link route={`/products/${product.slug}`}>
                             <a>
                               {!product.icon ? null : (
                                 <img className='icon-large' {...{
@@ -55,12 +55,12 @@ export class MobileMenu extends React.Component {
                   </li>
                 )}
                 <li>
-                  <Link href='/team'>
+                  <Link route='/team'>
                     <a>Team</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href='/faq'>
+                  <Link route='/faq'>
                     <a>Blog</a>
                   </Link>
                 </li>
@@ -68,7 +68,7 @@ export class MobileMenu extends React.Component {
                   <a href='https://medium.com/@Chronobank'>FAQ</a>
                 </li>
                 <li>
-                  <Link href='/contacts'>
+                  <Link route='/contacts'>
                     <a>Contacts</a>
                   </Link>
                 </li>

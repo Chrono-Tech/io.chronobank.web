@@ -17,7 +17,7 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   static defaultProps = {
-    interval: 20000
+    interval: 5000
   }
 
   constructor (props) {
