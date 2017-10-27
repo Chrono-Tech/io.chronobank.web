@@ -28,7 +28,8 @@ export default class TheHeader extends React.Component {
         'background-light': header.background === 'light',
         'stereotype-default': header.stereotype === 'default',
         'stereotype-splash': header.stereotype === 'splash',
-        'stereotype-product': header.stereotype === 'product'
+        'stereotype-product': header.stereotype === 'product',
+        'stereotype-text': header.stereotype === 'text'
       })}>
         <style jsx>{styles}</style>
         <div className='wrap'>

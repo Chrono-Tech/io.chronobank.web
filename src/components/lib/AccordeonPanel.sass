@@ -1,0 +1,28 @@
+.root.accordeon-panel
+  padding: 0
+  background: #FFFFFF
+  box-shadow: rgba(118, 143, 255, 0.2) 0px 4px 8px 0px, rgb(247, 249, 255) 0px -1px 0px 0px
+  border-radius: 2px
+  .wrap
+    .item
+      border-bottom: 1px solid rgba(118, 143, 255, 0.05)
+      h5
+        font-size: 2rem
+        font-weight: 500
+        color: rgb(0, 57, 203)
+        cursor: pointer
+        position: relative
+        padding: 10px 24px
+      .content
+        position: relative
+        width: 100%
+        overflow: hidden
+        max-height: 0
+        transition: all 0.3s ease-in-out
+        padding: 0px 24px
+        box-sizing: border-box
+        .inner
+          margin: 12px 0
+      &.item-open
+        .content
+          max-height: 500px

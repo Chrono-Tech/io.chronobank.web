@@ -17,13 +17,15 @@ class FAQ extends React.Component {
 
   static propTypes = {
     header:  PropTypes.object,
+    topics: PropTypes.object,
     products: PropTypes.object,
   }
 
   static async getInitialProps ({ store }) {
 
     const promises = {
-      header:       BACKEND.get('headers/s/team-page'),
+      header:       BACKEND.get('headers/s/faq-page'),
+      topics:       BACKEND.get('faq-topics'),
       'products.chronomint':        BACKEND.get('products/s/chronomint'),
       'products.laborx':            BACKEND.get('products/s/laborx'),
     }
@@ -55,7 +57,7 @@ class FAQ extends React.Component {
           this.props.products.laborx
         ]} />
         <main>
-
+          <partials.FaqSection topics={this.props.topics} />
         </main>
         <partials.TheFooter />
       </div>

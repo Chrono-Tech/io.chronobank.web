@@ -15,6 +15,7 @@ export { default as StorySection } from './lib/StorySection'
 export { default as MembersSection } from './lib/MembersSection'
 export { default as GallerySection } from './lib/GallerySection'
 export { default as DistrosSection } from './lib/DistrosSection'
+export { default as FaqSection } from './lib/FaqSection'
 
 export { default as TheTitle } from './lib/TheTitle'
 export { default as TheHeader } from './lib/TheHeader'

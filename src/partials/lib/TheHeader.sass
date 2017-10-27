@@ -303,6 +303,21 @@
           bottom: 0%
     @include screen-max-width(1023px)
       min-height: 450px
+  &.stereotype-text
+    height: auto
+    min-height: 378px
+    .wrap
+      .news
+        display: none
+      .content
+        .text
+          max-width: 550px
+          @include screen-min-width(1024px)
+            margin-top: 140px
+    .image
+      display: none
+    @include screen-max-width(1023px)
+      min-height: 450px
   &.background-dark
   &.background-light
     background: #f7f9ff
