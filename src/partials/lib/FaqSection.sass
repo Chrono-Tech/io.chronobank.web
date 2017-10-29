@@ -2,16 +2,20 @@
 
 .root.faq-section
   position: relative
+  padding-bottom: 48px
   .wrap
     margin: 0 auto
     max-width: 1120px
     position: relative
+    padding: 0 16px
     box-sizing: border-box
     .content
       display: flex
       justify-content: space-between
       .left
         flex: 0 0 32%
+        .search
+          display: none
         .topics
           border-radius: 2px
           background-color: #f7f9ff
@@ -26,4 +30,22 @@
           box-shadow: 0 16px 24px 0 rgba(118, 143, 255, 0.2)
           margin-bottom: 32px
           min-height: 300px
-          
+  @include screen-max-width(1023px)
+    .wrap
+      padding: 0 16px
+      box-sizing: border-box
+      margin: 0 auto
+      max-width: 480px
+      // background: #f7f9ff
+      .content
+        display: block
+        .left
+          .search
+            display: block
+        .right
+          .search
+            display: none
+          .results
+            box-shadow: none
+            >:global(.root)
+              padding: 16px 0

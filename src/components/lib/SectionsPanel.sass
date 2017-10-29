@@ -1,3 +1,5 @@
+@import "src/styles/partials/mixins"
+
 .root.sections-panel
   padding: 16px 32px
   .wrap
@@ -9,3 +11,8 @@
         color: rgb(0, 0, 95)
         margin-bottom: 16px
       .content
+  @include screen-max-width(1023px)
+    .wrap
+      .item
+        h4
+          font-size: 1.6rem

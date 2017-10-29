@@ -1,4 +1,10 @@
+@import "src/styles/partials/mixins"
+
 .root
   main
     margin-top: -130px
     min-height: 700px
+  @include screen-max-width(1023px)
+    main
+      background: #f7f9ff
+      margin-top: -270px

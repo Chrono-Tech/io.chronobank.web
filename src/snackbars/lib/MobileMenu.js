@@ -60,12 +60,12 @@ export class MobileMenu extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link route='/faq'>
-                    <a>Blog</a>
-                  </Link>
+                  <a href='https://medium.com/@Chronobank'>Blog</a>
                 </li>
                 <li>
-                  <a href='https://medium.com/@Chronobank'>FAQ</a>
+                  <Link route='/faq'>
+                    <a>FAQ</a>
+                  </Link>
                 </li>
                 <li>
                   <Link route='/contacts'>

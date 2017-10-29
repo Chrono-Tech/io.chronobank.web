@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { debounce } from 'lodash'
 
-import { ReferencePanel, SectionsPanel, AccordeonPanel } from 'src/components'
+import { BACKEND } from 'src/endpoints'
+import { AccordeonPanel, ReferencePanel, SearchPanel, SectionsPanel } from 'src/components'
 
 import styles from './FaqSection.sass'
 
@@ -9,6 +11,11 @@ export default class FaqSection extends React.Component {
 
   static propTypes = {
     topics: PropTypes.object
+  }
+
+  constructor (props) {
+    super(props)
+    this.handleSearchDebounced = debounce(this.handleSearch, 500)
   }
 
   render () {
@@ -19,6 +26,9 @@ export default class FaqSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             <div className='left'>
+              <div className='search'>
+                <SearchPanel onChange={(value) => this.handleSearchDebounced(value)} />
+              </div>
               <div className='topics'>
                 <ReferencePanel items={topics['faq-topics'].map(t => ({
                   id: t._id,
@@ -29,9 +39,10 @@ export default class FaqSection extends React.Component {
             </div>
             <div className='right'>
               <div className='search'>
+                <SearchPanel onChange={(value) => this.handleSearchDebounced(value)} />
               </div>
               <div className='results'>
-                <SectionsPanel items={topics['faq-topics'].map(topic => ({
+                <SectionsPanel styleName='topics' className='topics' items={topics['faq-topics'].map(topic => ({
                   id: topic._id,
                   title: topic.title,
                   content: (
@@ -50,5 +61,18 @@ export default class FaqSection extends React.Component {
         </div>
       </div>
     )
+  }
+
+  async handleSearch (query) {
+    // eslint-disable-next-line
+    const { data } = await BACKEND.get('faq-questions/search', {
+      params: {
+        query
+      }
+    })
+    // this.setState({
+    //   topics: data.elements.map(q => )
+    //   questions: data.elements
+    // })
   }
 }

@@ -1,3 +1,5 @@
+@import "src/styles/partials/mixins"
+
 .root.accordeon-panel
   padding: 0
   background: #FFFFFF
@@ -26,3 +28,8 @@
       &.item-open
         .content
           max-height: 500px
+  @include screen-max-width(1023px)
+    .wrap
+      .item
+        h5
+          font-size: 1.6rem
