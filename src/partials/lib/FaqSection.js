@@ -16,10 +16,32 @@ export default class FaqSection extends React.Component {
   constructor (props) {
     super(props)
     this.handleSearchDebounced = debounce(this.handleSearch, 500)
+
+    const topics = new Map()
+    for (const t of props.topics) {
+      if (t.questions && t.questions.length) {
+        topics.set(t._id, {
+          id: t._id,
+          title: t.title,
+          route: '',
+          questions: t.questions.map(q => ({
+            id: q._id,
+            title: q.title,
+            brief: q.brief
+          }))
+        })
+      }
+    }
+
+    this.state = {
+      topics,
+      reference: [...topics.values()],
+      results: [...topics.values()]
+    }
   }
 
   render () {
-    const { topics } = this.props
+    const { reference, results } = this.state
     return (
       <div className='root faq-section'>
         <style jsx>{styles}</style>
@@ -30,11 +52,7 @@ export default class FaqSection extends React.Component {
                 <SearchPanel onChange={(value) => this.handleSearchDebounced(value)} />
               </div>
               <div className='topics'>
-                <ReferencePanel items={topics['faq-topics'].map(t => ({
-                  id: t._id,
-                  title: t.title,
-                  route: ''
-                }))} />
+                <ReferencePanel items={reference} />
               </div>
             </div>
             <div className='right'>
@@ -42,12 +60,12 @@ export default class FaqSection extends React.Component {
                 <SearchPanel onChange={(value) => this.handleSearchDebounced(value)} />
               </div>
               <div className='results'>
-                <SectionsPanel styleName='topics' className='topics' items={topics['faq-topics'].map(topic => ({
-                  id: topic._id,
+                <SectionsPanel styleName='topics' className='topics' items={results.map(topic => ({
+                  id: topic.id,
                   title: topic.title,
                   content: (
                     <AccordeonPanel items={topic.questions.map(question => ({
-                      id: question._id,
+                      id: question.id,
                       title: question.title,
                       content: (
                         <div className='text' dangerouslySetInnerHTML={{ __html: question.brief}}></div>
@@ -64,15 +82,45 @@ export default class FaqSection extends React.Component {
   }
 
   async handleSearch (query) {
+    const state = this.state
     // eslint-disable-next-line
     const { data } = await BACKEND.get('faq-questions/search', {
       params: {
         query
       }
     })
-    // this.setState({
-    //   topics: data.elements.map(q => )
-    //   questions: data.elements
-    // })
+
+    if (query !== '' && query !== '*') {
+      const results = data.elements
+        .reduce(
+          (m, q) => {
+            if (q.score > 1 && q.document.topic) {
+              const topic = state.topics.get(q.document.topic)
+              if (topic) {
+                const questions = m.get(q.document.topic) || []
+                m.set(topic.id, {
+                  ...topic,
+                  questions: [...questions, {
+                    id: q.document._id,
+                    title: q.document.title,
+                    brief: q.document.brief
+                  }]
+                })
+              }
+            }
+            return m
+          },
+          new Map()
+        )
+      this.setState({
+        results: [...results.values()]
+      })
+
+    } else {
+      this.setState({
+        reference: [...state.topics.values()],
+        results: [...state.topics.values()]
+      })
+    }
   }
 }

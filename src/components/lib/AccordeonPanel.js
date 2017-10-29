@@ -26,8 +26,8 @@ export default class AccordeonPanel extends React.Component {
           {items.map(item => (
             <div key={item.id} className={cn('item', {
               'item-open': item.isOpen
-            })} onClick={e => { e.currentTarget.classList.toggle('item-open') }}>
-              <h5>{item.title}</h5>
+            })}>
+              <h5 onClick={e => { e.currentTarget.parentNode.classList.toggle('item-open') }}>{item.title}</h5>
               <div className='content'>
                 <div className='inner'>
                   {item.content}
