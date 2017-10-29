@@ -17,7 +17,7 @@ class FAQ extends React.Component {
 
   static propTypes = {
     header:  PropTypes.object,
-    topics: PropTypes.object,
+    topics: PropTypes.array,
     products: PropTypes.object,
   }
 
