@@ -1,147 +1,133 @@
 @import "src/styles/partials/mixins"
 
 .root.contacts-section
-  padding: 64px 0 32px
-  background: #f7f9ff
-  >h3
-    font-size: 2.6rem
-    font-weight: 500
-    text-align: center
-  .content
-    display: flex
-    flex-wrap: wrap
-    box-sizing: border-box
-    position: relative
-    overflow: hidden
-    .left
-      flex: 0 0 100%
+  position: relative
+  padding: 0 0 32px
+  background: #FFFFFF
+  .background
+    @include position(absolute, 0, 0, 0, 0)
+    .background-left
+      @include position(absolute, 0, auto, 0, 0, 50%)
       background: #f7f9ff
-      box-sizing: border-box
-      .wrap
-        position: relative
-        box-sizing: border-box
-        max-width: 480px
-        padding: 32px 16px 0px
-        margin: 0 auto
-        >h3
-          display: none
-          font-size: 4.8rem
-          font-weight: 500
-          margin-bottom: 30px
-        ul
-          display: table
-          list-style: none
-          font-size: 1.6rem
-          line-height: 2.2rem
-          li
-            display: table-row
-            .symbol
-              display: table-cell
-              vertical-align: middle
-              padding: 14px 25px 14px 0
-              img
-                width: 32px
-                height: 32px
-            .info
-              padding: 14px 0
-              display: table-cell
-              vertical-align: middle
-              h5
-                font-weight: 500
-                font-size: 1.6rem
-                line-height: 2.2rem
-              a
-    .right
-      flex: 0 0 100%
-      position: relative
-      box-sizing: border-box
-      .wrap
-        position: relative
-        box-sizing: border-box
-        max-width: 480px
-        padding: 32px 16px
-        margin: 0 auto
-        form
-          .inner
-            position: relative
-            h4
-              font-size: 1.8rem
-              line-height: 2.4rem
-              // font-size: 2.4rem
-              // line-height: 3.4rem
-              font-weight: 300
-              margin-bottom: 30px
-            .field
-              position: relative
-              margin-bottom: 16px
-              label
-                display: block
-                position: absolute
-                left: 0
-                top: 0
-                right: 0
-                bottom: 0
-                font-size: 1.6rem
-                line-height: 2rem
-                color: #00005F
-                opacity: .6
-                padding: 16px
-                transition: all 0.3s
-                vertical-align: middle
-              input, textarea
-                font-size: 1.6rem
-                line-height: 2rem
-                border: 0
-                border-bottom: 2px solid #abc0ff
-                width: 100%
-                display: block
-                box-sizing: border-box
-                color: #00005F
-                outline: none
-                background: rgba(117,143,255,0.2)
-                min-height: 56px
-                padding: 28px 16px 6px
-                border-radius: 4px
-            .buttons
-              text-align: right
-              .button
-                box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
-                transition: all 0.3s
-                border-radius: 2px
-                text-decoration: none
-                text-align: center
-                font-size: 1.4rem
-                line-height: 1.7rem
-                color: white
-                box-sizing: border-box
-                display: inline-block
-                min-width: 107px
-                font-weight: 500
-                padding: 10px 15px 9px
-                cursor: pointer
-                background-color: #2962FF
-                text-transform: uppercase
-                &:hover
-                  box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
-  @include screen-min-width(1024px)
-    padding: 0
+    .background-right
+      @include position(absolute, 0, 0, 0, auto, 50%)
+      background: #FFFFFF
+  .wrap
+    margin: 0 auto
+    padding: 0 16px
+    max-width: 1120px
+    position: relative
+    box-sizing: border-box
     >h3
+      font-size: 2.6rem
+      font-weight: 500
+      text-align: center
       display: none
     .content
+      display: flex
+      flex-wrap: wrap
+      box-sizing: border-box
+      position: relative
+      overflow: hidden
       .left
         flex: 0 0 50%
-        .wrap
-          float: right
-          padding: 96px 96px
-          width: 100%
-          max-width: inherit
+        box-sizing: border-box
+        .inner-wrap
+          position: relative
+          box-sizing: border-box
+          max-width: 480px
+          padding: 32px 96px
+          margin: 0 auto
           >h3
             display: block
+            font-size: 4.8rem
+            font-weight: 500
+            margin-bottom: 30px
+          ul
+            display: table
+            list-style: none
+            font-size: 1.6rem
+            line-height: 2.2rem
+            li
+              display: table-row
+              .symbol
+                display: table-cell
+                vertical-align: middle
+                padding: 14px 25px 14px 0
+                img
+                  width: 32px
+                  height: 32px
+              .info
+                padding: 14px 0
+                display: table-cell
+                vertical-align: middle
+                h5
+                  font-weight: 500
+                  font-size: 1.6rem
+                  line-height: 2.2rem
+                a
       .right
         flex: 0 0 50%
-        background: #FFFFFF
-        .wrap
-          float: left
-          padding: 96px 96px
-          width: 100%
-          max-width: inherit
+        position: relative
+        box-sizing: border-box
+        .inner-wrap
+          position: relative
+          box-sizing: border-box
+          max-width: 480px
+          padding: 32px 96px
+          margin: 48px auto 0
+          form
+            .inner
+              position: relative
+              h4
+                font-size: 2.4rem
+                line-height: 3.4rem
+                font-weight: 300
+                margin-bottom: 30px
+              .field
+                @include form-field()
+              .buttons
+                text-align: right
+                .button
+                  box-shadow: 0 2px 2px 0 rgba(118,143,255,0.24), 0 0 2px 0 rgba(118,143,255,0.12)
+                  transition: all 0.3s
+                  border-radius: 2px
+                  text-decoration: none
+                  text-align: center
+                  font-size: 1.4rem
+                  line-height: 1.7rem
+                  color: white
+                  box-sizing: border-box
+                  display: inline-block
+                  min-width: 107px
+                  font-weight: 500
+                  padding: 10px 15px 9px
+                  cursor: pointer
+                  background-color: #2962FF
+                  text-transform: uppercase
+                  &:hover
+                    box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+  @include screen-max-width(1023px)
+    padding: 64px 0 32px
+    background: #f7f9ff
+    .background
+      display: none
+    .wrap
+      >h3
+        display: block
+      .content
+        .left
+          flex: 0 0 100%
+          .inner-wrap
+            padding: 16px
+            >h3
+              display: none
+        .right
+          flex: 0 0 100%
+          .inner-wrap
+            padding: 16px
+            form
+              .inner
+                h4
+                  font-size: 1.8rem
+                  line-height: 2.4rem

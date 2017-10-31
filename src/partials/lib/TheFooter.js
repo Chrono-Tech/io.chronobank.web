@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './TheFooter.sass'
 
+import { BACKEND } from 'src/endpoints'
+
 export default class TheFooter extends React.Component {
 
   componentDidMount () {
@@ -119,10 +121,10 @@ export default class TheFooter extends React.Component {
                   </li>
                 </ul>
               </div>
-              <form className='subscribe'>
+              <form className='subscribe' onSubmit={e => this.handleSubmit(e)}>
                 <h4>Newsletter</h4>
                 <div className='block'>
-                  <input className='field' type='email' placeholder='Enter email for news' required />
+                  <input className='field' ref={el => this.emailElement = el} type='email' placeholder='Enter email for news' required />
                 </div>
                 <div className='block'>
                   <input className='button' type='submit' value='Subscribe' />
@@ -134,5 +136,16 @@ export default class TheFooter extends React.Component {
         </div>
       </footer>
     )
+  }
+
+  async handleSubmit (e) {
+    e.preventDefault()
+
+    await BACKEND.post('subscriptions', {
+      email: this.emailElement.value
+    })
+    for (const el of [this.emailElement]) {
+      el.value = ''
+    }
   }
 }
