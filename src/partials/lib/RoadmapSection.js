@@ -60,7 +60,7 @@ export default class RoadmapSection extends React.Component {
         <div className='bullet' onClick={() => this.swiper.slideTo(index)}></div>
         <div className='label'>
           <div>{index + 1}</div>
-          <div>{moment(iteration.date).utc().format('YYYY')}</div>
+          <div>{moment(iteration.date).utc().format('MMM, YYYY')}</div>
         </div>
       </div>
     )

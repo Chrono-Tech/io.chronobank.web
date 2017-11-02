@@ -18,6 +18,7 @@ export class MemberDialog extends React.Component {
   }
 
   componentDidMount () {
+    const active = this.props.members.indexOf(this.props.member)
     this.swiper = new Swiper(this.swiperElement, {
       loop: true,
       grabCursor: true,
@@ -25,7 +26,8 @@ export class MemberDialog extends React.Component {
       prevButton: '.swiper-button-prev',
       pagination: '.swiper-pagination',
       paginationClickable: true,
-      spaceBetween: 30
+      spaceBetween: 30,
+      initialSlide: Math.max(active, 0)
     })
   }
 
