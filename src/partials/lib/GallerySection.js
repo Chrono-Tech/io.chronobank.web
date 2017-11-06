@@ -60,7 +60,7 @@ export default class GallerySection extends React.Component {
                 <div className='inner'>
                   <div className='text' dangerouslySetInnerHTML={{ __html: note.brief}}></div>
                   <div className='buttons'>
-                    <a className='button' href={note.url} target='_blank' rel='noopener noreferrer'>{note.action}</a>
+                    <a className='button' href={note.url}>{note.action}</a>
                   </div>
                 </div>
               </div>
