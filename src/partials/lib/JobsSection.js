@@ -18,7 +18,7 @@ export default class JobsSection extends React.Component {
   render () {
     const { jobs } = this.props
     return (
-      <div className='root jobs-section'>
+      <div className='root jobs-section' id='global-jobs-section'>
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>

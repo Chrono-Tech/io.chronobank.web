@@ -77,8 +77,7 @@ export default class TheHeader extends React.Component {
                 )}
                 <li><Link href='/team'><a className='link'>Team</a></Link></li>
                 <li><Link href='/faq'><a className='link'>FAQ</a></Link></li>
-                <li><a className='link' href='https://medium.com/@Chronobank' target='_blank' rel='noopener noreferrer'>Blog</a></li>
-                <li><Link href='/faq'><a className='link'>Contacts</a></Link></li>
+                <li><a className='link' href='https://blog.chronobank.io/' target='_blank' rel='noopener noreferrer'>Blog</a></li>
                 <li><a className='link' href='https://mint.chronobank.io'><img src='/static/images/symbols/login.svg' />Login</a></li>
               </ul>
             </div>

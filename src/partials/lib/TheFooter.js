@@ -58,10 +58,7 @@ export default class TheFooter extends React.Component {
                     <a href='/faq' target='_blank' rel='noopener noreferrer'>FAQ</a>
                   </li>
                   <li>
-                    <a href='https://medium.com/@Chronobank' target='_blank' rel='noopener noreferrer'>Blog</a>
-                  </li>
-                  <li>
-                    <a href='#'>Contacts</a>
+                    <a href='https://blog.chronobank.io' target='_blank' rel='noopener noreferrer'>Blog</a>
                   </li>
                 </ul>
               </div>

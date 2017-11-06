@@ -60,7 +60,7 @@ export class MobileMenu extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <a href='https://medium.com/@Chronobank'>Blog</a>
+                  <a href='https://blog.chronobank.io/'>Blog</a>
                 </li>
                 <li>
                   <Link route='/faq'>

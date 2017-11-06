@@ -15,12 +15,12 @@ export default class GallerySection extends React.Component {
   static defaultProps = {
     note: {
       brief: `
-        <h4>Searching for interesting job?<br/><a href='#'>Join us!</a></h4>
+        <h4>Searching for interesting job?<br/><a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>Join us!</a></h4>
         <p>LH tokens will be linked to national average hourly wages, which have
         significant and stable growth with very low volatility.</p>
       `,
       action: 'View openings',
-      url: '/'
+      url: '#global-jobs-section'
     }
   }
 
@@ -60,7 +60,7 @@ export default class GallerySection extends React.Component {
                 <div className='inner'>
                   <div className='text' dangerouslySetInnerHTML={{ __html: note.brief}}></div>
                   <div className='buttons'>
-                    <a className='button' href={note.url}>{note.action}</a>
+                    <a className='button' href={note.url} target='_blank' rel='noopener noreferrer'>{note.action}</a>
                   </div>
                 </div>
               </div>
