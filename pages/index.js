@@ -17,13 +17,13 @@ class Index extends React.Component {
 
   static propTypes = {
     header:  PropTypes.object,
+    posts:  PropTypes.array,
     features: PropTypes.object,
     partners: PropTypes.object,
     stories: PropTypes.object,
     products: PropTypes.object,
     articles: PropTypes.object,
     testimonials: PropTypes.object,
-    posts: PropTypes.object,
     iterations: PropTypes.object
   }
 
@@ -31,7 +31,7 @@ class Index extends React.Component {
 
     const promises = {
       header:       BACKEND.get('headers/s/main-page'),
-      posts:        BACKEND.get('posts'),
+      posts:        BACKEND.get('medium/feed'),
       features:     BACKEND.get('features'),
       partners:     BACKEND.get('partners'),
       stories:      BACKEND.get('stories'),
