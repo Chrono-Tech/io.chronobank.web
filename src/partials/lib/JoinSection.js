@@ -11,12 +11,12 @@ export default class JoinSection extends React.Component {
           <div className='content'>
             <img className='bg-left' src='/static/images/svg/slack-big.svg' />
             <img className='bg-right' src='/static/images/svg/telegram-big.svg' />
-            <a className='btn-white' href='#'>
+            <a className='btn-white' href='https://chronobank.herokuapp.com/'>
               <img src='/static/images/svg/slack-blue.svg' />
               <span>Join our Slack</span>
             </a>
             <p>Get in touch with our team!</p>
-            <a className='btn-blue' href='#'>
+            <a className='btn-blue' href='https://telegram.me/chronobank'>
               <img src='/static/images/svg/telegram-white.svg' />
               <span>Join our Telegram</span>
             </a>

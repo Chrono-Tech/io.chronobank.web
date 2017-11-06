@@ -52,7 +52,7 @@ export default class ProductSection extends React.Component {
                 <ul>
                   {product.downloads.map(download => (
                     <li key={download._id}>
-                      <a href={download.url}>
+                      <a href={download.url} target='_blank'>
                         <img src={download.icon.secure_url} />
                       </a>
                     </li>

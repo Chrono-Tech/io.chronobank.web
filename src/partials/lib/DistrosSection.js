@@ -27,7 +27,7 @@ export default class DistrosSection extends React.Component {
                 <ul>
                   {distros.filter(distro => distro.stereotype === 'desktop').map(distro => (
                     <li key={distro._id}>
-                      <a href={distro.url}>
+                      <a href={distro.url} target='_blank'>
                         <img src={distro.icon.secure_url} />
                       </a>
                     </li>
@@ -41,7 +41,7 @@ export default class DistrosSection extends React.Component {
                 <ul>
                   {distros.filter(distro => distro.stereotype === 'mobile').map(distro => (
                     <li key={distro._id}>
-                      <a href={distro.url}>
+                      <a href={distro.url} target='_blank'>
                         <img src={distro.icon.secure_url} />
                       </a>
                     </li>

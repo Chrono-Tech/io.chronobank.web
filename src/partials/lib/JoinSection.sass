@@ -71,6 +71,11 @@
       .content
         flex-direction: column
         padding: 130px 16px
+        background-image: linear-gradient(to top,#644ebf,#262448)
+        .bg-left
+          @include position(absolute, -45px, auto, auto, -70px)
+        .bg-right
+          @include position(absolute, auto, -20px, -25px, auto)
         p
           order: 1
           margin: 16px 0
