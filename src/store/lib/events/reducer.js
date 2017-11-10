@@ -5,7 +5,7 @@ const initialState = {
   counter: 0
 }
 
-export default (state = initialState, { type, event }) => {
+export default (state = initialState, { type, event, size }) => {
   switch (type) {
     case actions.EVENTS_ENQUEUE:
       return {
@@ -14,7 +14,7 @@ export default (state = initialState, { type, event }) => {
         queue: [...state.queue, {
           key: state.counter,
           event
-        }]
+        }].slice(-size)
       }
     case actions.EVENTS_DEQUEUE:
       return {

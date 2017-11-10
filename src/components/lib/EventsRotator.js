@@ -27,21 +27,40 @@ export class EventsRotator extends React.Component {
     })
   }
 
+  componentDidMount () {
+    setImmediate(() => {
+      if (this.prevElement) {
+        this.prevElement.classList.add('item-slided')
+      }
+      if (this.currElement) {
+        this.currElement.classList.add('item-slided')
+      }
+    })
+  }
+
+  componentDidUpdate () {
+    setTimeout(() => {
+      if (this.prevElement) {
+        this.prevElement.classList.add('item-slided')
+      }
+      if (this.currElement) {
+        this.currElement.classList.add('item-slided')
+      }
+    }, 1000)
+  }
+
   render () {
     const { prev, curr } = this.state
     const items = [
       { model: prev, type: 'prev' },
       { model: curr, type: 'curr' }
     ]
-    this.setImmediate(() => {
-      this.contentElement.classList.add('content-slided')
-    })
     return (
       <div className='root events-rotator'>
         <style jsx>{styles}</style>
-        <div className='content' ref={el => this.contentElement = el}>
-          {items.map(({ model, type }) => (
-            <a key={type} href={model.url} className={cn('item', {
+        <div className='content'>
+          {items.filter(({ model }) => model !== null).map(({ model, type }) => (
+            <a key={type + Math.random()} href={model.url} ref={el => this[type + 'Element'] = el} className={cn('item', {
               'item-prev': type === 'prev',
               'item-curr': type === 'curr'
             })}>

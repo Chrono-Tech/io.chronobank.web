@@ -1,4 +1,4 @@
-export class Event {
+export default class EventModel {
   constructor ({ id, status, date, url, title }) {
     this.id = id
     this.status = status
