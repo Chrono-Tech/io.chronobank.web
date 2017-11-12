@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
+import { StoryModel } from 'src/models'
 import styles from './StorySection.sass'
 
 export default class StorySection extends React.Component {
 
   static propTypes = {
-    story: PropTypes.object
+    story: PropTypes.instanceOf(StoryModel)
   }
 
   render () {
@@ -27,8 +28,8 @@ export default class StorySection extends React.Component {
                 <div className='picture'>
                   { !story.image ? null : (
                     <img {...{
-                      src: story.image ? `${story.image.secure_url}` : undefined,
-                      srcSet: story.image2x ? `${story.image2x.secure_url} 2x` : undefined
+                      src: story.image ? `${story.image.url}` : undefined,
+                      srcSet: story.image2x ? `${story.image2x.url} 2x` : undefined
                     }}/>
                   )}
                 </div>

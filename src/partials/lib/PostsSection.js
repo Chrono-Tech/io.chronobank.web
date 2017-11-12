@@ -1,11 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
+import { PostModel } from 'src/models'
 import styles from './PostsSection.sass'
 
+@connect(mapStateToProps)
 export default class PostsSection extends React.Component {
 
   static propTypes = {
-    posts: PropTypes.array,
+    posts: PropTypes.arrayOf(PostModel),
   }
 
   navigate (url) {
@@ -22,7 +26,7 @@ export default class PostsSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             {posts.map(post => (
-              <div className='item' key={post.guid} onClick={() => { post.url && this.navigate(post.url) }}>
+              <div className='item' key={post.id} onClick={() => { post.url && this.navigate(post.url) }}>
                 {!post.image ? null : (
                   <div className='image'>
                     <img alt={post.title} src={post.image} />
@@ -36,5 +40,11 @@ export default class PostsSection extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    posts: state.pages.posts,
   }
 }

@@ -1,12 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { FeatureModel } from 'src/models'
 import styles from './FeaturesSection.sass'
 
+@connect(mapStateToProps)
 export default class FeaturesSection extends React.Component {
 
   static propTypes = {
-    features: PropTypes.object,
+    features: PropTypes.arrayOf(FeatureModel),
   }
 
   render () {
@@ -18,9 +21,9 @@ export default class FeaturesSection extends React.Component {
           <div className='content'>
             <h3>Labour–Hour Features</h3>
             <ul>
-              {features.features.map((feature) => (
-                <li key={feature._id}>
-                  <img src={feature.image.secure_url} />
+              {features.map((feature) => (
+                <li key={feature.id}>
+                  <img src={feature.image.url} />
                   <h4>{feature.title}</h4>
                   <div className='text' dangerouslySetInnerHTML={{ __html: feature.brief}}></div>
                 </li>
@@ -30,5 +33,11 @@ export default class FeaturesSection extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    features: state.pages.features,
   }
 }

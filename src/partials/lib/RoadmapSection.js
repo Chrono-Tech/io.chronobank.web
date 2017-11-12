@@ -1,16 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
+import { IterationModel } from 'src/models'
 import { Swiper } from 'src/plugins'
 
 import styles from './RoadmapSection.sass'
 import swiperStyles from 'swiper/dist/css/swiper.css'
 
+@connect(mapStateToProps)
 export default class RoadmapSection extends React.Component {
 
   static propTypes = {
-    iterations: PropTypes.object
+    iterations: PropTypes.arrayOf(IterationModel),
   }
 
   componentDidMount () {
@@ -28,11 +31,6 @@ export default class RoadmapSection extends React.Component {
         swiper.slideTo(8, 1)
         this.swiperElement.style.opacity = 1
       },
-      // onTransitionEnd: (swiper) => {
-      //   if (!this.currentProgress) {
-      //     this.currentProgress = swiper.progress
-      //   }
-      // },
       // eslint-disable-next-line
       onProgress: (swiper, progress) => {
         if (this.swiperPaginationFillElement) {
@@ -48,10 +46,10 @@ export default class RoadmapSection extends React.Component {
         <style jsx>{styles}</style>
         <div className='logo'>
           {!iteration.image ? null : (
-            <div className='image' key={iteration._id}>
+            <div className='image' key={iteration.id}>
               <img alt={iteration.title} {...{
-                src: iteration.image ? `${iteration.image.secure_url}` : undefined,
-                srcSet: iteration.image2x ? `${iteration.image2x.secure_url} 2x` : undefined
+                src: iteration.image ? `${iteration.image.url}` : undefined,
+                srcSet: iteration.image2x ? `${iteration.image2x.url} 2x` : undefined
               }}/>
             </div>
           )}
@@ -68,7 +66,7 @@ export default class RoadmapSection extends React.Component {
 
   render () {
     const { iterations } = this.props
-    const items = [ ...iterations.iterations].sort((a,b) => {
+    const items = [ ...iterations].sort((a,b) => {
       return moment.utc(a.date).diff(moment.utc(b.date))
     })
     const progress = (() => {
@@ -100,7 +98,7 @@ export default class RoadmapSection extends React.Component {
                 </div>
                 <div className='fill' ref={(swiperPaginationFill) => { this.swiperPaginationFillElement = swiperPaginationFill}}></div>
                 {items.map((iteration, index) => (
-                  <div key={iteration._id} className='swiper-slide'>
+                  <div key={iteration.id} className='swiper-slide'>
                     {this.renderItem(iteration, index)}
                   </div>
                 ))}
@@ -114,5 +112,11 @@ export default class RoadmapSection extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    iterations: state.pages.iterations,
   }
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node server.js",
-    "build": "cross-env NODE_ENV=production rm -rf build && next build",
+    "build": "cross-env NODE_ENV=production rm -rf build && cross-env NODE_ENV=production next build",
     "start": "cross-env NODE_ENV=production next start",
     "test": "npm run lint:test && echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx --fix src pages specs",

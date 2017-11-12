@@ -36,7 +36,7 @@ export default class TheHeader extends React.Component {
         <div className='wrap'>
           <div className='top'>
             <div className='logo'>
-              <Link href='/'>
+              <Link route='/'>
                 <a>
                   <img className='logo-mobile' src='/static/images/logo/logo-mobile-header.svg' />
                   <img className='logo-desktop' src='/static/images/logo/logo-desktop-header.svg' />

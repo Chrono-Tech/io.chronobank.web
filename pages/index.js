@@ -6,7 +6,7 @@ import { zipObjectDeep } from 'lodash'
 
 import initStore from 'src/store'
 import { EventModel } from 'src/models'
-import { modalsClear, snackbarsClear, eventsEnqueue } from 'src/store'
+import { modalsClear, snackbarsClear, eventsEnqueue, initIndexPage } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 import { BACKEND } from 'src/endpoints'
@@ -18,14 +18,12 @@ class Index extends React.Component {
 
   static propTypes = {
     header:  PropTypes.object,
+
     posts:  PropTypes.array,
-    features: PropTypes.object,
-    partners: PropTypes.object,
-    stories: PropTypes.object,
+    testimonials: PropTypes.array,
+    stories: PropTypes.array,
+
     products: PropTypes.object,
-    articles: PropTypes.object,
-    testimonials: PropTypes.object,
-    iterations: PropTypes.object,
 
     eventsShow: PropTypes.func,
   }
@@ -34,19 +32,14 @@ class Index extends React.Component {
 
     const promises = {
       header:       BACKEND.get('headers/s/main-page'),
-      posts:        BACKEND.get('medium/feed'),
-      features:     BACKEND.get('features'),
-      partners:     BACKEND.get('partners'),
-      stories:      BACKEND.get('stories'),
-      articles:     BACKEND.get('articles'),
-      testimonials: BACKEND.get('testimonials'),
-      iterations:   BACKEND.get('iterations'),
       'products.chronomint':        BACKEND.get('products/s/chronomint'),
       'products.chronomintMobile':  BACKEND.get('products/s/chronomint-mobile'),
       'products.laborx':            BACKEND.get('products/s/laborx'),
     }
 
     const results = await Promise.all(Object.values(promises))
+
+    await store.dispatch(initIndexPage())
 
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
@@ -58,9 +51,8 @@ class Index extends React.Component {
   }
 
   componentDidMount () {
-
     const events = this.props.posts.map(p => new EventModel({
-      id: p.guid,
+      id: p.id,
       status: 'new',
       url: p.url,
       title: p.title,
@@ -110,10 +102,10 @@ class Index extends React.Component {
                   Uber disrupted the taxi business and how Upwork represented
                   an evolution in freelancing.'
               />
-              {this.props.stories && this.props.stories.stories.map(story => (
-                <partials.StorySection key={story._id} story={story} />
+              {this.props.stories && this.props.stories.map(story => (
+                <partials.StorySection key={story.id} story={story} />
               ))}
-              <partials.FeaturesSection features={this.props.features} />
+              <partials.FeaturesSection />
             </div>
             <div className='app'>
               <partials.ProductSection key={this.props.products.chronomint._id} product={this.props.products.chronomint} />
@@ -125,11 +117,11 @@ class Index extends React.Component {
               <partials.TheTitle
                 title='Roadmap'
               />
-              <partials.RoadmapSection iterations={this.props.iterations} />
+              <partials.RoadmapSection />
             </div>
             <div className='ceo'>
-              {this.props.testimonials && this.props.testimonials.testimonials.map((testimonial) => (
-                <partials.TestimonialSection key={testimonial._id} testimonial={testimonial} />
+              {this.props.testimonials && this.props.testimonials.map((testimonial) => (
+                <partials.TestimonialSection key={testimonial.id} testimonial={testimonial} />
               ))}
             </div>
             <div className='partners'>
@@ -137,24 +129,32 @@ class Index extends React.Component {
                 title='Partners'
                 subtitle='We are proud of our partners'
               />
-              <partials.PartnersSection partners={this.props.partners} />
+              <partials.PartnersSection />
             </div>
             <div className='press'>
               <partials.TheTitle
                 title='Press'
               />
-              <partials.ArticlesSection articles={this.props.articles} />
+              <partials.ArticlesSection />
             </div>
             <partials.TheTitle
               title='Latest news'
             />
-            <partials.PostsSection posts={this.props.posts} />
+            <partials.PostsSection />
             <partials.ContactsSection />
           </main>
           <partials.TheFooter />
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    posts: state.pages.posts,
+    stories: state.pages.stories,
+    testimonials: state.pages.testimonials,
   }
 }
 
@@ -166,4 +166,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default withRedux(initStore, null, mapDispatchToProps)(Index)
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Index)
