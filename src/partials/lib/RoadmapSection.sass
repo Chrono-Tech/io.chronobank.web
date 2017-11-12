@@ -36,7 +36,7 @@
             left: 148px
             right: 148px
             bottom: -69px
-            background: rgba(118, 143, 255, 0.6)
+            background: repeating-linear-gradient(90deg, rgba(118, 143, 255, 0.6), rgba(118, 143, 255, 0.6) 12px, transparent 0, transparent 24px)
             z-index: 1
             >.point
               @include position(absolute, 0, 0, 0, 0)
@@ -45,7 +45,7 @@
               &::before
                 content: ""
                 @include position(absolute, 10px, 0, -100px, 0)
-                background: rgba(118, 143, 255, 0.6)
+                background: repeating-linear-gradient(180deg, rgba(118, 143, 255, 0.6), rgba(118, 143, 255, 0.6) 12px, transparent 0, transparent 24px)
               >.point-label
                 @include position(absolute, 100px, auto, auto, 0)
                 transform: translateX(-50%)
@@ -78,63 +78,6 @@
             width: 0
             z-index: 2
             border-radius: 2px
-        // .swiper-pagination
-        //   position: absolute
-        //   left: 0
-        //   right: 0
-        //   bottom: 112px
-        //   height: 1px
-        //   z-index: -1
-        //   display: flex
-        //   flex-wrap: nowrap
-        //   transition: 0
-        //   &::before
-        //     content: ""
-        //     width: 100%
-        //     background-color: rgb(118, 143, 255)
-        //     top: 50%
-        //     margin-top: -1px
-        //     height: 2px
-        //     opacity: 0.6
-        //     bottom: 0px
-        //     position: absolute
-        //   \:global(.swiper-pagination-bullet)
-        //     display: none
-      .line
-        position: absolute
-        left: 150px
-        right: 0
-        bottom: 112px
-        height: 1px
-        z-index: -1
-        &::before
-          content: ""
-          width: 100%
-          background-color: rgb(118, 143, 255)
-          top: 50%
-          margin-top: -1px
-          height: 2px
-          opacity: 0.6
-          bottom: 0px
-          position: absolute
-      .bar
-        position: absolute
-        left: 150px
-        // right: 0
-        width: 300px
-        bottom: 112px
-        height: 1px
-        z-index: -1
-        &::before
-          content: ""
-          width: 100%
-          background-color: rgb(118, 143, 255)
-          top: 50%
-          margin-top: -4px
-          height: 8px
-          bottom: 0px
-          position: absolute
-
 .item
   position: relative
   background: #FFFFFF
