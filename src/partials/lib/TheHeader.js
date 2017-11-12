@@ -7,8 +7,7 @@ import { Link } from 'src/router'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'src/components'
-import { EventModel } from 'src/models'
-import { modalsOpen, snackbarsOpen, eventsEnqueue, eventsDequeue } from 'src/store'
+import { modalsOpen, snackbarsOpen } from 'src/store'
 
 import styles from './TheHeader.sass'
 
@@ -19,43 +18,7 @@ export default class TheHeader extends React.Component {
     header: PropTypes.object,
     products: PropTypes.array,
     showVideo: PropTypes.func,
-    eventsShow: PropTypes.func,
     showMobileMenu: PropTypes.func
-  }
-
-  componentDidMount () {
-
-    const events = [
-      new EventModel({
-        id: 1,
-        status: 'New',
-        date: new Date(),
-        title: 'First message',
-        url: 'http://ya.ru'
-      }),
-      new EventModel({
-        id: 2,
-        status: 'New',
-        date: new Date(),
-        title: 'Second message',
-        url: 'http://google.com'
-      }),
-      new EventModel({
-        id: 3,
-        status: 'New',
-        date: new Date(),
-        title: 'Third message',
-        url: 'http://baidu.com'
-      })
-    ]
-
-    let index = 0
-    this.props.eventsShow(events[index % events.length])
-    index++
-    setInterval(() => {
-      this.props.eventsShow(events[index % events.length])
-      index++
-    }, 5000)
   }
 
   render () {
@@ -159,9 +122,6 @@ function mapDispatchToProps (dispatch) {
           url
         }
       }))
-    },
-    eventsShow: async (event: EventModel) => {
-      await dispatch(eventsEnqueue(event, 1))
     },
     showMobileMenu: ({ products }) => [
       dispatch(snackbarsOpen({

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import { connect } from 'react-redux'
 import cn from 'classnames'
 
@@ -9,7 +10,10 @@ import styles from './EventsRotator.sass'
 export class EventsRotator extends React.Component {
 
   static propTypes = {
-    peek: PropTypes.instanceOf(EventModel)
+    peek: PropTypes.shape({
+      key: PropTypes.number,
+      event: PropTypes.instanceOf(EventModel)
+    })
   }
 
   constructor (props) {
@@ -60,14 +64,14 @@ export class EventsRotator extends React.Component {
         <style jsx>{styles}</style>
         <div className='content'>
           {items.filter(({ model }) => model !== null).map(({ model, type }) => (
-            <a key={type + Math.random()} href={model.url} ref={el => this[type + 'Element'] = el} className={cn('item', {
+            <a key={model.key} href={model.event.url} ref={el => this[type + 'Element'] = el} className={cn('item', {
               'item-prev': type === 'prev',
               'item-curr': type === 'curr'
             })}>
-              <span className='label'>{model.status}</span>
+              <span className='label'>{model.event.status}</span>
               <span className='info'>
-                <b>Jun 4 |&nbsp;</b>
-                <span className='title'>{model.title}</span>
+                <b>{moment(model.event.date).format('MMM DD')}&nbsp;|&nbsp;</b>
+                <span className='title'>{model.event.title}</span>
               </span>
             </a>
           ))}
@@ -81,7 +85,7 @@ function mapStateToProps (state) {
   const queue = state.events.queue
   return {
     peek: queue.length
-      ? queue[0].event
+      ? queue[0]
       : null
   }
 }

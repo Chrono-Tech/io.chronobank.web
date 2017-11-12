@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import { zipObjectDeep } from 'lodash'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear } from 'src/store'
+import { EventModel } from 'src/models'
+import { modalsClear, snackbarsClear, eventsEnqueue } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 import { BACKEND } from 'src/endpoints'
@@ -24,7 +25,9 @@ class Index extends React.Component {
     products: PropTypes.object,
     articles: PropTypes.object,
     testimonials: PropTypes.object,
-    iterations: PropTypes.object
+    iterations: PropTypes.object,
+
+    eventsShow: PropTypes.func,
   }
 
   static async getInitialProps ({ store }) {
@@ -52,6 +55,30 @@ class Index extends React.Component {
       Object.keys(promises),
       results.map(res => res.data)
     )
+  }
+
+  componentDidMount () {
+
+    const events = this.props.posts.map(p => new EventModel({
+      id: p.guid,
+      status: 'new',
+      url: p.url,
+      title: p.title,
+      date: p.publishedDate
+    }))
+
+    let index = 0
+    this.props.eventsShow(events[index % events.length])
+    index++
+    this.eventsInterval = setInterval(() => {
+      this.props.eventsShow(events[index % events.length])
+      index++
+    }, 5000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.eventsInterval)
+    this.eventsInterval = null
   }
 
   render () {
@@ -131,4 +158,12 @@ class Index extends React.Component {
   }
 }
 
-export default withRedux(initStore)(Index)
+function mapDispatchToProps (dispatch) {
+  return {
+    eventsShow: async (event: EventModel) => {
+      await dispatch(eventsEnqueue(event, 1))
+    }
+  }
+}
+
+export default withRedux(initStore, null, mapDispatchToProps)(Index)
