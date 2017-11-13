@@ -1,11 +1,14 @@
 @import "src/styles/partials/mixins"
 
 .root.testimonial-section
-  padding-top: 33px
+  position: relative
+  .background
+    @include position(absolute, 0, 0, auto, 0, auto, 50%)
+    background-color: #f7f9ff
   .wrap
     margin: 0 auto
     max-width: 1120px
-    padding: 0 16px
+    padding: 0 66px
     position: relative
     box-sizing: border-box
     .content
@@ -38,7 +41,7 @@
         blockquote
           position: relative
           padding-left: 60px
-          margin-top: 85px
+          margin-top: 65px
           &::before
             content: "“"
             font-size: 14.4rem
@@ -57,9 +60,14 @@
             font-weight: normal
             line-height: normal
             color: #00005F
-            max-height: 300px
+            max-height: 320px
             overflow: hidden
             text-overflow: ellipsis
+            \:global(br)
+              display: block
+              margin: 12px 0
+              line-height: 24px
+              content: ""
   @include screen-max-width(1023px)
     .wrap
       max-width: 480px

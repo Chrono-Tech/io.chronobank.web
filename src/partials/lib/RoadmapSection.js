@@ -57,7 +57,6 @@ export default class RoadmapSection extends React.Component {
         <div className='text' dangerouslySetInnerHTML={{ __html: iteration.brief}}></div>
         <div className='bullet' onClick={() => this.swiper.slideTo(index)}></div>
         <div className='label'>
-          <div>{index + 1}</div>
           <div>{moment(iteration.date).utc().format('MMM, YYYY')}</div>
         </div>
       </div>

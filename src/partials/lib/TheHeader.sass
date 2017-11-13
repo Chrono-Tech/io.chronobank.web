@@ -7,6 +7,7 @@
   padding: 22px 0 80px
   position: relative
   overflow: hidden
+  box-sizing: border-box
   .image
     @include position(absolute, 0, 0, 0, 0)
     z-index: 1
@@ -17,7 +18,7 @@
       max-height: fit-content
       display: none
       position: absolute
-      top: 45%
+      top: 50%
       right: 0
       transform: translate(0, -50%)
       @include screen-min-width(1024px)
@@ -28,21 +29,21 @@
         &.image-640
           display: block
           position: absolute
-          top: 30%
+          top: 35%
           right: 50%
           transform: translate(50%, -50%)
       @include screen-between-width(480px, 639px)
         &.image-480
           display: block
           position: absolute
-          top: 40%
+          top: 45%
           right: 50%
           transform: translate(50%, -50%)
       @include screen-between-width(320px, 479px)
         &.image-320
           display: block
           position: absolute
-          top: 50%
+          top: 55%
           right: 50%
           transform: translate(50%, -50%)
   .wrap
@@ -232,7 +233,7 @@
   &.stereotype-splash
   &.stereotype-default
     height: auto
-    min-height: 515px
+    min-height: 615px
     .wrap
       .news
         display: none
@@ -249,7 +250,7 @@
           right: 50%
   &.stereotype-product
     height: auto
-    min-height: 540px
+    min-height: 640px
     .wrap
       .content
         .text
@@ -269,10 +270,10 @@
           right: 50%
           bottom: 0%
     @include screen-max-width(1023px)
-      min-height: 450px
+      min-height: 550px
   &.stereotype-text
     height: auto
-    min-height: 378px
+    min-height: 480px
     .wrap
       .news
         display: none

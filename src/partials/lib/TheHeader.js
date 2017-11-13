@@ -103,10 +103,30 @@ export default class TheHeader extends React.Component {
           </div>
         </div>
         <div className='image'>
-          {!header.image ? null : <img className='image-1280' src={header.image.secure_url} />}
-          {!header.image320 ? null : <img className='image-320' src={header.image320.secure_url} />}
-          {!header.image480 ? null : <img className='image-480' src={header.image480.secure_url} />}
-          {!header.image640 ? null : <img className='image-640' src={header.image640.secure_url} />}
+          {!header.image ? null : (
+            <img className='image-1280' { ...{
+              src: header.image.secure_url,
+              srcSet: header.image2x ? `${header.image2x.secure_url} 2x` : undefined
+            }} />
+          )}
+          {!header.image320 ? null : (
+            <img className='image-320' { ...{
+              src: header.image320.secure_url,
+              srcSet: header.image2x320 ? `${header.image2x320.secure_url} 2x` : undefined
+            }} />
+          )}
+          {!header.image480 ? null : (
+            <img className='image-480' { ...{
+              src: header.image480.secure_url,
+              srcSet: header.image2x480 ? `${header.image2x480.secure_url} 2x` : undefined
+            }} />
+          )}
+          {!header.image640 ? null : (
+            <img className='image-640' { ...{
+              src: header.image640.secure_url,
+              srcSet: header.image2x640 ? `${header.image2x640.secure_url} 2x` : undefined
+            }} />
+          )}
         </div>
       </header>
     )

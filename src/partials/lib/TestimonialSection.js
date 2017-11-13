@@ -15,6 +15,7 @@ export default class TestimonialSection extends React.Component {
     return (
       <div className='root testimonial-section'>
         <style jsx>{styles}</style>
+        <div className='background'></div>
         <div className='wrap'>
           <div className='content'>
             <div className='left'>

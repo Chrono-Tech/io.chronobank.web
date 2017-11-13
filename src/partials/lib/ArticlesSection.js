@@ -17,6 +17,10 @@ export default class ArticlesSection extends React.Component {
     return (
       <div className='root articles-section'>
         <style jsx>{styles}</style>
+        <div className='background'>
+          <div className='background-left'></div>
+          <div className='background-right'></div>
+        </div>
         <div className='wrap'>
           <div className='content'>
             {articles.map(article => (
@@ -41,9 +45,11 @@ export default class ArticlesSection extends React.Component {
               </div>
             ))}
           </div>
+          {/*
           <div className='buttons'>
             <a className='button' href='#'>All articles about us</a>
           </div>
+          */}
         </div>
       </div>
     )
