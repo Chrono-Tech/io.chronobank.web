@@ -24,7 +24,8 @@ import {
   ContactModel,
   SocialModel,
   PaperModel,
-  MenuModel
+  MenuModel,
+  GalleryModel
 } from 'src/models'
 
 export default (initialState = {}) => {
@@ -49,6 +50,7 @@ export default (initialState = {}) => {
       contacts: p.contacts && p.contacts.map(ContactModel.fromJS),
       socials: p.socials && p.socials.map(SocialModel.fromJS),
       papers: p.papers && p.papers.map(PaperModel.fromJS),
+      galleries: p.galleries && p.galleries.map(GalleryModel.fromJS),
     }, isNil)
   }, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 }

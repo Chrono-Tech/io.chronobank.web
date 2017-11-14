@@ -1,15 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { Swiper } from 'src/plugins'
+import { GalleryModel } from 'src/models'
 
 import styles from './GallerySection.sass'
 import swiperStyles from 'swiper/dist/css/swiper.css'
 
+@connect(mapStateToProps)
 export default class GallerySection extends React.Component {
 
   static propTypes = {
-    note: PropTypes.object
+    note: PropTypes.object,
+    galleries: PropTypes.arrayOf(GalleryModel),
   }
 
   static defaultProps = {
@@ -26,12 +30,11 @@ export default class GallerySection extends React.Component {
     this.swiper = new Swiper(this.swiperElement, {
       grabCursor: true,
       loop: true,
-      freeMode: true,
+      // setWrapperSize: true,
+      calculateWidth: true,
       slidesPerView: 'auto',
-      loopedSlides: 2,
-      touchEventsTarget: 'wrapper',
-      preventClicks: false,
-      preventClicksPropagation: false,
+      freeMode: true,
+      freeModeFluid: true,
       onTouchStart: () => {
         if (this.popupElement) {
           this.popupElement.style.opacity = 0
@@ -46,7 +49,7 @@ export default class GallerySection extends React.Component {
   }
 
   render () {
-    const { note } = this.props
+    const { galleries, note } = this.props
     return (
       <div className='root gallery-section'>
         <style jsx>{styles}</style>
@@ -67,11 +70,20 @@ export default class GallerySection extends React.Component {
         </div>
         <div className='swiper-container' ref={(swiper) => { this.swiperElement = swiper }}>
           <div className='swiper-wrapper'>
-            <img className='swiper-slide' src='/static/uploads/slider/img-team-1.png' />
-            <img className='swiper-slide' src='/static/uploads/slider/img-team-2.png' />
+            {galleries.map(g => (
+              (g.images || []).map(i => (
+                <img key={`${g.id}/${i.id}`} className='swiper-slide' src={i.url} />
+              ))
+            ))}
           </div>
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    galleries: state.pages.galleries
   }
 }

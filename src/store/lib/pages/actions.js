@@ -11,7 +11,8 @@ import {
   PaperModel,
   SocialModel,
   ContactModel,
-  MenuModel
+  MenuModel,
+  GalleryModel
 } from 'src/models'
 
 export const PAGES_INIT_MENUS = 'pages/INIT_MENUS'
@@ -25,6 +26,7 @@ export const PAGES_INIT_POSTS = 'pages/INIT_POSTS'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
 export const PAGES_INIT_SOCIALS = 'pages/INIT_SOCIALS'
 export const PAGES_INIT_PAPERS = 'pages/INIT_PAPERS'
+export const PAGES_INIT_GALLERIES = 'pages/INIT_GALLERIES'
 
 export const initMenus = () => async (dispatch) => {
   const { data } = await BACKEND.get('menus')
@@ -114,6 +116,23 @@ export const initPapers = () => async (dispatch) => {
   })
 }
 
+export const initGalleries = () => async (dispatch) => {
+  const { data } = await BACKEND.get('galleries')
+  return dispatch({
+    type: PAGES_INIT_GALLERIES,
+    galleries: data.galleries.map(GalleryModel.fromServerModel)
+  })
+}
+
+export const initAnyPage = () => (dispatch) => {
+  return Promise.all([
+    dispatch(initMenus()),
+    dispatch(initContacts()),
+    dispatch(initSocials()),
+    dispatch(initPapers())
+  ])
+}
+
 export const initIndexPage = () => (dispatch) => {
   return Promise.all([
     dispatch(initFeatures()),
@@ -127,11 +146,9 @@ export const initIndexPage = () => (dispatch) => {
   ])
 }
 
-export const initAnyPage = () => (dispatch) => {
+export const initTeamPage = () => (dispatch) => {
   return Promise.all([
-    dispatch(initMenus()),
-    dispatch(initContacts()),
-    dispatch(initSocials()),
-    dispatch(initPapers())
+    dispatch(initGalleries()),
+    dispatch(initAnyPage())
   ])
 }

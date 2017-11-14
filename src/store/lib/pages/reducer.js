@@ -9,7 +9,8 @@ import {
   PAGES_INIT_ITERATIONS,
   PAGES_INIT_CONTACTS,
   PAGES_INIT_SOCIALS,
-  PAGES_INIT_PAPERS
+  PAGES_INIT_PAPERS,
+  PAGES_INIT_GALLERIES
 } from './actions'
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   contacts: Object.freeze([]),
   socials: Object.freeze([]),
   papers: Object.freeze([]),
+  galleries: Object.freeze([]),
 }
 
 export default (state = initialState, action) => {
@@ -50,6 +52,8 @@ export default (state = initialState, action) => {
       return { ...state, socials: Object.freeze([...action.socials]) }
     case PAGES_INIT_PAPERS:
       return { ...state, papers: Object.freeze([...action.papers]) }
+    case PAGES_INIT_GALLERIES:
+      return { ...state, galleries: Object.freeze([...action.galleries]) }
     default:
       return state
   }

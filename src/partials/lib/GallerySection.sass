@@ -11,7 +11,7 @@
     width: 100%
     .content
       .popup
-        @include position(absolute, -186px, 60px, auto, auto, 350px)
+        @include position(absolute, -156px, 60px, auto, auto, 350px)
         box-sizing: border-box
         border-radius: 2px
         box-shadow: 0 16px 24px 0 rgba(118,143,255,0.2)
@@ -37,11 +37,12 @@
             .button
               @include button(primary)
   .swiper-container
+    height: 500px
     .swiper-slide
-      height: auto
+      // height: 500px
       width: auto
       // max-width: fit-content
-      // max-height: fit-content
+      // max-height: 100%
 
   @include screen-max-width(1023px)
     .wrap
@@ -56,9 +57,10 @@
           bottom: -50px
           // transform: translateX(-50%)
     .swiper-container
+      height: 400px
       .swiper-slide
-        width: 100%
-        height: inherit
+        // width: 100%
+        // height: inherit
   @include screen-max-width(639px)
     .wrap
       .content
@@ -68,3 +70,5 @@
           left: 50%
           transform: translateX(-50%)
           width: fit-content
+    .swiper-container
+      height: 200px
