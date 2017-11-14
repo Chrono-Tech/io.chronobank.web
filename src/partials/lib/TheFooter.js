@@ -1,9 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+import { Link } from 'src/router'
+import { BACKEND } from 'src/endpoints'
+import { MenuModel, PaperModel, SocialModel, ContactModel } from 'src/models'
 import styles from './TheFooter.sass'
 
-import { BACKEND } from 'src/endpoints'
-
+@connect(mapStateToProps)
 export default class TheFooter extends React.Component {
+
+  static propTypes = {
+    menus: PropTypes.arrayOf(MenuModel),
+    papers: PropTypes.arrayOf(PaperModel),
+    socials: PropTypes.arrayOf(SocialModel),
+    contacts: PropTypes.arrayOf(ContactModel),
+  }
 
   componentDidMount () {
     if (typeof window !== 'undefined') {
@@ -22,6 +34,7 @@ export default class TheFooter extends React.Component {
   }
 
   render () {
+    const { menus, papers, contacts, socials } = this.props
     return (
       <footer className='root footer-section'>
         <style jsx>{styles}</style>
@@ -35,9 +48,9 @@ export default class TheFooter extends React.Component {
               </div>
               <div className='publications'>
                 <ul>
-                  <li><a href='#'>Download</a> Business outline</li>
-                  <li><a href='#'>Download</a> Development plan</li>
-                  <li><a href='#'>Download</a> White paper</li>
+                  {papers.map(p => (
+                    <li key={p.id}><a href={p.url} target='_blank' rel='noopener noreferrer'>Download</a> {p.title}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -45,58 +58,35 @@ export default class TheFooter extends React.Component {
               <div className='menu'>
                 <h4>MENU</h4>
                 <ul>
-                  <li>
-                    <a href='/' target='_blank' rel='noopener noreferrer'>ChronoMint</a>
-                  </li>
-                  <li>
-                    <a href='#'>LaborX</a>
-                  </li>
-                  <li>
-                    <a href='/team.html' target='_blank' rel='noopener noreferrer'>Team</a>
-                  </li>
-                  <li>
-                    <a href='/faq' target='_blank' rel='noopener noreferrer'>FAQ</a>
-                  </li>
-                  <li>
-                    <a href='https://blog.chronobank.io' target='_blank' rel='noopener noreferrer'>Blog</a>
-                  </li>
+                  {menus.map(m => (
+                    <li key={m.id}>
+                      {m.isRoute()
+                        ? <Link route={m.url}><a>{m.title}</a></Link>
+                        : <a href={m.url} target='_blank' rel='noopener noreferrer'>ChronoMint</a>
+                      }
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
             <div className='col-3'>
               <div className='contacts'>
                 <h4>Contacts us</h4>
-                <dl>
-                  <dt>Technical support:</dt>
-                  <dd><a href='mailto:support@chronobank.io'>support@chronobank.io</a></dd>
-                  <dt>General inquiries:</dt>
-                  <dd><a href='mailto:info@chronobank.io'>info@chronobank.io</a></dd>
-                </dl>
+                {contacts.map(c => (
+                  <dl key={c.id}>
+                    <dt>{c.title}:</dt>
+                    <dd><a href={c.url}>{c.label}</a></dd>
+                  </dl>
+                ))}
               </div>
               <div className='socials'>
                 <h4>social network</h4>
                 <nav>
-                  <a href='https://www.facebook.com/ChronoBank.io' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/facebook.svg' />
-                  </a>
-                  <a href='https://twitter.com/ChronobankNews' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/twitter.svg' />
-                  </a>
-                  <a href='https://www.instagram.com/chronobank.io/' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/instagram.svg' />
-                  </a>
-                  <a href='https://www.reddit.com/r/ChronoBank/' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/reddit.svg' />
-                  </a>
-                  <a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/slack.svg' />
-                  </a>
-                  <a href='https://telegram.me/chronobank' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/telegram.svg' />
-                  </a>
-                  <a href='https://github.com/ChronoBank' target='_blank' rel='noopener noreferrer'>
-                    <img src='/static/images/socials/github.svg' />
-                  </a>
+                  {socials.map(s => (
+                    <a key={s.id} href={s.url} target='_blank' rel='noopener noreferrer'>
+                      <img src={s.icon32x32.url} />
+                    </a>
+                  ))}
                 </nav>
               </div>
             </div>
@@ -144,5 +134,14 @@ export default class TheFooter extends React.Component {
     for (const el of [this.emailElement]) {
       el.value = ''
     }
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    menus: state.pages.menus.filter(m => m.isVisibleInFooter),
+    papers: state.pages.papers,
+    contacts: state.pages.contacts.filter(c => c.isVisibleInFooter),
+    socials: state.pages.socials
   }
 }

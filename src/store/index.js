@@ -12,26 +12,42 @@ export * from './lib/snackbars/actions'
 export * from './lib/events/actions'
 export * from './lib/pages/actions'
 
-import { ArticleModel, FeatureModel, PartnerModel, PostModel, IterationModel, TestimonialModel, StoryModel } from 'src/models'
+import {
+  ArticleModel,
+  FeatureModel,
+  PartnerModel,
+  PostModel,
+  IterationModel,
+  TestimonialModel,
+  StoryModel,
+  ContactModel,
+  SocialModel,
+  PaperModel,
+  MenuModel
+} from 'src/models'
 
 export default (initialState = {}) => {
-  // console.log(initialState)
   const reducer = combineReducers({
     modals,
     snackbars,
     events,
     pages
   })
+  const p = initialState.pages
   return createStore(reducer, {
-    pages: !initialState.pages ? null : {
-      ...initialState.pages,
-      articles: initialState.pages.articles.map(ArticleModel.fromJS),
-      features: initialState.pages.features.map(FeatureModel.fromJS),
-      partners: initialState.pages.partners.map(PartnerModel.fromJS),
-      posts: initialState.pages.posts.map(PostModel.fromJS),
-      iterations: initialState.pages.iterations.map(IterationModel.fromJS),
-      testimonials: initialState.pages.testimonials.map(TestimonialModel.fromJS),
-      stories: initialState.pages.stories.map(StoryModel.fromJS),
+    pages: !p ? null : {
+      ...p,
+      menus: p.menus.map(MenuModel.fromJS),
+      articles: p.articles.map(ArticleModel.fromJS),
+      features: p.features.map(FeatureModel.fromJS),
+      partners: p.partners.map(PartnerModel.fromJS),
+      posts: p.posts.map(PostModel.fromJS),
+      iterations: p.iterations.map(IterationModel.fromJS),
+      testimonials: p.testimonials.map(TestimonialModel.fromJS),
+      stories: p.stories.map(StoryModel.fromJS),
+      contacts: p.contacts.map(ContactModel.fromJS),
+      socials: p.socials.map(SocialModel.fromJS),
+      papers: p.papers.map(PaperModel.fromJS),
     }
   }, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 }

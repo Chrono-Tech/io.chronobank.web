@@ -1,4 +1,5 @@
 import {
+  PAGES_INIT_MENUS,
   PAGES_INIT_ARTICLES,
   PAGES_INIT_FEATURES,
   PAGES_INIT_PARTNERS,
@@ -12,6 +13,7 @@ import {
 } from './actions'
 
 const initialState = {
+  menus: Object.freeze([]),
   articles: Object.freeze([]),
   features: Object.freeze([]),
   partners: Object.freeze([]),
@@ -26,6 +28,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case PAGES_INIT_MENUS:
+      return { ...state, menus: Object.freeze([...action.menus]) }
     case PAGES_INIT_FEATURES:
       return { ...state, features: Object.freeze([...action.features]) }
     case PAGES_INIT_PARTNERS:

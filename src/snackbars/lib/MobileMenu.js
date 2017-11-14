@@ -1,23 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import cn from 'classnames'
 
+import { MenuModel } from 'src/models'
 import { Link } from 'src/router'
 import { SnackbarPanel } from 'src/components'
 import { snackbarsClose } from 'src/store'
 
 import styles from './MobileMenu.sass'
 
-export class MobileMenu extends React.Component {
+@connect(mapStateToProps, mapDispatchToProps)
+export default class MobileMenu extends React.Component {
 
   static propTypes = {
     url: PropTypes.string,
-    products: PropTypes.array,
+    menus: PropTypes.arrayOf(MenuModel),
     onClose: PropTypes.func
   }
 
   render () {
-    const { products } = this.props
+    const { menus } = this.props
     return (
       <SnackbarPanel onClose={() => this.props.onClose()} side='top'>
         <style jsx>{styles}</style>
@@ -32,51 +35,69 @@ export class MobileMenu extends React.Component {
             </div>
             <div className='content'>
               <ul>
-                {!(products && products.length) ? null : (
-                  <li className='border-bottom'>
-                    <label>Products</label>
-                    <ul className='compact'>
-                      {products.map(product => (
-                        <li key={product._id}>
-                          <Link route={`/products/${product.slug}`}>
-                            <a>
-                              {!product.icon ? null : (
-                                <img className='icon-large' {...{
-                                  src: product.icon ? `${product.icon.secure_url}` : undefined,
-                                  srcSet: product.icon2x ? `${product.icon2x.secure_url} 2x` : undefined
-                                }}/>
-                              )}
-                              <b>{product.title}</b>
-                            </a>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                {menus.map(m => (
+                  <li key={m.id} className={cn({
+                    'border-bottom': m.isComposite()
+                  })}>
+                    {m.isComposite()
+                      ? [
+                        <label key={1}>Products</label>,
+                        <ul key={2} className='compact'>
+                          {m.children.map(child => (
+                            <li key={child.id}>
+                              {m.isRoute()
+                                ? (
+                                  <Link route={child.url}>
+                                    <a>
+                                      {!child.icon32x32 ? null : (
+                                        <img className='icon-large' src={child.icon32x32.url} />
+                                      )}
+                                      <b>{child.title}</b>
+                                    </a>
+                                  </Link>
+                                )
+                                : (
+                                  <a href={child.url} target='_blank' rel='noopener noreferrer'>
+                                    {!child.icon32x32 ? null : (
+                                      <img className='icon-large' src={child.icon32x32.url} />
+                                    )}
+                                    <b>{child.title}</b>
+                                  </a>
+                                )
+                              }
+                            </li>
+                          ))}
+                        </ul>
+                      ]
+                      : (
+                        m.isRoute()
+                          ? (
+                            <Link route={m.url}>
+                              <a>{m.title}</a>
+                            </Link>
+                          )
+                          : (
+                            m.symbol != null
+                              ? (
+                                <ul className='compact'>
+                                  <li className='highlight'>
+                                    <a href={m.url} target='_blank' rel='noopener noreferrer'>
+                                      <img src={m.symbol.url} />
+                                      {m.title}
+                                    </a>
+                                  </li>
+                                </ul>
+                              )
+                              : (
+                                <a href={m.url} target='_blank' rel='noopener noreferrer'>
+                                  {m.title}
+                                </a>
+                              )
+                          )
+                      )
+                    }
                   </li>
-                )}
-                <li>
-                  <Link route='/team'>
-                    <a>Team</a>
-                  </Link>
-                </li>
-                <li>
-                  <a href='https://blog.chronobank.io/'>Blog</a>
-                </li>
-                <li>
-                  <Link route='/faq'>
-                    <a>FAQ</a>
-                  </Link>
-                </li>
-                <li>
-                  <ul className='compact'>
-                    <li className='highlight'>
-                      <a href='https://mint.chronobank.io'>
-                        <img src='/static/images/symbols/login.svg' />
-                        Login
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -86,10 +107,14 @@ export class MobileMenu extends React.Component {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    menus: state.pages.menus.filter(m => m.isVisibleInHeader)
+  }
+}
+
 function mapDispatchToProps (dispatch) {
   return {
     onClose: () => dispatch(snackbarsClose())
   }
 }
-
-export default connect(null, mapDispatchToProps)(MobileMenu)

@@ -1,7 +1,20 @@
 import { BACKEND } from 'src/endpoints'
 
-import { ArticleModel, FeatureModel, PartnerModel, PostModel, IterationModel, TestimonialModel, StoryModel } from 'src/models'
+import {
+  ArticleModel,
+  FeatureModel,
+  PartnerModel,
+  PostModel,
+  IterationModel,
+  TestimonialModel,
+  StoryModel,
+  PaperModel,
+  SocialModel,
+  ContactModel,
+  MenuModel
+} from 'src/models'
 
+export const PAGES_INIT_MENUS = 'pages/INIT_MENUS'
 export const PAGES_INIT_FEATURES = 'pages/INIT_FEATURES'
 export const PAGES_INIT_PARTNERS = 'pages/INIT_PARTNERS'
 export const PAGES_INIT_STORIES = 'pages/INIT_STORIES'
@@ -12,6 +25,14 @@ export const PAGES_INIT_POSTS = 'pages/INIT_POSTS'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
 export const PAGES_INIT_SOCIALS = 'pages/INIT_SOCIALS'
 export const PAGES_INIT_PAPERS = 'pages/INIT_PAPERS'
+
+export const initMenus = () => async (dispatch) => {
+  const { data } = await BACKEND.get('menus')
+  return dispatch({
+    type: PAGES_INIT_MENUS,
+    menus: data.map(MenuModel.fromServerModel)
+  })
+}
 
 export const initFeatures = () => async (dispatch) => {
   const { data } = await BACKEND.get('features')
@@ -71,17 +92,26 @@ export const initPosts = () => async (dispatch) => {
 
 export const initContacts = () => async (dispatch) => {
   const { data } = await BACKEND.get('contacts')
-  return dispatch({type: PAGES_INIT_CONTACTS, contacts: data.contacts })
+  return dispatch({
+    type: PAGES_INIT_CONTACTS,
+    contacts: data.contacts.map(ContactModel.fromServerModel)
+  })
 }
 
 export const initSocials = () => async (dispatch) => {
   const { data } = await BACKEND.get('socials')
-  return dispatch({type: PAGES_INIT_SOCIALS, socials: data.socials })
+  return dispatch({
+    type: PAGES_INIT_SOCIALS,
+    socials: data.socials.map(SocialModel.fromServerModel)
+  })
 }
 
 export const initPapers = () => async (dispatch) => {
   const { data } = await BACKEND.get('papers')
-  return dispatch({type: PAGES_INIT_PAPERS, papers: data.papers })
+  return dispatch({
+    type: PAGES_INIT_PAPERS,
+    papers: data.papers.map(PaperModel.fromServerModel)
+  })
 }
 
 export const initIndexPage = () => (dispatch) => {
@@ -93,6 +123,13 @@ export const initIndexPage = () => (dispatch) => {
     dispatch(initPosts()),
     dispatch(initTestimonials()),
     dispatch(initIterations()),
+    dispatch(initAnyPage())
+  ])
+}
+
+export const initAnyPage = () => (dispatch) => {
+  return Promise.all([
+    dispatch(initMenus()),
     dispatch(initContacts()),
     dispatch(initSocials()),
     dispatch(initPapers())

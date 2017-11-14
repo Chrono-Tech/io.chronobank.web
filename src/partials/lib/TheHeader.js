@@ -7,22 +7,24 @@ import { Link } from 'src/router'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'src/components'
+import { MenuModel } from 'src/models'
 import { modalsOpen, snackbarsOpen } from 'src/store'
 
 import styles from './TheHeader.sass'
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class TheHeader extends React.Component {
 
   static propTypes = {
     header: PropTypes.object,
     products: PropTypes.array,
     showVideo: PropTypes.func,
-    showMobileMenu: PropTypes.func
+    showMobileMenu: PropTypes.func,
+    menus: PropTypes.arrayOf(MenuModel),
   }
 
   render () {
-    const { products, header } = this.props
+    const { menus, header } = this.props
     return (
       <header className={cn('root', 'the-header', {
         'background-dark': header.background === 'dark',
@@ -45,46 +47,85 @@ export default class TheHeader extends React.Component {
             </div>
             <div className='menu-desktop'>
               <ul>
-                {!(products && products.length) ? null : (
-                  <li>
-                    <div className='dropdown'>
-                      <a className='link'>Products</a>
-                      <ul className='dropdown-panel'>
-                        {products.map(product => (
-                          <li key={product._id}>
-                            <Link route={`/products/${product.slug}`}>
-                              <div className='product'>
-                                <div className='product-icon'>
-                                  {!product.icon ? null : (
-                                    <img {...{
-                                      src: product.icon ? `${product.icon.secure_url}` : undefined,
-                                      srcSet: product.icon2x ? `${product.icon2x.secure_url} 2x` : undefined
-                                    }}/>
-                                  )}
-                                </div>
-                                <div className='product-info'>
-                                  <div className='info-title'>{product.title}</div>
-                                  {!product.mission ? null : (
-                                    <div className='info-details' dangerouslySetInnerHTML={{ __html: product.mission}}></div>
-                                  )}
-                                </div>
-                              </div>
+                {menus.map(m => (
+                  <li key={m.id}>
+                    {m.isComposite()
+                      ? (
+                        <div className='dropdown'>
+                          <a className='link'>{m.title}</a>
+                          <ul className='dropdown-panel'>
+                            {m.children.map(child => (
+                              <li key={child.id}>
+                                {child.isRoute()
+                                  ? (
+                                    <Link route={child.url}>
+                                      <div className='product'>
+                                        <div className='product-icon'>
+                                          {!child.icon40x40 ? null : (
+                                            <img src={child.icon40x40.url} />
+                                          )}
+                                        </div>
+                                        <div className='product-info'>
+                                          <div className='info-title'>{child.title}</div>
+                                          {!child.subtitle ? null : (
+                                            <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle}}></div>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </Link>
+                                  )
+                                  : (
+                                    <a href={child.url} target='_blank' rel='noopener noreferrer'>
+                                      <div className='product'>
+                                        <div className='product-icon'>
+                                          {!child.icon40x40 ? null : (
+                                            <img src={child.icon40x40.url} />
+                                          )}
+                                        </div>
+                                        <div className='product-info'>
+                                          <div className='info-title'>{child.title}</div>
+                                          {!child.subtitle ? null : (
+                                            <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle}}></div>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </a>
+                                  )
+                                }
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )
+                      : (
+                        m.isRoute()
+                          ? (
+                            <Link route={m.url}>
+                              <a className='link'>
+                                {m.symbol == null ? null : (
+                                  <img src='/static/images/symbols/login.svg' />
+                                )}
+                                <span>{m.title}</span>
+                              </a>
                             </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                          )
+                          : (
+                            <a className='link' href={m.url} target='_blank' rel='noopener noreferrer'>
+                              {m.symbol == null ? null : (
+                                <img src='/static/images/symbols/login.svg' />
+                              )}
+                              <span>{m.title}</span>
+                            </a>
+                          )
+                      )
+                    }
                   </li>
-                )}
-                <li><Link href='/team'><a className='link'>Team</a></Link></li>
-                <li><Link href='/faq'><a className='link'>FAQ</a></Link></li>
-                <li><a className='link' href='https://blog.chronobank.io/' target='_blank' rel='noopener noreferrer'>Blog</a></li>
-                <li><a className='link' href='https://mint.chronobank.io'><img src='/static/images/symbols/login.svg' />Login</a></li>
+                ))}
               </ul>
             </div>
             <div className='menu-mobile'>
-              <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu({ products })}><img src='/static/images/symbols/menu.svg' /></a>
-              <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu({ products })}><img src='/static/images/symbols/menu-dark.svg' /></a>
+              <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu.svg' /></a>
+              <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-dark.svg' /></a>
             </div>
           </div>
           <div className='news'>
@@ -133,6 +174,12 @@ export default class TheHeader extends React.Component {
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    menus: state.pages.menus.filter(m => m.isVisibleInHeader)
+  }
+}
+
 function mapDispatchToProps (dispatch) {
   return {
     showVideo: (url) => {
@@ -143,12 +190,10 @@ function mapDispatchToProps (dispatch) {
         }
       }))
     },
-    showMobileMenu: ({ products }) => [
+    showMobileMenu: () => [
       dispatch(snackbarsOpen({
         component: snackbars.MobileMenu,
-        props: {
-          products
-        }
+        props: {}
       }))
     ]
   }
