@@ -68,11 +68,6 @@ export class MobileMenu extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link route='/contacts'>
-                    <a>Contacts</a>
-                  </Link>
-                </li>
-                <li>
                   <ul className='compact'>
                     <li className='highlight'>
                       <a href='https://mint.chronobank.io'>
