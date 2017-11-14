@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { zipObjectDeep } from 'lodash'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear } from 'src/store'
+import { modalsClear, snackbarsClear, initAnyPage } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 import { BACKEND } from 'src/endpoints'
@@ -35,6 +35,8 @@ class Team extends React.Component {
     }
 
     const results = await Promise.all(Object.values(promises))
+
+    await store.dispatch(initAnyPage())
 
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
