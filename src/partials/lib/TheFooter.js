@@ -62,7 +62,7 @@ export default class TheFooter extends React.Component {
                     <li key={m.id}>
                       {m.isRoute()
                         ? <Link route={m.url}><a>{m.title}</a></Link>
-                        : <a href={m.url} target='_blank' rel='noopener noreferrer'>ChronoMint</a>
+                        : <a href={m.url} target='_blank' rel='noopener noreferrer'>{m.title}</a>
                       }
                     </li>
                   ))}
