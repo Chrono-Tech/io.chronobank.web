@@ -16,8 +16,6 @@ export default class GallerySection extends React.Component {
     note: {
       brief: `
         <h4>Searching for interesting job?<br/><a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>Join us!</a></h4>
-        <p>LH tokens will be linked to national average hourly wages, which have
-        significant and stable growth with very low volatility.</p>
       `,
       action: 'View openings',
       url: '#global-jobs-section'

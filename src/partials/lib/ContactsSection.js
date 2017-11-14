@@ -1,16 +1,20 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
-import { BACKEND } from 'src/endpoints'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
+import { BACKEND } from 'src/endpoints'
+import { ContactModel } from 'src/models'
 import styles from './ContactsSection.sass'
 
+@connect(mapStateToProps)
 export default class ContactsSection extends React.Component {
 
-  // static propTypes = {
-  //   articles: PropTypes.object,
-  // }
+  static propTypes = {
+    contacts: PropTypes.arrayOf(ContactModel),
+  }
 
   render () {
+    const { contacts } = this.props
     return (
       <div className='root contacts-section'>
         <style jsx>{styles}</style>
@@ -25,42 +29,17 @@ export default class ContactsSection extends React.Component {
               <div className='inner-wrap'>
                 <h3>Contact us</h3>
                 <ul>
-                  <li>
-                    <div className='symbol'>
-                      <img src='/static/images/contacts/light.svg' />
-                    </div>
-                    <div className='info'>
-                      <h5>General inquiries</h5>
-                      <div><a href='mailto:info@chronobank.io' target='_blank' rel='noopener noreferrer'>info@chronobank.io</a></div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='symbol'>
-                      <img src='/static/images/contacts/support.svg' />
-                    </div>
-                    <div className='info'>
-                      <h5>Technical support</h5>
-                      <div><a href='mailto:support@chronobank.io' target='_blank' rel='noopener noreferrer'>support@chronobank.io</a></div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='symbol'>
-                      <img src='/static/images/contacts/telegram.svg' />
-                    </div>
-                    <div className='info'>
-                      <h5>Telegram</h5>
-                      <div><a href='#' target='_blank' rel='noopener noreferrer'>chronobank</a></div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className='symbol'>
-                      <img src='/static/images/contacts/slack.svg' />
-                    </div>
-                    <div className='info'>
-                      <h5>Slack</h5>
-                      <div><a href='#' target='_blank' rel='noopener noreferrer'>chronobank</a></div>
-                    </div>
-                  </li>
+                  {contacts.map(c => (
+                    <li key={c.id}>
+                      <div className='symbol'>
+                        <img src={c.icon32x32.url} />
+                      </div>
+                      <div className='info'>
+                        <h5>{c.title}</h5>
+                        <div><a href={c.url} target='_blank' rel='noopener noreferrer'>{c.label}</a></div>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -110,6 +89,7 @@ export default class ContactsSection extends React.Component {
   async handleSubmit (e) {
     e.preventDefault()
 
+    // TODO: Move to redux
     await BACKEND.post('enquiries', {
       name: this.nameElement.value,
       email: this.emailElement.value,
@@ -119,5 +99,11 @@ export default class ContactsSection extends React.Component {
       el.value = ''
       this.handleInput(el)
     }
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    contacts: state.pages.contacts.filter(c => c.isVisibleInContacts),
   }
 }
