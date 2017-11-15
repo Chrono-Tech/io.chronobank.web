@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export const BACKEND = axios.create({
-  baseURL: 'http://backend.chronobank.tp.ntr1x.com/api/v1',
+  baseURL: process.env.API_ENDPOINT,
   timeout: 6000
 })

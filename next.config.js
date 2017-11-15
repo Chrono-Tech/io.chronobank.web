@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const glob = require('glob')
 
@@ -47,6 +48,11 @@ module.exports = {
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: [ { loader: 'url-loader', options: { limit: '10000', mimetype: 'application/font-woff' } } ] },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use: [ { loader: 'url-loader', options: { limit: '10000', mimetype: 'octet-stream' } } ] },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: [ { loader: 'url-loader', options: { limit: '10000', mimetype: 'image/svg+xml' } } ] }
+    )
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.API_ENDPOINT': `'${process.env.API_ENDPOINT}'`
+      })
     )
     return config
   }

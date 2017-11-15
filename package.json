@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node server.js",
-    "build": "cross-env NODE_ENV=production rm -rf build && cross-env NODE_ENV=production next build",
-    "start": "cross-env NODE_ENV=production next start",
+    "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 node server.js",
+    "build": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 next build",
+    "build:prod": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 next build",
+    "build:demo": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 next build",
+    "start": "cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 next start",
+    "start:prod": "cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 next start",
+    "start:demo": "cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 next start",
     "test": "npm run lint:test && echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx --fix src pages specs",
     "lint:test": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx src pages specs"
