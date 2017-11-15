@@ -12,7 +12,7 @@ module.exports = {
       env_production: {
         'PORT': 3011,
         'NODE_ENV': 'production',
-        'API_ENDPOINT': 'https://test-2.chronobank.io/api/v1'
+        'API_ENDPOINT': 'https://backend.chronobank.io/api/v1'
       }
     }
   ]
