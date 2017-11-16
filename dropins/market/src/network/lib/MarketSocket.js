@@ -2,7 +2,7 @@ import EventEmitter from 'events'
 import openSocket from 'socket.io-client'
 import CCC from './ccc-streamer-utilities'
 
-const markets = [
+export const markets = [
   'BTC38',
   'BTCC',
   'BTCE',

@@ -1,1 +1,1 @@
-export { MarketSocket } from './lib/MarketSocket'
+export { default as MarketSocket, markets } from './lib/MarketSocket'

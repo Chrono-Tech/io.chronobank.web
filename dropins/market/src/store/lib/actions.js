@@ -9,7 +9,8 @@ export const watchInitMarket = () => (dispatch) => {
     .start()
 }
 
-export const unwatchInitMarket = () => () => {
+// eslint-disable-next-line
+export const unwatchInitMarket = () => (dispatch) => {
   if (module.market) {
     module.market.stop()
     module.market = null

@@ -8,6 +8,8 @@ import snackbars from './lib/snackbars/reducer'
 import events from './lib/events/reducer'
 import pages from './lib/pages/reducer'
 
+import * as marketDropin from 'dropins/market/src/store'
+
 export * from './lib/modals/actions'
 export * from './lib/snackbars/actions'
 export * from './lib/events/actions'
@@ -33,7 +35,8 @@ export default (initialState = {}) => {
     modals,
     snackbars,
     events,
-    pages
+    pages,
+    marketDropin: marketDropin.reducer
   })
   const p = initialState.pages
   return createStore(reducer, {
@@ -51,6 +54,7 @@ export default (initialState = {}) => {
       socials: p.socials && p.socials.map(SocialModel.fromJS),
       papers: p.papers && p.papers.map(PaperModel.fromJS),
       galleries: p.galleries && p.galleries.map(GalleryModel.fromJS),
+      marketDropin: p.marketDropin && p.marketDropin.fromJS(p.marketDropin)
     }, isNil)
   }, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 }

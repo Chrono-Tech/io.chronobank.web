@@ -28,6 +28,7 @@ class Index extends React.Component {
 
     watchInitMarket: PropTypes.func,
     unwatchInitMarket: PropTypes.func,
+
     eventsShow: PropTypes.func,
   }
 
@@ -79,6 +80,7 @@ class Index extends React.Component {
   }
 
   componentWillUnmount () {
+    console.log(this.props)
     clearInterval(this.eventsInterval)
     this.eventsInterval = null
     this.props.unwatchInitMarket()
@@ -172,8 +174,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     eventsShow: (event: EventModel) => dispatch(eventsEnqueue(event, 1)),
-    watchInitMarket: dispatch(watchInitMarket()),
-    unwatchInitMarket: dispatch(unwatchInitMarket())
+    watchInitMarket: () => dispatch(watchInitMarket()),
+    unwatchInitMarket: () => dispatch(unwatchInitMarket())
   }
 }
 
