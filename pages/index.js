@@ -80,6 +80,7 @@ class Index extends React.Component {
         <style jsx>{styles}</style>
         <Head>
           <title>ChronoBank.io</title>
+          <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
           <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width' />
         </Head>
         <components.ModalStack />
@@ -137,10 +138,12 @@ class Index extends React.Component {
               />
               <partials.ArticlesSection />
             </div>
-            <partials.TheTitle
-              title='Latest news'
-            />
-            <partials.PostsSection />
+            <div className='posts'>
+              <partials.TheTitle
+                title='Latest news'
+              />
+              <partials.PostsSection />
+            </div>
             <partials.ContactsSection />
           </main>
           <partials.TheFooter />

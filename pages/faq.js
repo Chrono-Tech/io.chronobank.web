@@ -50,6 +50,7 @@ class FAQ extends React.Component {
         <style jsx>{styles}</style>
         <Head>
           <title>ChronoBank.io: FAQ</title>
+          <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
           <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width' />
         </Head>
         <components.ModalStack />
