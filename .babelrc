@@ -10,7 +10,8 @@
     "transform-runtime",
     "transform-decorators-legacy",
     ["module-alias", [
-      { "src": "./src", "expose": "src" }
+      { "src": "./src", "expose": "src" },
+      { "src": "./dropins/market", "expose": "dropins/market" }
     ]]
   ]
 }
