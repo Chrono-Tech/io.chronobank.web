@@ -7,6 +7,7 @@ import { Link } from 'src/router'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'src/components'
+import { RatesPanel } from 'dropins/market/src/components'
 import { MenuModel } from 'src/models'
 import { modalsOpen, snackbarsOpen } from 'src/store'
 
@@ -169,6 +170,11 @@ export default class TheHeader extends React.Component {
             }} />
           )}
         </div>
+        {header.stereotype !== 'splash' ? null : (
+          <div className='rates'>
+            <RatesPanel />
+          </div>
+        )}
       </header>
     )
   }
