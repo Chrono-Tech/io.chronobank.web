@@ -11,17 +11,6 @@ export default class RatesPanel extends React.Component {
     market: PropTypes.object
   }
 
-  // componentDidMount () {
-  //   setImmediate(() => {
-  //     if (this.prevElement) {
-  //       this.prevElement.classList.add('item-slided')
-  //     }
-  //     if (this.currElement) {
-  //       this.currElement.classList.add('item-slided')
-  //     }
-  //   })
-  // }
-
   render () {
     const { market } = this.props
     return (
