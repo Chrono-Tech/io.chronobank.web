@@ -7,6 +7,7 @@ import { zipObjectDeep } from 'lodash'
 import initStore from 'src/store'
 import { EventModel } from 'src/models'
 import { modalsClear, snackbarsClear, eventsEnqueue, initIndexPage } from 'src/store'
+import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 import { BACKEND } from 'src/endpoints'
@@ -25,10 +26,13 @@ class Index extends React.Component {
 
     products: PropTypes.object,
 
+    watchInitMarket: PropTypes.func,
+    unwatchInitMarket: PropTypes.func,
+
     eventsShow: PropTypes.func,
   }
 
-  static async getInitialProps ({ store }) {
+  static async getInitialProps ({ store, isServer }) {
 
     const promises = {
       header:       BACKEND.get('headers/s/main-page'),
@@ -44,6 +48,10 @@ class Index extends React.Component {
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
 
+    if (!isServer) {
+      store.dispatch(watchInitMarket())
+    }
+
     return zipObjectDeep(
       Object.keys(promises),
       results.map(res => res.data)
@@ -51,6 +59,7 @@ class Index extends React.Component {
   }
 
   componentDidMount () {
+
     const events = this.props.posts.map(p => new EventModel({
       id: p.id,
       status: 'new',
@@ -66,11 +75,15 @@ class Index extends React.Component {
       this.props.eventsShow(events[index % events.length])
       index++
     }, 5000)
+
+    this.props.watchInitMarket()
   }
 
   componentWillUnmount () {
+    console.log(this.props)
     clearInterval(this.eventsInterval)
     this.eventsInterval = null
+    this.props.unwatchInitMarket()
   }
 
   render () {
@@ -163,9 +176,9 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    eventsShow: async (event: EventModel) => {
-      await dispatch(eventsEnqueue(event, 1))
-    }
+    eventsShow: (event: EventModel) => dispatch(eventsEnqueue(event, 1)),
+    watchInitMarket: () => dispatch(watchInitMarket()),
+    unwatchInitMarket: () => dispatch(unwatchInitMarket())
   }
 }
 
