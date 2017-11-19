@@ -26,6 +26,7 @@ export default (state = initialState, { type, data }) => {
         const last = Object.freeze({
           date: new Date(),
           price: data.PRICE || (p.last ? p.last.price : null),
+          open24: data.OPEN24HOUR || (p.last ? p.last.open24 : null),
           market: data.LASTMARKET || (p.last ? p.last.market : null)
         })
         return Object.freeze({

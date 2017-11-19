@@ -19,16 +19,19 @@
   position: relative
   height: 110px
   .content
-    @include position(absolute, 0, auto, 0, auto)
+    position: relative
     display: table
-    animation: infinite-loop 10s infinite linear
-    @include screen-max-width(1023px)
-      animation: infinite-loop 15s infinite linear
-    @include screen-max-width(640px)
-      animation: infinite-loop 30s infinite linear
-    @include screen-max-width(480px)
-      animation: infinite-loop 40s infinite linear
+    margin: 0 auto
+    &.content-animate
+      animation: infinite-loop 10s infinite linear
+      @include screen-max-width(1023px)
+        animation: infinite-loop 15s infinite linear
+      @include screen-max-width(640px)
+        animation: infinite-loop 30s infinite linear
+      @include screen-max-width(480px)
+        animation: infinite-loop 40s infinite linear
     .item
+      position: relative
       display: table-cell
       padding: 12px
       .exchange
@@ -68,9 +71,14 @@
               vertical-align: middle
               font-size: 1.4rem
               line-height: 19px
-              color: #00c853
             img
               margin-left: 4px
               vertical-align: middle
               width: 16px
               height: 16px
+            &.direction-up
+              .value
+                color: #00c853
+            &.direction-down
+              .value
+                color: #ff1744
