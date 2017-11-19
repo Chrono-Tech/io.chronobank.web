@@ -3,27 +3,41 @@ import {
 } from './actions'
 
 const initialState = Object.freeze({
-  'BTC/USD': null,
-  'ETH/USD': null,
-  'TIME/USD': null,
+  'BTC/USD': Object.freeze({
+    last: null,
+    exchanges: Object.freeze({})
+  }),
+  'ETH/USD': Object.freeze({
+    last: null,
+    exchanges: Object.freeze({})
+  }),
+  'TIME/USD': Object.freeze({
+    last: null,
+    exchanges: Object.freeze({})
+  })
 })
 
 export default (state = initialState, { type, data }) => {
   switch (type) {
     case MARKET_RATES_UPDATE: {
-      const name = [data.FROMSYMBOL, data.TOSYMBOL].join('/')
-      // console.log(name, data)
-      if (name in state) {
-        if ('PRICE' in data) {
-          return {
-            ...state,
-            [name]: Object.freeze({
-              price: data.PRICE,
-              market: data.MARKET,
-              date: new Date()
+      const pair = [data.FROMSYMBOL, data.TOSYMBOL].join('/')
+      if (pair in state) {
+        const p = state[pair]
+        const last = Object.freeze({
+          date: new Date(),
+          price: data.PRICE || (p.last ? p.last.price : null),
+          market: data.LASTMARKET || (p.last ? p.last.market : null)
+        })
+        return Object.freeze({
+          ...state,
+          [pair]: Object.freeze({
+            last,
+            prices: Object.freeze({
+              ...p.prices,
+              [last.market]: last
             })
-          }
-        }
+          })
+        })
       }
       return state
     }

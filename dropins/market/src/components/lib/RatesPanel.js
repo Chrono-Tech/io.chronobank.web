@@ -28,8 +28,27 @@ export default class RatesPanel extends React.Component {
       <div className='root rates-panel'>
         <style jsx>{styles}</style>
         <div className='content'>
-          {Object.entries(market).filter(([, m]) => m !== null).map(([name, m]) => (
-            <div key={name}>{name} ~ {m.market} ~ {m.price}</div>
+          {Object.entries(market.prices || {}).filter(([, m]) => m !== null).map(([name, m]) => (
+            <div className='item' key={name}>
+              <div className='exchange'>
+                <div className='logo'>
+                  <img src={`/static/dropins/market/images/exchanges/${(m.market || '').toLowerCase()}.png`} />
+                </div>
+                <div className='data'>
+                  <div className='title'>
+                    {m.market}
+                  </div>
+                  <div className='price'>
+                    <span className='value'>{m.price}</span>
+                    <span className='symbol'>USD</span>
+                  </div>
+                  <div className='direction'>
+                    <span className='value'>8.827721</span>
+                    <img src='/static/dropins/market/images/arrow-up.svg' />
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -39,6 +58,6 @@ export default class RatesPanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    market: state.marketDropin
+    market: state.marketDropin['ETH/USD']
   }
 }

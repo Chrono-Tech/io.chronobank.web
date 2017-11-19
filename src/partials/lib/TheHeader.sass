@@ -1,13 +1,16 @@
 @import "src/styles/partials/mixins"
 
 .root.the-header
-  min-height: 700px
+  min-height: 568px
   height: 100vh
   background: no-repeat center center linear-gradient(197deg,#644ebf,#262448)
   padding: 22px 0 80px
   position: relative
   overflow: hidden
   box-sizing: border-box
+  .rates
+    @include position(absolute, auto, 0, 0, 0)
+    z-index: 2
   .image
     @include position(absolute, 0, 0, 0, 0)
     z-index: 1
@@ -36,14 +39,14 @@
         &.image-480
           display: block
           position: absolute
-          top: 45%
+          top: 50%
           right: 50%
           transform: translate(50%, -50%)
       @include screen-between-width(320px, 479px)
         &.image-320
           display: block
           position: absolute
-          top: 55%
+          top: 65%
           right: 50%
           transform: translate(50%, -50%)
   .wrap

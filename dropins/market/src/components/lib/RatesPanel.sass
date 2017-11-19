@@ -1,2 +1,76 @@
+@import "src/styles/partials/variables"
+@import "src/styles/partials/mixins"
+
+@keyframes infinite-loop
+  0%
+    transform: translateX(0%)
+    margin-left: 0
+    margin-right: 0
+  50%
+    transform: translateX(-100%)
+    margin-right: -100%
+    margin-left: 100%
+  100%
+    transform: translateX(0%)
+    margin-left: 0
+    margin-right: 0
 .root.rates-panel
   color: #FFFFFF
+  position: relative
+  height: 110px
+  .content
+    @include position(absolute, 0, auto, 0, auto)
+    display: table
+    animation: infinite-loop 10s infinite linear
+    @include screen-max-width(1023px)
+      animation: infinite-loop 15s infinite linear
+    @include screen-max-width(640px)
+      animation: infinite-loop 30s infinite linear
+    @include screen-max-width(480px)
+      animation: infinite-loop 40s infinite linear
+    .item
+      display: table-cell
+      padding: 12px
+      .exchange
+        display: flex
+        align-items: center
+        width: 200px
+        box-sizing: border-box
+        .logo
+          flex: 0 0 auto
+          margin: 12px
+          img
+            width: 70px
+            height: auto
+        .data
+          font-family: $clearsans
+          flex: 0 0 auto
+          .title
+            font-size: 1.4rem
+            line-height: 21px
+            color: #768fff
+          .price
+            display: flex
+            align-items: flex-end
+            .value
+              font-size: 1.6rem
+              line-height: 21px
+              color: #FFFFFF
+            .symbol
+              margin-left: 4px
+              font-size: 1.4rem
+              line-height: 19px
+              color: rgba(#FFFFFF, 0.6)
+          .direction
+            display: flex
+            align-items: center
+            .value
+              vertical-align: middle
+              font-size: 1.4rem
+              line-height: 19px
+              color: #00c853
+            img
+              margin-left: 4px
+              vertical-align: middle
+              width: 16px
+              height: 16px

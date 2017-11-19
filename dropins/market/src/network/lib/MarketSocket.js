@@ -69,22 +69,16 @@ const pairs = [
 ]
 
 export default class MarketSocket extends EventEmitter {
-  constructor (type) {
+  constructor () {
     super()
 
     this.subscription = []
-    this.type = type || CCC.TYPE.CURRENTAGG
+    this.type = CCC.TYPE.CURRENTAGG
   }
 
   init () {
     for (const pair of pairs) {
-      if (this.type === CCC.TYPE.CURRENT) {
-        for (const market of markets) {
-          this.subscription.push(`2~${market}~${pair}`)
-        }
-      } else {
-        this.subscription.push(`${this.type}~CCCAGG~${pair}`)
-      }
+      this.subscription.push(`${this.type}~CCCAGG~${pair}`)
     }
     return this
   }
@@ -101,7 +95,6 @@ export default class MarketSocket extends EventEmitter {
         result[keys[i]] = result[keys[i]]
       }
       result.TOSYMBOL = 'USD'
-      result.symbol = result.FROMSYMBOL
 
       this.emit('update', result)
     }
