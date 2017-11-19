@@ -79,6 +79,6 @@ export default class RatesPanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    market: state.marketDropin['ETH/USD']
+    market: state.marketDropin['TIME/USD']
   }
 }
