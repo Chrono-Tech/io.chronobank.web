@@ -2,15 +2,12 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
-import { zipObjectDeep } from 'lodash'
 
 import initStore from 'src/store'
-import { EventModel } from 'src/models'
-import { modalsClear, snackbarsClear, eventsEnqueue, initIndexPage } from 'src/store'
+import { modalsClear, snackbarsClear, initIndexPage } from 'src/store'
 import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
-import { BACKEND } from 'src/endpoints'
 
 import globalStyles from 'src/styles/globals/globals.sass'
 import styles from './index.sass'
@@ -18,71 +15,29 @@ import styles from './index.sass'
 class Index extends React.Component {
 
   static propTypes = {
-    header:  PropTypes.object,
 
-    posts:  PropTypes.array,
     testimonials: PropTypes.array,
     stories: PropTypes.array,
 
-    products: PropTypes.object,
-
     watchInitMarket: PropTypes.func,
     unwatchInitMarket: PropTypes.func,
-
-    eventsShow: PropTypes.func,
   }
 
   static async getInitialProps ({ store, isServer }) {
-
-    const promises = {
-      header:       BACKEND.get('headers/s/main-page'),
-      'products.chronomint':        BACKEND.get('products/s/chronomint'),
-      'products.chronomintMobile':  BACKEND.get('products/s/chronomint-mobile'),
-      'products.laborx':            BACKEND.get('products/s/laborx'),
-    }
-
-    const results = await Promise.all(Object.values(promises))
-
     await store.dispatch(initIndexPage())
-
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
 
     if (!isServer) {
       store.dispatch(watchInitMarket())
     }
-
-    return zipObjectDeep(
-      Object.keys(promises),
-      results.map(res => res.data)
-    )
   }
 
   componentDidMount () {
-
-    const events = this.props.posts.map(p => new EventModel({
-      id: p.id,
-      status: 'new',
-      url: p.url,
-      title: p.title,
-      date: p.publishedDate
-    }))
-
-    let index = 0
-    this.props.eventsShow(events[index % events.length])
-    index++
-    this.eventsInterval = setInterval(() => {
-      this.props.eventsShow(events[index % events.length])
-      index++
-    }, 5000)
-
     this.props.watchInitMarket()
   }
 
   componentWillUnmount () {
-    console.log(this.props)
-    clearInterval(this.eventsInterval)
-    this.eventsInterval = null
     this.props.unwatchInitMarket()
   }
 
@@ -102,10 +57,7 @@ class Index extends React.Component {
           {/* <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'></svg> */}
         </div>
         <div className='page'>
-          <partials.TheHeader header={this.props.header} products={[
-            this.props.products.chronomint,
-            this.props.products.laborx
-          ]} />
+          <partials.TheHeader headerSlug='main-page' />
           <main className='main'>
             <div className='about'>
               <partials.TheTitle
@@ -122,10 +74,10 @@ class Index extends React.Component {
               <partials.FeaturesSection />
             </div>
             <div className='app'>
-              <partials.ProductSection key={this.props.products.chronomint._id} product={this.props.products.chronomint} />
-              <partials.MobileSection key={this.props.products.chronomintMobile._id} product={this.props.products.chronomintMobile} />
+              <partials.ProductSection productSlug='chronomint' />
+              <partials.MobileSection productSlug='chronomint-mobile' />
               <partials.JoinSection />
-              <partials.ProductSection key={this.props.products.laborx._id} product={this.props.products.laborx} />
+              <partials.ProductSection productSlug='laborx' />
             </div>
             <div className='roadmap'>
               <partials.TheTitle
@@ -168,15 +120,13 @@ class Index extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    posts: state.pages.posts,
-    stories: state.pages.stories,
-    testimonials: state.pages.testimonials,
+    stories: state.pages.stories.array,
+    testimonials: state.pages.testimonials.array,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    eventsShow: (event: EventModel) => dispatch(eventsEnqueue(event, 1)),
     watchInitMarket: () => dispatch(watchInitMarket()),
     unwatchInitMarket: () => dispatch(unwatchInitMarket())
   }

@@ -2,16 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { MemberModel } from 'src/models'
 import * as dialogs from 'src/dialogs'
 import { modalsOpen } from 'src/store'
 
 import styles from './MembersSection.sass'
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class MembersSection extends React.Component {
 
   static propTypes = {
-    members: PropTypes.object,
+    members: PropTypes.arrayOf(
+      PropTypes.instanceOf(MemberModel)
+    ),
     showMember: PropTypes.func
   }
 
@@ -41,15 +44,15 @@ export default class MembersSection extends React.Component {
                   </p>
                 </div>
               </li>
-              {members.members.map((member) => (
-                <li key={member._id}>
+              {members.map((member) => (
+                <li key={member.id}>
                   {!member.avatar ? null : (
                     <img {...{
-                      src: member.avatar ? `${member.avatar.secure_url}` : undefined,
-                      srcSet: member.avatar2x ? `${member.avatar2x.secure_url} 2x` : undefined
+                      src: member.avatar ? `${member.avatar.url}` : undefined,
+                      srcSet: member.avatar2x ? `${member.avatar2x.url} 2x` : undefined
                     }} onClick={() => this.props.showMember({
                       member,
-                      members: members.members
+                      members
                     })} />
                   )}
                   <h4>{member.name}</h4>
@@ -57,7 +60,7 @@ export default class MembersSection extends React.Component {
                   <div className='actions'>
                     <a className='arrow' onClick={() => this.props.showMember({
                       member,
-                      members: members.members
+                      members
                     })}>Read bio <img src='/static/images/symbols/arrow.svg' /></a>
                   </div>
                 </li>
@@ -67,6 +70,12 @@ export default class MembersSection extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    members: state.pages.members.array
   }
 }
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Swiper } from 'src/plugins'
 import { ModalDialog } from 'src/components'
 import { modalsClose } from 'src/store'
+import { MemberModel } from 'src/models'
 
 import styles from './MemberDialog.sass'
 import swiperStyles from 'swiper/dist/css/swiper.css'
@@ -12,8 +13,10 @@ import swiperStyles from 'swiper/dist/css/swiper.css'
 export class MemberDialog extends React.Component {
 
   static propTypes = {
-    member: PropTypes.object,
-    members: PropTypes.array,
+    member: PropTypes.instanceOf(MemberModel),
+    members: PropTypes.arrayOf(
+      PropTypes.instanceOf(MemberModel)
+    ),
     onClose: PropTypes.func
   }
 
@@ -32,7 +35,7 @@ export class MemberDialog extends React.Component {
   }
 
   render () {
-
+    const { members } = this.props
     return (
       <ModalDialog onClose={() => this.props.onClose()}>
         <style jsx>{styles}</style>
@@ -40,12 +43,12 @@ export class MemberDialog extends React.Component {
         <div className='root member-dialog'>
           <div className='swiper-container' ref={(swiper) => { this.swiperElement = swiper }}>
             <div className='swiper-wrapper'>
-              {this.props.members.map((member) => (
-                <div key={member._id} className='swiper-slide'>
+              {members.map((member) => (
+                <div key={member.id} className='swiper-slide'>
                   {!member.avatar ? null : (
                     <img {...{
-                      src: member.avatar ? `${member.avatar.secure_url}` : undefined,
-                      srcSet: member.avatar2x ? `${member.avatar2x.secure_url} 2x` : undefined
+                      src: member.avatar ? `${member.avatar.url}` : undefined,
+                      srcSet: member.avatar2x ? `${member.avatar2x.url} 2x` : undefined
                     }} />
                   )}
                   <h4>{member.name}</h4>

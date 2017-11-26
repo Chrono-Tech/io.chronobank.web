@@ -1,13 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
+import { ProductModel } from 'src/models'
+import { productSelector } from 'src/store'
+
 import styles from './MobileSection.sass'
 
-export default class MintDark extends React.Component {
+@connect(mapStateToProps)
+export default class MobileSection extends React.Component {
 
   static propTypes = {
-    product: PropTypes.object
+    productSlug: PropTypes.string,
+    product: PropTypes.instanceOf(ProductModel)
   }
 
   render () {
@@ -26,8 +32,8 @@ export default class MintDark extends React.Component {
               <h3>{product.title}</h3>
               {!product.image ? null : (
                 <img {...{
-                  src: product.image ? `${product.image.secure_url}` : undefined,
-                  srcSet: product.image2x ? `${product.image2x.secure_url} 2x` : undefined
+                  src: product.image ? `${product.image.url}` : undefined,
+                  srcSet: product.image2x ? `${product.image2x.url} 2x` : undefined
                 }}/>
               )}
             </div>
@@ -41,9 +47,9 @@ export default class MintDark extends React.Component {
                 <h4>Downloads</h4>
                 <ul>
                   {product.downloads.map(download => (
-                    <li key={download._id}>
+                    <li key={download.id}>
                       <a href={download.url} target='_blank'>
-                        <img src={download.icon.secure_url} />
+                        <img src={download.icon.url} />
                       </a>
                     </li>
                   ))}
@@ -55,5 +61,10 @@ export default class MintDark extends React.Component {
         </div>
       </div>
     )
+  }
+}
+function mapStateToProps (state, op) {
+  return {
+    product: productSelector(op.productSlug)(state)
   }
 }

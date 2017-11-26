@@ -45,6 +45,6 @@ export default class PostsSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    posts: state.pages.posts,
+    posts: state.pages.posts.array,
   }
 }

@@ -58,14 +58,14 @@ export default class ProductFeaturesSection extends React.Component {
             <div className='left'>
               <ul>
                 {features.map((feature, index) => (
-                  <li key={feature._id} className={(index === this.state.active) ? 'active' : null}
+                  <li key={feature.id} className={(index === this.state.active) ? 'active' : null}
                     onClick={() => this.handleSelect(index)}
                   >
                     <a>{feature.title}</a>
                     <div className='inline'>
                       <img {...{
-                        src: activeFeature.image ? `${activeFeature.image.secure_url}` : undefined,
-                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.secure_url} 2x` : undefined
+                        src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
+                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined
                       }} />
                     </div>
                   </li>
@@ -74,11 +74,11 @@ export default class ProductFeaturesSection extends React.Component {
             </div>
             <div className='main'>
               <div className='image'>
-                <Transition in={true} key={activeFeature._id} timeout={300} appear={true}>
+                <Transition in={true} key={activeFeature.id} timeout={300} appear={true}>
                   {(state) => (
                     <img style={transitionStyles[state]} {...{
-                      src: activeFeature.image ? `${activeFeature.image.secure_url}` : undefined,
-                      srcSet: activeFeature.image2x ? `${activeFeature.image2x.secure_url} 2x` : undefined
+                      src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
+                      srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined
                     }} />
                   )}
                 </Transition>

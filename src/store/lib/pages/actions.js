@@ -2,33 +2,49 @@ import { BACKEND } from 'src/endpoints'
 
 import {
   ArticleModel,
+  ContactModel,
+  FaqTopicModel,
   FeatureModel,
+  GalleryModel,
+  HeaderModel,
+  IterationModel,
+  JobModel,
+  MemberModel,
+  MenuModel,
+  PaperModel,
   PartnerModel,
   PostModel,
-  IterationModel,
-  TestimonialModel,
-  StoryModel,
-  PaperModel,
+  ProductModel,
   SocialModel,
-  ContactModel,
-  MenuModel,
-  GalleryModel
+  StatisticModel,
+  StoryModel,
+  TestimonialModel,
 } from 'src/models'
 
-export const PAGES_INIT_MENUS = 'pages/INIT_MENUS'
-export const PAGES_INIT_FEATURES = 'pages/INIT_FEATURES'
-export const PAGES_INIT_PARTNERS = 'pages/INIT_PARTNERS'
-export const PAGES_INIT_STORIES = 'pages/INIT_STORIES'
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
-export const PAGES_INIT_TESTIMONIALS = 'pages/INIT_TESTIMONIALS'
-export const PAGES_INIT_ITERATIONS = 'pages/INIT_ITERATIONS'
-export const PAGES_INIT_POSTS = 'pages/INIT_POSTS'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
-export const PAGES_INIT_SOCIALS = 'pages/INIT_SOCIALS'
-export const PAGES_INIT_PAPERS = 'pages/INIT_PAPERS'
+export const PAGES_INIT_FAQ_TOPICS = 'pages/INIT_FAQ_TOPICS'
+export const PAGES_INIT_FEATURES = 'pages/INIT_FEATURES'
 export const PAGES_INIT_GALLERIES = 'pages/INIT_GALLERIES'
+export const PAGES_INIT_HEADERS = 'pages/INIT_HEADERS'
+export const PAGES_INIT_ITERATIONS = 'pages/INIT_ITERATIONS'
+export const PAGES_INIT_JOBS = 'pages/INIT_JOBS'
+export const PAGES_INIT_MEMBERS = 'pages/INIT_MEMBERS'
+export const PAGES_INIT_MENUS = 'pages/INIT_MENUS'
+export const PAGES_INIT_PAPERS = 'pages/INIT_PAPERS'
+export const PAGES_INIT_PARTNERS = 'pages/INIT_PARTNERS'
+export const PAGES_INIT_POSTS = 'pages/INIT_POSTS'
+export const PAGES_INIT_PRODUCTS = 'pages/INIT_PRODUCTS'
+export const PAGES_INIT_SOCIALS = 'pages/INIT_SOCIALS'
+export const PAGES_INIT_STATISTICS = 'pages/INIT_STATISTICS'
+export const PAGES_INIT_STORIES = 'pages/INIT_STORIES'
+export const PAGES_INIT_TESTIMONIALS = 'pages/INIT_TESTIMONIALS'
 
-export const initMenus = () => async (dispatch) => {
+export const initMenus = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.menus.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('menus')
   return dispatch({
     type: PAGES_INIT_MENUS,
@@ -36,7 +52,11 @@ export const initMenus = () => async (dispatch) => {
   })
 }
 
-export const initFeatures = () => async (dispatch) => {
+export const initFeatures = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.features.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('features')
   return dispatch({
     type: PAGES_INIT_FEATURES,
@@ -44,7 +64,71 @@ export const initFeatures = () => async (dispatch) => {
   })
 }
 
-export const initPartners = () => async (dispatch) => {
+export const initFaqTopics = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.faqTopics.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('faq-topics')
+  return dispatch({
+    type: PAGES_INIT_FAQ_TOPICS,
+    faqTopics: data.map(FaqTopicModel.fromServerModel)
+  })
+}
+
+export const initJobs = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.jobs.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('jobs')
+  return dispatch({
+    type: PAGES_INIT_JOBS,
+    jobs: data.jobs.map(JobModel.fromServerModel)
+  })
+}
+
+export const initStatistics = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.statistics.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('statistics')
+  return dispatch({
+    type: PAGES_INIT_STATISTICS,
+    statistics: data.statistics.map(StatisticModel.fromServerModel)
+  })
+}
+
+export const initMembers = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.members.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('members')
+  return dispatch({
+    type: PAGES_INIT_MEMBERS,
+    members: data.members.map(MemberModel.fromServerModel)
+  })
+}
+
+export const initHeaders = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.headers.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('headers')
+  return dispatch({
+    type: PAGES_INIT_HEADERS,
+    headers: data.headers.map(HeaderModel.fromServerModel)
+  })
+}
+
+export const initPartners = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.partners.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('partners')
   return dispatch({
     type: PAGES_INIT_PARTNERS,
@@ -52,7 +136,23 @@ export const initPartners = () => async (dispatch) => {
   })
 }
 
-export const initStories = () => async (dispatch) => {
+export const initProducts = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.products.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('products')
+  return dispatch({
+    type: PAGES_INIT_PRODUCTS,
+    products: data.products.map(ProductModel.fromServerModel)
+  })
+}
+
+export const initStories = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.stories.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('stories')
   return dispatch({
     type: PAGES_INIT_STORIES,
@@ -60,7 +160,11 @@ export const initStories = () => async (dispatch) => {
   })
 }
 
-export const initArticles = () => async (dispatch) => {
+export const initArticles = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.articles.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('articles')
   return dispatch({
     type: PAGES_INIT_ARTICLES,
@@ -68,7 +172,11 @@ export const initArticles = () => async (dispatch) => {
   })
 }
 
-export const initTestimonials = () => async (dispatch) => {
+export const initTestimonials = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.testimonials.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('testimonials')
   return dispatch({
     type: PAGES_INIT_TESTIMONIALS,
@@ -76,7 +184,11 @@ export const initTestimonials = () => async (dispatch) => {
   })
 }
 
-export const initIterations = () => async (dispatch) => {
+export const initIterations = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.iterations.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('iterations')
   return dispatch({
     type: PAGES_INIT_ITERATIONS,
@@ -84,7 +196,11 @@ export const initIterations = () => async (dispatch) => {
   })
 }
 
-export const initPosts = () => async (dispatch) => {
+export const initPosts = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.posts.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('medium/feed')
   return dispatch({
     type: PAGES_INIT_POSTS,
@@ -92,7 +208,11 @@ export const initPosts = () => async (dispatch) => {
   })
 }
 
-export const initContacts = () => async (dispatch) => {
+export const initContacts = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.contacts.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('contacts')
   return dispatch({
     type: PAGES_INIT_CONTACTS,
@@ -100,7 +220,11 @@ export const initContacts = () => async (dispatch) => {
   })
 }
 
-export const initSocials = () => async (dispatch) => {
+export const initSocials = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.socials.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('socials')
   return dispatch({
     type: PAGES_INIT_SOCIALS,
@@ -108,7 +232,11 @@ export const initSocials = () => async (dispatch) => {
   })
 }
 
-export const initPapers = () => async (dispatch) => {
+export const initPapers = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.papers.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('papers')
   return dispatch({
     type: PAGES_INIT_PAPERS,
@@ -116,7 +244,11 @@ export const initPapers = () => async (dispatch) => {
   })
 }
 
-export const initGalleries = () => async (dispatch) => {
+export const initGalleries = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.galleries.isLoaded) {
+    return
+  }
   const { data } = await BACKEND.get('galleries')
   return dispatch({
     type: PAGES_INIT_GALLERIES,
@@ -126,10 +258,13 @@ export const initGalleries = () => async (dispatch) => {
 
 export const initAnyPage = () => (dispatch) => {
   return Promise.all([
+    dispatch(initHeaders()),
     dispatch(initMenus()),
     dispatch(initContacts()),
     dispatch(initSocials()),
-    dispatch(initPapers())
+    dispatch(initPapers()),
+    dispatch(initPosts()),
+    dispatch(initProducts())
   ])
 }
 
@@ -139,7 +274,6 @@ export const initIndexPage = () => (dispatch) => {
     dispatch(initPartners()),
     dispatch(initStories()),
     dispatch(initArticles()),
-    dispatch(initPosts()),
     dispatch(initTestimonials()),
     dispatch(initIterations()),
     dispatch(initAnyPage())
@@ -149,6 +283,16 @@ export const initIndexPage = () => (dispatch) => {
 export const initTeamPage = () => (dispatch) => {
   return Promise.all([
     dispatch(initGalleries()),
+    dispatch(initMembers()),
+    dispatch(initStatistics()),
+    dispatch(initJobs()),
+    dispatch(initAnyPage())
+  ])
+}
+
+export const initFaqPage = () => (dispatch) => {
+  return Promise.all([
+    dispatch(initFaqTopics()),
     dispatch(initAnyPage())
   ])
 }

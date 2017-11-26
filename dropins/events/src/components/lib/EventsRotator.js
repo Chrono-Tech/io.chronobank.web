@@ -4,7 +4,7 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import cn from 'classnames'
 
-import { EventModel } from 'src/models'
+import { EventModel } from 'dropins/events/src/models'
 import styles from './EventsRotator.sass'
 
 export class EventsRotator extends React.Component {
@@ -82,7 +82,7 @@ export class EventsRotator extends React.Component {
 }
 
 function mapStateToProps (state) {
-  const queue = state.events.queue
+  const queue = state.eventsDropin.queue
   return {
     peek: queue.length
       ? queue[0]

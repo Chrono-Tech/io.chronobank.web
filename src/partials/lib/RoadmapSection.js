@@ -116,6 +116,6 @@ export default class RoadmapSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    iterations: state.pages.iterations,
+    iterations: state.pages.iterations.array,
   }
 }

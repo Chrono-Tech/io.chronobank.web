@@ -1,16 +1,21 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 
+import { FaqTopicModel } from 'src/models'
 import { BACKEND } from 'src/endpoints'
 import { AccordeonPanel, ReferencePanel, SearchPanel, SectionsPanel } from 'src/components'
 
 import styles from './FaqSection.sass'
 
+@connect(mapStateToProps)
 export default class FaqSection extends React.Component {
 
   static propTypes = {
-    topics: PropTypes.array
+    topics: PropTypes.arrayOf(
+      PropTypes.instanceOf(FaqTopicModel)
+    )
   }
 
   constructor (props) {
@@ -20,16 +25,7 @@ export default class FaqSection extends React.Component {
     const topics = new Map()
     for (const t of props.topics) {
       if (t.questions && t.questions.length) {
-        topics.set(t._id, {
-          id: t._id,
-          title: t.title,
-          route: '',
-          questions: t.questions.map(q => ({
-            id: q._id,
-            title: q.title,
-            brief: q.brief
-          }))
-        })
+        topics.set(t.id, t)
       }
     }
 
@@ -149,5 +145,11 @@ export default class FaqSection extends React.Component {
         results: [...state.topics.values()]
       })
     }
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    topics: state.pages.faqTopics.array,
   }
 }

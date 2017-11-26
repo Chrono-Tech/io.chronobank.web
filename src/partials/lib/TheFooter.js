@@ -139,9 +139,9 @@ export default class TheFooter extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    menus: state.pages.menus.filter(m => m.isVisibleInFooter),
-    papers: state.pages.papers,
-    contacts: state.pages.contacts.filter(c => c.isVisibleInFooter),
-    socials: state.pages.socials
+    menus: state.pages.menus.array.filter(m => m.isVisibleInFooter),
+    papers: state.pages.papers.array,
+    contacts: state.pages.contacts.array.filter(c => c.isVisibleInFooter),
+    socials: state.pages.socials.array
   }
 }

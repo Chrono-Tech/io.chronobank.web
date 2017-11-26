@@ -2,16 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { JobModel } from 'src/models'
 import * as dialogs from 'src/dialogs'
 import { modalsOpen } from 'src/store'
 
 import styles from './JobsSection.sass'
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class JobsSection extends React.Component {
 
   static propTypes = {
-    jobs: PropTypes.object,
+    jobs: PropTypes.arrayOf(JobModel),
     showJob: PropTypes.func
   }
 
@@ -23,8 +24,8 @@ export default class JobsSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             <ul>
-              {jobs.jobs.map((job) => (
-                <li key={job._id}>
+              {jobs.map((job) => (
+                <li key={job.id}>
                   <div className='text' dangerouslySetInnerHTML={{ __html: job.brief}}></div>
                   <div className='buttons'>
                     <a className='button' onClick={() => this.props.showJob({ job })}>Apply</a>
@@ -49,5 +50,11 @@ function mapDispatchToProps (dispatch) {
         }
       }))
     },
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    jobs: state.pages.jobs.array
   }
 }

@@ -84,6 +84,6 @@ export default class GallerySection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    galleries: state.pages.galleries
+    galleries: state.pages.galleries.array
   }
 }

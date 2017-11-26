@@ -38,6 +38,6 @@ export default class FeaturesSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    features: state.pages.features,
+    features: state.pages.features.array,
   }
 }

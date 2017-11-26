@@ -58,6 +58,6 @@ export default class ArticlesSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    articles: state.pages.articles,
+    articles: state.pages.articles.array,
   }
 }
