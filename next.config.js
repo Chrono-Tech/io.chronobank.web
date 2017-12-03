@@ -51,7 +51,8 @@ module.exports = {
     )
     config.plugins.push(
       new webpack.DefinePlugin({
-        'process.env.API_ENDPOINT': `'${process.env.API_ENDPOINT}'`
+        'process.env.API_ENDPOINT': `'${process.env.API_ENDPOINT}'`,
+        'process.env.IMAGES_ENDPOINT': `'${process.env.IMAGES_ENDPOINT}'`
       })
     )
     return config
