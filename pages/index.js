@@ -111,7 +111,7 @@ class Index extends React.Component {
             </div>
             <partials.ContactsSection />
           </main>
-          <partials.TheFooter />
+          <partials.TheFooter productSlug='chronomint' />
         </div>
       </div>
     )

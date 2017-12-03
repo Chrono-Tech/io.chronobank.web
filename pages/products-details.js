@@ -60,7 +60,7 @@ class ProductsDetails extends React.Component {
             : null
           }
         </main>
-        <partials.TheFooter />
+        <partials.TheFooter productSlug='chronomint' />
       </div>
     )
   }

@@ -3,18 +3,31 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { Link } from 'src/router'
+import { productSelector } from 'src/store'
 import { BACKEND } from 'src/endpoints'
-import { MenuModel, PaperModel, SocialModel, ContactModel } from 'src/models'
+import { MenuModel, PaperModel, SocialModel, ContactModel, ProductDistroModel } from 'src/models'
 import styles from './TheFooter.sass'
 
 @connect(mapStateToProps)
 export default class TheFooter extends React.Component {
 
   static propTypes = {
-    menus: PropTypes.arrayOf(MenuModel),
-    papers: PropTypes.arrayOf(PaperModel),
-    socials: PropTypes.arrayOf(SocialModel),
-    contacts: PropTypes.arrayOf(ContactModel),
+    productSlug: PropTypes.string,
+    menus: PropTypes.arrayOf(
+      PropTypes.instanceOf(MenuModel)
+    ),
+    papers: PropTypes.arrayOf(
+      PropTypes.instanceOf(PaperModel)
+    ),
+    socials: PropTypes.arrayOf(
+      PropTypes.instanceOf(SocialModel)
+    ),
+    contacts: PropTypes.arrayOf(
+      PropTypes.instanceOf(ContactModel)
+    ),
+    distros: PropTypes.arrayOf(
+      PropTypes.instanceOf(ProductDistroModel)
+    ),
   }
 
   componentDidMount () {
@@ -34,7 +47,7 @@ export default class TheFooter extends React.Component {
   }
 
   render () {
-    const { menus, papers, contacts, socials } = this.props
+    const { menus, papers, contacts, socials, distros } = this.props
     return (
       <footer className='root footer-section'>
         <style jsx>{styles}</style>
@@ -94,18 +107,14 @@ export default class TheFooter extends React.Component {
               <div className='downloads'>
                 <h4>Downloads</h4>
                 <ul>
-                  <li>
-                    <a href='#' target='_blank' rel='noopener noreferrer'>
-                      <img src='/static/images/symbols/download.svg' />
-                      <span>Desktop App for macOS</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#' target='_blank' rel='noopener noreferrer'>
-                      <img src='/static/images/symbols/download.svg' />
-                      <span>Desktop App for Windows</span>
-                    </a>
-                  </li>
+                  {distros.filter(distro => distro.type === 'desktop').map(distro => (
+                    <li key={distro.id}>
+                      <a href={distro.url} target='_blank' rel='noopener noreferrer'>
+                        <img src='/static/images/symbols/download.svg' />
+                        <span>{distro.title}</span>
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <form className='subscribe' onSubmit={e => this.handleSubmit(e)}>
@@ -137,8 +146,11 @@ export default class TheFooter extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+
+function mapStateToProps (state, op) {
+  const product = productSelector(op.productSlug)(state)
   return {
+    distros: product.distros,
     menus: state.pages.menus.array.filter(m => m.isVisibleInFooter),
     papers: state.pages.papers.array,
     contacts: state.pages.contacts.array.filter(c => c.isVisibleInFooter),
