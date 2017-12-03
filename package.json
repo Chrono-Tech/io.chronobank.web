@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 node server.js",
-    "build": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 next build",
-    "build:prod": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 next build",
-    "build:demo": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 next build",
-    "start": "cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 next start",
-    "start:prod": "cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 next start",
-    "start:demo": "cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 next start",
+    "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 IMAGES_ENDPOINT=http://files.chronobank.tp.ntr1x.com node server.js",
+    "build": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 IMAGES_ENDPOINT=http://files.chronobank.tp.ntr1x.com next build",
+    "build:prod": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 IMAGES_ENDPOINT=https://files.chronobank.io next build",
+    "build:demo": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 IMAGES_ENDPOINT=https://test-2-files.chronobank.io next build",
+    "start": "cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 IMAGES_ENDPOINT=http://files.chronobank.tp.ntr1x.com next start",
+    "start:prod": "cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 IMAGES_ENDPOINT=https://files.chronobank.io next start",
+    "start:demo": "cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 IMAGES_ENDPOINT=https://test-2-images.chronobank.io next start",
     "test": "npm run lint:test && echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx --fix src pages specs",
     "lint:test": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx src pages specs"
@@ -40,7 +40,8 @@
     "reselect": "^3.0.1",
     "smoothscroll-polyfill": "^0.4.0",
     "socket.io-client": "^2.0.4",
-    "swiper": "^3.4.2"
+    "swiper": "^3.4.2",
+    "url-parse": "^1.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
