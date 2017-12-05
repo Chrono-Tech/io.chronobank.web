@@ -5,56 +5,33 @@ import { omitBy, isNil } from 'lodash'
 
 import modals from './lib/modals/reducer'
 import snackbars from './lib/snackbars/reducer'
-import events from './lib/events/reducer'
-import pages from './lib/pages/reducer'
+import pages, { fromJS as pagesFromJS } from './lib/pages/reducer'
 
 import * as marketDropin from 'dropins/market/src/store'
+import * as eventsDropin from 'dropins/events/src/store'
 
 export * from './lib/modals/actions'
 export * from './lib/snackbars/actions'
-export * from './lib/events/actions'
 export * from './lib/pages/actions'
 
-import {
-  ArticleModel,
-  FeatureModel,
-  PartnerModel,
-  PostModel,
-  IterationModel,
-  TestimonialModel,
-  StoryModel,
-  ContactModel,
-  SocialModel,
-  PaperModel,
-  MenuModel,
-  GalleryModel
-} from 'src/models'
+export * from './lib/pages/selectors'
 
 export default (initialState = {}) => {
   const reducer = combineReducers({
     modals,
     snackbars,
-    events,
     pages,
+    eventsDropin: eventsDropin.reducer,
     marketDropin: marketDropin.reducer
   })
   const p = initialState.pages
-  return createStore(reducer, {
+  const extra = omitBy({
     pages: !p ? null : omitBy({
       ...p,
-      menus: p.menus && p.menus.map(MenuModel.fromJS),
-      articles: p.articles && p.articles.map(ArticleModel.fromJS),
-      features: p.features && p.features.map(FeatureModel.fromJS),
-      partners: p.partners && p.partners.map(PartnerModel.fromJS),
-      posts: p.posts && p.posts.map(PostModel.fromJS),
-      iterations: p.iterations && p.iterations.map(IterationModel.fromJS),
-      testimonials: p.testimonials && p.testimonials.map(TestimonialModel.fromJS),
-      stories: p.stories && p.stories.map(StoryModel.fromJS),
-      contacts: p.contacts && p.contacts.map(ContactModel.fromJS),
-      socials: p.socials && p.socials.map(SocialModel.fromJS),
-      papers: p.papers && p.papers.map(PaperModel.fromJS),
-      galleries: p.galleries && p.galleries.map(GalleryModel.fromJS),
-      marketDropin: p.marketDropin && p.marketDropin.fromJS(p.marketDropin)
-    }, isNil)
-  }, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+      ...pagesFromJS(p)
+    }, isNil),
+    eventsDropin: initialState.eventsDropin && eventsDropin.fromJS(initialState.eventsDropin),
+    marketDropin: initialState.marketDropin && marketDropin.fromJS(initialState.marketDropin)
+  }, isNil)
+  return createStore(reducer, extra, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 }

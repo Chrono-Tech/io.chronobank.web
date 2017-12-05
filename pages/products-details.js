@@ -2,13 +2,12 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
-import { zipObjectDeep } from 'lodash'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initAnyPage } from 'src/store'
+import { ProductModel } from 'src/models'
+import { modalsClear, snackbarsClear, initAnyPage, productSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
-import { BACKEND } from 'src/endpoints'
 
 import globalStyles from 'src/styles/globals/globals.sass'
 import styles from './products-details.sass'
@@ -16,70 +15,61 @@ import styles from './products-details.sass'
 class ProductsDetails extends React.Component {
 
   static propTypes = {
-    header:  PropTypes.object,
-    details:  PropTypes.object,
-    products: PropTypes.object,
+    productSlug: PropTypes.string,
+    product: PropTypes.instanceOf(ProductModel),
   }
 
   static async getInitialProps ({ store, query }) {
-    const promises = {
-      header:       BACKEND.get(`headers/s/${query.slug}-page`),
-      details:      BACKEND.get(`products/s/${query.slug}`),
-      'products.chronomint':        BACKEND.get('products/s/chronomint'),
-      'products.laborx':            BACKEND.get('products/s/laborx')
-    }
-
-    const results = await Promise.all(Object.values(promises))
-
     await store.dispatch(initAnyPage())
-
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
-
-    return zipObjectDeep(
-      Object.keys(promises),
-      results.map(res => res.data)
-    )
+    return {
+      productSlug: query.slug
+    }
   }
 
   render () {
-    const { details } = this.props
+    const { product } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
         <style jsx>{styles}</style>
         <Head>
-          <title>ChronoBank.io: {details.title}</title>
+          <title>ChronoBank.io: {product.title}</title>
           <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
           <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width' />
         </Head>
         <components.ModalStack />
         <components.SnackbarStack />
-        <partials.TheHeader header={this.props.header} products={[
-          this.props.products.chronomint,
-          this.props.products.laborx
-        ]} />
+        <partials.TheHeader headerSlug={`${product.slug}-page`} />
         <main className='main'>
-          {(details.distros && details.distros.length)
+          {(product.distros && product.distros.length)
             ? (
               <partials.DistrosSection
-                title={`${details.title} downloads`}
-                distros={details.distros}
+                title={`${product.title} downloads`}
+                distros={product.distros}
               />
             )
             : null
           }
-          {(details.features && details.features.length)
-            ? (<partials.ProductFeaturesSection
-              features={details.features}
-            />)
+          {(product.features && product.features.length)
+            ? (
+              <partials.ProductFeaturesSection
+                features={product.features}
+              />)
             : null
           }
         </main>
-        <partials.TheFooter />
+        <partials.TheFooter productSlug='chronomint' />
       </div>
     )
   }
 }
 
-export default withRedux(initStore)(ProductsDetails)
+function mapStateToProps (state, op) {
+  return {
+    product: productSelector(op.productSlug)(state)
+  }
+}
+
+export default withRedux(initStore, mapStateToProps)(ProductsDetails)

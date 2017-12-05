@@ -72,7 +72,7 @@ export default class GallerySection extends React.Component {
           <div className='swiper-wrapper'>
             {galleries.map(g => (
               (g.images || []).map(i => (
-                <img key={`${g.id}/${i.id}`} className='swiper-slide' src={i.url} />
+                <img key={`${g.id}/${i.id}`} className='swiper-slide' src={i.image.url} />
               ))
             ))}
           </div>
@@ -84,6 +84,6 @@ export default class GallerySection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    galleries: state.pages.galleries
+    galleries: state.pages.galleries.array
   }
 }

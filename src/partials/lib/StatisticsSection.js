@@ -1,12 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { StatisticModel } from 'src/models'
 import styles from './StatisticsSection.sass'
 
+@connect(mapStateToProps)
 export default class StatisticsSection extends React.Component {
 
   static propTypes = {
-    statistics: PropTypes.object,
+    statistics: PropTypes.arrayOf(StatisticModel),
   }
 
   render () {
@@ -17,10 +20,10 @@ export default class StatisticsSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             <ul>
-              {statistics.statistics.slice(0).reverse().map((feature) => (
-                <li key={feature._id}>
+              {statistics.slice(0).reverse().map((feature) => (
+                <li key={feature.id}>
                   <div className='image'>
-                    <img src={feature.image.secure_url} />
+                    <img src={feature.image.url} />
                   </div>
                   <div className='text' dangerouslySetInnerHTML={{ __html: feature.brief}}></div>
                 </li>
@@ -30,5 +33,11 @@ export default class StatisticsSection extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    statistics: state.pages.statistics.array,
   }
 }

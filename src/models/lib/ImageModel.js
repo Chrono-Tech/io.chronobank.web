@@ -1,3 +1,5 @@
+import parseURL from 'url-parse'
+
 export default class ImageModel {
   constructor ({ id, version, format, width, height, url }) {
     this.id = id
@@ -6,6 +8,7 @@ export default class ImageModel {
     this.width = width
     this.height = height
     this.url = url
+    // console.log(url)
     Object.freeze(this)
   }
 
@@ -14,6 +17,7 @@ export default class ImageModel {
   }
 
   static fromServerModel (data) {
+    if (data == null) return data
     return data == null ? null : new ImageModel({
       id: data.public_id,
       version: data.version,
@@ -21,6 +25,8 @@ export default class ImageModel {
       height: data.height,
       format: data.format,
       url: data.secure_url
+        ? `${process.env.IMAGES_ENDPOINT}${parseURL(data.secure_url).pathname}`
+        : null
     })
   }
 }

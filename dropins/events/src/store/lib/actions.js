@@ -1,4 +1,4 @@
-import type { EventModel } from 'src/models'
+import type { EventModel } from 'dropins/events/src/models'
 
 export const EVENTS_ENQUEUE = 'events/ENQUEUE'
 export const EVENTS_DEQUEUE = 'events/DEQUEUE'

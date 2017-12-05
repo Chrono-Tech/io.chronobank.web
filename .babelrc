@@ -11,6 +11,7 @@
     "transform-decorators-legacy",
     ["module-alias", [
       { "src": "./src", "expose": "src" },
+      { "src": "./dropins/events", "expose": "dropins/events" },
       { "src": "./dropins/market", "expose": "dropins/market" }
     ]]
   ]

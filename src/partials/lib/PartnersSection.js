@@ -12,6 +12,12 @@ export default class PartnersSection extends React.Component {
     partners: PropTypes.arrayOf(PartnerModel),
   }
 
+  navigate (url) {
+    if (global.document) {
+      global.document.location.href = url
+    }
+  }
+
   render () {
     const { partners } = this.props
     return (
@@ -20,7 +26,7 @@ export default class PartnersSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             {partners.map(partner => (
-              <div className='item' key={partner.id}>
+              <div className='item' key={partner.id} onClick={() => { partner.url && this.navigate(partner.url) }}>
                 {!partner.icon ? null : (
                   <div className='icon'>
                     <img alt={partner.title} {...{
@@ -41,6 +47,6 @@ export default class PartnersSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    partners: state.pages.partners,
+    partners: state.pages.partners.array,
   }
 }

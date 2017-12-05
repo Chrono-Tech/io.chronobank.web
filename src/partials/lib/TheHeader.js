@@ -6,10 +6,12 @@ import cn from 'classnames'
 import { Link } from 'src/router'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
-import { EventsRotator } from 'src/components'
+import { EventsRotator } from 'dropins/events/src/components'
 import { RatesPanel } from 'dropins/market/src/components'
-import { MenuModel } from 'src/models'
-import { modalsOpen, snackbarsOpen } from 'src/store'
+import { HeaderModel, MenuModel, PostModel } from 'src/models'
+import { EventModel } from 'dropins/events/src/models'
+import { eventsEnqueue } from 'dropins/events/src/store'
+import { modalsOpen, snackbarsOpen, headerSelector } from 'src/store'
 
 import styles from './TheHeader.sass'
 
@@ -17,11 +19,40 @@ import styles from './TheHeader.sass'
 export default class TheHeader extends React.Component {
 
   static propTypes = {
-    header: PropTypes.object,
-    products: PropTypes.array,
+    headerSlug: PropTypes.string,
+    header: PropTypes.instanceOf(HeaderModel),
     showVideo: PropTypes.func,
     showMobileMenu: PropTypes.func,
-    menus: PropTypes.arrayOf(MenuModel),
+    eventsShow: PropTypes.func,
+    menus: PropTypes.arrayOf(
+      PropTypes.instanceOf(MenuModel)
+    ),
+    posts: PropTypes.arrayOf(
+      PropTypes.instanceOf(PostModel)
+    ),
+  }
+
+  componentDidMount () {
+    const events = this.props.posts.map(p => new EventModel({
+      id: p.id,
+      status: 'new',
+      url: p.url,
+      title: p.title,
+      date: p.publishedDate
+    }))
+
+    let index = 0
+    this.props.eventsShow(events[index % events.length])
+    index++
+    this.eventsInterval = setInterval(() => {
+      this.props.eventsShow(events[index % events.length])
+      index++
+    }, 5000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.eventsInterval)
+    this.eventsInterval = null
   }
 
   render () {
@@ -147,26 +178,26 @@ export default class TheHeader extends React.Component {
         <div className='image'>
           {!header.image ? null : (
             <img className='image-1280' { ...{
-              src: header.image.secure_url,
-              srcSet: header.image2x ? `${header.image2x.secure_url} 2x` : undefined
+              src: header.image.url,
+              srcSet: header.image2x ? `${header.image2x.url} 2x` : undefined
             }} />
           )}
           {!header.image320 ? null : (
             <img className='image-320' { ...{
-              src: header.image320.secure_url,
-              srcSet: header.image2x320 ? `${header.image2x320.secure_url} 2x` : undefined
+              src: header.image320.url,
+              srcSet: header.image2x320 ? `${header.image2x320.url} 2x` : undefined
             }} />
           )}
           {!header.image480 ? null : (
             <img className='image-480' { ...{
-              src: header.image480.secure_url,
-              srcSet: header.image2x480 ? `${header.image2x480.secure_url} 2x` : undefined
+              src: header.image480.url,
+              srcSet: header.image2x480 ? `${header.image2x480.url} 2x` : undefined
             }} />
           )}
           {!header.image640 ? null : (
             <img className='image-640' { ...{
-              src: header.image640.secure_url,
-              srcSet: header.image2x640 ? `${header.image2x640.secure_url} 2x` : undefined
+              src: header.image640.url,
+              srcSet: header.image2x640 ? `${header.image2x640.url} 2x` : undefined
             }} />
           )}
         </div>
@@ -180,9 +211,11 @@ export default class TheHeader extends React.Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, op) {
   return {
-    menus: state.pages.menus.filter(m => m.isVisibleInHeader)
+    header: headerSelector(op.headerSlug)(state),
+    menus: state.pages.menus.array.filter(m => m.isVisibleInHeader),
+    posts: state.pages.posts.array,
   }
 }
 
@@ -201,6 +234,7 @@ function mapDispatchToProps (dispatch) {
         component: snackbars.MobileMenu,
         props: {}
       }))
-    ]
+    ],
+    eventsShow: (event: EventModel) => dispatch(eventsEnqueue(event, 1)),
   }
 }

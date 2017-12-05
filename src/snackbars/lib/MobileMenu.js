@@ -109,7 +109,7 @@ export default class MobileMenu extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    menus: state.pages.menus.filter(m => m.isVisibleInHeader)
+    menus: state.pages.menus.array.filter(m => m.isVisibleInHeader)
   }
 }
 

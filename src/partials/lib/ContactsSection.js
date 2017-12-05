@@ -104,6 +104,6 @@ export default class ContactsSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    contacts: state.pages.contacts.filter(c => c.isVisibleInContacts),
+    contacts: state.pages.contacts.array.filter(c => c.isVisibleInContacts),
   }
 }

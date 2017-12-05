@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { ProductDistroModel } from 'src/models'
 import styles from './DistrosSection.sass'
 
 export default class DistrosSection extends React.Component {
 
   static propTypes = {
     title: PropTypes.string,
-    distros: PropTypes.array
+    distros: PropTypes.arrayOf(
+      PropTypes.instanceOf(ProductDistroModel)
+    )
   }
 
   render () {
@@ -25,10 +28,10 @@ export default class DistrosSection extends React.Component {
               <div className='downloads'>
                 <h4>Desktop App</h4>
                 <ul>
-                  {distros.filter(distro => distro.stereotype === 'desktop').map(distro => (
-                    <li key={distro._id}>
+                  {distros.filter(distro => distro.type === 'desktop').map(distro => (
+                    <li key={distro.id}>
                       <a href={distro.url} target='_blank'>
-                        <img src={distro.icon.secure_url} />
+                        <img src={distro.icon.url} />
                       </a>
                     </li>
                   ))}
@@ -39,10 +42,10 @@ export default class DistrosSection extends React.Component {
               <div className='downloads'>
                 <h4>Mobile App</h4>
                 <ul>
-                  {distros.filter(distro => distro.stereotype === 'mobile').map(distro => (
-                    <li key={distro._id}>
+                  {distros.filter(distro => distro.type === 'mobile').map(distro => (
+                    <li key={distro.id}>
                       <a href={distro.url} target='_blank'>
-                        <img src={distro.icon.secure_url} />
+                        <img src={distro.icon.url} />
                       </a>
                     </li>
                   ))}
