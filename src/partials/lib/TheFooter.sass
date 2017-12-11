@@ -168,6 +168,8 @@
       border-radius: 2px
       max-width: 288px
       .block
+        position: relative
+        overflow: hidden
         padding: 8px 0
         .field
           vertical-align: middle
@@ -205,6 +207,17 @@
           float: right
           &:hover
             box-shadow: 0 8px 8px 0 rgba(118,143,255,0.24), 0 0 8px 0 rgba(118,143,255,0.12)
+        .message
+          float: left
+          font-size: 13px
+          font-weight: 500
+          text-transform: uppercase
+          width: 140px
+          line-height: 1.4
+          &.message-success
+            color: #00c853
+          &.message-failure
+            color: #ff1744
     address
       position: absolute
       bottom: 0

@@ -1,12 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
 import { Link } from 'src/router'
 import { productSelector } from 'src/store'
 import { BACKEND } from 'src/endpoints'
 import { MenuModel, PaperModel, SocialModel, ContactModel, ProductDistroModel } from 'src/models'
 import styles from './TheFooter.sass'
+
+const SUBSCRIPTION_STATUS_COMPLETED = {
+  className: 'message-success',
+  message: 'Thank you for subscribing!'
+}
+
+const SUBSCRIPTION_STATUS_FAILED = {
+  className: 'message-failure',
+  message: 'Service temporarily unavailable'
+}
 
 @connect(mapStateToProps)
 export default class TheFooter extends React.Component {
@@ -30,6 +41,13 @@ export default class TheFooter extends React.Component {
     ),
   }
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      subscriptionStatus: null
+    }
+  }
+
   componentDidMount () {
     if (typeof window !== 'undefined') {
       require('smoothscroll-polyfill').polyfill()
@@ -48,6 +66,7 @@ export default class TheFooter extends React.Component {
 
   render () {
     const { menus, papers, contacts, socials, distros } = this.props
+    const { subscriptionStatus } = this.state
     return (
       <footer className='root footer-section'>
         <style jsx>{styles}</style>
@@ -123,7 +142,14 @@ export default class TheFooter extends React.Component {
                   <input className='field' ref={el => this.emailElement = el} type='email' placeholder='Enter email for news' required />
                 </div>
                 <div className='block'>
-                  <input className='button' type='submit' value='Subscribe' />
+                  {subscriptionStatus == null
+                    ? <input className='button' type='submit' value='Subscribe' />
+                    : (
+                      <div className={cn('message', subscriptionStatus.className)}>
+                        {subscriptionStatus.message}
+                      </div>
+                    )
+                  }
                 </div>
               </form>
             </div>
@@ -136,12 +162,20 @@ export default class TheFooter extends React.Component {
 
   async handleSubmit (e) {
     e.preventDefault()
-
-    await BACKEND.post('subscriptions', {
-      email: this.emailElement.value
-    })
-    for (const el of [this.emailElement]) {
-      el.value = ''
+    try {
+      await BACKEND.post('subscriptions', {
+        email: this.emailElement.value
+      })
+      this.setState({
+        subscriptionStatus: SUBSCRIPTION_STATUS_COMPLETED
+      })
+      for (const el of [this.emailElement]) {
+        el.value = ''
+      }
+    } catch (e) {
+      this.setState({
+        subscriptionStatus: SUBSCRIPTION_STATUS_FAILED
+      })
     }
   }
 }
