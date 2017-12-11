@@ -1,20 +1,45 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
 import { BACKEND } from 'src/endpoints'
 import { ContactModel } from 'src/models'
 import styles from './ContactsSection.sass'
 
+const ENQUIRY_STATUS_COMPLETED = {
+  className: 'message-success',
+  label: 'Success',
+  title: 'Your message has been sent',
+  details: 'We’ll be in touch soon.'
+}
+
+const ENQUIRY_STATUS_FAILED = {
+  className: 'message-failure',
+  label: 'Failure',
+  title: 'Service temporarily unavailable',
+  details: 'Please try again later.'
+}
+
 @connect(mapStateToProps)
 export default class ContactsSection extends React.Component {
 
   static propTypes = {
-    contacts: PropTypes.arrayOf(ContactModel),
+    contacts: PropTypes.arrayOf(
+      PropTypes.instanceOf(ContactModel)
+    ),
+  }
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      enquiryStatus: null
+    }
   }
 
   render () {
     const { contacts } = this.props
+    const { enquiryStatus } = this.state
     return (
       <div className='root contacts-section'>
         <style jsx>{styles}</style>
@@ -70,7 +95,18 @@ export default class ContactsSection extends React.Component {
                       <label htmlFor='contacts-message'>Message</label>
                     </div>
                     <div className='buttons'>
-                      <input className='button' type='submit' value='Send message' />
+                      {enquiryStatus == null
+                        ? <input className='button' type='submit' value='Send message' />
+                        : (
+                          <div className={cn('message', enquiryStatus.className)}>
+                            <div className='heading'>
+                              <div className='heading-title'>{enquiryStatus.title}</div>
+                              <div className='heading-label label-success'>{enquiryStatus.label}</div>
+                            </div>
+                            <div className='details'>{enquiryStatus.details}</div>
+                          </div>
+                        )
+                      }
                     </div>
                   </div>
                 </form>
@@ -89,15 +125,24 @@ export default class ContactsSection extends React.Component {
   async handleSubmit (e) {
     e.preventDefault()
 
-    // TODO: Move to redux
-    await BACKEND.post('enquiries', {
-      name: this.nameElement.value,
-      email: this.emailElement.value,
-      message: this.messageElement.value
-    })
-    for (const el of [this.nameElement, this.emailElement, this.messageElement]) {
-      el.value = ''
-      this.handleInput(el)
+    try {
+      // TODO: Move to redux
+      await BACKEND.post('enquiries', {
+        name: this.nameElement.value,
+        email: this.emailElement.value,
+        message: this.messageElement.value
+      })
+      this.setState({
+        enquiryStatus: ENQUIRY_STATUS_COMPLETED
+      })
+      for (const el of [this.nameElement, this.emailElement, this.messageElement]) {
+        el.value = ''
+        this.handleInput(el)
+      }
+    } catch (e) {
+      this.setState({
+        enquiryStatus: ENQUIRY_STATUS_FAILED
+      })
     }
   }
 }
