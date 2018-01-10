@@ -37,7 +37,7 @@ export default class ArticlesSection extends React.Component {
                 </div>
                 <div className='right'>
                   <div className='text' dangerouslySetInnerHTML={{ __html: article.brief}}></div>
-                  <a className='more' href={article.url}>
+                  <a className='more' href={article.url} target='_blank' rel='noopener noreferrer'>
                     <img src='/static/images/symbols/more.svg' />
                     <span>Read the full article</span>
                   </a>
