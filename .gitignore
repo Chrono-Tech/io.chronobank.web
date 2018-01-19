@@ -4,3 +4,5 @@ node_modules
 .next/
 ChronoWeb.iml
 build
+static/files/*
+!static/files/NODELETE
