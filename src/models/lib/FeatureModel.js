@@ -18,11 +18,13 @@ export default class FeatureModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
+
     return data == null ? data : new FeatureModel({
       id: data._id,
       title: data.title,
-      brief: data.brief,
+      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
       image: ImageModel.fromServerModel(data.image)
     })
   }

@@ -21,11 +21,13 @@ export default class IterationModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
+
     return data == null ? data : new IterationModel({
       id: data._id,
       title: data.title,
-      brief: data.brief,
+      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
       date: data.date == null ? null : new Date(data.date),
       image: ImageModel.fromServerModel(data.image)
     })

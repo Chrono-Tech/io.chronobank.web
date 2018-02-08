@@ -1,4 +1,8 @@
 import { BACKEND } from 'src/endpoints'
+BACKEND.get('stories').then((stories) => {
+  console.log('stories', stories)
+})
+import Cookies from 'universal-cookie'
 
 import {
   ArticleModel,
@@ -54,13 +58,16 @@ export const initMenus = () => async (dispatch, getState) => {
 
 export const initFeatures = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.locale
+
   if (state.pages.features.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('features')
   return dispatch({
     type: PAGES_INIT_FEATURES,
-    features: data.features.map(FeatureModel.fromServerModel)
+    features: data.features.map((feature) => FeatureModel.fromServerModel(feature, { locale }))
   })
 }
 
@@ -90,13 +97,16 @@ export const initJobs = () => async (dispatch, getState) => {
 
 export const initStatistics = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.locale
+
   if (state.pages.statistics.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('statistics')
   return dispatch({
     type: PAGES_INIT_STATISTICS,
-    statistics: data.statistics.map(StatisticModel.fromServerModel)
+    statistics: data.statistics.map((statistic) => StatisticModel.fromServerModel(statistic, { locale }))
   })
 }
 
@@ -114,13 +124,16 @@ export const initMembers = () => async (dispatch, getState) => {
 
 export const initHeaders = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.locale
+
   if (state.pages.headers.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('headers')
   return dispatch({
     type: PAGES_INIT_HEADERS,
-    headers: data.headers.map(HeaderModel.fromServerModel)
+    headers: data.headers.map((header) => HeaderModel.fromServerModel(header, { locale }))
   })
 }
 
@@ -150,13 +163,16 @@ export const initProducts = () => async (dispatch, getState) => {
 
 export const initStories = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.locale
+
   if (state.pages.stories.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('stories')
   return dispatch({
     type: PAGES_INIT_STORIES,
-    stories: data.stories.map(StoryModel.fromServerModel)
+    stories: data.stories.map((story) => StoryModel.fromServerModel(story, { locale }))
   })
 }
 
@@ -186,13 +202,16 @@ export const initTestimonials = () => async (dispatch, getState) => {
 
 export const initIterations = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.locale
+
   if (state.pages.iterations.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('iterations')
   return dispatch({
     type: PAGES_INIT_ITERATIONS,
-    iterations: data.iterations.map(IterationModel.fromServerModel)
+    iterations: data.iterations.map((iteration) => IterationModel.fromServerModel(iteration, { locale }))
   })
 }
 

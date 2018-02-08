@@ -24,16 +24,19 @@ export default class StoryModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
+    console.log('fromServerModel', isActiveLocale, data)
+
     return data == null ? null : new StoryModel({
       id: data._id,
       title: data.title,
       stereotype: data.stereotype,
       background: data.background,
-      legend: data.legend,
-      brief: data.brief,
-      image: ImageModel.fromServerModel(data.image),
-      image2x: ImageModel.fromServerModel(data.image2x)
+      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
+      legend: isActiveLocale ? data.i18n[locale].legend : data.legend,
+      image: ImageModel.fromServerModel(data.image, { locale }),
+      image2x: ImageModel.fromServerModel(data.image2x, { locale })
     })
   }
 }

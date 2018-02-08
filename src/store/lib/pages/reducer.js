@@ -19,12 +19,21 @@ import {
   PAGES_INIT_TESTIMONIALS,
 } from './actions'
 
+import Cookies from 'universal-cookie'
+let jsonData = require('cldr-data')
+import Cldr from 'cldrjs'
+// console.log('reducer', Cookies, Cldr)
 import { makeArrayState, fromJS } from './helpers'
 
 export {
   makeArrayState,
   fromJS
 }
+
+const cookies = new Cookies();
+console.log('cookies', cookies.get('language'))
+const cldr = new Cldr(cookies.get('language'))
+console.log('reducer', cookies.get('language'), cldr.attributes.language)
 
 const initialState = {
   articles: makeArrayState(false, []),
@@ -45,6 +54,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
+  locale: cldr && cldr.attributes.language
 }
 
 export default (state = initialState, action) => {

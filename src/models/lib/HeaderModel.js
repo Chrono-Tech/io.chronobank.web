@@ -48,7 +48,9 @@ export default class HeaderModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
+
     return data == null ? data : new HeaderModel({
       id: data._id,
       slug: data.slug,
@@ -56,7 +58,7 @@ export default class HeaderModel {
       stereotype: data.stereotype,
       background: data.background,
       video: data.video,
-      brief: data.brief,
+      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
       image320: ImageModel.fromServerModel(data.image320),
