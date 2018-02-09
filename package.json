@@ -25,6 +25,7 @@
     "axios": "^0.16.2",
     "classnames": "^2.2.5",
     "cldr": "^4.7.0",
+    "cldr-core": "^32.0.0",
     "cldr-data": "^32.0.1",
     "cldrjs": "^0.5.0",
     "express": "^4.16.0",

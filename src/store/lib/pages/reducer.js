@@ -20,20 +20,17 @@ import {
 } from './actions'
 
 import Cookies from 'universal-cookie'
-let jsonData = require('cldr-data')
+import CldrCore from 'cldr-core'
 import Cldr from 'cldrjs'
-// console.log('reducer', Cookies, Cldr)
-import { makeArrayState, fromJS } from './helpers'
 
+import { makeArrayState, fromJS } from './helpers'
 export {
   makeArrayState,
   fromJS
 }
 
 const cookies = new Cookies();
-console.log('cookies', cookies.get('language'))
 const cldr = new Cldr(cookies.get('language'))
-console.log('reducer', cookies.get('language'), cldr.attributes.language)
 
 const initialState = {
   articles: makeArrayState(false, []),
