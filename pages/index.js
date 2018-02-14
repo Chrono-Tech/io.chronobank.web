@@ -24,7 +24,8 @@ class Index extends React.Component {
   }
 
   static async getInitialProps ({ store, isServer, req }) {
-    store.dispatch(setUserLanguages(req.headers && req.headers['accept-language']))
+    // Syncronous dispatch before start initIndexPage that using lang
+    store.dispatch(setUserLanguages(req && req.headers && req.headers['accept-language']))
     await store.dispatch(initIndexPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())

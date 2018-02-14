@@ -6,14 +6,13 @@ export const getLocaleModelFields = (data, locales) => {
   }
 
   let userLocales = new locale.Locales(locales)
-  let storyLanguages = Object.keys(data.i18n).filter((lang) => data.i18n[lang].active)
+  let storyLanguages = Object.keys(data.i18n).filter((lang) => data.i18n[lang].active).concat('en')
 
   let supportedLocales = new locale.Locales(storyLanguages)
   let bestLocale = userLocales.best(supportedLocales)
 
   let lang = bestLocale && bestLocale.language
 
-  console.log('best', bestLocale, data.i18n[lang] && data.i18n[lang].overrides, storyLanguages)
   // Defaulted == not found
   return !bestLocale.defaulted && data.i18n[lang] && data.i18n[lang].overrides ? data.i18n[lang].overrides : null
 }

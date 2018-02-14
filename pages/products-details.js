@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import initStore from 'src/store'
 import { ProductModel } from 'src/models'
-import { modalsClear, snackbarsClear, initAnyPage, productSelector } from 'src/store'
+import { modalsClear, snackbarsClear, initAnyPage, productSelector, setUserLanguages } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -19,7 +19,8 @@ class ProductsDetails extends React.Component {
     product: PropTypes.instanceOf(ProductModel),
   }
 
-  static async getInitialProps ({ store, query }) {
+  static async getInitialProps ({ store, query, req }) {
+    await store.dispatch(setUserLanguages(req && req.headers && req.headers['accept-language']))
     await store.dispatch(initAnyPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
