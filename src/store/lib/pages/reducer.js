@@ -17,20 +17,14 @@ import {
   PAGES_INIT_STATISTICS,
   PAGES_INIT_STORIES,
   PAGES_INIT_TESTIMONIALS,
+  PAGES_SET_USER_LANGUAGE
 } from './actions'
-
-import Cookies from 'universal-cookie'
-import CldrCore from 'cldr-core'
-import Cldr from 'cldrjs'
 
 import { makeArrayState, fromJS } from './helpers'
 export {
   makeArrayState,
   fromJS
 }
-
-const cookies = new Cookies();
-const cldr = new Cldr(cookies.get('language'))
 
 const initialState = {
   articles: makeArrayState(false, []),
@@ -51,7 +45,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
-  locale: cldr && cldr.attributes.language
+  userLocales: {}
 }
 
 export default (state = initialState, action) => {
@@ -92,6 +86,8 @@ export default (state = initialState, action) => {
       return { ...state, products: makeArrayState(true, action.products) }
     case PAGES_INIT_GALLERIES:
       return { ...state, galleries: makeArrayState(true, action.galleries) }
+    case PAGES_SET_USER_LANGUAGE:
+      return { ...state, userLocales: action.userLocales }
     default:
       return state
   }

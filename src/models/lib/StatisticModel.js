@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class StatisticModel {
   constructor ({ id, title, image, brief }) {
@@ -18,13 +19,13 @@ export default class StatisticModel {
     })
   }
 
-  static fromServerModel (data, { locale }) {
-    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? data : new StatisticModel({
       id: data._id,
       title: data.title,
-      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
       image: ImageModel.fromServerModel(data.image)
     })
   }

@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class StoryModel {
   constructor ({ id, title, stereotype, background, image, image2x, legend, brief }) {
@@ -24,19 +25,18 @@ export default class StoryModel {
     })
   }
 
-  static fromServerModel (data, { locale }) {
-    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
-    console.log('fromServerModel', isActiveLocale, data)
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? null : new StoryModel({
       id: data._id,
       title: data.title,
       stereotype: data.stereotype,
       background: data.background,
-      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
-      legend: isActiveLocale ? data.i18n[locale].legend : data.legend,
-      image: ImageModel.fromServerModel(data.image, { locale }),
-      image2x: ImageModel.fromServerModel(data.image2x, { locale })
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
+      legend: localeModelFields && 'legend' in localeModelFields ? localeModelFields.legend : data.legend,
+      image: ImageModel.fromServerModel(data.image, { locales }),
+      image2x: ImageModel.fromServerModel(data.image2x, { locales })
     })
   }
 }

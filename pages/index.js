@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initIndexPage } from 'src/store'
+import { modalsClear, snackbarsClear, initIndexPage, setUserLanguages } from 'src/store'
 import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
@@ -23,7 +23,8 @@ class Index extends React.Component {
     unwatchInitMarket: PropTypes.func,
   }
 
-  static async getInitialProps ({ store, isServer }) {
+  static async getInitialProps ({ store, isServer, req }) {
+    store.dispatch(setUserLanguages(req.headers && req.headers['accept-language']))
     await store.dispatch(initIndexPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())

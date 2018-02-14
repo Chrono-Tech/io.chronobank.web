@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class HeaderModel {
   constructor ({ id, slug, title, stereotype, background, video, brief, image, image2x, image320, image2x320, image480, image2x480, image640, image2x640}) {
@@ -48,8 +49,8 @@ export default class HeaderModel {
     })
   }
 
-  static fromServerModel (data, { locale }) {
-    const isActiveLocale = locale && data.i18n[locale] && data.i18n[locale].isActive
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? data : new HeaderModel({
       id: data._id,
@@ -58,7 +59,7 @@ export default class HeaderModel {
       stereotype: data.stereotype,
       background: data.background,
       video: data.video,
-      brief: isActiveLocale ? data.i18n[locale].brief : data.brief,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
       image320: ImageModel.fromServerModel(data.image320),
