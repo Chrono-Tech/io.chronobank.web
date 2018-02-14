@@ -18,7 +18,6 @@ import {
   StoryModel,
   TestimonialModel,
 } from 'src/models'
-import locale from 'locale/lib/index'
 
 export const makeArrayState = (isLoaded: Boolean, array: Array, transform: Function) => Object.freeze({
   isLoaded,
