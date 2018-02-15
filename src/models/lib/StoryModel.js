@@ -30,7 +30,7 @@ export default class StoryModel {
 
     return data == null ? null : new StoryModel({
       id: data._id,
-      title: data.title,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       stereotype: data.stereotype,
       background: data.background,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,

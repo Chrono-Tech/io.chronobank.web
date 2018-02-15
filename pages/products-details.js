@@ -20,7 +20,7 @@ class ProductsDetails extends React.Component {
   }
 
   static async getInitialProps ({ store, query, req }) {
-    await store.dispatch(setUserLanguages(req && req.headers && req.headers['accept-language']))
+    store.dispatch(setUserLanguages(req && req.headers))
     await store.dispatch(initAnyPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())

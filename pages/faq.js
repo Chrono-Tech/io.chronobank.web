@@ -13,7 +13,7 @@ import styles from './faq.sass'
 class FAQ extends React.Component {
 
   static async getInitialProps ({ store, req }) {
-    await store.dispatch(setUserLanguages(req && req.headers && req.headers['accept-language']))
+    store.dispatch(setUserLanguages(req && req.headers))
     await store.dispatch(initFaqPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())

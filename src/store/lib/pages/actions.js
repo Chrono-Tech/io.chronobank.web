@@ -273,12 +273,14 @@ export const initGalleries = () => async (dispatch, getState) => {
   })
 }
 
-export const setUserLanguages = (langHeader) => (dispatch, getState) => {
+export const setUserLanguages = (headers) => (dispatch, getState) => {
   const state = getState()
+
+  console.log('setUserLanguages', headers && headers['accept-language'])
 
   return dispatch({
     type: PAGES_SET_USER_LANGUAGE,
-    userLocales: langHeader
+    userLocales: headers && headers['accept-language']
   })
 }
 
