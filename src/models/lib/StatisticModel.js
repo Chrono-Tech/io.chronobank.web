@@ -21,9 +21,6 @@ export default class StatisticModel {
 
   static fromServerModel (data, { locales }) {
     let localeModelFields = getLocaleModelFields(data, locales)
-    if (localeModelFields){
-      console.log('statistic', localeModelFields, data, locales)
-    }
 
     return data == null ? data : new StatisticModel({
       id: data._id,
