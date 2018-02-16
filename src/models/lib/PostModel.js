@@ -1,4 +1,5 @@
 import assert from 'assert'
+import { getLocaleModelFields } from './helpers'
 
 export default class PostModel {
   constructor ({ id, title, url, image, publishedDate }) {
@@ -18,10 +19,12 @@ export default class PostModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
+
     return data == null ? null : new PostModel({
       id: data.guid,
-      title: data.title,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
       url: data.url,
       image: data.image,
       publishedDate: new Date(data.publishedDate)

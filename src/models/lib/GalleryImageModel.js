@@ -20,7 +20,7 @@ export default class GalleryImageModel {
   static fromServerModel (data) {
     return data == null ? data : new GalleryImageModel({
       id: data._id,
-      title: data.title,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
       image: data.image
         ? ImageModel.fromServerModel(data.image)
         : null

@@ -1,5 +1,6 @@
 import assert from 'assert'
 import GalleryImageModel from './GalleryImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class GalleryModel {
   constructor ({ id, name, images }) {
@@ -17,10 +18,12 @@ export default class GalleryModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
+
     return data == null ? data : new GalleryModel({
       id: data._id,
-      name: data.name,
+      name: localeModelFields && 'name' in localeModelFields ? localeModelFields.name : data.name,
       images: data.images == null ? null : data.images.map(GalleryImageModel.fromServerModel),
     })
   }
