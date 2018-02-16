@@ -30,10 +30,10 @@ export default class StoryModel {
 
     return data == null ? null : new StoryModel({
       id: data._id,
-      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
       stereotype: data.stereotype,
       background: data.background,
-      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
       legend: localeModelFields && 'legend' in localeModelFields ? localeModelFields.legend : data.legend,
       image: ImageModel.fromServerModel(data.image, { locales }),
       image2x: ImageModel.fromServerModel(data.image2x, { locales })
