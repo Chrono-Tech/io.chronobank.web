@@ -1,4 +1,4 @@
-import locale from 'locale/lib/index'
+import locale from 'locale'
 
 export const getLocaleModelFields = (data, locales) => {
   if (!data['i18n']) {

@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class ProductDistroModel {
   constructor ({ id, title, type, url, icon }) {
@@ -19,10 +20,12 @@ export default class ProductDistroModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
+
     return data == null ? data : new ProductDistroModel({
       id: data._id,
-      title: data.title,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       type: data.type,
       url: data.url,
       icon: data.icon

@@ -149,13 +149,16 @@ export const initPartners = () => async (dispatch, getState) => {
 
 export const initProducts = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locales = state.pages.userLocales
+
   if (state.pages.products.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('products')
   return dispatch({
     type: PAGES_INIT_PRODUCTS,
-    products: data.products.map(ProductModel.fromServerModel)
+    products: data.products.map((product) => ProductModel.fromServerModel(product, { locales }))
   })
 }
 

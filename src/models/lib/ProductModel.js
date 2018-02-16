@@ -3,6 +3,7 @@ import ImageModel from './ImageModel'
 import ProductDownloadModel from './ProductDownloadModel'
 import ProductDistroModel from './ProductDistroModel'
 import ProductFeatureModel from './ProductFeatureModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class ProductModel {
   constructor ({ id, slug, name, title, stereotype, background, icon, icon2x, image, image2x, mission, brief, downloads, distros, features }) {
@@ -44,23 +45,25 @@ export default class ProductModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
+
     return data == null ? data : new ProductModel({
       id: data._id,
       slug: data.slug,
       name: data.name,
-      title: data.title,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
       stereotype: data.stereotype,
       background: data.background,
-      mission: data.mission,
-      brief: data.brief,
+      mission: localeModelFields && 'mission' in localeModelFields ? localeModelFields.mission : data.mission,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
       icon: ImageModel.fromServerModel(data.icon),
       icon2x: ImageModel.fromServerModel(data.icon2x),
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
-      downloads: data.downloads == null ? null : data.downloads.map(ProductDownloadModel.fromServerModel),
-      distros: data.distros == null ? null : data.distros.map(ProductDistroModel.fromServerModel),
-      features: data.features == null ? null : data.features.map(ProductFeatureModel.fromServerModel)
+      downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locales })),
+      distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locales })),
+      features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locales }))
     })
   }
 }
