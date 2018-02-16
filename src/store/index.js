@@ -32,6 +32,7 @@ export default (initialState = {}) => {
     }, isNil),
     eventsDropin: initialState.eventsDropin && eventsDropin.fromJS(initialState.eventsDropin),
     marketDropin: initialState.marketDropin && marketDropin.fromJS(initialState.marketDropin)
+
   }, isNil)
   return createStore(reducer, extra, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 }

@@ -17,10 +17,10 @@ import {
   PAGES_INIT_STATISTICS,
   PAGES_INIT_STORIES,
   PAGES_INIT_TESTIMONIALS,
+  PAGES_SET_USER_LANGUAGE
 } from './actions'
 
 import { makeArrayState, fromJS } from './helpers'
-
 export {
   makeArrayState,
   fromJS
@@ -45,6 +45,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
+  userLocales: ''
 }
 
 export default (state = initialState, action) => {
@@ -85,6 +86,8 @@ export default (state = initialState, action) => {
       return { ...state, products: makeArrayState(true, action.products) }
     case PAGES_INIT_GALLERIES:
       return { ...state, galleries: makeArrayState(true, action.galleries) }
+    case PAGES_SET_USER_LANGUAGE:
+      return { ...state, userLocales: action.userLocales }
     default:
       return state
   }

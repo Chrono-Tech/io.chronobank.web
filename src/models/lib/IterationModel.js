@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class IterationModel {
   constructor ({ id, title, date, image, brief }) {
@@ -21,11 +22,13 @@ export default class IterationModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
+
     return data == null ? data : new IterationModel({
       id: data._id,
-      title: data.title,
-      brief: data.brief,
+      title: localeModelFields && 'titles' in localeModelFields ? localeModelFields.title : data.title ,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
       date: data.date == null ? null : new Date(data.date),
       image: ImageModel.fromServerModel(data.image)
     })
