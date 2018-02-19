@@ -26,7 +26,7 @@ export default class PostsSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             {posts.map(post => (
-              <div className='item' key={post.id} onClick={() => { post.url && this.navigate(post.url) }}>
+              <a className='item' key={post.id} target='_blank' rel='noopener noreferrer' href={post.url}>
                 {!post.image ? null : (
                   <div className='image'>
                     <img alt={post.title} src={post.image} />
@@ -34,7 +34,7 @@ export default class PostsSection extends React.Component {
                 )}
                 <h3>{post.title}</h3>
                 <div className='text'>...</div>
-              </div>
+              </a>
             ))}
           </div>
         </div>

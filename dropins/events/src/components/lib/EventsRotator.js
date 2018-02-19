@@ -67,7 +67,7 @@ export class EventsRotator extends React.Component {
             <a key={model.key} href={model.event.url} ref={el => this[type + 'Element'] = el} className={cn('item', {
               'item-prev': type === 'prev',
               'item-curr': type === 'curr'
-            })}>
+            })} target='_blank' rel='noopener noreferrer'>
               <span className='label'>{model.event.status}</span>
               <span className='info'>
                 <b>{moment(model.event.date).format('MMM DD')}&nbsp;|&nbsp;</b>

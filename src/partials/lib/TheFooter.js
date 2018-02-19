@@ -154,7 +154,7 @@ export default class TheFooter extends React.Component {
               </form>
             </div>
           </div>
-          <address>Copyright ©2017 Labor X Australia Pty Ltd. All Rights Reserved.</address>
+          <address>Copyright ©2018 LaborX Pty Ltd. All Rights Reserved.</address>
         </div>
       </footer>
     )
