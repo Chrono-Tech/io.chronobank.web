@@ -227,7 +227,7 @@ export const initPosts = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('medium/feed')
   return dispatch({
     type: PAGES_INIT_POSTS,
-    posts: data.map((post) => PostModel.fromServerModel(post, { locales }))
+    posts: data.map((post) => PostModel.fromServerModel(post))
   })
 }
 
