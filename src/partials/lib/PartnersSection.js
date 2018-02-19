@@ -26,7 +26,7 @@ export default class PartnersSection extends React.Component {
         <div className='wrap'>
           <div className='content'>
             {partners.map(partner => (
-              <div className='item' key={partner.id} onClick={() => { partner.url && this.navigate(partner.url) }}>
+              <a className='item' key={partner.id} target='_blank' rel='noopener noreferrer' href={partner.url}>
                 {!partner.icon ? null : (
                   <div className='icon'>
                     <img alt={partner.title} {...{
@@ -36,7 +36,7 @@ export default class PartnersSection extends React.Component {
                   </div>
                 )}
                 <div className='text' dangerouslySetInnerHTML={{ __html: partner.brief}}></div>
-              </div>
+              </a>
             ))}
           </div>
         </div>

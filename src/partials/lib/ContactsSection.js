@@ -61,7 +61,12 @@ export default class ContactsSection extends React.Component {
                       </div>
                       <div className='info'>
                         <h5>{c.title}</h5>
-                        <div><a href={c.url} target='_blank' rel='noopener noreferrer'>{c.label}</a></div>
+                        <div>
+                          {c.url && c.url.indexOf('mailto:') === 0
+                            ? <a href={c.url}>{c.label}</a>
+                            : <a href={c.url} target='_blank' rel='noopener noreferrer'>{c.label}</a>
+                          }
+                        </div>
                       </div>
                     </li>
                   ))}
