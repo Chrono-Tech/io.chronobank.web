@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class ProductDownloadModel {
   constructor ({ id, title, url, icon }) {
@@ -18,10 +19,12 @@ export default class ProductDownloadModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locales }) {
+    let localeModelFields = getLocaleModelFields(data, locales)
+
     return data == null ? data : new ProductDownloadModel({
       id: data._id,
-      title: data.title,
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       url: data.url,
       icon: data.icon
         ? ImageModel.fromServerModel(data.icon)
