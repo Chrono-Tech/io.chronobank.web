@@ -185,16 +185,13 @@ export const initStories = () => async (dispatch, getState) => {
 
 export const initArticles = () => async (dispatch, getState) => {
   const state = getState()
-
-  const locales = state.pages.userLocales
-
   if (state.pages.articles.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('articles')
   return dispatch({
     type: PAGES_INIT_ARTICLES,
-    articles: data.articles.map((article) => ArticleModel.fromServerModel(article, { locales }))
+    articles: data.articles.map(ArticleModel.fromServerModel)
   })
 }
 
@@ -230,16 +227,13 @@ export const initIterations = () => async (dispatch, getState) => {
 
 export const initPosts = () => async (dispatch, getState) => {
   const state = getState()
-
-  const locales = state.pages.userLocales
-
   if (state.pages.posts.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('medium/feed')
   return dispatch({
     type: PAGES_INIT_POSTS,
-    posts: data.map((post) => PostModel.fromServerModel(post, { locales }))
+    posts: data.map(PostModel.fromServerModel)
   })
 }
 
@@ -281,16 +275,13 @@ export const initPapers = () => async (dispatch, getState) => {
 
 export const initGalleries = () => async (dispatch, getState) => {
   const state = getState()
-
-  const locales = state.pages.userLocales
-
   if (state.pages.galleries.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('galleries')
   return dispatch({
     type: PAGES_INIT_GALLERIES,
-    galleries: data.galleries.map((gallery) => GalleryModel.fromServerModel(gallery, { locales }))
+    galleries: data.galleries.map(GalleryModel.fromServerModel)
   })
 }
 
