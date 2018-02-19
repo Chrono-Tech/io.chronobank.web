@@ -218,16 +218,13 @@ export const initIterations = () => async (dispatch, getState) => {
 
 export const initPosts = () => async (dispatch, getState) => {
   const state = getState()
-
-  const locales = state.pages.userLocales
-
   if (state.pages.posts.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('medium/feed')
   return dispatch({
     type: PAGES_INIT_POSTS,
-    posts: data.map((post) => PostModel.fromServerModel(post))
+    posts: data.map(PostModel.fromServerModel)
   })
 }
 

@@ -1,5 +1,4 @@
 import assert from 'assert'
-import { getLocaleModelFields } from './helpers'
 
 export default class PostModel {
   constructor ({ id, title, url, image, publishedDate }) {
