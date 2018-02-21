@@ -18,7 +18,9 @@ export default class MobileMenu extends React.Component {
   static propTypes = {
     url: PropTypes.string,
     menus: PropTypes.arrayOf(MenuModel),
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    changeLanguage: PropTypes.func,
+    userLanguage: PropTypes.string,
   }
 
   getLangsOptionsList(){

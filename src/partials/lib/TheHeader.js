@@ -26,6 +26,7 @@ export default class TheHeader extends React.Component {
     showMobileMenu: PropTypes.func,
     eventsShow: PropTypes.func,
     changeLanguage: PropTypes.func,
+    userLanguage: PropTypes.string,
     menus: PropTypes.arrayOf(
       PropTypes.instanceOf(MenuModel)
     ),
