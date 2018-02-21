@@ -20,7 +20,8 @@ import {
   StoryModel,
   TestimonialModel,
 } from 'src/models'
-import locale from 'locale/lib/index'
+
+import { getSupposedUserLanguage, getUserLanguageFromCookies, getLanguagesList, USER_LANGUAGE_COOKIE_KEY } from './helpers'
 
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
@@ -57,7 +58,7 @@ export const initMenus = () => async (dispatch, getState) => {
 export const initFeatures = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.features.isLoaded) {
     return
@@ -65,7 +66,7 @@ export const initFeatures = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('features')
   return dispatch({
     type: PAGES_INIT_FEATURES,
-    features: data.features.map((feature) => FeatureModel.fromServerModel(feature, { locales }))
+    features: data.features.map((feature) => FeatureModel.fromServerModel(feature, { locale }))
   })
 }
 
@@ -84,7 +85,7 @@ export const initFaqTopics = () => async (dispatch, getState) => {
 export const initJobs = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.jobs.isLoaded) {
     return
@@ -92,14 +93,14 @@ export const initJobs = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('jobs')
   return dispatch({
     type: PAGES_INIT_JOBS,
-    jobs: data.jobs.map((job) => JobModel.fromServerModel(job, { locales }))
+    jobs: data.jobs.map((job) => JobModel.fromServerModel(job, { locale }))
   })
 }
 
 export const initStatistics = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.statistics.isLoaded) {
     return
@@ -107,14 +108,14 @@ export const initStatistics = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('statistics')
   return dispatch({
     type: PAGES_INIT_STATISTICS,
-    statistics: data.statistics.map((statistic) => StatisticModel.fromServerModel(statistic, { locales }))
+    statistics: data.statistics.map((statistic) => StatisticModel.fromServerModel(statistic, { locale }))
   })
 }
 
 export const initMembers = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.members.isLoaded) {
     return
@@ -122,14 +123,14 @@ export const initMembers = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('members')
   return dispatch({
     type: PAGES_INIT_MEMBERS,
-    members: data.members.map((member) => MemberModel.fromServerModel(member, { locales }))
+    members: data.members.map((member) => MemberModel.fromServerModel(member, { locale }))
   })
 }
 
 export const initHeaders = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.headers.isLoaded) {
     return
@@ -137,14 +138,14 @@ export const initHeaders = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('headers')
   return dispatch({
     type: PAGES_INIT_HEADERS,
-    headers: data.headers.map((header) => HeaderModel.fromServerModel(header, { locales }))
+    headers: data.headers.map((header) => HeaderModel.fromServerModel(header, { locale }))
   })
 }
 
 export const initPartners = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.partners.isLoaded) {
     return
@@ -152,14 +153,14 @@ export const initPartners = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('partners')
   return dispatch({
     type: PAGES_INIT_PARTNERS,
-    partners: data.partners.map((data) => PartnerModel.fromServerModel(data, { locales }))
+    partners: data.partners.map((data) => PartnerModel.fromServerModel(data, { locale }))
   })
 }
 
 export const initProducts = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.products.isLoaded) {
     return
@@ -167,14 +168,14 @@ export const initProducts = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('products')
   return dispatch({
     type: PAGES_INIT_PRODUCTS,
-    products: data.products.map((product) => ProductModel.fromServerModel(product, { locales }))
+    products: data.products.map((product) => ProductModel.fromServerModel(product, { locale }))
   })
 }
 
 export const initStories = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.stories.isLoaded) {
     return
@@ -182,7 +183,7 @@ export const initStories = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('stories')
   return dispatch({
     type: PAGES_INIT_STORIES,
-    stories: data.stories.map((story) => StoryModel.fromServerModel(story, { locales }))
+    stories: data.stories.map((story) => StoryModel.fromServerModel(story, { locale }))
   })
 }
 
@@ -201,7 +202,7 @@ export const initArticles = () => async (dispatch, getState) => {
 export const initTestimonials = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.testimonials.isLoaded) {
     return
@@ -209,14 +210,14 @@ export const initTestimonials = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('testimonials')
   return dispatch({
     type: PAGES_INIT_TESTIMONIALS,
-    testimonials: data.testimonials.map((data) => TestimonialModel.fromServerModel(data, { locales }))
+    testimonials: data.testimonials.map((data) => TestimonialModel.fromServerModel(data, { locale }))
   })
 }
 
 export const initIterations = () => async (dispatch, getState) => {
   const state = getState()
 
-  const locales = state.pages.userLocales
+  const locale = state.pages.userLanguage
 
   if (state.pages.iterations.isLoaded) {
     return
@@ -224,7 +225,7 @@ export const initIterations = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('iterations')
   return dispatch({
     type: PAGES_INIT_ITERATIONS,
-    iterations: data.iterations.map((iteration) => IterationModel.fromServerModel(iteration, { locales }))
+    iterations: data.iterations.map((iteration) => IterationModel.fromServerModel(iteration, { locale }))
   })
 }
 
@@ -288,13 +289,73 @@ export const initGalleries = () => async (dispatch, getState) => {
   })
 }
 
-export const setUserLanguages = (headers) => (dispatch, getState) => {
+export const initUserLanguage = (headers) => (dispatch, getState) => {
   const state = getState()
+
+  let cookieUserLanguage = getUserLanguageFromCookies(headers && headers.cookie)
+  let supposedLang = getSupposedUserLanguage(headers && headers['accept-language'])
+
+  if (!cookieUserLanguage){
+
+    dispatch(setUserLanguage(supposedLang))
+
+
+  } else {
+    let defaultLanguages = getLanguagesList()
+
+    // If language in cookies is wrong set default
+    if (!defaultLanguages.find((value) => (value.code == cookieUserLanguage))){
+      dispatch(setUserLanguage(supposedLang))
+    } else {
+      dispatch(setUserLanguage(cookieUserLanguage))
+    }
+
+  }
+
+}
+
+export const setUserLanguage = (lang) => (dispatch, getState) => {
+  if (!lang) {
+    return
+  }
 
   return dispatch({
     type: PAGES_SET_USER_LANGUAGE,
-    userLocales: headers && headers['accept-language']
+    userLanguage: lang
   })
+}
+
+export const saveUserLanguageInCookies = (lang) => (dispatch) => {
+
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  document.cookie = `${USER_LANGUAGE_COOKIE_KEY}=${lang}`
+
+}
+
+export const updateUserLanguageCookies = () => (dispatch, getState) => {
+  const state = getState()
+
+  const locale = state.pages.userLanguage
+
+  let cookieUserLanguage = getUserLanguageFromCookies()
+
+  if (locale !== cookieUserLanguage){
+    dispatch(saveUserLanguageInCookies(locale))
+  }
+
+
+}
+
+export const changeUserLanguage = (lang) => (dispatch) => {
+  dispatch(setUserLanguage(lang))
+  dispatch(saveUserLanguageInCookies(lang))
+
+  if (typeof document !== 'undefined'){
+    document.location.reload(true)
+  }
 }
 
 export const initAnyPage = () => (dispatch) => {

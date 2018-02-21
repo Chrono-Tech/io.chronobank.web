@@ -15,8 +15,8 @@ export default class JobModel {
     })
   }
 
-  static fromServerModel (data, { locales }) {
-    let localeModelFields = getLocaleModelFields(data, locales)
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new JobModel({
       id: data._id,

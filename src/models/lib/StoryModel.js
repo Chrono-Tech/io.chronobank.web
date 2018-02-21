@@ -25,8 +25,8 @@ export default class StoryModel {
     })
   }
 
-  static fromServerModel (data, { locales }) {
-    let localeModelFields = getLocaleModelFields(data, locales)
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? null : new StoryModel({
       id: data._id,
@@ -35,8 +35,8 @@ export default class StoryModel {
       background: data.background,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
       legend: localeModelFields && 'legend' in localeModelFields ? localeModelFields.legend : data.legend,
-      image: ImageModel.fromServerModel(data.image, { locales }),
-      image2x: ImageModel.fromServerModel(data.image2x, { locales })
+      image: ImageModel.fromServerModel(data.image),
+      image2x: ImageModel.fromServerModel(data.image2x)
     })
   }
 }

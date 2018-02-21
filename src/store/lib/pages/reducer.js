@@ -45,7 +45,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
-  userLocales: ''
+  userLanguage: ''
 }
 
 export default (state = initialState, action) => {
@@ -87,7 +87,7 @@ export default (state = initialState, action) => {
     case PAGES_INIT_GALLERIES:
       return { ...state, galleries: makeArrayState(true, action.galleries) }
     case PAGES_SET_USER_LANGUAGE:
-      return { ...state, userLocales: action.userLocales }
+      return { ...state, userLanguage: action.userLanguage }
     default:
       return state
   }

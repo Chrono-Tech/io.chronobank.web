@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import initStore from 'src/store'
 import { ProductModel } from 'src/models'
-import { modalsClear, snackbarsClear, initAnyPage, productSelector, setUserLanguages } from 'src/store'
+import { modalsClear, snackbarsClear, initAnyPage, productSelector, initUserLanguage, updateUserLanguageCookies } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -20,13 +20,17 @@ class ProductsDetails extends React.Component {
   }
 
   static async getInitialProps ({ store, query, req }) {
-    store.dispatch(setUserLanguages(req && req.headers))
+    store.dispatch(initUserLanguage(req && req.headers))
     await store.dispatch(initAnyPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
     return {
       productSlug: query.slug
     }
+  }
+
+  componentDidMount(){
+    this.props.updateUserLanguageCookies()
   }
 
   render () {
@@ -73,4 +77,10 @@ function mapStateToProps (state, op) {
   }
 }
 
-export default withRedux(initStore, mapStateToProps)(ProductsDetails)
+function mapDispatchToProps (dispatch) {
+  return {
+    updateUserLanguageCookies: () => dispatch(updateUserLanguageCookies())
+  }
+}
+
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(ProductsDetails)

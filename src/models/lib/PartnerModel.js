@@ -23,8 +23,8 @@ export default class PartnerModel {
     })
   }
 
-  static fromServerModel (data, { locales }) {
-    let localeModelFields = getLocaleModelFields(data, locales)
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new PartnerModel({
       id: data._id,
