@@ -83,13 +83,16 @@ export const initFaqTopics = () => async (dispatch, getState) => {
 
 export const initJobs = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locales = state.pages.userLocales
+
   if (state.pages.jobs.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('jobs')
   return dispatch({
     type: PAGES_INIT_JOBS,
-    jobs: data.jobs.map(JobModel.fromServerModel)
+    jobs: data.jobs.map((job) => JobModel.fromServerModel(job, { locales }))
   })
 }
 
@@ -110,13 +113,16 @@ export const initStatistics = () => async (dispatch, getState) => {
 
 export const initMembers = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locales = state.pages.userLocales
+
   if (state.pages.members.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('members')
   return dispatch({
     type: PAGES_INIT_MEMBERS,
-    members: data.members.map(MemberModel.fromServerModel)
+    members: data.members.map((member) => MemberModel.fromServerModel(member, { locales }))
   })
 }
 
@@ -137,13 +143,16 @@ export const initHeaders = () => async (dispatch, getState) => {
 
 export const initPartners = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locales = state.pages.userLocales
+
   if (state.pages.partners.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('partners')
   return dispatch({
     type: PAGES_INIT_PARTNERS,
-    partners: data.partners.map(PartnerModel.fromServerModel)
+    partners: data.partners.map((data) => PartnerModel.fromServerModel(data, { locales }))
   })
 }
 
@@ -191,13 +200,16 @@ export const initArticles = () => async (dispatch, getState) => {
 
 export const initTestimonials = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locales = state.pages.userLocales
+
   if (state.pages.testimonials.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('testimonials')
   return dispatch({
     type: PAGES_INIT_TESTIMONIALS,
-    testimonials: data.testimonials.map(TestimonialModel.fromServerModel)
+    testimonials: data.testimonials.map((data) => TestimonialModel.fromServerModel(data, { locales }))
   })
 }
 
