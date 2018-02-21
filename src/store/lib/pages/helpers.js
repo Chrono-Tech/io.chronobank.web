@@ -80,12 +80,15 @@ export const getUserLanguageFromCookies = (headersCookie) => {
     cookies = document.cookie
   }
 
+  if (!cookies) {
+    return
+  }
+
   let langCookieSource = cookies.split('; ').find((source) => (source.indexOf(`${USER_LANGUAGE_COOKIE_KEY}=`) > -1) )
 
   if (!langCookieSource) {
     return
   }
-  console.log('getUserLanguageFromCookies=', langCookieSource)
   return langCookieSource.split(`${USER_LANGUAGE_COOKIE_KEY}=`)[1]
 }
 

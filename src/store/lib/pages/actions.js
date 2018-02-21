@@ -295,8 +295,6 @@ export const initUserLanguage = (headers) => (dispatch, getState) => {
   let cookieUserLanguage = getUserLanguageFromCookies(headers && headers.cookie)
   let supposedLang = getSupposedUserLanguage(headers && headers['accept-language'])
 
-  console.log('getUserLanguageFromCookies', cookieUserLanguage)
-
   if (!cookieUserLanguage){
 
     dispatch(setUserLanguage(supposedLang))
@@ -306,7 +304,7 @@ export const initUserLanguage = (headers) => (dispatch, getState) => {
     let defaultLanguages = getLanguagesList()
 
     // If language in cookies is wrong set default
-    if (!defaultLanguages.find((value) => value.code == cookieUserLanguage)){
+    if (!defaultLanguages.find((value) => (value.code == cookieUserLanguage))){
       dispatch(setUserLanguage(supposedLang))
     } else {
       dispatch(setUserLanguage(cookieUserLanguage))
@@ -314,12 +312,9 @@ export const initUserLanguage = (headers) => (dispatch, getState) => {
 
   }
 
-  console.log('inituserlanguage state', getState().pages.userLanguage)
 }
 
 export const setUserLanguage = (lang) => (dispatch, getState) => {
-  console.log('setUserLanguage', lang)
-
   if (!lang) {
     return
   }
@@ -333,19 +328,34 @@ export const setUserLanguage = (lang) => (dispatch, getState) => {
 export const saveUserLanguageInCookies = (lang) => (dispatch) => {
 
   if (typeof window === 'undefined') {
-    console.log('saveUserLanguageInCookies undefined')
     return
   }
 
-  console.log('lang Cookies', lang)
   document.cookie = `${USER_LANGUAGE_COOKIE_KEY}=${lang}`
 
 }
 
-export const setDefaultUserLanguage = () => (dispatch) => {
+export const updateUserLanguageCookies = () => (dispatch, getState) => {
+  const state = getState()
 
-  dispatch(setUserLanguage('en'))
+  const locale = state.pages.userLanguage
 
+  let cookieUserLanguage = getUserLanguageFromCookies()
+
+  if (locale !== cookieUserLanguage){
+    dispatch(saveUserLanguageInCookies(locale))
+  }
+
+
+}
+
+export const changeUserLanguage = (lang) => (dispatch) => {
+  dispatch(setUserLanguage(lang))
+  dispatch(saveUserLanguageInCookies(lang))
+
+  if (typeof document !== 'undefined'){
+    document.location.reload(true)
+  }
 }
 
 export const initAnyPage = () => (dispatch) => {

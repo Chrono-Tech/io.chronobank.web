@@ -11,11 +11,10 @@ import { RatesPanel } from 'dropins/market/src/components'
 import { HeaderModel, MenuModel, PostModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, setUserLanguage } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage } from 'src/store'
 import { getLanguagesList } from 'src/store/lib/pages/helpers'
 
 import styles from './TheHeader.sass'
-import { saveUserLanguageInCookies } from '../../store/lib/pages/actions'
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class TheHeader extends React.Component {
@@ -66,7 +65,6 @@ export default class TheHeader extends React.Component {
 
   render () {
     const { menus, header, userLanguage } = this.props
-    // console.log('TheHeader', userLanguage)
 
     return (
       <header className={cn('root', 'the-header', {
@@ -168,9 +166,9 @@ export default class TheHeader extends React.Component {
                     <select className='form-group lang-select' value={userLanguage} onChange={(e) => this.props.changeLanguage(e.target.value)}>
                       { this.getLangsOptionsList() }
                     </select>
-                    <svg style={{display: 'inline-block', fill: 'rgb(224, 224, 224)',
-                        height: '24px', width: '24px', 'user-select': 'none', 'transition': 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'}}
-                         viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg>
+                    <span className='lang-select-icon-wrapper'>
+                      <svg className='lang-select-icon' viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg>
+                    </span>
                 </li>
               </ul>
             </div>
@@ -242,12 +240,7 @@ function mapStateToProps (state, op) {
 function mapDispatchToProps (dispatch) {
   return {
     changeLanguage: (value) => {
-      console.log('changeLanguage', value)
-      dispatch(setUserLanguage(value))
-      dispatch(saveUserLanguageInCookies(value))
-      if (typeof document !== 'undefined'){
-        document.location.reload(true)
-      }
+      dispatch(changeUserLanguage(value))
     },
     showVideo: (url) => {
       dispatch(modalsOpen({
