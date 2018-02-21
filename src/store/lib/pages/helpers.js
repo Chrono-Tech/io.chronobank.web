@@ -47,7 +47,6 @@ export const fromJS = p => {
     statistics: p.statistics && makeArrayState(p.statistics.isLoaded, p.statistics.array, StatisticModel.fromJS),
     stories: p.stories && makeArrayState(p.stories.isLoaded, p.stories.array, StoryModel.fromJS),
     testimonials: p.testimonials && makeArrayState(p.testimonials.isLoaded, p.testimonials.array, TestimonialModel.fromJS),
-    userLocales: p.userLocales
   }
 }
 

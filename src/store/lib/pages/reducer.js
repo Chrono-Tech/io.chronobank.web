@@ -45,7 +45,6 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
-  userLocales: '',
   userLanguage: ''
 }
 
