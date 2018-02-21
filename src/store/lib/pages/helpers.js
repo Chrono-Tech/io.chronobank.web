@@ -18,6 +18,9 @@ import {
   StoryModel,
   TestimonialModel,
 } from 'src/models'
+import locale from 'locale'
+
+export const USER_LANGUAGE_COOKIE_KEY = 'userLanguage'
 
 export const makeArrayState = (isLoaded: Boolean, array: Array, transform: Function) => Object.freeze({
   isLoaded,
@@ -46,4 +49,55 @@ export const fromJS = p => {
     testimonials: p.testimonials && makeArrayState(p.testimonials.isLoaded, p.testimonials.array, TestimonialModel.fromJS),
     userLocales: p.userLocales
   }
+}
+
+export const getLanguagesList = (langSelected) => {
+  return [
+    { code: 'en', name: 'Eng'},
+    { code: 'ru', name: 'Rus'},
+    { code: 'cn', name: 'Chn'},
+    { code: 'de', name: 'Deu'},
+    { code: 'ko', name: 'Kor'},
+    { code: 'ja', name: 'Jpn'},
+    { code: 'ms', name: 'Msa'},
+    { code: 'th', name: 'Tha'},
+    { code: 'es', name: 'Spa'},
+    { code: 'vi', name: 'Vie'},
+    { code: 'ar', name: 'Ara'}
+  ].map((item) => ({
+      ...item,
+      selected: langSelected == item.code ? true : false
+    }))
+}
+
+
+export const getUserLanguageFromCookies = (headersCookie) => {
+  let cookies
+
+  if (typeof window === 'undefined'){
+    cookies = headersCookie
+  } else {
+    cookies = document.cookie
+  }
+
+  let langCookieSource = cookies.split('; ').find((source) => (source.indexOf(`${USER_LANGUAGE_COOKIE_KEY}=`) > -1) )
+
+  if (!langCookieSource) {
+    return
+  }
+  console.log('getUserLanguageFromCookies=', langCookieSource)
+  return langCookieSource.split(`${USER_LANGUAGE_COOKIE_KEY}=`)[1]
+}
+
+export const getSupposedUserLanguage = (locales) => {
+  let userLocales = new locale.Locales(locales)
+  let defaultLanguages = getLanguagesList().map((source) => source.code)
+  let storyLanguages = Object.keys(defaultLanguages)
+
+  let supportedLocales = new locale.Locales(storyLanguages)
+  let bestLocale = userLocales.best(supportedLocales)
+
+  let lang = bestLocale && bestLocale.language
+
+  return lang
 }

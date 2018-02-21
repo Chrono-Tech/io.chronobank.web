@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { getLocaleModelFields } from './helpers'
 
 export default class PartnerModel {
   constructor ({ id, title, url, icon, icon2x, brief }) {
@@ -22,12 +23,14 @@ export default class PartnerModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = getLocaleModelFields(data, locale)
+
     return data == null ? data : new PartnerModel({
       id: data._id,
       title: data.title,
       url: data.url,
-      brief: data.brief,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
       icon: data.icon
         ? ImageModel.fromServerModel(data.icon)
         : null,

@@ -11,9 +11,11 @@ import { RatesPanel } from 'dropins/market/src/components'
 import { HeaderModel, MenuModel, PostModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, setUserLanguage } from 'src/store'
+import { getLanguagesList } from 'src/store/lib/pages/helpers'
 
 import styles from './TheHeader.sass'
+import { saveUserLanguageInCookies } from '../../store/lib/pages/actions'
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class TheHeader extends React.Component {
@@ -24,6 +26,7 @@ export default class TheHeader extends React.Component {
     showVideo: PropTypes.func,
     showMobileMenu: PropTypes.func,
     eventsShow: PropTypes.func,
+    changeLanguage: PropTypes.func,
     menus: PropTypes.arrayOf(
       PropTypes.instanceOf(MenuModel)
     ),
@@ -55,8 +58,16 @@ export default class TheHeader extends React.Component {
     this.eventsInterval = null
   }
 
+  getLangsOptionsList(){
+    const langList = getLanguagesList()
+
+    return langList.map((lang, i) => (<option key={i} value={lang.code}>{lang.name}</option>))
+  }
+
   render () {
-    const { menus, header } = this.props
+    const { menus, header, userLanguage } = this.props
+    // console.log('TheHeader', userLanguage)
+
     return (
       <header className={cn('root', 'the-header', {
         'background-dark': header.background === 'dark',
@@ -153,6 +164,14 @@ export default class TheHeader extends React.Component {
                     }
                   </li>
                 ))}
+                <li>
+                    <select className='form-group lang-select' value={userLanguage} onChange={(e) => this.props.changeLanguage(e.target.value)}>
+                      { this.getLangsOptionsList() }
+                    </select>
+                    <svg style={{display: 'inline-block', fill: 'rgb(224, 224, 224)',
+                        height: '24px', width: '24px', 'user-select': 'none', 'transition': 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'}}
+                         viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg>
+                </li>
               </ul>
             </div>
             <div className='menu-mobile'>
@@ -216,11 +235,20 @@ function mapStateToProps (state, op) {
     header: headerSelector(op.headerSlug)(state),
     menus: state.pages.menus.array.filter(m => m.isVisibleInHeader),
     posts: state.pages.posts.array,
+    userLanguage: state.pages.userLanguage,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    changeLanguage: (value) => {
+      console.log('changeLanguage', value)
+      dispatch(setUserLanguage(value))
+      dispatch(saveUserLanguageInCookies(value))
+      if (typeof document !== 'undefined'){
+        document.location.reload(true)
+      }
+    },
     showVideo: (url) => {
       dispatch(modalsOpen({
         component: dialogs.VideoDialog,

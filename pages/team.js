@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initTeamPage, setUserLanguages } from 'src/store'
+import { modalsClear, snackbarsClear, initTeamPage, initUserLanguage } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -13,7 +13,7 @@ import styles from './team.sass'
 class Team extends React.Component {
 
   static async getInitialProps ({ store, req }) {
-    store.dispatch(setUserLanguages(req && req.headers))
+    store.dispatch(initUserLanguage(req && req.headers))
     await store.dispatch(initTeamPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())

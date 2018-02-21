@@ -1,3 +1,5 @@
+import { getLocaleModelFields } from './helpers'
+
 export default class JobModel {
   constructor ({ id, title, brief, details }) {
     this.id = id
@@ -13,12 +15,14 @@ export default class JobModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = getLocaleModelFields(data, locale)
+
     return data == null ? data : new JobModel({
       id: data._id,
-      title: data.title,
-      brief: data.brief,
-      details: data.details
+      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
+      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
+      details: localeModelFields && 'details' in localeModelFields ? localeModelFields.details : data.details
     })
   }
 }
