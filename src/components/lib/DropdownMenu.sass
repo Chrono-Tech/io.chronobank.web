@@ -1,0 +1,19 @@
+@import "src/styles/partials/mixins"
+
+.root.dropdown-menu
+  position: relative
+  display: inline-block
+  font-size: 18px
+  >.content
+    position: relative
+    display: block
+    >.dropdown-title
+      position: relative
+      display: block
+    >.dropdown-options
+      @include position(absolute)
+      display: none
+  &-open
+    >.content
+      >.dropdown-options
+        display: block

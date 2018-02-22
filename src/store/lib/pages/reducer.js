@@ -45,7 +45,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
-  userLanguage: ''
+  userLanguage: 'en'
 }
 
 export default (state = initialState, action) => {

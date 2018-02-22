@@ -3,25 +3,19 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initTeamPage, initUserLanguage, updateUserLanguageCookies } from 'src/store'
+import { modalsClear, snackbarsClear, initTeamPage } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
 import globalStyles from 'src/styles/globals/globals.sass'
 import styles from './team.sass'
-import { unwatchInitMarket, watchInitMarket } from '../dropins/market/src/store'
 
 class Team extends React.Component {
 
   static async getInitialProps ({ store, req }) {
-    store.dispatch(initUserLanguage(req && req.headers))
-    await store.dispatch(initTeamPage())
+    await store.dispatch(initTeamPage(req))
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
-  }
-
-  componentDidMount(){
-    this.props.updateUserLanguageCookies()
   }
 
   render () {
@@ -55,11 +49,4 @@ class Team extends React.Component {
   }
 }
 
-
-function mapDispatchToProps (dispatch) {
-  return {
-    updateUserLanguageCookies: () => dispatch(updateUserLanguageCookies())
-  }
-}
-
-export default withRedux(initStore, null, mapDispatchToProps)(Team)
+export default withRedux(initStore)(Team)

@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initFaqPage, initUserLanguage, updateUserLanguageCookies } from 'src/store'
+import { modalsClear, snackbarsClear, initFaqPage } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -13,14 +13,9 @@ import styles from './faq.sass'
 class FAQ extends React.Component {
 
   static async getInitialProps ({ store, req }) {
-    store.dispatch(initUserLanguage(req && req.headers))
-    await store.dispatch(initFaqPage())
+    await store.dispatch(initFaqPage(req))
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
-  }
-
-  componentDidMount(){
-    this.props.updateUserLanguageCookies()
   }
 
   render () {
@@ -45,11 +40,4 @@ class FAQ extends React.Component {
   }
 }
 
-
-function mapDispatchToProps (dispatch) {
-  return {
-    updateUserLanguageCookies: () => dispatch(updateUserLanguageCookies())
-  }
-}
-
-export default withRedux(initStore, null, mapDispatchToProps)(FAQ)
+export default withRedux(initStore)(FAQ)
