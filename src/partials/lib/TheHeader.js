@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import { Link } from 'src/router'
+import { DropdownMenu } from 'src/components'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'dropins/events/src/components'
@@ -11,8 +12,7 @@ import { RatesPanel } from 'dropins/market/src/components'
 import { HeaderModel, MenuModel, PostModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage } from 'src/store'
-import { getLanguagesList } from 'src/store/lib/pages/helpers'
+import { modalsOpen, snackbarsOpen, headerSelector, languagesSelector, changeUserLanguage } from 'src/store'
 
 import styles from './TheHeader.sass'
 
@@ -27,6 +27,12 @@ export default class TheHeader extends React.Component {
     eventsShow: PropTypes.func,
     changeLanguage: PropTypes.func,
     userLanguage: PropTypes.string,
+    languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ),
     menus: PropTypes.arrayOf(
       PropTypes.instanceOf(MenuModel)
     ),
@@ -58,14 +64,8 @@ export default class TheHeader extends React.Component {
     this.eventsInterval = null
   }
 
-  getLangsOptionsList(){
-    const langList = getLanguagesList()
-
-    return langList.map((lang, i) => (<option key={i} value={lang.code}>{lang.name}</option>))
-  }
-
   render () {
-    const { menus, header, userLanguage } = this.props
+    const { menus, header, languages, userLanguage } = this.props
 
     return (
       <header className={cn('root', 'the-header', {
@@ -164,12 +164,14 @@ export default class TheHeader extends React.Component {
                   </li>
                 ))}
                 <li>
-                    <select className='form-group lang-select' value={userLanguage} onChange={(e) => this.props.changeLanguage(e.target.value)}>
-                      { this.getLangsOptionsList() }
-                    </select>
-                    <span className='lang-select-icon-wrapper'>
-                      <svg className='lang-select-icon' viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg>
-                    </span>
+                  <DropdownMenu
+                    value={userLanguage}
+                    options={languages.map(lang => ({
+                      value: lang.code,
+                      title: lang.name
+                    }))}
+                    onChange={(value) => this.props.changeLanguage(value)}
+                  />
                 </li>
               </ul>
             </div>
@@ -234,6 +236,7 @@ function mapStateToProps (state, op) {
     header: headerSelector(op.headerSlug)(state),
     menus: state.pages.menus.array.filter(m => m.isVisibleInHeader),
     posts: state.pages.posts.array,
+    languages: languagesSelector()(state),
     userLanguage: state.pages.userLanguage,
   }
 }

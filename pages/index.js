@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 
 import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initIndexPage, initUserLanguage, updateUserLanguageCookies } from 'src/store'
+import { modalsClear, snackbarsClear, initIndexPage } from 'src/store'
 import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
@@ -25,8 +25,7 @@ class Index extends React.Component {
 
   static async getInitialProps ({ store, isServer, req }) {
     // Syncronous dispatch before start initIndexPage that using lang
-    store.dispatch(initUserLanguage(req && req.headers))
-    await store.dispatch(initIndexPage())
+    await store.dispatch(initIndexPage(req))
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
 
@@ -37,7 +36,6 @@ class Index extends React.Component {
 
   componentDidMount () {
     this.props.watchInitMarket()
-    this.props.updateUserLanguageCookies()
   }
 
   componentWillUnmount () {
@@ -131,8 +129,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     watchInitMarket: () => dispatch(watchInitMarket()),
-    unwatchInitMarket: () => dispatch(unwatchInitMarket()),
-    updateUserLanguageCookies: () => dispatch(updateUserLanguageCookies())
+    unwatchInitMarket: () => dispatch(unwatchInitMarket())
   }
 }
 

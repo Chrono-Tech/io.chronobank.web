@@ -21,7 +21,7 @@ import {
   TestimonialModel,
 } from 'src/models'
 
-import { getSupposedUserLanguage, getUserLanguageFromCookies, getLanguagesList, USER_LANGUAGE_COOKIE_KEY } from './helpers'
+import { userLanguageFromCookies, userLanguageFromBrowser, USER_LANGUAGE_COOKIE_KEY } from './selectors'
 
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
@@ -289,77 +289,37 @@ export const initGalleries = () => async (dispatch, getState) => {
   })
 }
 
-export const initUserLanguage = (headers) => (dispatch, getState) => {
-  const state = getState()
-
-  let cookieUserLanguage = getUserLanguageFromCookies(headers && headers.cookie)
-  let supposedLang = getSupposedUserLanguage(headers && headers['accept-language'])
-
-  if (!cookieUserLanguage){
-
-    dispatch(setUserLanguage(supposedLang))
-
-
-  } else {
-    let defaultLanguages = getLanguagesList()
-
-    // If language in cookies is wrong set default
-    if (!defaultLanguages.find((value) => (value.code == cookieUserLanguage))){
-      dispatch(setUserLanguage(supposedLang))
-    } else {
-      dispatch(setUserLanguage(cookieUserLanguage))
-    }
-
+export const initUserLanguage = (req) => (dispatch, getState) => {
+  if (req) {
+    const state = getState()
+    const language = userLanguageFromCookies(req.headers)(state)
+      || userLanguageFromBrowser(req.headers)(state)
+      || 'en'
+    dispatch(setUserLanguage(language))
   }
-
 }
 
-export const setUserLanguage = (lang) => (dispatch, getState) => {
-  if (!lang) {
-    return
-  }
-
+export const setUserLanguage = (userLanguage) => (dispatch) => {
   return dispatch({
     type: PAGES_SET_USER_LANGUAGE,
-    userLanguage: lang
+    userLanguage
   })
-}
-
-export const saveUserLanguageInCookies = (lang) => (dispatch) => {
-
-  if (typeof window === 'undefined') {
-    return
-  }
-
-  document.cookie = `${USER_LANGUAGE_COOKIE_KEY}=${lang}`
-
-}
-
-export const updateUserLanguageCookies = () => (dispatch, getState) => {
-  const state = getState()
-
-  const locale = state.pages.userLanguage
-
-  let cookieUserLanguage = getUserLanguageFromCookies()
-
-  if (locale !== cookieUserLanguage){
-    dispatch(saveUserLanguageInCookies(locale))
-  }
-
-
 }
 
 export const changeUserLanguage = (lang) => (dispatch) => {
   dispatch(setUserLanguage(lang))
-  dispatch(saveUserLanguageInCookies(lang))
+  if (typeof window !== 'undefined') {
+    window.document.cookie = `${USER_LANGUAGE_COOKIE_KEY}=${lang}`
+  }
 
   if (typeof document !== 'undefined'){
     document.location.reload(true)
   }
 }
 
-export const initAnyPage = () => (dispatch) => {
+export const initAnyPage = (req) => (dispatch) => {
   return Promise.all([
+    dispatch(initUserLanguage(req)),
     dispatch(initHeaders()),
     dispatch(initMenus()),
     dispatch(initContacts()),
@@ -370,7 +330,7 @@ export const initAnyPage = () => (dispatch) => {
   ])
 }
 
-export const initIndexPage = () => (dispatch) => {
+export const initIndexPage = (req) => (dispatch) => {
   return Promise.all([
     dispatch(initFeatures()),
     dispatch(initPartners()),
@@ -378,23 +338,23 @@ export const initIndexPage = () => (dispatch) => {
     dispatch(initArticles()),
     dispatch(initTestimonials()),
     dispatch(initIterations()),
-    dispatch(initAnyPage())
+    dispatch(initAnyPage(req))
   ])
 }
 
-export const initTeamPage = () => (dispatch) => {
+export const initTeamPage = (req) => (dispatch) => {
   return Promise.all([
     dispatch(initGalleries()),
     dispatch(initMembers()),
     dispatch(initStatistics()),
     dispatch(initJobs()),
-    dispatch(initAnyPage())
+    dispatch(initAnyPage(req))
   ])
 }
 
-export const initFaqPage = () => (dispatch) => {
+export const initFaqPage = (req) => (dispatch) => {
   return Promise.all([
     dispatch(initFaqTopics()),
-    dispatch(initAnyPage())
+    dispatch(initAnyPage(req))
   ])
 }
