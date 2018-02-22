@@ -5,12 +5,10 @@ import cn from 'classnames'
 
 import { MenuModel } from 'src/models'
 import { Link } from 'src/router'
-import { SnackbarPanel } from 'src/components'
-import { snackbarsClose } from 'src/store'
+import { SnackbarPanel, DropdownMenu } from 'src/components'
+import { snackbarsClose, languagesSelector, changeUserLanguage } from 'src/store'
 
 import styles from './MobileMenu.sass'
-import { getLanguagesList } from 'src/store/lib/pages/helpers'
-import { changeUserLanguage } from '../../store/lib/pages/actions'
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class MobileMenu extends React.Component {
@@ -21,16 +19,16 @@ export default class MobileMenu extends React.Component {
     onClose: PropTypes.func,
     changeLanguage: PropTypes.func,
     userLanguage: PropTypes.string,
-  }
-
-  getLangsOptionsList(){
-    const langList = getLanguagesList()
-
-    return langList.map((lang, i) => (<option key={i} value={lang.code}>{lang.name}</option>))
+    languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ),
   }
 
   render () {
-    const { menus, userLanguage } = this.props
+    const { menus, languages, userLanguage } = this.props
     return (
       <SnackbarPanel onClose={() => this.props.onClose()} side='top'>
         <style jsx>{styles}</style>
@@ -51,19 +49,7 @@ export default class MobileMenu extends React.Component {
                   })}>
                     {m.isComposite()
                       ? [
-                          <label key={1} className='product-item-wrapper'>
-                            <span>Products</span>
-                            <span className='lang-select-wrapper'>
-                              <select className='form-group lang-select' value={userLanguage} onChange={(e) => this.props.changeLanguage(e.target.value)}>
-                                { this.getLangsOptionsList() }
-                              </select>
-                              <span className='select-icon-wrapper'>
-                                <svg className='select-icon' viewBox='0 0 24 24'>
-                                  <path d='M7 10l5 5 5-5z'></path>
-                                </svg>
-                              </span>
-                            </span>
-                          </label>,
+                        <label key={1}>Products</label>,
                         <ul key={2} className='compact'>
                           {m.children.map(child => (
                             <li key={child.id}>
@@ -121,6 +107,15 @@ export default class MobileMenu extends React.Component {
                   </li>
                 ))}
               </ul>
+              <DropdownMenu
+                value={userLanguage}
+                options={languages.map(lang => ({
+                  value: lang.code,
+                  title: lang.name
+                }))}
+                className='language'
+                onChange={(value) => this.props.changeLanguage(value)}
+              />
             </div>
           </div>
         </div>
@@ -132,7 +127,8 @@ export default class MobileMenu extends React.Component {
 function mapStateToProps (state) {
   return {
     menus: state.pages.menus.array.filter(m => m.isVisibleInHeader),
-    userLanguage: state.pages.userLanguage
+    languages: languagesSelector()(state),
+    userLanguage: state.pages.userLanguage,
   }
 }
 

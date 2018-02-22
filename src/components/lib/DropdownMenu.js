@@ -13,6 +13,7 @@ export class DropdownMenu extends React.Component {
         title: PropTypes.string.isRequired,
       })
     ).isRequired,
+    className: PropTypes.string,
     value: PropTypes.any.isRequired,
     onChange: PropTypes.func
   }
@@ -77,7 +78,7 @@ export class DropdownMenu extends React.Component {
     const { options } = this.props
     const { active, isOpen } = this.state
     return (
-      <div className={cn('root', 'dropdown-menu', { 'dropdown-menu-open': isOpen })}>
+      <div className={cn('root', 'dropdown-menu', this.props.className, { 'dropdown-menu-open': isOpen })}>
         <style jsx>{styles}</style>
         <div className='content'>
           <div className='dropdown-title' onClick={(e) => {
@@ -88,7 +89,7 @@ export class DropdownMenu extends React.Component {
           }}>{active ? active.title : null}</div>
           <div className='dropdown-options'>
             {options.map(option => (
-              <div key={option.value} className='dropdown-option' onClick={(e) => {
+              <div key={option.value} className={cn('dropdown-option', { 'dropdown-option-active': option.value === active.value })} onClick={(e) => {
                 e.stopPropagation()
                 e.nativeEvent.stopImmediatePropagation()
                 this.handleSelect(option)

@@ -170,6 +170,7 @@ export default class TheHeader extends React.Component {
                       value: lang.code,
                       title: lang.name
                     }))}
+                    className='language'
                     onChange={(value) => this.props.changeLanguage(value)}
                   />
                 </li>

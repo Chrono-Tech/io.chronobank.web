@@ -3,17 +3,50 @@
 .root.dropdown-menu
   position: relative
   display: inline-block
-  font-size: 18px
+  font-size: 1.8rem
+  cursor: pointer
+  color:
   >.content
     position: relative
     display: block
     >.dropdown-title
       position: relative
       display: block
+      margin: 8px
+      line-height: 34px
+      min-width: 50px
+      &:after
+        content: ""
+        display: inline-block
+        margin: 0.7rem 0.5rem 0.3rem 0.5rem
+        width: 0
+        height: 0
+        border-left: 0.4rem solid transparent
+        border-right: 0.4rem solid transparent
+        border-top: 0.4rem solid currentColor
     >.dropdown-options
-      @include position(absolute)
+      @include position(absolute, 0, 0, auto auto)
       display: none
+      background: #FFFFFF
+      box-shadow: 0 8px 16px rgba(0,0,0,0.24)
+      border-radius: 2px
+      >.dropdown-option
+        padding: 1rem
+        color: #66669f
+        line-height: 1.5rem
+        min-width: 50px
+        &-active
+          color: #00005F
+          font-weight: bold
+        &:hover
+          background: rgba(#66669f,0.12)
   &-open
     >.content
+      >.dropdown-title
+        &:after
+          border-top: none
+          border-left: 0.4rem solid transparent
+          border-right: 0.4rem solid transparent
+          border-bottom: 0.4rem solid currentColor
       >.dropdown-options
         display: block
