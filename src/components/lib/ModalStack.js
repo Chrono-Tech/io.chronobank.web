@@ -12,7 +12,7 @@ export class ModalStack extends React.Component {
       <div className='root modal-stack'>
         <style jsx>{styles}</style>
         { this.props.stack.map((modal) => (
-          <modal.component key={modal.key} { ...modal.props } />
+          <modal.component key={modal.key} {...modal.props} />
         )) }
       </div>
     )
@@ -21,7 +21,7 @@ export class ModalStack extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    stack: state.modals.stack
+    stack: state.modals.stack,
   }
 }
 

@@ -16,7 +16,13 @@ export default class ReferencePanel extends React.Component {
         isNotRelevant: PropTypes.bool,
         route: PropTypes.string,
       })
-    )
+    ),
+  }
+
+  handleClick (id) {
+    if (this.props.onChange) {
+      this.props.onChange(id)
+    }
   }
 
   render () {
@@ -25,11 +31,14 @@ export default class ReferencePanel extends React.Component {
       <div className='root reference-panel'>
         <style jsx>{styles}</style>
         <ul>
-          {items.map(item => (
-            <li key={item.id} className={cn('item', {
-              'item-active': item.isActive,
-              'item-not-relevant': item.isNotRelevant,
-            })}>
+          {items.map((item) => (
+            <li
+              key={item.id}
+              className={cn('item', {
+                'item-active': item.isActive,
+                'item-not-relevant': item.isNotRelevant,
+              })}
+            >
               <a onClick={() => this.handleClick(item.isActive ? null : item.id)}>
                 <img src='/static/images/symbols/help.svg' />
                 <span>{item.title}</span>
@@ -39,11 +48,5 @@ export default class ReferencePanel extends React.Component {
         </ul>
       </div>
     )
-  }
-
-  handleClick (id) {
-    if (this.props.onChange) {
-      this.props.onChange(id)
-    }
   }
 }

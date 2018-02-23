@@ -15,7 +15,7 @@ export default class FeatureModel {
   static fromJS (data) {
     return data == null ? data : new FeatureModel({
       ...data,
-      image: ImageModel.fromJS(data.image)
+      image: ImageModel.fromJS(data.image),
     })
   }
 
@@ -23,10 +23,11 @@ export default class FeatureModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new FeatureModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: data.title,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
-      image: ImageModel.fromServerModel(data.image)
+      image: ImageModel.fromServerModel(data.image),
     })
   }
 }

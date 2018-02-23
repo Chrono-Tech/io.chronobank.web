@@ -42,12 +42,12 @@ export default class TheHeader extends React.Component {
   }
 
   componentDidMount () {
-    const events = this.props.posts.map(p => new EventModel({
+    const events = this.props.posts.map((p) => new EventModel({
       id: p.id,
       status: 'new',
       url: p.url,
       title: p.title,
-      date: p.publishedDate
+      date: p.publishedDate,
     }))
 
     let index = 0
@@ -74,8 +74,9 @@ export default class TheHeader extends React.Component {
         'stereotype-default': header.stereotype === 'default',
         'stereotype-splash': header.stereotype === 'splash',
         'stereotype-product': header.stereotype === 'product',
-        'stereotype-text': header.stereotype === 'text'
-      })}>
+        'stereotype-text': header.stereotype === 'text',
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='top'>
@@ -89,14 +90,14 @@ export default class TheHeader extends React.Component {
             </div>
             <div className='menu-desktop'>
               <ul>
-                {menus.map(m => (
+                {menus.map((m) => (
                   <li key={m.id}>
                     {m.isComposite()
                       ? (
                         <div className='dropdown'>
                           <a className='link'>{m.title}</a>
                           <ul className='dropdown-panel'>
-                            {m.children.map(child => (
+                            {m.children.map((child) => (
                               <li key={child.id}>
                                 {child.isRoute()
                                   ? (
@@ -110,7 +111,7 @@ export default class TheHeader extends React.Component {
                                         <div className='product-info'>
                                           <div className='info-title'>{child.title}</div>
                                           {!child.subtitle ? null : (
-                                            <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle}}></div>
+                                            <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle }} />
                                           )}
                                         </div>
                                       </div>
@@ -127,7 +128,7 @@ export default class TheHeader extends React.Component {
                                         <div className='product-info'>
                                           <div className='info-title'>{child.title}</div>
                                           {!child.subtitle ? null : (
-                                            <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle}}></div>
+                                            <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle }} />
                                           )}
                                         </div>
                                       </div>
@@ -166,9 +167,9 @@ export default class TheHeader extends React.Component {
                 <li>
                   <DropdownMenu
                     value={userLanguage}
-                    options={languages.map(lang => ({
+                    options={languages.map((lang) => ({
                       value: lang.code,
-                      title: lang.name
+                      title: lang.name,
                     }))}
                     className='language'
                     onChange={(value) => this.props.changeLanguage(value)}
@@ -185,7 +186,7 @@ export default class TheHeader extends React.Component {
             <EventsRotator />
           </div>
           <div className='content'>
-            <div className='text' dangerouslySetInnerHTML={{ __html: header.brief}}></div>
+            <div className='text' dangerouslySetInnerHTML={{ __html: header.brief }} />
             {!header.video ? null : (
               <div className='video'>
                 <a onClick={() => this.props.showVideo(header.video)}>
@@ -198,28 +199,40 @@ export default class TheHeader extends React.Component {
         </div>
         <div className='image'>
           {!header.image ? null : (
-            <img className='image-1280' { ...{
-              src: header.image.url,
-              srcSet: header.image2x ? `${header.image2x.url} 2x` : undefined
-            }} />
+            <img
+              className='image-1280'
+              {...{
+                src: header.image.url,
+                srcSet: header.image2x ? `${header.image2x.url} 2x` : undefined,
+              }}
+            />
           )}
           {!header.image320 ? null : (
-            <img className='image-320' { ...{
-              src: header.image320.url,
-              srcSet: header.image2x320 ? `${header.image2x320.url} 2x` : undefined
-            }} />
+            <img
+              className='image-320'
+              {...{
+                src: header.image320.url,
+                srcSet: header.image2x320 ? `${header.image2x320.url} 2x` : undefined,
+              }}
+            />
           )}
           {!header.image480 ? null : (
-            <img className='image-480' { ...{
-              src: header.image480.url,
-              srcSet: header.image2x480 ? `${header.image2x480.url} 2x` : undefined
-            }} />
+            <img
+              className='image-480'
+              {...{
+                src: header.image480.url,
+                srcSet: header.image2x480 ? `${header.image2x480.url} 2x` : undefined,
+              }}
+            />
           )}
           {!header.image640 ? null : (
-            <img className='image-640' { ...{
-              src: header.image640.url,
-              srcSet: header.image2x640 ? `${header.image2x640.url} 2x` : undefined
-            }} />
+            <img
+              className='image-640'
+              {...{
+                src: header.image640.url,
+                srcSet: header.image2x640 ? `${header.image2x640.url} 2x` : undefined,
+              }}
+            />
           )}
         </div>
         {header.stereotype !== 'splash' ? null : (
@@ -235,7 +248,7 @@ export default class TheHeader extends React.Component {
 function mapStateToProps (state, op) {
   return {
     header: headerSelector(op.headerSlug)(state),
-    menus: state.pages.menus.array.filter(m => m.isVisibleInHeader),
+    menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
     posts: state.pages.posts.array,
     languages: languagesSelector()(state),
     userLanguage: state.pages.userLanguage,
@@ -251,15 +264,15 @@ function mapDispatchToProps (dispatch) {
       dispatch(modalsOpen({
         component: dialogs.VideoDialog,
         props: {
-          url
-        }
+          url,
+        },
       }))
     },
     showMobileMenu: () => [
       dispatch(snackbarsOpen({
         component: snackbars.MobileMenu,
-        props: {}
-      }))
+        props: {},
+      })),
     ],
     eventsShow: (event: EventModel) => dispatch(eventsEnqueue(event, 1)),
   }

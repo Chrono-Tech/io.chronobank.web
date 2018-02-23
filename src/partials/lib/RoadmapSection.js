@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
+import swiperStyles from 'swiper/dist/css/swiper.css'
+
 import { IterationModel } from 'src/models'
 import { Swiper } from 'src/plugins'
 
 import styles from './RoadmapSection.sass'
-import swiperStyles from 'swiper/dist/css/swiper.css'
 
 @connect(mapStateToProps)
 export default class RoadmapSection extends React.Component {
@@ -36,7 +37,7 @@ export default class RoadmapSection extends React.Component {
         if (this.swiperPaginationFillElement) {
           this.swiperPaginationFillElement.style.width = `${progress * swiper.slides.length * 274}px`
         }
-      }
+      },
     })
   }
 
@@ -47,15 +48,18 @@ export default class RoadmapSection extends React.Component {
         <div className='logo'>
           {!iteration.image ? null : (
             <div className='image' key={iteration.id}>
-              <img alt={iteration.title} {...{
-                src: iteration.image ? `${iteration.image.url}` : undefined,
-                srcSet: iteration.image2x ? `${iteration.image2x.url} 2x` : undefined
-              }}/>
+              <img
+                alt={iteration.title}
+                {...{
+                  src: iteration.image ? `${iteration.image.url}` : undefined,
+                  srcSet: iteration.image2x ? `${iteration.image2x.url} 2x` : undefined,
+                }}
+              />
             </div>
           )}
         </div>
-        <div className='text' dangerouslySetInnerHTML={{ __html: iteration.brief}}></div>
-        <div className='bullet' onClick={() => this.swiper.slideTo(index)}></div>
+        <div className='text' dangerouslySetInnerHTML={{ __html: iteration.brief }} />
+        <div className='bullet' onClick={() => this.swiper.slideTo(index)} />
         <div className='label'>
           <div>{moment(iteration.date).utc().format('MMM, YYYY')}</div>
         </div>
@@ -88,14 +92,14 @@ export default class RoadmapSection extends React.Component {
             <div className='swiper-container' ref={(swiper) => { this.swiperElement = swiper }}>
               <div className='swiper-wrapper' ref={(swiperWrapper) => { this.swiperWrapperElement = swiperWrapper}}>
                 <div className='line' ref={(swiperPaginationLine) => { this.swiperPaginationLineElement = swiperPaginationLine}}>
-                  <div className='point' style={{left: `${Math.round(progress * 100)}%`}}>
+                  <div className='point' style={{ left: `${Math.round(progress * 100)}%` }}>
                     <div className='point-label'>
                       <img src='/static/images/symbols/geopoint.svg' />
                       <span>We are here</span>
                     </div>
                   </div>
                 </div>
-                <div className='fill' ref={(swiperPaginationFill) => { this.swiperPaginationFillElement = swiperPaginationFill}}></div>
+                <div className='fill' ref={(swiperPaginationFill) => { this.swiperPaginationFillElement = swiperPaginationFill}} />
                 {items.map((iteration, index) => (
                   <div key={iteration.id} className='swiper-slide'>
                     {this.renderItem(iteration, index)}
@@ -103,8 +107,7 @@ export default class RoadmapSection extends React.Component {
                 ))}
               </div>
               <div className='swiper-pagination-line-box'>
-                <div className='swiper-pagination-line' ref={(swiperPaginationLine) => { this.swiperPaginationLineElement = swiperPaginationLine}}>
-                </div>
+                <div className='swiper-pagination-line' ref={(swiperPaginationLine) => { this.swiperPaginationLineElement = swiperPaginationLine}} />
               </div>
             </div>
           </div>

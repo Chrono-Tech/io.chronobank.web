@@ -13,17 +13,18 @@ export default class GalleryImageModel {
   static fromJS (data) {
     return data == null ? data : new GalleryImageModel({
       ...data,
-      image: ImageModel.fromJS(data.image)
+      image: ImageModel.fromJS(data.image),
     })
   }
 
   static fromServerModel (data) {
     return data == null ? data : new GalleryImageModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: data.title,
       image: data.image
         ? ImageModel.fromServerModel(data.image)
-        : null
+        : null,
     })
   }
 }

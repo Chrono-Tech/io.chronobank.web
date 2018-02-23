@@ -14,7 +14,7 @@ export default class AccordeonPanel extends React.Component {
         title: PropTypes.string,
         content: PropTypes.node,
       })
-    )
+    ),
   }
 
   render () {
@@ -23,11 +23,14 @@ export default class AccordeonPanel extends React.Component {
       <div className='root accordeon-panel'>
         <style jsx>{styles}</style>
         <div className='wrap'>
-          {items.map(item => (
-            <div key={item.id} className={cn('item', {
-              'item-open': item.isOpen
-            })}>
-              <h5 onClick={e => { e.currentTarget.parentNode.classList.toggle('item-open') }}>{item.title}</h5>
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className={cn('item', {
+                'item-open': item.isOpen,
+              })}
+            >
+              <h5 onClick={(e) => { e.currentTarget.parentNode.classList.toggle('item-open') }}>{item.title}</h5>
               <div className='content'>
                 <div className='inner'>
                   {item.content}

@@ -5,7 +5,7 @@ export const MARKET_RATES_UPDATE = 'market/RATES_UPDATE'
 export const watchInitMarket = () => (dispatch) => {
   module.market = new MarketSocket()
     .init()
-    .on('update', data => dispatch({ type: MARKET_RATES_UPDATE, data }))
+    .on('update', (data) => dispatch({ type: MARKET_RATES_UPDATE, data }))
     .start()
 }
 

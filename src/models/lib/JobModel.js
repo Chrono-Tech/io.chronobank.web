@@ -11,7 +11,7 @@ export default class JobModel {
 
   static fromJS (data) {
     return data == null ? data : new JobModel({
-      ...data
+      ...data,
     })
   }
 
@@ -19,10 +19,11 @@ export default class JobModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new JobModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
-      details: localeModelFields && 'details' in localeModelFields ? localeModelFields.details : data.details
+      details: localeModelFields && 'details' in localeModelFields ? localeModelFields.details : data.details,
     })
   }
 }

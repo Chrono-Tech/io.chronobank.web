@@ -7,7 +7,7 @@ export default class TheTitle extends React.Component {
 
   static propTypes = {
     title: PropTypes.string,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
   }
 
   render () {

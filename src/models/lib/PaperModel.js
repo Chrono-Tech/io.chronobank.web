@@ -14,9 +14,10 @@ export default class PaperModel {
 
   static fromServerModel (data) {
     return data == null ? null : new PaperModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: data.title,
-      url: data.url
+      url: data.url,
     })
   }
 }

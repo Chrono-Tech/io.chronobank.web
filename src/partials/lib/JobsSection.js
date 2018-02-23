@@ -13,7 +13,7 @@ export default class JobsSection extends React.Component {
 
   static propTypes = {
     jobs: PropTypes.arrayOf(JobModel),
-    showJob: PropTypes.func
+    showJob: PropTypes.func,
   }
 
   render () {
@@ -26,7 +26,7 @@ export default class JobsSection extends React.Component {
             <ul>
               {jobs.map((job) => (
                 <li key={job.id}>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: job.brief}}></div>
+                  <div className='text' dangerouslySetInnerHTML={{ __html: job.brief }} />
                   <div className='buttons'>
                     <a className='button' onClick={() => this.props.showJob({ job })}>Apply</a>
                   </div>
@@ -46,8 +46,8 @@ function mapDispatchToProps (dispatch) {
       dispatch(modalsOpen({
         component: dialogs.JobDialog,
         props: {
-          job
-        }
+          job,
+        },
       }))
     },
   }
@@ -55,6 +55,6 @@ function mapDispatchToProps (dispatch) {
 
 function mapStateToProps (state) {
   return {
-    jobs: state.pages.jobs.array
+    jobs: state.pages.jobs.array,
   }
 }

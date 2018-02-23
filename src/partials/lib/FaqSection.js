@@ -15,7 +15,7 @@ export default class FaqSection extends React.Component {
   static propTypes = {
     topics: PropTypes.arrayOf(
       PropTypes.instanceOf(FaqTopicModel)
-    )
+    ),
   }
 
   constructor (props) {
@@ -34,7 +34,68 @@ export default class FaqSection extends React.Component {
       topic: null,
       topics,
       reference: [...topics.values()],
-      results: [...topics.values()]
+      results: [...topics.values()],
+    }
+  }
+
+  async handleSearch ({ query, topic }) {
+    const state = this.state
+    // eslint-disable-next-line
+
+    if ((query !== null && query !== '' && query !== '*') || topic) {
+      const { data } = await BACKEND.get('faq-questions/search', {
+        params: {
+          query: (query !== null && query !== '' && query !== '*') ? query : null,
+          topic,
+        },
+      })
+
+      const results = new Map()
+      let count = 0
+      for (const q of data.elements) {
+        if (q.document.topic) {
+          const t = state.topics.get(q.document.topic)
+          if (t) {
+            const storedTopic = results.get(q.document.topic)
+            const questions = storedTopic ? storedTopic.questions : []
+            results.set(t.id, {
+              ...t,
+              questions: [...questions, {
+                // eslint-disable-next-line no-underscore-dangle
+                id: q.document._id,
+                isOpen: !count || (q.score > 3),
+                title: q.document.title,
+                brief: q.document.brief,
+              }],
+            })
+            count++
+          }
+        }
+      }
+
+      const reference = new Map()
+      for (const t of state.topics.values()) {
+        reference.set(t.id, {
+          ...t,
+          isActive: t.id === topic,
+          isNotRelevant: !results.get(t.id),
+        })
+      }
+
+      this.setState({
+        query,
+        topic,
+        reference: [...reference.values()],
+        results: [...results.values()],
+      })
+
+    } else {
+      this.setState({
+        query: null,
+        topic: null,
+        reference: [...state.topics.values()],
+        results: [...state.topics.values()],
+      })
     }
   }
 
@@ -63,20 +124,25 @@ export default class FaqSection extends React.Component {
                     <div className='no-results'>No relevant results</div>
                   )
                   : (
-                    <SectionsPanel styleName='topics' className='topics' items={results.map(topic => ({
-                      id: topic.id,
-                      title: topic.title,
-                      content: (
-                        <AccordeonPanel items={topic.questions.map(question => ({
-                          id: question.id,
-                          title: question.title,
-                          isOpen: question.isOpen,
-                          content: (
-                            <div className='text' dangerouslySetInnerHTML={{ __html: question.brief}}></div>
-                          )
-                        }))} />
-                      )
-                    }))} />
+                    <SectionsPanel
+                      styleName='topics'
+                      className='topics'
+                      items={results.map((topic) => ({
+                        id: topic.id,
+                        title: topic.title,
+                        content: (
+                          <AccordeonPanel items={topic.questions.map((question) => ({
+                            id: question.id,
+                            title: question.title,
+                            isOpen: question.isOpen,
+                            content: (
+                              <div className='text' dangerouslySetInnerHTML={{ __html: question.brief }} />
+                            ),
+                          }))}
+                          />
+                        ),
+                      }))}
+                    />
                   )
                 }
               </div>
@@ -85,66 +151,6 @@ export default class FaqSection extends React.Component {
         </div>
       </div>
     )
-  }
-
-  async handleSearch ({ query, topic }) {
-    const state = this.state
-    // eslint-disable-next-line
-
-    if ((query !== null && query !== '' && query !== '*') || topic) {
-      const { data } = await BACKEND.get('faq-questions/search', {
-        params: {
-          query: (query !== null && query !== '' && query !== '*') ? query : null,
-          topic
-        }
-      })
-
-      const results = new Map()
-      let count = 0
-      for (const q of data.elements) {
-        if (q.document.topic) {
-          const t = state.topics.get(q.document.topic)
-          if (t) {
-            const storedTopic = results.get(q.document.topic)
-            const questions = storedTopic ? storedTopic.questions : []
-            results.set(t.id, {
-              ...t,
-              questions: [...questions, {
-                id: q.document._id,
-                isOpen: !count || (q.score > 3),
-                title: q.document.title,
-                brief: q.document.brief
-              }]
-            })
-            count++
-          }
-        }
-      }
-
-      const reference = new Map()
-      for (const t of state.topics.values()) {
-        reference.set(t.id, {
-          ...t,
-          isActive: t.id === topic,
-          isNotRelevant: !results.get(t.id)
-        })
-      }
-
-      this.setState({
-        query,
-        topic,
-        reference: [...reference.values()],
-        results: [...results.values()]
-      })
-
-    } else {
-      this.setState({
-        query: null,
-        topic: null,
-        reference: [...state.topics.values()],
-        results: [...state.topics.values()]
-      })
-    }
   }
 }
 

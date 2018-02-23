@@ -6,24 +6,24 @@ import styles from './ProductFeaturesSection.sass'
 
 const transitionStyles = {
   entering: { opacity: 0 },
-  entered:  { opacity: 1 }
+  entered:  { opacity: 1 },
 }
 
 export default class ProductFeaturesSection extends React.Component {
 
   static propTypes = {
     features: PropTypes.array.isRequired,
-    interval: PropTypes.number
+    interval: PropTypes.number,
   }
 
   static defaultProps = {
-    interval: 5000
+    interval: 5000,
   }
 
   constructor (props) {
     super(props)
     this.state = {
-      active: 0
+      active: 0,
     }
   }
 
@@ -31,7 +31,7 @@ export default class ProductFeaturesSection extends React.Component {
     if (this.props.features.length) {
       this.interval = setInterval(() => {
         this.setState({
-          active: (this.state.active + 1) % this.props.features.length
+          active: (this.state.active + 1) % this.props.features.length,
         })
       }, this.props.interval)
     }
@@ -41,6 +41,22 @@ export default class ProductFeaturesSection extends React.Component {
     if (this.interval) {
       clearInterval(this.interval)
       this.interval = null
+    }
+  }
+
+  handleSelect (index) {
+    if (index < this.props.features.length) {
+      this.setState({
+        active: index,
+      })
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+      this.interval = setInterval(() => {
+        this.setState({
+          active: (this.state.active + 1) % this.props.features.length,
+        })
+      }, this.props.interval)
     }
   }
 
@@ -58,15 +74,18 @@ export default class ProductFeaturesSection extends React.Component {
             <div className='left'>
               <ul>
                 {features.map((feature, index) => (
-                  <li key={feature.id} className={(index === this.state.active) ? 'active' : null}
+                  <li
+                    key={feature.id}
+                    className={(index === this.state.active) ? 'active' : null}
                     onClick={() => this.handleSelect(index)}
                   >
                     <a>{feature.title}</a>
                     <div className='inline'>
                       <img {...{
                         src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
-                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined
-                      }} />
+                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined,
+                      }}
+                      />
                     </div>
                   </li>
                 ))}
@@ -74,12 +93,15 @@ export default class ProductFeaturesSection extends React.Component {
             </div>
             <div className='main'>
               <div className='image'>
-                <Transition in={true} key={activeFeature.id} timeout={300} appear={true}>
+                <Transition in key={activeFeature.id} timeout={300} appear>
                   {(state) => (
-                    <img style={transitionStyles[state]} {...{
-                      src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
-                      srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined
-                    }} />
+                    <img
+                      style={transitionStyles[state]}
+                      {...{
+                        src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
+                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined,
+                      }}
+                    />
                   )}
                 </Transition>
               </div>
@@ -88,21 +110,5 @@ export default class ProductFeaturesSection extends React.Component {
         </div>
       </div>
     )
-  }
-
-  handleSelect (index) {
-    if (index < this.props.features.length) {
-      this.setState({
-        active: index
-      })
-      if (this.interval) {
-        clearInterval(this.interval)
-      }
-      this.interval = setInterval(() => {
-        this.setState({
-          active: (this.state.active + 1) % this.props.features.length
-        })
-      }, this.props.interval)
-    }
   }
 }

@@ -3,9 +3,8 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
-import initStore from 'src/store'
 import { ProductModel } from 'src/models'
-import { modalsClear, snackbarsClear, initAnyPage, productSelector } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initAnyPage, productSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -20,11 +19,12 @@ class ProductsDetails extends React.Component {
   }
 
   static async getInitialProps ({ store, query, req }) {
-    await store.dispatch(initAnyPage(req))
+    await store.dispatch(initUserLanguage(req))
+    await store.dispatch(initAnyPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
     return {
-      productSlug: query.slug
+      productSlug: query.slug,
     }
   }
 
@@ -68,7 +68,7 @@ class ProductsDetails extends React.Component {
 
 function mapStateToProps (state, op) {
   return {
-    product: productSelector(op.productSlug)(state)
+    product: productSelector(op.productSlug)(state),
   }
 }
 

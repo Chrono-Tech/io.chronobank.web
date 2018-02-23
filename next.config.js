@@ -7,7 +7,7 @@ module.exports = {
   // eslint-disable-next-line
   webpack: (config, { dev }) => {
     config.resolve.alias = {
-      'src': path.join(__dirname, 'src')
+      'src': path.join(__dirname, 'src'),
     }
     config.resolve.extensions = ['.js', '.jsx', '.json', '.scss', '.css']
     config.module.rules.push(
@@ -15,12 +15,12 @@ module.exports = {
         test: /\.(css|scss|sass)/,
         loader: 'emit-file-loader',
         options: {
-          name: 'dist/[path][name].[ext]'
-        }
+          name: 'dist/[path][name].[ext]',
+        },
       },
       {
         test: /\.css$/,
-        use: ['babel-loader', 'raw-loader', 'postcss-loader']
+        use: ['babel-loader', 'raw-loader', 'postcss-loader'],
       },
       {
         test: /\.s(a|c)ss$/,
@@ -30,18 +30,18 @@ module.exports = {
               includePaths: ['styles', 'node_modules']
                 .map((d) => path.join(__dirname, d))
                 .map((g) => glob.sync(g))
-                .reduce((a, c) => a.concat(c), [])
-            }
-          }
-        ]
+                .reduce((a, c) => a.concat(c), []),
+            },
+          },
+        ],
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json-loader',
       },
       {
         test: /\.(jpg|png|gif)$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
       },
       { test: /\.eot(\?v=\d+.\d+.\d+)?$/, loader: 'file-loader' },
       { test: /\.otf(\?v=\d+.\d+.\d+)?$/, loader: 'file-loader' },
@@ -52,9 +52,9 @@ module.exports = {
     config.plugins.push(
       new webpack.DefinePlugin({
         'process.env.API_ENDPOINT': `'${process.env.API_ENDPOINT}'`,
-        'process.env.IMAGES_ENDPOINT': `'${process.env.IMAGES_ENDPOINT}'`
+        'process.env.IMAGES_ENDPOINT': `'${process.env.IMAGES_ENDPOINT}'`,
       })
     )
     return config
-  }
+  },
 }

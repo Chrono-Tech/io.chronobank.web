@@ -25,7 +25,7 @@ export default class PostsSection extends React.Component {
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>
-            {posts.map(post => (
+            {posts.map((post) => (
               <a className='item' key={post.id} target='_blank' rel='noopener noreferrer' href={post.url}>
                 {!post.image ? null : (
                   <div className='image'>

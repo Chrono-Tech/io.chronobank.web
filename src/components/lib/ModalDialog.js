@@ -5,19 +5,12 @@ import cn from 'classnames'
 
 import styles from './ModalDialog.sass'
 
-
 export class ModalDialog extends React.Component {
 
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    onClose: PropTypes.func
-  }
-
-  handleBackdropClick (e) {
-    if (this.props.onClose) {
-      this.props.onClose(e)
-    }
+    onClose: PropTypes.func,
   }
 
   componentDidMount () {
@@ -28,16 +21,24 @@ export class ModalDialog extends React.Component {
     }, 100)
   }
 
+  handleBackdropClick (e) {
+    if (this.props.onClose) {
+      this.props.onClose(e)
+    }
+  }
+
   render () {
     return (
-      <div className={cn('root', 'modal-dialog', this.props.className)}
+      <div
+        className={cn('root', 'modal-dialog', this.props.className)}
         onClick={(e) => {
           e.stopPropagation()
           this.handleBackdropClick(e)
         }}
       >
         <style jsx>{styles}</style>
-        <div className='dialog'
+        <div
+          className='dialog'
           onClick={(e) => {
             e.stopPropagation()
           }}
@@ -45,10 +46,15 @@ export class ModalDialog extends React.Component {
           <div className='content'>
             {this.props.children}
           </div>
-          <a className='close' onClick={(e) => {
-            e.stopPropagation()
-            this.handleBackdropClick(e)
-          }}></a>
+          <a
+            className='close'
+            onClick={(e) => {
+              e.stopPropagation()
+              this.handleBackdropClick(e)
+            }}
+          >
+            Close
+          </a>
         </div>
       </div>
     )

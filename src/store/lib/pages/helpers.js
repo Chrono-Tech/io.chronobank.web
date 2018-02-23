@@ -21,10 +21,10 @@ import {
 
 export const makeArrayState = (isLoaded: Boolean, array: Array, transform: Function) => Object.freeze({
   isLoaded,
-  array: Object.freeze(transform ? array.map(transform) : [...array])
+  array: Object.freeze(transform ? array.map(transform) : [...array]),
 })
 
-export const fromJS = p => {
+export const fromJS = (p) => {
   return {
     articles: p.articles && makeArrayState(p.articles.isLoaded, p.articles.array, ArticleModel.fromJS),
     contacts: p.contacts && makeArrayState(p.contacts.isLoaded, p.contacts.array, ContactModel.fromJS),

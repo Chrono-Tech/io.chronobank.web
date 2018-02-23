@@ -3,7 +3,7 @@ import ImageModel from './ImageModel'
 import { getLocaleModelFields } from './helpers'
 
 export default class HeaderModel {
-  constructor ({ id, slug, title, stereotype, background, video, brief, image, image2x, image320, image2x320, image480, image2x480, image640, image2x640}) {
+  constructor ({ id, slug, title, stereotype, background, video, brief, image, image2x, image320, image2x320, image480, image2x480, image640, image2x640 }) {
     this.id = id
     this.slug = slug
     this.title = title
@@ -45,7 +45,7 @@ export default class HeaderModel {
       image480: ImageModel.fromJS(data.image480),
       image2x480: ImageModel.fromJS(data.image2x480),
       image640: ImageModel.fromJS(data.image640),
-      image2x640: ImageModel.fromJS(data.image2x640)
+      image2x640: ImageModel.fromJS(data.image2x640),
     })
   }
 
@@ -53,6 +53,7 @@ export default class HeaderModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new HeaderModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       slug: data.slug,
       title: data.title,
@@ -67,7 +68,7 @@ export default class HeaderModel {
       image480: ImageModel.fromServerModel(data.image480),
       image2x480: ImageModel.fromServerModel(data.image2x480),
       image640: ImageModel.fromServerModel(data.image640),
-      image2x640: ImageModel.fromServerModel(data.image2x640)
+      image2x640: ImageModel.fromServerModel(data.image2x640),
     })
   }
 }

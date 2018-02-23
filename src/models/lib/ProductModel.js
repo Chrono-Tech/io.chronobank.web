@@ -23,11 +23,11 @@ export default class ProductModel {
     this.image = image
     assert(image2x == null || image2x instanceof ImageModel)
     this.image2x = image2x
-    assert(downloads == null || !downloads.find(child => !(child instanceof ProductDownloadModel)))
+    assert(downloads == null || !downloads.find((child) => !(child instanceof ProductDownloadModel)))
     this.downloads = downloads
-    assert(distros == null || !distros.find(child => !(child instanceof ProductDistroModel)))
+    assert(distros == null || !distros.find((child) => !(child instanceof ProductDistroModel)))
     this.distros = distros
-    assert(features == null || !features.find(child => !(child instanceof ProductFeatureModel)))
+    assert(features == null || !features.find((child) => !(child instanceof ProductFeatureModel)))
     this.features = features
     Object.freeze(this)
   }
@@ -41,7 +41,7 @@ export default class ProductModel {
       image2x: ImageModel.fromJS(data.image2x),
       downloads: data.downloads == null ? null : data.downloads.map(ProductDownloadModel.fromJS),
       distros: data.distros == null ? null : data.distros.map(ProductDistroModel.fromJS),
-      features: data.features == null ? null : data.features.map(ProductFeatureModel.fromJS)
+      features: data.features == null ? null : data.features.map(ProductFeatureModel.fromJS),
     })
   }
 
@@ -49,6 +49,7 @@ export default class ProductModel {
     let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? data : new ProductModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       slug: data.slug,
       name: data.name,
@@ -63,7 +64,7 @@ export default class ProductModel {
       image2x: ImageModel.fromServerModel(data.image2x),
       downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locales })),
       distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locales })),
-      features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locales }))
+      features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locales })),
     })
   }
 }

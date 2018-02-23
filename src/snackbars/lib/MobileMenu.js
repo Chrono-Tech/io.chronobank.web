@@ -43,15 +43,18 @@ export default class MobileMenu extends React.Component {
             </div>
             <div className='content'>
               <ul>
-                {menus.map(m => (
-                  <li key={m.id} className={cn({
-                    'border-bottom': m.isComposite()
-                  })}>
+                {menus.map((m) => (
+                  <li
+                    key={m.id}
+                    className={cn({
+                      'border-bottom': m.isComposite(),
+                    })}
+                  >
                     {m.isComposite()
                       ? [
                         <label key={1}>Products</label>,
                         <ul key={2} className='compact'>
-                          {m.children.map(child => (
+                          {m.children.map((child) => (
                             <li key={child.id}>
                               {m.isRoute()
                                 ? (
@@ -75,7 +78,7 @@ export default class MobileMenu extends React.Component {
                               }
                             </li>
                           ))}
-                        </ul>
+                        </ul>,
                       ]
                       : (
                         m.isRoute()
@@ -109,9 +112,9 @@ export default class MobileMenu extends React.Component {
               </ul>
               <DropdownMenu
                 value={userLanguage}
-                options={languages.map(lang => ({
+                options={languages.map((lang) => ({
                   value: lang.code,
-                  title: lang.name
+                  title: lang.name,
                 }))}
                 className='language'
                 onChange={(value) => this.props.changeLanguage(value)}
@@ -126,7 +129,7 @@ export default class MobileMenu extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    menus: state.pages.menus.array.filter(m => m.isVisibleInHeader),
+    menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
     languages: languagesSelector()(state),
     userLanguage: state.pages.userLanguage,
   }

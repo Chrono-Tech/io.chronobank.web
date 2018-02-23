@@ -18,7 +18,7 @@ export default class IterationModel {
     return data == null ? data : new IterationModel({
       ...data,
       date: data.date == null ? null : new Date(data.date),
-      image: ImageModel.fromJS(data.image)
+      image: ImageModel.fromJS(data.image),
     })
   }
 
@@ -26,11 +26,12 @@ export default class IterationModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new IterationModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'titles' in localeModelFields ? localeModelFields.title : data.title ,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
       date: data.date == null ? null : new Date(data.date),
-      image: ImageModel.fromServerModel(data.image)
+      image: ImageModel.fromServerModel(data.image),
     })
   }
 }

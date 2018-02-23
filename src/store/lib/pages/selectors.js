@@ -3,29 +3,29 @@ import { createSelector } from 'reselect'
 
 export const USER_LANGUAGE_COOKIE_KEY = 'userLanguage'
 
-export const headerSelector = slug => createSelector(
-  state => state.pages.headers.array,
-  headers => headers.find(h => h.slug === slug)
+export const headerSelector = (slug) => createSelector(
+  (state) => state.pages.headers.array,
+  (headers) => headers.find((h) => h.slug === slug)
 )
 
-export const productSelector = slug => createSelector(
-  state => state.pages.products.array,
-  products => products.find(p => p.slug === slug)
+export const productSelector = (slug) => createSelector(
+  (state) => state.pages.products.array,
+  (products) => products.find((p) => p.slug === slug)
 )
 
 export const languagesSelector = (/*langSelected*/) => createSelector(
   (/* state */) => [
-    { code: 'en', name: 'Eng'},
-    { code: 'ru', name: 'Rus'},
-    { code: 'cn', name: 'Chn'},
-    { code: 'de', name: 'Deu'},
-    { code: 'ko', name: 'Kor'},
-    { code: 'ja', name: 'Jpn'},
-    { code: 'ms', name: 'Msa'},
-    { code: 'th', name: 'Tha'},
-    { code: 'es', name: 'Spa'},
-    { code: 'vi', name: 'Vie'},
-    { code: 'ar', name: 'Ara'}
+    { code: 'en', name: 'Eng' },
+    { code: 'ru', name: 'Rus' },
+    { code: 'cn', name: 'Chn' },
+    { code: 'de', name: 'Deu' },
+    { code: 'ko', name: 'Kor' },
+    { code: 'ja', name: 'Jpn' },
+    { code: 'ms', name: 'Msa' },
+    { code: 'th', name: 'Tha' },
+    { code: 'es', name: 'Spa' },
+    { code: 'vi', name: 'Vie' },
+    { code: 'ar', name: 'Ara' },
   ]
 )
 
@@ -53,10 +53,10 @@ export const userLanguageFromCookies = (header) => createSelector(
 // getSupposedUserLanguage
 export const userLanguageFromBrowser = (headers) => createSelector(
   languagesSelector(),
-  defaultLanguages => {
+  (defaultLanguages) => {
     const acceptLanguage = headers && headers['accept-language']
     const userLocales = new locale.Locales(acceptLanguage)
-    const supportedLocales = new locale.Locales(defaultLanguages.map(l => l.code))
+    const supportedLocales = new locale.Locales(defaultLanguages.map((l) => l.code))
     const bestLocale = userLocales.best(supportedLocales)
     return bestLocale
       ? bestLocale.language

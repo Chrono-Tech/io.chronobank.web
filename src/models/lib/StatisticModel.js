@@ -15,7 +15,7 @@ export default class StatisticModel {
   static fromJS (data) {
     return data == null ? data : new StatisticModel({
       ...data,
-      image: ImageModel.fromJS(data.image)
+      image: ImageModel.fromJS(data.image),
     })
   }
 
@@ -23,10 +23,11 @@ export default class StatisticModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new StatisticModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
-      image: ImageModel.fromServerModel(data.image)
+      image: ImageModel.fromServerModel(data.image),
     })
   }
 }

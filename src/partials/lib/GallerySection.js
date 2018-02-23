@@ -2,11 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import swiperStyles from 'swiper/dist/css/swiper.css'
+
 import { Swiper } from 'src/plugins'
 import { GalleryModel } from 'src/models'
 
 import styles from './GallerySection.sass'
-import swiperStyles from 'swiper/dist/css/swiper.css'
 
 @connect(mapStateToProps)
 export default class GallerySection extends React.Component {
@@ -22,8 +23,8 @@ export default class GallerySection extends React.Component {
         <h4>Searching for interesting job?<br/><a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>Join us!</a></h4>
       `,
       action: 'View openings',
-      url: '#global-jobs-section'
-    }
+      url: '#global-jobs-section',
+    },
   }
 
   componentDidMount () {
@@ -44,7 +45,7 @@ export default class GallerySection extends React.Component {
         if (this.popupElement) {
           this.popupElement.style.opacity = 1
         }
-      }
+      },
     })
   }
 
@@ -59,7 +60,7 @@ export default class GallerySection extends React.Component {
             {!note ? null : (
               <div className='popup' ref={(popup) => { this.popupElement = popup }}>
                 <div className='inner'>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: note.brief}}></div>
+                  <div className='text' dangerouslySetInnerHTML={{ __html: note.brief }} />
                   <div className='buttons'>
                     <a className='button' href={note.url}>{note.action}</a>
                   </div>
@@ -70,8 +71,8 @@ export default class GallerySection extends React.Component {
         </div>
         <div className='swiper-container' ref={(swiper) => { this.swiperElement = swiper }}>
           <div className='swiper-wrapper'>
-            {galleries.map(g => (
-              (g.images || []).map(i => (
+            {galleries.map((g) => (
+              (g.images || []).map((i) => (
                 <img key={`${g.id}/${i.id}`} className='swiper-slide' src={i.image.url} />
               ))
             ))}
@@ -84,6 +85,6 @@ export default class GallerySection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    galleries: state.pages.galleries.array
+    galleries: state.pages.galleries.array,
   }
 }

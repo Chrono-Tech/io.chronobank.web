@@ -12,7 +12,7 @@ export default class SectionsPanel extends React.Component {
         title: PropTypes.string,
         content: PropTypes.node,
       })
-    )
+    ),
   }
 
   render () {
@@ -21,7 +21,7 @@ export default class SectionsPanel extends React.Component {
       <div className='root sections-panel'>
         <style jsx>{styles}</style>
         <div className='wrap'>
-          {items.map(item => (
+          {items.map((item) => (
             <div key={item.id} className='item'>
               <h4>{item.title}</h4>
               <div className='content'>

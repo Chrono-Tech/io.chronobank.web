@@ -3,8 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
-import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initIndexPage } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initIndexPage } from 'src/store'
 import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
@@ -24,8 +23,8 @@ class Index extends React.Component {
   }
 
   static async getInitialProps ({ store, isServer, req }) {
-    // Syncronous dispatch before start initIndexPage that using lang
-    await store.dispatch(initIndexPage(req))
+    await store.dispatch(initUserLanguage(req))
+    await store.dispatch(initIndexPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
 
@@ -69,7 +68,7 @@ class Index extends React.Component {
                   Uber disrupted the taxi business and how Upwork represented
                   an evolution in freelancing.'
               />
-              {this.props.stories && this.props.stories.map(story => (
+              {this.props.stories && this.props.stories.map((story) => (
                 <partials.StorySection key={story.id} story={story} />
               ))}
               <partials.FeaturesSection />
@@ -129,7 +128,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     watchInitMarket: () => dispatch(watchInitMarket()),
-    unwatchInitMarket: () => dispatch(unwatchInitMarket())
+    unwatchInitMarket: () => dispatch(unwatchInitMarket()),
   }
 }
 

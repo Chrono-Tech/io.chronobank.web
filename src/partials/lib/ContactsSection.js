@@ -11,14 +11,14 @@ const ENQUIRY_STATUS_COMPLETED = {
   className: 'message-success',
   label: 'Success',
   title: 'Your message has been sent',
-  details: 'We’ll be in touch soon.'
+  details: 'We’ll be in touch soon.',
 }
 
 const ENQUIRY_STATUS_FAILED = {
   className: 'message-failure',
   label: 'Failure',
   title: 'Service temporarily unavailable',
-  details: 'Please try again later.'
+  details: 'Please try again later.',
 }
 
 @connect(mapStateToProps)
@@ -33,7 +33,35 @@ export default class ContactsSection extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      enquiryStatus: null
+      enquiryStatus: null,
+    }
+  }
+
+  handleInput (el) {
+    el.classList.toggle('not-empty', el.value !== '')
+  }
+
+  async handleSubmit (e) {
+    e.preventDefault()
+
+    try {
+      // TODO: Move to redux
+      await BACKEND.post('enquiries', {
+        name: this.nameElement.value,
+        email: this.emailElement.value,
+        message: this.messageElement.value,
+      })
+      this.setState({
+        enquiryStatus: ENQUIRY_STATUS_COMPLETED,
+      })
+      for (const el of [this.nameElement, this.emailElement, this.messageElement]) {
+        el.value = ''
+        this.handleInput(el)
+      }
+    } catch (e) {
+      this.setState({
+        enquiryStatus: ENQUIRY_STATUS_FAILED,
+      })
     }
   }
 
@@ -44,8 +72,8 @@ export default class ContactsSection extends React.Component {
       <div className='root contacts-section'>
         <style jsx>{styles}</style>
         <div className='background'>
-          <div className='background-left'></div>
-          <div className='background-right'></div>
+          <div className='background-left' />
+          <div className='background-right' />
         </div>
         <div className='wrap'>
           <h3>Contact us</h3>
@@ -54,7 +82,7 @@ export default class ContactsSection extends React.Component {
               <div className='inner-wrap'>
                 <h3>Contact us</h3>
                 <ul>
-                  {contacts.map(c => (
+                  {contacts.map((c) => (
                     <li key={c.id}>
                       <div className='symbol'>
                         <img src={c.icon32x32.url} />
@@ -75,28 +103,36 @@ export default class ContactsSection extends React.Component {
             </div>
             <div className='right'>
               <div className='inner-wrap'>
-                <form ref={el => this.formElement = el} onSubmit={e => this.handleSubmit(e)}>
+                <form ref={(el) => this.formElement = el} onSubmit={(e) => this.handleSubmit(e)}>
                   <div className='inner'>
                     <h4>Get in touch with our team</h4>
                     <div className='field'>
-                      <input type='text' id='contacts-name' required
-                        ref={el => this.nameElement = el}
-                        onChange={e => this.handleInput(e.currentTarget)}
+                      <input
+                        type='text'
+                        id='contacts-name'
+                        required
+                        ref={(el) => this.nameElement = el}
+                        onChange={(e) => this.handleInput(e.currentTarget)}
                       />
                       <label htmlFor='contacts-name'>Your name</label>
                     </div>
                     <div className='field'>
-                      <input type='email' id='contacts-email' required
-                        ref={el => this.emailElement = el}
-                        onChange={e => this.handleInput(e.currentTarget)}
+                      <input
+                        type='email'
+                        id='contacts-email'
+                        required
+                        ref={(el) => this.emailElement = el}
+                        onChange={(e) => this.handleInput(e.currentTarget)}
                       />
                       <label htmlFor='contacts-email'>Email</label>
                     </div>
                     <div className='field'>
-                      <textarea id='contacts-message' required
-                        ref={el => this.messageElement = el}
-                        onChange={e => this.handleInput(e.currentTarget)}
-                      ></textarea>
+                      <textarea
+                        id='contacts-message'
+                        required
+                        ref={(el) => this.messageElement = el}
+                        onChange={(e) => this.handleInput(e.currentTarget)}
+                      />
                       <label htmlFor='contacts-message'>Message</label>
                     </div>
                     <div className='buttons'>
@@ -122,38 +158,10 @@ export default class ContactsSection extends React.Component {
       </div>
     )
   }
-
-  handleInput (el) {
-    el.classList.toggle('not-empty', el.value !== '')
-  }
-
-  async handleSubmit (e) {
-    e.preventDefault()
-
-    try {
-      // TODO: Move to redux
-      await BACKEND.post('enquiries', {
-        name: this.nameElement.value,
-        email: this.emailElement.value,
-        message: this.messageElement.value
-      })
-      this.setState({
-        enquiryStatus: ENQUIRY_STATUS_COMPLETED
-      })
-      for (const el of [this.nameElement, this.emailElement, this.messageElement]) {
-        el.value = ''
-        this.handleInput(el)
-      }
-    } catch (e) {
-      this.setState({
-        enquiryStatus: ENQUIRY_STATUS_FAILED
-      })
-    }
-  }
 }
 
 function mapStateToProps (state) {
   return {
-    contacts: state.pages.contacts.array.filter(c => c.isVisibleInContacts),
+    contacts: state.pages.contacts.array.filter((c) => c.isVisibleInContacts),
   }
 }

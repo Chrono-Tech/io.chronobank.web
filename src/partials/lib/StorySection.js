@@ -8,7 +8,7 @@ import styles from './StorySection.sass'
 export default class StorySection extends React.Component {
 
   static propTypes = {
-    story: PropTypes.instanceOf(StoryModel)
+    story: PropTypes.instanceOf(StoryModel),
   }
 
   render () {
@@ -18,8 +18,9 @@ export default class StorySection extends React.Component {
         'background-dark': story.background === 'dark',
         'background-light': story.background === 'light',
         'stereotype-default': story.stereotype === 'dark',
-        'stereotype-mirrored': story.stereotype === 'mirrored'
-      })}>
+        'stereotype-mirrored': story.stereotype === 'mirrored',
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>
@@ -29,8 +30,9 @@ export default class StorySection extends React.Component {
                   { !story.image ? null : (
                     <img {...{
                       src: story.image ? `${story.image.url}` : undefined,
-                      srcSet: story.image2x ? `${story.image2x.url} 2x` : undefined
-                    }}/>
+                      srcSet: story.image2x ? `${story.image2x.url} 2x` : undefined,
+                    }}
+                    />
                   )}
                 </div>
                 <div className='legend'>{story.legend}</div>
@@ -38,7 +40,7 @@ export default class StorySection extends React.Component {
             </div>
             <div className='right'>
               <div className='inner-wrap'>
-                <div className='text' dangerouslySetInnerHTML={{ __html: story.brief}}></div>
+                <div className='text' dangerouslySetInnerHTML={{ __html: story.brief }} />
               </div>
             </div>
           </div>

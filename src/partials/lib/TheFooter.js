@@ -11,12 +11,12 @@ import styles from './TheFooter.sass'
 
 const SUBSCRIPTION_STATUS_COMPLETED = {
   className: 'message-success',
-  message: 'Thank you for subscribing!'
+  message: 'Thank you for subscribing!',
 }
 
 const SUBSCRIPTION_STATUS_FAILED = {
   className: 'message-failure',
-  message: 'Service temporarily unavailable'
+  message: 'Service temporarily unavailable',
 }
 
 @connect(mapStateToProps)
@@ -44,13 +44,33 @@ export default class TheFooter extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      subscriptionStatus: null
+      subscriptionStatus: null,
     }
   }
 
   componentDidMount () {
     if (typeof window !== 'undefined') {
+      // eslint-disable-next-line global-require
       require('smoothscroll-polyfill').polyfill()
+    }
+  }
+
+  async handleSubmit (e) {
+    e.preventDefault()
+    try {
+      await BACKEND.post('subscriptions', {
+        email: this.emailElement.value,
+      })
+      this.setState({
+        subscriptionStatus: SUBSCRIPTION_STATUS_COMPLETED,
+      })
+      for (const el of [this.emailElement]) {
+        el.value = ''
+      }
+    } catch (e) {
+      this.setState({
+        subscriptionStatus: SUBSCRIPTION_STATUS_FAILED,
+      })
     }
   }
 
@@ -59,7 +79,7 @@ export default class TheFooter extends React.Component {
       window.scroll({
         top,
         left,
-        behavior: 'smooth'
+        behavior: 'smooth',
       })
     }
   }
@@ -71,7 +91,7 @@ export default class TheFooter extends React.Component {
       <footer className='root footer-section'>
         <style jsx>{styles}</style>
         <div className='wrap'>
-          <a className='scrolltop' onClick={() => this.scrollTo({ top: 0 })}></a>
+          <a className='scrolltop' onClick={() => this.scrollTo({ top: 0 })}>Scroll to top</a>
           <div className='columns'>
             <div className='col-1'>
               <div className='logo'>
@@ -80,7 +100,7 @@ export default class TheFooter extends React.Component {
               </div>
               <div className='publications'>
                 <ul>
-                  {papers.map(p => (
+                  {papers.map((p) => (
                     <li key={p.id}><a href={p.url} target='_blank' rel='noopener noreferrer'>Download</a> {p.title}</li>
                   ))}
                 </ul>
@@ -90,7 +110,7 @@ export default class TheFooter extends React.Component {
               <div className='menu'>
                 <h4>MENU</h4>
                 <ul>
-                  {menus.map(m => (
+                  {menus.map((m) => (
                     <li key={m.id}>
                       {m.isRoute()
                         ? <Link route={m.url}><a>{m.title}</a></Link>
@@ -104,7 +124,7 @@ export default class TheFooter extends React.Component {
             <div className='col-3'>
               <div className='contacts'>
                 <h4>Contacts us</h4>
-                {contacts.map(c => (
+                {contacts.map((c) => (
                   <dl key={c.id}>
                     <dt>{c.title}:</dt>
                     <dd><a href={c.url}>{c.label}</a></dd>
@@ -114,7 +134,7 @@ export default class TheFooter extends React.Component {
               <div className='socials'>
                 <h4>social network</h4>
                 <nav>
-                  {socials.map(s => (
+                  {socials.map((s) => (
                     <a key={s.id} href={s.url} target='_blank' rel='noopener noreferrer'>
                       <img src={s.icon32x32.url} />
                     </a>
@@ -126,7 +146,7 @@ export default class TheFooter extends React.Component {
               <div className='downloads'>
                 <h4>Downloads</h4>
                 <ul>
-                  {distros.filter(distro => distro.type === 'desktop').map(distro => (
+                  {distros.filter((distro) => distro.type === 'desktop').map((distro) => (
                     <li key={distro.id}>
                       <a href={distro.url} target='_blank' rel='noopener noreferrer'>
                         <img src='/static/images/symbols/download.svg' />
@@ -136,10 +156,10 @@ export default class TheFooter extends React.Component {
                   ))}
                 </ul>
               </div>
-              <form className='subscribe' onSubmit={e => this.handleSubmit(e)}>
+              <form className='subscribe' onSubmit={(e) => this.handleSubmit(e)}>
                 <h4>Newsletter</h4>
                 <div className='block'>
-                  <input className='field' ref={el => this.emailElement = el} type='email' placeholder='Enter email for news' required />
+                  <input className='field' ref={(el) => this.emailElement = el} type='email' placeholder='Enter email for news' required />
                 </div>
                 <div className='block'>
                   {subscriptionStatus == null
@@ -159,35 +179,15 @@ export default class TheFooter extends React.Component {
       </footer>
     )
   }
-
-  async handleSubmit (e) {
-    e.preventDefault()
-    try {
-      await BACKEND.post('subscriptions', {
-        email: this.emailElement.value
-      })
-      this.setState({
-        subscriptionStatus: SUBSCRIPTION_STATUS_COMPLETED
-      })
-      for (const el of [this.emailElement]) {
-        el.value = ''
-      }
-    } catch (e) {
-      this.setState({
-        subscriptionStatus: SUBSCRIPTION_STATUS_FAILED
-      })
-    }
-  }
 }
-
 
 function mapStateToProps (state, op) {
   const product = productSelector(op.productSlug)(state)
   return {
     distros: product.distros,
-    menus: state.pages.menus.array.filter(m => m.isVisibleInFooter),
+    menus: state.pages.menus.array.filter((m) => m.isVisibleInFooter),
     papers: state.pages.papers.array,
-    contacts: state.pages.contacts.array.filter(c => c.isVisibleInFooter),
-    socials: state.pages.socials.array
+    contacts: state.pages.contacts.array.filter((c) => c.isVisibleInFooter),
+    socials: state.pages.socials.array,
   }
 }

@@ -33,6 +33,7 @@ export default class TestimonialModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? null : new TestimonialModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       name: localeModelFields && 'name' in localeModelFields ? localeModelFields.name : data.name,
       position: localeModelFields && 'position' in localeModelFields ? localeModelFields.position : data.position,
@@ -40,7 +41,7 @@ export default class TestimonialModel {
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
       image448: ImageModel.fromServerModel(data.image448),
-      image2x448: ImageModel.fromServerModel(data.image2x448)
+      image2x448: ImageModel.fromServerModel(data.image2x448),
     })
   }
 }

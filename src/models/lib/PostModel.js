@@ -14,7 +14,7 @@ export default class PostModel {
   static fromJS (data) {
     return data== null ? data : new PostModel({
       ...data,
-      publishedDate: data.publishedDate == null ? null : new Date(data.publishedDate)
+      publishedDate: data.publishedDate == null ? null : new Date(data.publishedDate),
     })
   }
 
@@ -24,7 +24,7 @@ export default class PostModel {
       title: data.title,
       url: data.url,
       image: data.image,
-      publishedDate: new Date(data.publishedDate)
+      publishedDate: new Date(data.publishedDate),
     })
   }
 }

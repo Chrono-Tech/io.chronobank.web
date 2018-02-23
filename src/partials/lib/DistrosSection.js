@@ -10,7 +10,7 @@ export default class DistrosSection extends React.Component {
     title: PropTypes.string,
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
-    )
+    ),
   }
 
   render () {
@@ -28,7 +28,7 @@ export default class DistrosSection extends React.Component {
               <div className='downloads'>
                 <h4>Desktop App</h4>
                 <ul>
-                  {distros.filter(distro => distro.type === 'desktop').map(distro => (
+                  {distros.filter((distro) => distro.type === 'desktop').map((distro) => (
                     <li key={distro.id}>
                       <a href={distro.url} target='_blank'>
                         <img src={distro.icon.url} />
@@ -42,7 +42,7 @@ export default class DistrosSection extends React.Component {
               <div className='downloads'>
                 <h4>Mobile App</h4>
                 <ul>
-                  {distros.filter(distro => distro.type === 'mobile').map(distro => (
+                  {distros.filter((distro) => distro.type === 'mobile').map((distro) => (
                     <li key={distro.id}>
                       <a href={distro.url} target='_blank'>
                         <img src={distro.icon.url} />

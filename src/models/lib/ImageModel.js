@@ -26,7 +26,7 @@ export default class ImageModel {
       format: data.format,
       url: data.secure_url
         ? `${process.env.IMAGES_ENDPOINT}${parseURL(data.secure_url).pathname}`
-        : null
+        : null,
     })
   }
 }

@@ -6,6 +6,7 @@ class SwiperStub {
 }
 
 export default (() => {
+  // eslint-disable-next-line global-require
   if (isBrowser) return require('swiper')
   return SwiperStub
 })()

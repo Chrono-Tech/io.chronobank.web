@@ -13,7 +13,7 @@ export default class MobileSection extends React.Component {
 
   static propTypes = {
     productSlug: PropTypes.string,
-    product: PropTypes.instanceOf(ProductModel)
+    product: PropTypes.instanceOf(ProductModel),
   }
 
   render () {
@@ -23,8 +23,9 @@ export default class MobileSection extends React.Component {
         'background-dark': product.background === 'dark',
         'background-light': product.background === 'light',
         'stereotype-default': product.stereotype === 'dark',
-        'stereotype-mirrored': product.stereotype === 'mirrored'
-      })}>
+        'stereotype-mirrored': product.stereotype === 'mirrored',
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>
@@ -33,12 +34,13 @@ export default class MobileSection extends React.Component {
               {!product.image ? null : (
                 <img {...{
                   src: product.image ? `${product.image.url}` : undefined,
-                  srcSet: product.image2x ? `${product.image2x.url} 2x` : undefined
-                }}/>
+                  srcSet: product.image2x ? `${product.image2x.url} 2x` : undefined,
+                }}
+                />
               )}
             </div>
             <div className='right'>
-              <div className='text' dangerouslySetInnerHTML={{ __html: product.brief}}></div>
+              <div className='text' dangerouslySetInnerHTML={{ __html: product.brief }} />
             </div>
           </div>
           {product.downloads && product.downloads.length
@@ -46,7 +48,7 @@ export default class MobileSection extends React.Component {
               <nav className='downloads'>
                 <h4>Downloads</h4>
                 <ul>
-                  {product.downloads.map(download => (
+                  {product.downloads.map((download) => (
                     <li key={download.id}>
                       <a href={download.url} target='_blank'>
                         <img src={download.icon.url} />
@@ -65,6 +67,6 @@ export default class MobileSection extends React.Component {
 }
 function mapStateToProps (state, op) {
   return {
-    product: productSelector(op.productSlug)(state)
+    product: productSelector(op.productSlug)(state),
   }
 }
