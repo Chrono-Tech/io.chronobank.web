@@ -17,7 +17,7 @@ export default class ProductFeatureModel {
     return data == null ? data : new ProductFeatureModel({
       ...data,
       image: ImageModel.fromJS(data.image),
-      image2x: ImageModel.fromJS(data.image2x)
+      image2x: ImageModel.fromJS(data.image2x),
     })
   }
 
@@ -25,6 +25,7 @@ export default class ProductFeatureModel {
     let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? data : new ProductFeatureModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       image: data.image

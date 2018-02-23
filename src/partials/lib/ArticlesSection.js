@@ -18,25 +18,28 @@ export default class ArticlesSection extends React.Component {
       <div className='root articles-section'>
         <style jsx>{styles}</style>
         <div className='background'>
-          <div className='background-left'></div>
-          <div className='background-right'></div>
+          <div className='background-left' />
+          <div className='background-right' />
         </div>
         <div className='wrap'>
           <div className='content'>
-            {articles.map(article => (
+            {articles.map((article) => (
               <div className='item' key={article.id}>
                 <div className='left'>
                   {!article.icon ? null : (
                     <div className='icon'>
-                      <img alt={article.title} {...{
-                        src: article.icon ? `${article.icon.url}` : undefined,
-                        srcSet: article.icon2x ? `${article.icon2x.url} 2x` : undefined
-                      }}/>
+                      <img
+                        alt={article.title}
+                        {...{
+                          src: article.icon ? `${article.icon.url}` : undefined,
+                          srcSet: article.icon2x ? `${article.icon2x.url} 2x` : undefined,
+                        }}
+                      />
                     </div>
                   )}
                 </div>
                 <div className='right'>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: article.brief}}></div>
+                  <div className='text' dangerouslySetInnerHTML={{ __html: article.brief }} />
                   <a className='more' href={article.url} target='_blank' rel='noopener noreferrer'>
                     <img src='/static/images/symbols/more.svg' />
                     <span>Read the full article</span>

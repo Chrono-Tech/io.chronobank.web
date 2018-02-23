@@ -25,7 +25,7 @@ export default class StatisticsSection extends React.Component {
                   <div className='image'>
                     <img src={feature.image.url} />
                   </div>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: feature.brief}}></div>
+                  <div className='text' dangerouslySetInnerHTML={{ __html: feature.brief }} />
                 </li>
               ))}
             </ul>

@@ -12,7 +12,7 @@ export class SnackbarStack extends React.Component {
       <div className='root snackbar-stack'>
         <style jsx>{styles}</style>
         { this.props.stack.map((snackbar) => (
-          <snackbar.component key={snackbar.key} { ...snackbar.props } />
+          <snackbar.component key={snackbar.key} {...snackbar.props} />
         )) }
       </div>
     )
@@ -21,7 +21,7 @@ export class SnackbarStack extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    stack: state.snackbars.stack
+    stack: state.snackbars.stack,
   }
 }
 

@@ -25,17 +25,20 @@ export default class PartnersSection extends React.Component {
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>
-            {partners.map(partner => (
+            {partners.map((partner) => (
               <a className='item' key={partner.id} target='_blank' rel='noopener noreferrer' href={partner.url}>
                 {!partner.icon ? null : (
                   <div className='icon'>
-                    <img alt={partner.title} {...{
-                      src: partner.icon ? `${partner.icon.url}` : undefined,
-                      srcSet: partner.icon2x ? `${partner.icon2x.url} 2x` : undefined
-                    }}/>
+                    <img
+                      alt={partner.title}
+                      {...{
+                        src: partner.icon ? `${partner.icon.url}` : undefined,
+                        srcSet: partner.icon2x ? `${partner.icon2x.url} 2x` : undefined,
+                      }}
+                    />
                   </div>
                 )}
-                <div className='text' dangerouslySetInnerHTML={{ __html: partner.brief}}></div>
+                <div className='text' dangerouslySetInnerHTML={{ __html: partner.brief }} />
               </a>
             ))}
           </div>

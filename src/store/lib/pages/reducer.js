@@ -17,13 +17,14 @@ import {
   PAGES_INIT_STATISTICS,
   PAGES_INIT_STORIES,
   PAGES_INIT_TESTIMONIALS,
-  PAGES_SET_USER_LANGUAGE
+  PAGES_SET_USER_LANGUAGE,
 } from './actions'
 
 import { makeArrayState, fromJS } from './helpers'
+
 export {
   makeArrayState,
-  fromJS
+  fromJS,
 }
 
 const initialState = {
@@ -45,7 +46,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
-  userLanguage: 'en'
+  userLanguage: 'en',
 }
 
 export default (state = initialState, action) => {

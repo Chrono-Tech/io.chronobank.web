@@ -10,7 +10,7 @@ import styles from './RatesPanel.sass'
 export default class RatesPanel extends React.Component {
 
   static propTypes = {
-    market: PropTypes.object
+    market: PropTypes.object,
   }
 
   componentDidMount () {
@@ -38,11 +38,14 @@ export default class RatesPanel extends React.Component {
   render () {
     const { market } = this.props
     return (
-      <div className='root rates-panel' ref={el => this.rootElement = el}>
+      <div className='root rates-panel' ref={(el) => this.rootElement = el}>
         <style jsx>{styles}</style>
-        <div ref={el => this.contentElement = el} className={cn('content', {
-          'content-animate': this.animate
-        })}>
+        <div
+          ref={(el) => this.contentElement = el}
+          className={cn('content', {
+            'content-animate': this.animate,
+          })}
+        >
           {Object.entries(market.prices || {}).filter(([, m]) => m !== null).map(([name, m]) => (
             <div className='item' key={name}>
               <div className='exchange'>
@@ -59,8 +62,9 @@ export default class RatesPanel extends React.Component {
                   </div>
                   <div className={cn('direction', {
                     'direction-up': m.price >= m.open24,
-                    'direction-down': m.price < m.open24
-                  })}>
+                    'direction-down': m.price < m.open24,
+                  })}
+                  >
                     <span className='value'>{(m.price / m.open24).toFixed(4)}%</span>
                     {(m.price >= m.open24)
                       ? <img src='/static/dropins/market/images/arrow-up.svg' />
@@ -79,6 +83,6 @@ export default class RatesPanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    market: state.marketDropin['TIME/USD']
+    market: state.marketDropin['TIME/USD'],
   }
 }

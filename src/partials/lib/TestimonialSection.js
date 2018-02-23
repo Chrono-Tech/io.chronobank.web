@@ -7,7 +7,7 @@ import styles from './TestimonialSection.sass'
 export default class TestimonialSection extends React.Component {
 
   static propTypes = {
-    testimonial: PropTypes.instanceOf(TestimonialModel)
+    testimonial: PropTypes.instanceOf(TestimonialModel),
   }
 
   render () {
@@ -15,21 +15,27 @@ export default class TestimonialSection extends React.Component {
     return (
       <div className='root testimonial-section'>
         <style jsx>{styles}</style>
-        <div className='background'></div>
+        <div className='background' />
         <div className='wrap'>
           <div className='content'>
             <div className='left'>
               {!testimonial.image ? null : (
-                <img className='image-1024' {...{
-                  src: testimonial.image ? `${testimonial.image.url}` : undefined,
-                  srcSet: testimonial.image2x ? `${testimonial.image2x.url} 2x` : undefined
-                }}/>
+                <img
+                  className='image-1024'
+                  {...{
+                    src: testimonial.image ? `${testimonial.image.url}` : undefined,
+                    srcSet: testimonial.image2x ? `${testimonial.image2x.url} 2x` : undefined,
+                  }}
+                />
               )}
               {!testimonial.image448 ? null : (
-                <img className='image-480' {...{
-                  src: testimonial.image448 ? `${testimonial.image448.url}` : undefined,
-                  srcSet: testimonial.image2x448 ? `${testimonial.image2x448.url} 2x` : undefined
-                }}/>
+                <img
+                  className='image-480'
+                  {...{
+                    src: testimonial.image448 ? `${testimonial.image448.url}` : undefined,
+                    srcSet: testimonial.image2x448 ? `${testimonial.image2x448.url} 2x` : undefined,
+                  }}
+                />
               )}
             </div>
             <div className='right'>
@@ -41,7 +47,7 @@ export default class TestimonialSection extends React.Component {
               )}
               {!testimonial.brief ? null : (
                 <blockquote>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: testimonial.brief}}></div>
+                  <div className='text' dangerouslySetInnerHTML={{ __html: testimonial.brief }} />
                 </blockquote>
               )}
             </div>

@@ -19,7 +19,7 @@ export default class PartnerModel {
     return data == null ? data : new PartnerModel({
       ...data,
       icon: ImageModel.fromJS(data.icon),
-      icon2x: ImageModel.fromJS(data.icon2x)
+      icon2x: ImageModel.fromJS(data.icon2x),
     })
   }
 
@@ -27,6 +27,7 @@ export default class PartnerModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new PartnerModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: data.title,
       url: data.url,

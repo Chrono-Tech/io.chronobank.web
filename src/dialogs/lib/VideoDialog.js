@@ -11,7 +11,7 @@ export class VideoDialog extends React.Component {
 
   static propTypes = {
     url:PropTypes.string,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
   }
 
   render () {
@@ -20,7 +20,7 @@ export class VideoDialog extends React.Component {
       <ModalDialog onClose={() => this.props.onClose()}>
         <style jsx>{styles}</style>
         <div className='root video-dialog'>
-          <iframe src={this.props.url} frameBorder='0' allowFullScreen></iframe>
+          <iframe title='Video' src={this.props.url} frameBorder='0' allowFullScreen />
         </div>
       </ModalDialog>
     )
@@ -29,7 +29,7 @@ export class VideoDialog extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onClose: () => dispatch(modalsClose())
+    onClose: () => dispatch(modalsClose()),
   }
 }
 

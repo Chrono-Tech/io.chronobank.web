@@ -15,7 +15,7 @@ export default class ProductDownloadModel {
   static fromJS (data) {
     return data == null ? data : new ProductDownloadModel({
       ...data,
-      icon: ImageModel.fromJS(data.icon)
+      icon: ImageModel.fromJS(data.icon),
     })
   }
 
@@ -23,12 +23,13 @@ export default class ProductDownloadModel {
     let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? data : new ProductDownloadModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       url: data.url,
       icon: data.icon
         ? ImageModel.fromServerModel(data.icon)
-        : null
+        : null,
     })
   }
 }

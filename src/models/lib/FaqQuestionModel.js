@@ -9,12 +9,13 @@ export default class FaqQuestionModel {
 
   static fromJS (data) {
     return data == null ? null : new FaqQuestionModel({
-      ...data
+      ...data,
     })
   }
 
   static fromServerModel (data) {
     return data == null ? null : new FaqQuestionModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       name: data.name,
       title: data.title,

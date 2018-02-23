@@ -14,22 +14,16 @@ export class DropdownMenu extends React.Component {
       })
     ).isRequired,
     className: PropTypes.string,
-    value: PropTypes.any.isRequired,
-    onChange: PropTypes.func
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
   }
 
   constructor (props) {
     super(props)
     this.state = {
       isOpen: false,
-      active: props.options.find(option => option.value === props.value)
+      active: props.options.find((option) => option.value === props.value),
     }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      active: nextProps.options.find(option => option.value === nextProps.value)
-    })
   }
 
   componentDidMount () {
@@ -37,12 +31,18 @@ export class DropdownMenu extends React.Component {
       this.clickOutsideHandler = () => {
         if (this.state.isOpen) {
           this.setState({
-            isOpen: false
+            isOpen: false,
           })
         }
       }
       window.document.addEventListener('click', this.clickOutsideHandler)
     }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      active: nextProps.options.find((option) => option.value === nextProps.value),
+    })
   }
 
   componentWillUnmount () {
@@ -53,7 +53,7 @@ export class DropdownMenu extends React.Component {
 
   handleClickOutside () {
     this.setState({
-      isOpen: false
+      isOpen: false,
     })
   }
 
@@ -61,13 +61,13 @@ export class DropdownMenu extends React.Component {
     // eslint-disable-next-line
     console.log('open')
     this.setState({
-      isOpen: true
+      isOpen: true,
     })
   }
 
   handleSelect (option) {
     this.setState({
-      isOpen: false
+      isOpen: false,
     })
     if (this.props.onChange) {
       this.props.onChange(option.value)
@@ -81,19 +81,28 @@ export class DropdownMenu extends React.Component {
       <div className={cn('root', 'dropdown-menu', this.props.className, { 'dropdown-menu-open': isOpen })}>
         <style jsx>{styles}</style>
         <div className='content'>
-          <div className='dropdown-title' onClick={(e) => {
-            e.stopPropagation()
-            e.nativeEvent.stopImmediatePropagation()
-            this.handleOpen()
-            return false
-          }}>{active ? active.title : null}</div>
+          <div
+            className='dropdown-title'
+            onClick={(e) => {
+              e.stopPropagation()
+              e.nativeEvent.stopImmediatePropagation()
+              this.handleOpen()
+              return false
+            }}
+          >{active ? active.title : null}
+          </div>
           <div className='dropdown-options'>
-            {options.map(option => (
-              <div key={option.value} className={cn('dropdown-option', { 'dropdown-option-active': option.value === active.value })} onClick={(e) => {
-                e.stopPropagation()
-                e.nativeEvent.stopImmediatePropagation()
-                this.handleSelect(option)
-              }}>{option.title}</div>
+            {options.map((option) => (
+              <div
+                key={option.value}
+                className={cn('dropdown-option', { 'dropdown-option-active': option.value === active.value })}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  e.nativeEvent.stopImmediatePropagation()
+                  this.handleSelect(option)
+                }}
+              >{option.title}
+              </div>
             ))}
           </div>
         </div>

@@ -15,7 +15,7 @@ export default class MembersSection extends React.Component {
     members: PropTypes.arrayOf(
       PropTypes.instanceOf(MemberModel)
     ),
-    showMember: PropTypes.func
+    showMember: PropTypes.func,
   }
 
   render () {
@@ -47,21 +47,28 @@ export default class MembersSection extends React.Component {
               {members.map((member) => (
                 <li key={member.id}>
                   {!member.avatar ? null : (
-                    <img {...{
-                      src: member.avatar ? `${member.avatar.url}` : undefined,
-                      srcSet: member.avatar2x ? `${member.avatar2x.url} 2x` : undefined
-                    }} onClick={() => this.props.showMember({
-                      member,
-                      members
-                    })} />
+                    <img
+                      {...{
+                        src: member.avatar ? `${member.avatar.url}` : undefined,
+                        srcSet: member.avatar2x ? `${member.avatar2x.url} 2x` : undefined,
+                      }}
+                      onClick={() => this.props.showMember({
+                        member,
+                        members,
+                      })}
+                    />
                   )}
                   <h4>{member.name}</h4>
                   <h5>{member.position}</h5>
                   <div className='actions'>
-                    <a className='arrow' onClick={() => this.props.showMember({
-                      member,
-                      members
-                    })}>Read bio <img src='/static/images/symbols/arrow.svg' /></a>
+                    <a
+                      className='arrow'
+                      onClick={() => this.props.showMember({
+                        member,
+                        members,
+                      })}
+                    >Read bio <img src='/static/images/symbols/arrow.svg' />
+                    </a>
                   </div>
                 </li>
               ))}
@@ -75,7 +82,7 @@ export default class MembersSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    members: state.pages.members.array
+    members: state.pages.members.array,
   }
 }
 
@@ -86,8 +93,8 @@ function mapDispatchToProps (dispatch) {
         component: dialogs.MemberDialog,
         props: {
           member,
-          members
-        }
+          members,
+        },
       }))
     },
   }

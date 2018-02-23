@@ -25,13 +25,14 @@ export default class ArticleModel {
 
   static fromServerModel (data) {
     return data == null ? null : new ArticleModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: data.title,
       source: data.source,
       url: data.url,
       brief: data.brief,
       icon: ImageModel.fromServerModel(data.icon),
-      icon2x: ImageModel.fromServerModel(data.icon2x)
+      icon2x: ImageModel.fromServerModel(data.icon2x),
     })
   }
 }

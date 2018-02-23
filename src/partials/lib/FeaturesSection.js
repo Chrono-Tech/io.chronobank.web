@@ -25,7 +25,7 @@ export default class FeaturesSection extends React.Component {
                 <li key={feature.id}>
                   <img src={feature.image.url} />
                   <h4>{feature.title}</h4>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: feature.brief}}></div>
+                  <div className='text' dangerouslySetInnerHTML={{ __html: feature.brief }} />
                 </li>
               ))}
             </ul>

@@ -51,7 +51,7 @@ export const initMenus = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('menus')
   return dispatch({
     type: PAGES_INIT_MENUS,
-    menus: data.map(MenuModel.fromServerModel)
+    menus: data.map(MenuModel.fromServerModel),
   })
 }
 
@@ -66,7 +66,7 @@ export const initFeatures = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('features')
   return dispatch({
     type: PAGES_INIT_FEATURES,
-    features: data.features.map((feature) => FeatureModel.fromServerModel(feature, { locale }))
+    features: data.features.map((feature) => FeatureModel.fromServerModel(feature, { locale })),
   })
 }
 
@@ -78,7 +78,7 @@ export const initFaqTopics = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('faq-topics')
   return dispatch({
     type: PAGES_INIT_FAQ_TOPICS,
-    faqTopics: data.map(FaqTopicModel.fromServerModel)
+    faqTopics: data.map(FaqTopicModel.fromServerModel),
   })
 }
 
@@ -93,7 +93,7 @@ export const initJobs = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('jobs')
   return dispatch({
     type: PAGES_INIT_JOBS,
-    jobs: data.jobs.map((job) => JobModel.fromServerModel(job, { locale }))
+    jobs: data.jobs.map((job) => JobModel.fromServerModel(job, { locale })),
   })
 }
 
@@ -108,7 +108,7 @@ export const initStatistics = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('statistics')
   return dispatch({
     type: PAGES_INIT_STATISTICS,
-    statistics: data.statistics.map((statistic) => StatisticModel.fromServerModel(statistic, { locale }))
+    statistics: data.statistics.map((statistic) => StatisticModel.fromServerModel(statistic, { locale })),
   })
 }
 
@@ -123,7 +123,7 @@ export const initMembers = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('members')
   return dispatch({
     type: PAGES_INIT_MEMBERS,
-    members: data.members.map((member) => MemberModel.fromServerModel(member, { locale }))
+    members: data.members.map((member) => MemberModel.fromServerModel(member, { locale })),
   })
 }
 
@@ -138,7 +138,7 @@ export const initHeaders = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('headers')
   return dispatch({
     type: PAGES_INIT_HEADERS,
-    headers: data.headers.map((header) => HeaderModel.fromServerModel(header, { locale }))
+    headers: data.headers.map((header) => HeaderModel.fromServerModel(header, { locale })),
   })
 }
 
@@ -153,7 +153,7 @@ export const initPartners = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('partners')
   return dispatch({
     type: PAGES_INIT_PARTNERS,
-    partners: data.partners.map((data) => PartnerModel.fromServerModel(data, { locale }))
+    partners: data.partners.map((data) => PartnerModel.fromServerModel(data, { locale })),
   })
 }
 
@@ -168,7 +168,7 @@ export const initProducts = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('products')
   return dispatch({
     type: PAGES_INIT_PRODUCTS,
-    products: data.products.map((product) => ProductModel.fromServerModel(product, { locale }))
+    products: data.products.map((product) => ProductModel.fromServerModel(product, { locale })),
   })
 }
 
@@ -183,7 +183,7 @@ export const initStories = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('stories')
   return dispatch({
     type: PAGES_INIT_STORIES,
-    stories: data.stories.map((story) => StoryModel.fromServerModel(story, { locale }))
+    stories: data.stories.map((story) => StoryModel.fromServerModel(story, { locale })),
   })
 }
 
@@ -195,7 +195,7 @@ export const initArticles = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('articles')
   return dispatch({
     type: PAGES_INIT_ARTICLES,
-    articles: data.articles.map(ArticleModel.fromServerModel)
+    articles: data.articles.map(ArticleModel.fromServerModel),
   })
 }
 
@@ -210,7 +210,7 @@ export const initTestimonials = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('testimonials')
   return dispatch({
     type: PAGES_INIT_TESTIMONIALS,
-    testimonials: data.testimonials.map((data) => TestimonialModel.fromServerModel(data, { locale }))
+    testimonials: data.testimonials.map((data) => TestimonialModel.fromServerModel(data, { locale })),
   })
 }
 
@@ -225,7 +225,7 @@ export const initIterations = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('iterations')
   return dispatch({
     type: PAGES_INIT_ITERATIONS,
-    iterations: data.iterations.map((iteration) => IterationModel.fromServerModel(iteration, { locale }))
+    iterations: data.iterations.map((iteration) => IterationModel.fromServerModel(iteration, { locale })),
   })
 }
 
@@ -237,7 +237,7 @@ export const initPosts = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('medium/feed')
   return dispatch({
     type: PAGES_INIT_POSTS,
-    posts: data.map(PostModel.fromServerModel)
+    posts: data.map(PostModel.fromServerModel),
   })
 }
 
@@ -249,7 +249,7 @@ export const initContacts = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('contacts')
   return dispatch({
     type: PAGES_INIT_CONTACTS,
-    contacts: data.contacts.map(ContactModel.fromServerModel)
+    contacts: data.contacts.map(ContactModel.fromServerModel),
   })
 }
 
@@ -261,7 +261,7 @@ export const initSocials = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('socials')
   return dispatch({
     type: PAGES_INIT_SOCIALS,
-    socials: data.socials.map(SocialModel.fromServerModel)
+    socials: data.socials.map(SocialModel.fromServerModel),
   })
 }
 
@@ -273,7 +273,7 @@ export const initPapers = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('papers')
   return dispatch({
     type: PAGES_INIT_PAPERS,
-    papers: data.papers.map(PaperModel.fromServerModel)
+    papers: data.papers.map(PaperModel.fromServerModel),
   })
 }
 
@@ -285,7 +285,7 @@ export const initGalleries = () => async (dispatch, getState) => {
   const { data } = await BACKEND.get('galleries')
   return dispatch({
     type: PAGES_INIT_GALLERIES,
-    galleries: data.galleries.map(GalleryModel.fromServerModel)
+    galleries: data.galleries.map(GalleryModel.fromServerModel),
   })
 }
 
@@ -302,7 +302,7 @@ export const initUserLanguage = (req) => (dispatch, getState) => {
 export const setUserLanguage = (userLanguage) => (dispatch) => {
   return dispatch({
     type: PAGES_SET_USER_LANGUAGE,
-    userLanguage
+    userLanguage,
   })
 }
 
@@ -317,20 +317,19 @@ export const changeUserLanguage = (lang) => (dispatch) => {
   }
 }
 
-export const initAnyPage = (req) => (dispatch) => {
+export const initAnyPage = () => async (dispatch) => {
   return Promise.all([
-    dispatch(initUserLanguage(req)),
     dispatch(initHeaders()),
     dispatch(initMenus()),
     dispatch(initContacts()),
     dispatch(initSocials()),
     dispatch(initPapers()),
     dispatch(initPosts()),
-    dispatch(initProducts())
+    dispatch(initProducts()),
   ])
 }
 
-export const initIndexPage = (req) => (dispatch) => {
+export const initIndexPage = () => (dispatch) => {
   return Promise.all([
     dispatch(initFeatures()),
     dispatch(initPartners()),
@@ -338,23 +337,23 @@ export const initIndexPage = (req) => (dispatch) => {
     dispatch(initArticles()),
     dispatch(initTestimonials()),
     dispatch(initIterations()),
-    dispatch(initAnyPage(req))
+    dispatch(initAnyPage()),
   ])
 }
 
-export const initTeamPage = (req) => (dispatch) => {
+export const initTeamPage = () => (dispatch) => {
   return Promise.all([
     dispatch(initGalleries()),
     dispatch(initMembers()),
     dispatch(initStatistics()),
     dispatch(initJobs()),
-    dispatch(initAnyPage(req))
+    dispatch(initAnyPage()),
   ])
 }
 
-export const initFaqPage = (req) => (dispatch) => {
+export const initFaqPage = () => (dispatch) => {
   return Promise.all([
     dispatch(initFaqTopics()),
-    dispatch(initAnyPage(req))
+    dispatch(initAnyPage()),
   ])
 }

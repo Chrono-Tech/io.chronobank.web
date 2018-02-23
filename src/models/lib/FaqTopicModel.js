@@ -6,7 +6,7 @@ export default class FaqTopicModel {
     this.id = id
     this.name = name
     this.title = title
-    assert(questions == null || !questions.find(child => !(child instanceof FaqQuestionModel)))
+    assert(questions == null || !questions.find((child) => !(child instanceof FaqQuestionModel)))
     this.questions = questions
     Object.freeze(this)
   }
@@ -20,6 +20,7 @@ export default class FaqTopicModel {
 
   static fromServerModel (data) {
     return data == null ? null : new FaqTopicModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       name: data.name,
       title: data.title,

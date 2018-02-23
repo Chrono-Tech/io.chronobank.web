@@ -16,7 +16,7 @@ export default class ProductDistroModel {
   static fromJS (data) {
     return data == null ? data : new ProductDistroModel({
       ...data,
-      icon: ImageModel.fromJS(data.icon)
+      icon: ImageModel.fromJS(data.icon),
     })
   }
 
@@ -24,13 +24,14 @@ export default class ProductDistroModel {
     let localeModelFields = getLocaleModelFields(data, locales)
 
     return data == null ? data : new ProductDistroModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
       type: data.type,
       url: data.url,
       icon: data.icon
         ? ImageModel.fromServerModel(data.icon)
-        : null
+        : null,
     })
   }
 }

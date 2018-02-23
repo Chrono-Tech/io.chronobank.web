@@ -2,8 +2,7 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 
-import initStore from 'src/store'
-import { modalsClear, snackbarsClear, initFaqPage } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initFaqPage } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -13,7 +12,8 @@ import styles from './faq.sass'
 class FAQ extends React.Component {
 
   static async getInitialProps ({ store, req }) {
-    await store.dispatch(initFaqPage(req))
+    await store.dispatch(initUserLanguage(req))
+    await store.dispatch(initFaqPage())
     await store.dispatch(modalsClear())
     await store.dispatch(snackbarsClear())
   }

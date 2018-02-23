@@ -13,7 +13,7 @@ export default class MenuModel {
     this.icon32x32 = icon32x32
     assert(icon40x40 == null || icon40x40 instanceof ImageModel)
     this.icon40x40 = icon40x40
-    assert(children == null || !children.find(child => !(child instanceof MenuModel)))
+    assert(children == null || !children.find((child) => !(child instanceof MenuModel)))
     this.children = children
     this.isVisibleInHeader = isVisibleInHeader
     this.isVisibleInFooter = isVisibleInFooter
@@ -34,12 +34,13 @@ export default class MenuModel {
       children: data.children == null ? null : data.children.map(MenuModel.fromJS),
       symbol: ImageModel.fromJS(data.symbol),
       icon32x32: ImageModel.fromJS(data.icon32x32),
-      icon40x40: ImageModel.fromJS(data.icon40x40)
+      icon40x40: ImageModel.fromJS(data.icon40x40),
     })
   }
 
   static fromServerModel (data) {
     return data == null ? data : new MenuModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: data.title,
       subtitle: data.subtitle,
@@ -49,7 +50,7 @@ export default class MenuModel {
       icon32x32: ImageModel.fromServerModel(data.icon32x32),
       icon40x40: ImageModel.fromServerModel(data.icon40x40),
       isVisibleInHeader: data.isVisibleInHeader,
-      isVisibleInFooter: data.isVisibleInFooter
+      isVisibleInFooter: data.isVisibleInFooter,
     })
   }
 }

@@ -19,7 +19,7 @@ export default class MemberModel {
     return data == null ? data : new MemberModel({
       ...data,
       avatar: ImageModel.fromJS(data.avatar),
-      avatar2x: ImageModel.fromJS(data.avatar2x)
+      avatar2x: ImageModel.fromJS(data.avatar2x),
     })
   }
 
@@ -27,12 +27,13 @@ export default class MemberModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? data : new MemberModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       name: localeModelFields && 'name' in localeModelFields ? localeModelFields.name : data.name,
       position: localeModelFields && 'position' in localeModelFields ? localeModelFields.position : data.position,
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
       avatar: ImageModel.fromServerModel(data.avatar),
-      avatar2x: ImageModel.fromServerModel(data.avatar2x)
+      avatar2x: ImageModel.fromServerModel(data.avatar2x),
     })
   }
 }

@@ -29,6 +29,7 @@ export default class StoryModel {
     let localeModelFields = getLocaleModelFields(data, locale)
 
     return data == null ? null : new StoryModel({
+      // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
       stereotype: data.stereotype,
@@ -36,7 +37,7 @@ export default class StoryModel {
       brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
       legend: localeModelFields && 'legend' in localeModelFields ? localeModelFields.legend : data.legend,
       image: ImageModel.fromServerModel(data.image),
-      image2x: ImageModel.fromServerModel(data.image2x)
+      image2x: ImageModel.fromServerModel(data.image2x),
     })
   }
 }
