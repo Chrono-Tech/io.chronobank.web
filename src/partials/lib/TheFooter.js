@@ -38,7 +38,7 @@ export default class TheFooter extends React.Component {
     ),
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
-    ),
+    )
   }
 
   constructor (props) {
@@ -85,7 +85,7 @@ export default class TheFooter extends React.Component {
   }
 
   render () {
-    const { menus, papers, contacts, socials, distros } = this.props
+    const { menus, papers, contacts, socials, distros, constants } = this.props
     const { subscriptionStatus } = this.state
     return (
       <footer className='root footer-section'>
@@ -174,7 +174,7 @@ export default class TheFooter extends React.Component {
               </form>
             </div>
           </div>
-          <address>Copyright ©2018 LaborX Pty Ltd. All Rights Reserved.</address>
+          <address>{ constants.get('COPYRIGHT') }</address>
         </div>
       </footer>
     )
@@ -189,5 +189,6 @@ function mapStateToProps (state, op) {
     papers: state.pages.papers.array,
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInFooter),
     socials: state.pages.socials.array,
+    constants: state.pages.constants
   }
 }

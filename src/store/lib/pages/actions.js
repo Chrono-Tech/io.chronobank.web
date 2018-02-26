@@ -2,6 +2,7 @@ import { BACKEND } from 'src/endpoints'
 
 import {
   ArticleModel,
+  ConstantModel,
   ContactModel,
   FaqTopicModel,
   FeatureModel,
@@ -25,6 +26,7 @@ import { userLanguageFromCookies, userLanguageFromBrowser, USER_LANGUAGE_COOKIE_
 
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
+export const PAGES_INIT_CONSTANTS = 'pages/INIT_CONSTANTS'
 export const PAGES_INIT_FAQ_TOPICS = 'pages/INIT_FAQ_TOPICS'
 export const PAGES_INIT_FEATURES = 'pages/INIT_FEATURES'
 export const PAGES_INIT_GALLERIES = 'pages/INIT_GALLERIES'
@@ -253,6 +255,33 @@ export const initContacts = () => async (dispatch, getState) => {
   })
 }
 
+export const initConstants = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.constants.isLoaded) {
+    return
+  }
+
+  const locales = state.pages.userLanguage
+
+  const { data } = await BACKEND.get('constants')
+
+  const constantsDictionary = []
+
+  data.constants.forEach((item) => {
+    const constModel = ConstantModel.fromServerModel(item, { locales })
+
+    if (constModel) {
+      constantsDictionary.push([constModel.name, constModel.value])
+    }
+  })
+
+
+  return dispatch({
+    type: PAGES_INIT_CONSTANTS,
+    constants: new Map(constantsDictionary)
+  })
+}
+
 export const initSocials = () => async (dispatch, getState) => {
   const state = getState()
   if (state.pages.socials.isLoaded) {
@@ -322,6 +351,7 @@ export const initAnyPage = () => async (dispatch) => {
     dispatch(initHeaders()),
     dispatch(initMenus()),
     dispatch(initContacts()),
+    dispatch(initConstants()),
     dispatch(initSocials()),
     dispatch(initPapers()),
     dispatch(initPosts()),

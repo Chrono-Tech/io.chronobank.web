@@ -1,5 +1,5 @@
 import {
-  PAGES_INIT_ARTICLES,
+  PAGES_INIT_ARTICLES, PAGES_INIT_CONSTANTS,
   PAGES_INIT_CONTACTS,
   PAGES_INIT_FAQ_TOPICS,
   PAGES_INIT_FEATURES,
@@ -30,6 +30,7 @@ export {
 const initialState = {
   articles: makeArrayState(false, []),
   contacts: makeArrayState(false, []),
+  constants: new Map(),
   faqTopics: makeArrayState(false, []),
   features: makeArrayState(false, []),
   galleries: makeArrayState(false, []),
@@ -89,6 +90,8 @@ export default (state = initialState, action) => {
       return { ...state, galleries: makeArrayState(true, action.galleries) }
     case PAGES_SET_USER_LANGUAGE:
       return { ...state, userLanguage: action.userLanguage }
+    case PAGES_INIT_CONSTANTS:
+      return { ...state, constants: action.constants }
     default:
       return state
   }

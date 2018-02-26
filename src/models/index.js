@@ -1,4 +1,5 @@
 export { default as ArticleModel } from './lib/ArticleModel'
+export { default as ConstantModel } from './lib/ConstantModel'
 export { default as ContactModel } from './lib/ContactModel'
 export { default as FeatureModel } from './lib/FeatureModel'
 export { default as GalleryModel } from './lib/GalleryModel'
