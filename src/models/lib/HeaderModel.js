@@ -51,6 +51,7 @@ export default class HeaderModel {
 
   static fromServerModel (data, { locale }) {
     let localeModelFields = new LangFieldSet(data, locale)
+    // console.log('HEADER', localeModelFields)
 
     return data == null ? data : new HeaderModel({
       // eslint-disable-next-line no-underscore-dangle

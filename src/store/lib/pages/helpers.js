@@ -29,7 +29,7 @@ export const fromJS = (p) => {
   return {
     articles: p.articles && makeArrayState(p.articles.isLoaded, p.articles.array, ArticleModel.fromJS),
     contacts: p.contacts && makeArrayState(p.contacts.isLoaded, p.contacts.array, ContactModel.fromJS),
-    constants: p.constants && new Map(p.constants),
+    constants: p.constants && makeArrayState(p.constants.isLoaded, p.constants.array, ConstantModel.fromJS),
     faqTopics: p.faqTopics && makeArrayState(p.faqTopics.isLoaded, p.faqTopics.array, FaqTopicModel.fromJS),
     features: p.features && makeArrayState(p.features.isLoaded, p.features.array, FeatureModel.fromJS),
     galleries: p.galleries && makeArrayState(p.galleries.isLoaded, p.galleries.array, GalleryModel.fromJS),

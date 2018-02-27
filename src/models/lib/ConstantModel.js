@@ -1,7 +1,8 @@
 import {LangFieldSet} from "./helpers"
 
 export default class ConstantModel {
-  constructor ({ name, value }) {
+  constructor ({ slug, name, value }) {
+    this.slug = slug
     this.name = name
     this.value = value
     Object.freeze(this)
@@ -17,6 +18,7 @@ export default class ConstantModel {
     let localeModelFields = new LangFieldSet(data, locales)
 
     return data == null ? null : new ConstantModel({
+      slug: data.slug,
       name: data.name,
       value: localeModelFields.getLocaleField('value')
     })

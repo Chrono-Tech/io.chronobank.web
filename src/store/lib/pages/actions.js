@@ -265,20 +265,9 @@ export const initConstants = () => async (dispatch, getState) => {
 
   const { data } = await BACKEND.get('constants')
 
-  const constantsDictionary = []
-
-  data.constants.forEach((item) => {
-    const constModel = ConstantModel.fromServerModel(item, { locales })
-
-    if (constModel) {
-      constantsDictionary.push([constModel.name, constModel.value])
-    }
-  })
-
-
   return dispatch({
     type: PAGES_INIT_CONSTANTS,
-    constants: new Map(constantsDictionary)
+    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locales }))
   })
 }
 

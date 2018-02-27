@@ -13,6 +13,15 @@ export const productSelector = (slug) => createSelector(
   (products) => products.find((p) => p.slug === slug)
 )
 
+export const constantSelector = createSelector(
+  (state) => state.pages.constants.array,
+  (constants) => slug => {
+    let foundConst = constants.find((p) => p.slug === slug)
+
+    return foundConst && foundConst.value
+  }
+)
+
 export const languagesSelector = (/*langSelected*/) => createSelector(
   (/* state */) => [
     { code: 'en', name: 'Eng' },

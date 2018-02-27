@@ -25,8 +25,8 @@ export default class FeatureModel {
     return data == null ? data : new FeatureModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: data.title,
-      brief: localeModelFields.getLocaleField('brief') ,
+      title: localeModelFields.getLocaleField('title'),
+      brief: localeModelFields.getLocaleField('brief'),
       image: ImageModel.fromServerModel(data.image),
     })
   }

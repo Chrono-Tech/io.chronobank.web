@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import { Link } from 'src/router'
-import { productSelector } from 'src/store'
+import { productSelector, constantSelector } from 'src/store'
 import { BACKEND } from 'src/endpoints'
-import { MenuModel, PaperModel, SocialModel, ContactModel, ProductDistroModel } from 'src/models'
+import { MenuModel, PaperModel, SocialModel, ContactModel, ProductDistroModel, ConstantModel } from 'src/models'
 import styles from './TheFooter.sass'
 
 const SUBSCRIPTION_STATUS_COMPLETED = {
@@ -35,6 +35,9 @@ export default class TheFooter extends React.Component {
     ),
     contacts: PropTypes.arrayOf(
       PropTypes.instanceOf(ContactModel)
+    ),
+    constants: PropTypes.arrayOf(
+      PropTypes.instanceOf(ConstantModel)
     ),
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
@@ -174,7 +177,7 @@ export default class TheFooter extends React.Component {
               </form>
             </div>
           </div>
-          <address>{ constants.get('COPYRIGHT') }</address>
+          <address>{ constants('copyright') }</address>
         </div>
       </footer>
     )
@@ -189,6 +192,6 @@ function mapStateToProps (state, op) {
     papers: state.pages.papers.array,
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInFooter),
     socials: state.pages.socials.array,
-    constants: state.pages.constants
+    constants: constantSelector(state)
   }
 }

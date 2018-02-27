@@ -30,7 +30,7 @@ export {
 const initialState = {
   articles: makeArrayState(false, []),
   contacts: makeArrayState(false, []),
-  constants: new Map(),
+  constants: makeArrayState(false, []),
   faqTopics: makeArrayState(false, []),
   features: makeArrayState(false, []),
   galleries: makeArrayState(false, []),
@@ -91,7 +91,7 @@ export default (state = initialState, action) => {
     case PAGES_SET_USER_LANGUAGE:
       return { ...state, userLanguage: action.userLanguage }
     case PAGES_INIT_CONSTANTS:
-      return { ...state, constants: action.constants }
+      return { ...state, constants: makeArrayState(true, action.constants) }
     default:
       return state
   }
