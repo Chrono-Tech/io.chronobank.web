@@ -1,19 +1,23 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
 
 import styles from './ProductFeaturesSection.sass'
+import {constantSelector} from 'src/store'
 
 const transitionStyles = {
   entering: { opacity: 0 },
   entered:  { opacity: 1 },
 }
 
+@connect(mapStateToProps)
 export default class ProductFeaturesSection extends React.Component {
 
   static propTypes = {
     features: PropTypes.array.isRequired,
     interval: PropTypes.number,
+    constants: PropTypes.func
   }
 
   static defaultProps = {
@@ -61,14 +65,14 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   render () {
-    const { features } = this.props
+    const { features, constants } = this.props
     const activeFeature = features[this.state.active]
     return (
       <div className='root product-features-section'>
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='heading'>
-            <h3>Key features</h3>
+            <h3>{ constants('key-features') }</h3>
           </div>
           <div className='content'>
             <div className='left'>
@@ -110,5 +114,11 @@ export default class ProductFeaturesSection extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  return {
+    constants: constantSelector(state)
   }
 }

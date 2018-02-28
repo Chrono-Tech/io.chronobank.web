@@ -4,16 +4,18 @@ import PropTypes from 'prop-types'
 
 import { ArticleModel } from 'src/models'
 import styles from './ArticlesSection.sass'
+import { constantSelector } from 'src/store'
 
 @connect(mapStateToProps)
 export default class ArticlesSection extends React.Component {
 
   static propTypes = {
     articles: PropTypes.arrayOf(ArticleModel),
+    constants: PropTypes.func
   }
 
   render () {
-    const { articles } = this.props
+    const { articles, constants } = this.props
     return (
       <div className='root articles-section'>
         <style jsx>{styles}</style>
@@ -42,7 +44,7 @@ export default class ArticlesSection extends React.Component {
                   <div className='text' dangerouslySetInnerHTML={{ __html: article.brief }} />
                   <a className='more' href={article.url} target='_blank' rel='noopener noreferrer'>
                     <img src='/static/images/symbols/more.svg' />
-                    <span>Read the full article</span>
+                    <span>{ constants('read-the-full-article') }</span>
                   </a>
                 </div>
               </div>
@@ -62,5 +64,6 @@ export default class ArticlesSection extends React.Component {
 function mapStateToProps (state) {
   return {
     articles: state.pages.articles.array,
+    constants: constantSelector(state)
   }
 }

@@ -18,7 +18,7 @@ export const constantSelector = createSelector(
   (constants) => slug => {
     let foundConst = constants.find((p) => p.slug === slug)
 
-    return foundConst && foundConst.value
+    return foundConst && foundConst.value || ''
   }
 )
 

@@ -5,6 +5,7 @@ import cn from 'classnames'
 
 import { BACKEND } from 'src/endpoints'
 import { ContactModel } from 'src/models'
+import { constantSelector } from 'src/store'
 import styles from './ContactsSection.sass'
 
 const ENQUIRY_STATUS_COMPLETED = {
@@ -28,6 +29,7 @@ export default class ContactsSection extends React.Component {
     contacts: PropTypes.arrayOf(
       PropTypes.instanceOf(ContactModel)
     ),
+    constants: PropTypes.func
   }
 
   constructor (props) {
@@ -66,7 +68,7 @@ export default class ContactsSection extends React.Component {
   }
 
   render () {
-    const { contacts } = this.props
+    const { contacts, constants } = this.props
     const { enquiryStatus } = this.state
     return (
       <div className='root contacts-section'>
@@ -76,11 +78,11 @@ export default class ContactsSection extends React.Component {
           <div className='background-right' />
         </div>
         <div className='wrap'>
-          <h3>Contact us</h3>
+          <h3>{ constants('contact-us') }</h3>
           <div className='content'>
             <div className='left'>
               <div className='inner-wrap'>
-                <h3>Contact us</h3>
+                <h3>{ constants('contact-us') }</h3>
                 <ul>
                   {contacts.map((c) => (
                     <li key={c.id}>
@@ -105,7 +107,7 @@ export default class ContactsSection extends React.Component {
               <div className='inner-wrap'>
                 <form ref={(el) => this.formElement = el} onSubmit={(e) => this.handleSubmit(e)}>
                   <div className='inner'>
-                    <h4>Get in touch with our team</h4>
+                    <h4>{ constants('get-in-touch-with-our-team') }</h4>
                     <div className='field'>
                       <input
                         type='text'
@@ -114,7 +116,7 @@ export default class ContactsSection extends React.Component {
                         ref={(el) => this.nameElement = el}
                         onChange={(e) => this.handleInput(e.currentTarget)}
                       />
-                      <label htmlFor='contacts-name'>Your name</label>
+                      <label htmlFor='contacts-name'>{ constants('your-name') }</label>
                     </div>
                     <div className='field'>
                       <input
@@ -124,7 +126,7 @@ export default class ContactsSection extends React.Component {
                         ref={(el) => this.emailElement = el}
                         onChange={(e) => this.handleInput(e.currentTarget)}
                       />
-                      <label htmlFor='contacts-email'>Email</label>
+                      <label htmlFor='contacts-email'>{ constants('email') }</label>
                     </div>
                     <div className='field'>
                       <textarea
@@ -133,11 +135,11 @@ export default class ContactsSection extends React.Component {
                         ref={(el) => this.messageElement = el}
                         onChange={(e) => this.handleInput(e.currentTarget)}
                       />
-                      <label htmlFor='contacts-message'>Message</label>
+                      <label htmlFor='contacts-message'>{ constants('message') }</label>
                     </div>
                     <div className='buttons'>
                       {enquiryStatus == null
-                        ? <input className='button' type='submit' value='Send message' />
+                        ? <input className='button' type='submit' value={ constants('send-message') } />
                         : (
                           <div className={cn('message', enquiryStatus.className)}>
                             <div className='heading'>
@@ -163,5 +165,6 @@ export default class ContactsSection extends React.Component {
 function mapStateToProps (state) {
   return {
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInContacts),
+    constants: constantSelector(state)
   }
 }

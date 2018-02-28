@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 
 import { ProductModel } from 'src/models'
-import initStore, { modalsClear, snackbarsClear, initUserLanguage, initAnyPage, productSelector } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initAnyPage, productSelector, constantSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -16,6 +16,7 @@ class ProductsDetails extends React.Component {
   static propTypes = {
     productSlug: PropTypes.string,
     product: PropTypes.instanceOf(ProductModel),
+    constants: PropTypes.func
   }
 
   static async getInitialProps ({ store, query, req }) {
@@ -29,7 +30,7 @@ class ProductsDetails extends React.Component {
   }
 
   render () {
-    const { product } = this.props
+    const { product, constants } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
@@ -46,7 +47,7 @@ class ProductsDetails extends React.Component {
           {(product.distros && product.distros.length)
             ? (
               <partials.DistrosSection
-                title={`${product.title} downloads`}
+                title={`${product.title} ${ constants('downloads').toLowerCase()}`}
                 distros={product.distros}
               />
             )
@@ -69,6 +70,7 @@ class ProductsDetails extends React.Component {
 function mapStateToProps (state, op) {
   return {
     product: productSelector(op.productSlug)(state),
+    constants: constantSelector(state)
   }
 }
 

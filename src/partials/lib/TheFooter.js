@@ -36,9 +36,7 @@ export default class TheFooter extends React.Component {
     contacts: PropTypes.arrayOf(
       PropTypes.instanceOf(ContactModel)
     ),
-    constants: PropTypes.arrayOf(
-      PropTypes.instanceOf(ConstantModel)
-    ),
+    constants: PropTypes.func,
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
     )
@@ -104,14 +102,14 @@ export default class TheFooter extends React.Component {
               <div className='publications'>
                 <ul>
                   {papers.map((p) => (
-                    <li key={p.id}><a href={p.url} target='_blank' rel='noopener noreferrer'>Download</a> {p.title}</li>
+                    <li key={p.id}><a href={p.url} target='_blank' rel='noopener noreferrer'>{ constants('download') }</a> {p.title}</li>
                   ))}
                 </ul>
               </div>
             </div>
             <div className='col-2'>
               <div className='menu'>
-                <h4>MENU</h4>
+                <h4>{ constants('menu') }</h4>
                 <ul>
                   {menus.map((m) => (
                     <li key={m.id}>
@@ -126,7 +124,7 @@ export default class TheFooter extends React.Component {
             </div>
             <div className='col-3'>
               <div className='contacts'>
-                <h4>Contacts us</h4>
+                <h4>{ constants('contacts-us') }</h4>
                 {contacts.map((c) => (
                   <dl key={c.id}>
                     <dt>{c.title}:</dt>
@@ -135,7 +133,7 @@ export default class TheFooter extends React.Component {
                 ))}
               </div>
               <div className='socials'>
-                <h4>social network</h4>
+                <h4>{ constants('social-network') }</h4>
                 <nav>
                   {socials.map((s) => (
                     <a key={s.id} href={s.url} target='_blank' rel='noopener noreferrer'>
@@ -147,7 +145,7 @@ export default class TheFooter extends React.Component {
             </div>
             <div className='col-4'>
               <div className='downloads'>
-                <h4>Downloads</h4>
+                <h4>{ constants('downloads') }</h4>
                 <ul>
                   {distros.filter((distro) => distro.type === 'desktop').map((distro) => (
                     <li key={distro.id}>
@@ -160,13 +158,13 @@ export default class TheFooter extends React.Component {
                 </ul>
               </div>
               <form className='subscribe' onSubmit={(e) => this.handleSubmit(e)}>
-                <h4>Newsletter</h4>
+                <h4>{ constants('newsletter') }</h4>
                 <div className='block'>
-                  <input className='field' ref={(el) => this.emailElement = el} type='email' placeholder='Enter email for news' required />
+                  <input className='field' ref={(el) => this.emailElement = el} type='email' placeholder={ constants('enter-email-for-news') } required />
                 </div>
                 <div className='block'>
                   {subscriptionStatus == null
-                    ? <input className='button' type='submit' value='Subscribe' />
+                    ? <input className='button' type='submit' value={ constants('subscribe') } />
                     : (
                       <div className={cn('message', subscriptionStatus.className)}>
                         {subscriptionStatus.message}
