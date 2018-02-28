@@ -21,7 +21,7 @@ class Index extends React.Component {
     watchInitMarket: PropTypes.func,
     unwatchInitMarket: PropTypes.func,
 
-    constantSelector: PropTypes.func,
+    constants: PropTypes.func,
   }
 
   static async getInitialProps ({ store, isServer, req }) {

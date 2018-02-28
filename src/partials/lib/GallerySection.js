@@ -19,16 +19,6 @@ export default class GallerySection extends React.Component {
     constants: PropTypes.func
   }
 
-  static defaultProps = {
-    note: {
-      brief: `
-        <h4>Searching for interesting job?<br/><a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>Join us!</a></h4>
-      `,
-      action: 'View openings',
-      url: '#global-jobs-section',
-    },
-  }
-
   componentDidMount () {
     this.swiper = new Swiper(this.swiperElement, {
       grabCursor: true,
@@ -72,7 +62,7 @@ export default class GallerySection extends React.Component {
                     </h4>
                   </div>
                   <div className='buttons'>
-                    <a className='button' href={note.url}>{ constants('view-openings') }</a>
+                    <a className='button' href='#global-jobs-section'>{ constants('view-openings') }</a>
                   </div>
                 </div>
               </div>

@@ -39,6 +39,7 @@ export default class TheHeader extends React.Component {
     posts: PropTypes.arrayOf(
       PropTypes.instanceOf(PostModel)
     ),
+    constants: PropTypes.func
   }
 
   componentDidMount () {

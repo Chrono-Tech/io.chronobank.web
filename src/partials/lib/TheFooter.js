@@ -6,7 +6,7 @@ import cn from 'classnames'
 import { Link } from 'src/router'
 import { productSelector, constantSelector } from 'src/store'
 import { BACKEND } from 'src/endpoints'
-import { MenuModel, PaperModel, SocialModel, ContactModel, ProductDistroModel, ConstantModel } from 'src/models'
+import { MenuModel, PaperModel, SocialModel, ContactModel, ProductDistroModel } from 'src/models'
 import styles from './TheFooter.sass'
 
 const SUBSCRIPTION_STATUS_COMPLETED = {

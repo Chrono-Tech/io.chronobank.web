@@ -2,6 +2,8 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 
+import PropTypes from 'prop-types'
+
 import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage, constantSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
@@ -10,6 +12,12 @@ import globalStyles from 'src/styles/globals/globals.sass'
 import styles from './team.sass'
 
 class Team extends React.Component {
+
+  static propTypes = {
+
+    constants: PropTypes.func
+
+  }
 
   static async getInitialProps ({ store, req }) {
     await store.dispatch(initUserLanguage(req))
