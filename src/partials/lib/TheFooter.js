@@ -39,7 +39,7 @@ export default class TheFooter extends React.Component {
     constants: PropTypes.func,
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
-    )
+    ),
   }
 
   constructor (props) {
@@ -160,11 +160,11 @@ export default class TheFooter extends React.Component {
               <form className='subscribe' onSubmit={(e) => this.handleSubmit(e)}>
                 <h4>{ constants('newsletter') }</h4>
                 <div className='block'>
-                  <input className='field' ref={(el) => this.emailElement = el} type='email' placeholder={ constants('enter-email-for-news') } required />
+                  <input className='field' ref={(el) => this.emailElement = el} type='email' placeholder={constants('enter-email-for-news')} required />
                 </div>
                 <div className='block'>
                   {subscriptionStatus == null
-                    ? <input className='button' type='submit' value={ constants('subscribe') } />
+                    ? <input className='button' type='submit' value={constants('subscribe')} />
                     : (
                       <div className={cn('message', subscriptionStatus.className)}>
                         {subscriptionStatus.message}
@@ -190,6 +190,6 @@ function mapStateToProps (state, op) {
     papers: state.pages.papers.array,
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInFooter),
     socials: state.pages.socials.array,
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

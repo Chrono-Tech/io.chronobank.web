@@ -1,4 +1,4 @@
-import {LangFieldSet} from "./helpers"
+import { LangFieldSet } from "./helpers"
 
 export default class ConstantModel {
   constructor ({ slug, name, value }) {
@@ -10,7 +10,7 @@ export default class ConstantModel {
 
   static fromJS (data) {
     return data == null ? null : new ConstantModel({
-      ...data
+      ...data,
     })
   }
 
@@ -20,7 +20,7 @@ export default class ConstantModel {
     return data == null ? null : new ConstantModel({
       slug: data.slug,
       name: data.name,
-      value: localeModelFields.getLocaleField('value')
+      value: localeModelFields.getLocaleField('value'),
     })
   }
 }

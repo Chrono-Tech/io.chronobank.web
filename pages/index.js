@@ -64,8 +64,8 @@ class Index extends React.Component {
           <main className='main'>
             <div className='about'>
               <partials.TheTitle
-                title={ titles('what-is-chronobank-io') }
-                subtitle={ titles('what-is-chronobank-io-description') }
+                title={titles('what-is-chronobank-io')}
+                subtitle={titles('what-is-chronobank-io-description')}
               />
               {this.props.stories && this.props.stories.map((story) => (
                 <partials.StorySection key={story.id} story={story} />
@@ -80,7 +80,7 @@ class Index extends React.Component {
             </div>
             <div className='roadmap'>
               <partials.TheTitle
-                title={ titles('roadmap') }
+                title={titles('roadmap')}
               />
               <partials.RoadmapSection />
             </div>
@@ -91,20 +91,20 @@ class Index extends React.Component {
             </div>
             <div className='partners'>
               <partials.TheTitle
-                title={ titles('partners') }
-                subtitle={ titles('we-are-proud-of-our-partners') }
+                title={titles('partners')}
+                subtitle={titles('we-are-proud-of-our-partners')}
               />
               <partials.PartnersSection />
             </div>
             <div className='press'>
               <partials.TheTitle
-                title={ titles('press') }
+                title={titles('press')}
               />
               <partials.ArticlesSection />
             </div>
             <div className='posts'>
               <partials.TheTitle
-                title={ titles('latest-news') }
+                title={titles('latest-news')}
               />
               <partials.PostsSection />
             </div>
@@ -121,7 +121,7 @@ function mapStateToProps (state) {
   return {
     stories: state.pages.stories.array,
     testimonials: state.pages.testimonials.array,
-    titles: titleSelector(state)
+    titles: titleSelector(state),
   }
 }
 

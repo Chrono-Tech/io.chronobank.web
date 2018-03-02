@@ -52,6 +52,7 @@ const initialState = {
   userLanguage: 'en',
 }
 
+// eslint-disable-next-line complexity
 export default (state = initialState, action) => {
   switch (action.type) {
     case PAGES_INIT_HEADERS:

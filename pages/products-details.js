@@ -16,7 +16,7 @@ class ProductsDetails extends React.Component {
   static propTypes = {
     productSlug: PropTypes.string,
     product: PropTypes.instanceOf(ProductModel),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   static async getInitialProps ({ store, query, req }) {
@@ -70,7 +70,7 @@ class ProductsDetails extends React.Component {
 function mapStateToProps (state, op) {
   return {
     product: productSelector(op.productSlug)(state),
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }
 

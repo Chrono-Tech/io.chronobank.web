@@ -3,15 +3,15 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { ArticleModel } from 'src/models'
-import styles from './ArticlesSection.sass'
 import { constantSelector } from 'src/store'
+import styles from './ArticlesSection.sass'
 
 @connect(mapStateToProps)
 export default class ArticlesSection extends React.Component {
 
   static propTypes = {
     articles: PropTypes.arrayOf(ArticleModel),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   render () {
@@ -64,6 +64,6 @@ export default class ArticlesSection extends React.Component {
 function mapStateToProps (state) {
   return {
     articles: state.pages.articles.array,
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

@@ -1,4 +1,4 @@
-import {LangFieldSet} from "./helpers"
+import { LangFieldSet } from "./helpers"
 
 export default class TitleModel {
   constructor ({ slug, name, value }) {
@@ -10,7 +10,7 @@ export default class TitleModel {
 
   static fromJS (data) {
     return data == null ? null : new TitleModel({
-      ...data
+      ...data,
     })
   }
 
@@ -20,7 +20,7 @@ export default class TitleModel {
     return data == null ? null : new TitleModel({
       slug: data.slug,
       name: data.name,
-      value: localeModelFields.getLocaleField('value')
+      value: localeModelFields.getLocaleField('value'),
     })
   }
 }

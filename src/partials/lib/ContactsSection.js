@@ -29,7 +29,7 @@ export default class ContactsSection extends React.Component {
     contacts: PropTypes.arrayOf(
       PropTypes.instanceOf(ContactModel)
     ),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   constructor (props) {
@@ -139,7 +139,7 @@ export default class ContactsSection extends React.Component {
                     </div>
                     <div className='buttons'>
                       {enquiryStatus == null
-                        ? <input className='button' type='submit' value={ constants('send-message') } />
+                        ? <input className='button' type='submit' value={constants('send-message')} />
                         : (
                           <div className={cn('message', enquiryStatus.className)}>
                             <div className='heading'>
@@ -165,6 +165,6 @@ export default class ContactsSection extends React.Component {
 function mapStateToProps (state) {
   return {
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInContacts),
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {constantSelector} from 'src/store'
+import { connect } from 'react-redux'
+import { constantSelector } from 'src/store'
 
 import styles from './SearchPanel.sass'
 
@@ -25,7 +25,7 @@ export default class SearchPanel extends React.Component {
     return (
       <div className='root search-panel'>
         <style jsx>{styles}</style>
-        <input type='text' placeholder={ constants('search') } onChange={(e) => this.handleChange(e.currentTarget.value)} />
+        <input type='text' placeholder={constants('search')} onChange={(e) => this.handleChange(e.currentTarget.value)} />
       </div>
     )
   }
@@ -33,6 +33,6 @@ export default class SearchPanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }
