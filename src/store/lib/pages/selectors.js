@@ -15,7 +15,7 @@ export const productSelector = (slug) => createSelector(
 
 export const constantSelector = createSelector(
   (state) => state.pages.constants.array,
-  (constants) => slug => {
+  (constants) => (slug) => {
     let foundConst = constants.find((p) => p.slug === slug)
 
     return foundConst && foundConst.value || ''
@@ -24,7 +24,7 @@ export const constantSelector = createSelector(
 
 export const titleSelector = createSelector(
   (state) => state.pages.titles.array,
-  (titles) => slug => {
+  (titles) => (slug) => {
     let foundTitle = titles.find((p) => p.slug === slug)
 
     return foundTitle && foundTitle.value || ''

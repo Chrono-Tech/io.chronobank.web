@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {constantSelector} from 'src/store'
+import { constantSelector } from 'src/store'
 
 import { ProductDistroModel } from 'src/models'
 import styles from './DistrosSection.sass'
@@ -14,7 +14,7 @@ export default class DistrosSection extends React.Component {
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
     ),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   render () {
@@ -65,6 +65,6 @@ export default class DistrosSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

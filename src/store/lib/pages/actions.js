@@ -293,7 +293,7 @@ export const initConstants = () => async (dispatch, getState) => {
 
   return dispatch({
     type: PAGES_INIT_CONSTANTS,
-    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locales }))
+    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locales })),
   })
 }
 

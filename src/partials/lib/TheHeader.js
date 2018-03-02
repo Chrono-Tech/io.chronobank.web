@@ -39,7 +39,7 @@ export default class TheHeader extends React.Component {
     posts: PropTypes.arrayOf(
       PropTypes.instanceOf(PostModel)
     ),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   componentDidMount () {
@@ -253,7 +253,7 @@ function mapStateToProps (state, op) {
     posts: state.pages.posts.array,
     languages: languagesSelector()(state),
     userLanguage: state.pages.userLanguage,
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }
 

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import {LangFieldSet} from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class MenuModel {
   constructor ({ id, title, subtitle, url, symbol, icon32x32, icon40x40, isVisibleInHeader, isVisibleInFooter, children }) {
