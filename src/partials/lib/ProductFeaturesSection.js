@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
 
 import styles from './ProductFeaturesSection.sass'
-import { titleSelector} from 'src/store'
+import {constantSelector} from 'src/store'
 
 const transitionStyles = {
   entering: { opacity: 0 },
@@ -17,7 +17,7 @@ export default class ProductFeaturesSection extends React.Component {
   static propTypes = {
     features: PropTypes.array.isRequired,
     interval: PropTypes.number,
-    titles: PropTypes.func
+    constants: PropTypes.func
   }
 
   static defaultProps = {
@@ -65,14 +65,14 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   render () {
-    const { features, titles } = this.props
+    const { features, constants } = this.props
     const activeFeature = features[this.state.active]
     return (
       <div className='root product-features-section'>
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='heading'>
-            <div dangerouslySetInnerHTML={{ __html: titles('key-features') }} />
+            <h3>{ constants('key-features') }</h3>
           </div>
           <div className='content'>
             <div className='left'>
@@ -119,6 +119,6 @@ export default class ProductFeaturesSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    titles: titleSelector(state)
+    constants: constantSelector(state)
   }
 }
