@@ -1,3 +1,5 @@
+import { LangFieldSet } from './helpers'
+
 export default class PaperModel {
   constructor ({ id, title, url }) {
     this.id = id
@@ -12,11 +14,13 @@ export default class PaperModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = new LangFieldSet(data, locale)
+
     return data == null ? null : new PaperModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: data.title,
+      title: localeModelFields.getLocaleField('title'),
       url: data.url,
     })
   }

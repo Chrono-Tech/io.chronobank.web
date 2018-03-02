@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import { LangFieldSet } from './helpers'
 
 export default class ContactModel {
   constructor ({ id, title, label, url, icon32x32, isVisibleInContacts, isVisibleInFooter }) {
@@ -21,11 +22,13 @@ export default class ContactModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = new LangFieldSet(data, locale)
+
     return data == null ? data : new ContactModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: data.title,
+      title: localeModelFields.getLocaleField('title'),
       label: data.label,
       url: data.url,
       icon32x32: ImageModel.fromServerModel(data.icon32x32),
