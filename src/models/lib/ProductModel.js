@@ -3,7 +3,7 @@ import ImageModel from './ImageModel'
 import ProductDownloadModel from './ProductDownloadModel'
 import ProductDistroModel from './ProductDistroModel'
 import ProductFeatureModel from './ProductFeatureModel'
-import { getLocaleModelFields } from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class ProductModel {
   constructor ({ id, slug, name, title, stereotype, background, icon, icon2x, image, image2x, mission, brief, downloads, distros, features }) {
@@ -46,18 +46,18 @@ export default class ProductModel {
   }
 
   static fromServerModel (data, { locales }) {
-    let localeModelFields = getLocaleModelFields(data, locales)
+    let localeModelFields = new LangFieldSet(data, locales)
 
     return data == null ? data : new ProductModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       slug: data.slug,
       name: data.name,
-      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
+      title: localeModelFields.getLocaleField('title'),
       stereotype: data.stereotype,
       background: data.background,
-      mission: localeModelFields && 'mission' in localeModelFields ? localeModelFields.mission : data.mission,
-      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
+      mission: localeModelFields.getLocaleField('mission'),
+      brief: localeModelFields.getLocaleField('brief'),
       icon: ImageModel.fromServerModel(data.icon),
       icon2x: ImageModel.fromServerModel(data.icon2x),
       image: ImageModel.fromServerModel(data.image),

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import { getLocaleModelFields } from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class FeatureModel {
   constructor ({ id, title, image, brief }) {
@@ -20,13 +20,13 @@ export default class FeatureModel {
   }
 
   static fromServerModel (data, { locale }) {
-    let localeModelFields = getLocaleModelFields(data, locale)
+    let localeModelFields = new LangFieldSet(data, locale)
 
     return data == null ? data : new FeatureModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: data.title,
-      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
+      title: localeModelFields.getLocaleField('title'),
+      brief: localeModelFields.getLocaleField('brief'),
       image: ImageModel.fromServerModel(data.image),
     })
   }

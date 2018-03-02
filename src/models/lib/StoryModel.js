@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import { getLocaleModelFields } from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class StoryModel {
   constructor ({ id, title, stereotype, background, image, image2x, legend, brief }) {
@@ -26,16 +26,16 @@ export default class StoryModel {
   }
 
   static fromServerModel (data, { locale }) {
-    let localeModelFields = getLocaleModelFields(data, locale)
+    let localeModelFields = new LangFieldSet(data, locale)
 
     return data == null ? null : new StoryModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title,
+      title: localeModelFields.getLocaleField('title'),
       stereotype: data.stereotype,
       background: data.background,
-      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
-      legend: localeModelFields && 'legend' in localeModelFields ? localeModelFields.legend : data.legend,
+      brief: localeModelFields.getLocaleField('brief'),
+      legend: localeModelFields.getLocaleField('legend'),
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
     })

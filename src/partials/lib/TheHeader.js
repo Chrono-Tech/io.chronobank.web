@@ -12,7 +12,7 @@ import { RatesPanel } from 'dropins/market/src/components'
 import { HeaderModel, MenuModel, PostModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, languagesSelector, changeUserLanguage } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, languagesSelector, changeUserLanguage, constantSelector } from 'src/store'
 
 import styles from './TheHeader.sass'
 
@@ -39,6 +39,7 @@ export default class TheHeader extends React.Component {
     posts: PropTypes.arrayOf(
       PropTypes.instanceOf(PostModel)
     ),
+    constants: PropTypes.func
   }
 
   componentDidMount () {
@@ -65,7 +66,7 @@ export default class TheHeader extends React.Component {
   }
 
   render () {
-    const { menus, header, languages, userLanguage } = this.props
+    const { menus, header, languages, userLanguage, constants } = this.props
 
     return (
       <header className={cn('root', 'the-header', {
@@ -191,7 +192,7 @@ export default class TheHeader extends React.Component {
               <div className='video'>
                 <a onClick={() => this.props.showVideo(header.video)}>
                   <img src='/static/images/symbols/video.svg' />
-                  <span>Watch the Introduction</span>
+                  <span>{ constants('watch-the-introduction') }</span>
                 </a>
               </div>
             )}
@@ -252,6 +253,7 @@ function mapStateToProps (state, op) {
     posts: state.pages.posts.array,
     languages: languagesSelector()(state),
     userLanguage: state.pages.userLanguage,
+    constants: constantSelector(state)
   }
 }
 

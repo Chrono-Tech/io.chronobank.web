@@ -1,5 +1,5 @@
 import {
-  PAGES_INIT_ARTICLES,
+  PAGES_INIT_ARTICLES, PAGES_INIT_CONSTANTS,
   PAGES_INIT_CONTACTS,
   PAGES_INIT_FAQ_TOPICS,
   PAGES_INIT_FEATURES,
@@ -17,6 +17,7 @@ import {
   PAGES_INIT_STATISTICS,
   PAGES_INIT_STORIES,
   PAGES_INIT_TESTIMONIALS,
+  PAGES_INIT_TITLES,
   PAGES_SET_USER_LANGUAGE,
 } from './actions'
 
@@ -30,6 +31,7 @@ export {
 const initialState = {
   articles: makeArrayState(false, []),
   contacts: makeArrayState(false, []),
+  constants: makeArrayState(false, []),
   faqTopics: makeArrayState(false, []),
   features: makeArrayState(false, []),
   galleries: makeArrayState(false, []),
@@ -46,6 +48,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
+  titles: makeArrayState(false, []),
   userLanguage: 'en',
 }
 
@@ -89,6 +92,10 @@ export default (state = initialState, action) => {
       return { ...state, galleries: makeArrayState(true, action.galleries) }
     case PAGES_SET_USER_LANGUAGE:
       return { ...state, userLanguage: action.userLanguage }
+    case PAGES_INIT_CONSTANTS:
+      return { ...state, constants: makeArrayState(true, action.constants) }
+    case PAGES_INIT_TITLES:
+      return { ...state, titles: makeArrayState(true, action.titles) }
     default:
       return state
   }

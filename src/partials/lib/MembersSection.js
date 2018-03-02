@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { MemberModel } from 'src/models'
 import * as dialogs from 'src/dialogs'
-import { modalsOpen } from 'src/store'
+import { modalsOpen, constantSelector } from 'src/store'
 
 import styles from './MembersSection.sass'
 
@@ -16,10 +16,11 @@ export default class MembersSection extends React.Component {
       PropTypes.instanceOf(MemberModel)
     ),
     showMember: PropTypes.func,
+    constants: PropTypes.func,
   }
 
   render () {
-    const { members } = this.props
+    const { members, constants } = this.props
     return (
       <div className='root members-section'>
         <style jsx>{styles}</style>
@@ -27,21 +28,9 @@ export default class MembersSection extends React.Component {
           <div className='content'>
             <ul>
               <li className='general'>
-                <h3>We are making revolution for the recruitment industry</h3>
+                <h3>{ constants('we-are-making-revolution-for-the-recruitment-industry') }</h3>
                 <div className='text'>
-                  <p>
-                    {`ChronoBank’s vision is to create a peer-to-peer
-                      marketplace for short-term recruitment in which there are
-                      no unnecessary costs and no arbitrary gatekeepers. We
-                      believe that blockchain technology is the key to unlocking
-                      this new world of employment opportunities that anyone can
-                      access, wherever they are in the world, and make sure they
-                      get paid promptly and fairly. We want to pioneer best
-                      practice in both the blockchain and labour-hire
-                      industries, and work with a range of highly-qualified
-                      partners to ensure our solution is secure, robust and
-                      user-friendly for all.`}
-                  </p>
+                  <p>{ constants('we-are-making-revolution-for-the-recruitment-industry-text') }</p>
                 </div>
               </li>
               {members.map((member) => (
@@ -67,7 +56,7 @@ export default class MembersSection extends React.Component {
                         member,
                         members,
                       })}
-                    >Read bio <img src='/static/images/symbols/arrow.svg' />
+                    >{ constants('read-bio') } <img src='/static/images/symbols/arrow.svg' />
                     </a>
                   </div>
                 </li>
@@ -83,6 +72,7 @@ export default class MembersSection extends React.Component {
 function mapStateToProps (state) {
   return {
     members: state.pages.members.array,
+    constants: constantSelector(state)
   }
 }
 

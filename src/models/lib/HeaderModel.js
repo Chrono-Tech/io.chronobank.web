@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import { getLocaleModelFields } from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class HeaderModel {
   constructor ({ id, slug, title, stereotype, background, video, brief, image, image2x, image320, image2x320, image480, image2x480, image640, image2x640 }) {
@@ -50,7 +50,8 @@ export default class HeaderModel {
   }
 
   static fromServerModel (data, { locale }) {
-    let localeModelFields = getLocaleModelFields(data, locale)
+    let localeModelFields = new LangFieldSet(data, locale)
+    // console.log('HEADER', localeModelFields)
 
     return data == null ? data : new HeaderModel({
       // eslint-disable-next-line no-underscore-dangle
@@ -60,7 +61,7 @@ export default class HeaderModel {
       stereotype: data.stereotype,
       background: data.background,
       video: data.video,
-      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief ,
+      brief: localeModelFields.getLocaleField('brief') ,
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
       image320: ImageModel.fromServerModel(data.image320),

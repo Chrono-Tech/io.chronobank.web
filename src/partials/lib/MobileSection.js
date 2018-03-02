@@ -7,6 +7,7 @@ import { ProductModel } from 'src/models'
 import { productSelector } from 'src/store'
 
 import styles from './MobileSection.sass'
+import {constantSelector} from "../../store"
 
 @connect(mapStateToProps)
 export default class MobileSection extends React.Component {
@@ -14,10 +15,11 @@ export default class MobileSection extends React.Component {
   static propTypes = {
     productSlug: PropTypes.string,
     product: PropTypes.instanceOf(ProductModel),
+    constants: PropTypes.func
   }
 
   render () {
-    const { product } = this.props
+    const { product, constants } = this.props
     return (
       <div className={cn('root', 'mobile-section', {
         'background-dark': product.background === 'dark',
@@ -46,7 +48,7 @@ export default class MobileSection extends React.Component {
           {product.downloads && product.downloads.length
             ? (
               <nav className='downloads'>
-                <h4>Downloads</h4>
+                <h4>{ constants('downloads')}</h4>
                 <ul>
                   {product.downloads.map((download) => (
                     <li key={download.id}>
@@ -68,5 +70,6 @@ export default class MobileSection extends React.Component {
 function mapStateToProps (state, op) {
   return {
     product: productSelector(op.productSlug)(state),
+    constants: constantSelector(state)
   }
 }

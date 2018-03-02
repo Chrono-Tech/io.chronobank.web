@@ -2,7 +2,9 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 
-import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage } from 'src/store'
+import PropTypes from 'prop-types'
+
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage, titleSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -10,6 +12,12 @@ import globalStyles from 'src/styles/globals/globals.sass'
 import styles from './team.sass'
 
 class Team extends React.Component {
+
+  static propTypes = {
+
+    titles: PropTypes.func
+
+  }
 
   static async getInitialProps ({ store, req }) {
     await store.dispatch(initUserLanguage(req))
@@ -19,6 +27,7 @@ class Team extends React.Component {
   }
 
   render () {
+    const { titles } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
@@ -34,12 +43,12 @@ class Team extends React.Component {
         <partials.GallerySection />
         <main>
           <div className='statistics'>
-            <partials.TheTitle title='ChronoBank is' />
+            <partials.TheTitle title={ titles('chronobank-is')} />
             <partials.StatisticsSection />
           </div>
           <partials.MembersSection />
           <div className='jobs'>
-            <partials.TheTitle title='Jobs at Chronobank.io' />
+            <partials.TheTitle title={ titles('jobs-at-chronobank-io') } />
             <partials.JobsSection />
           </div>
         </main>
@@ -49,4 +58,10 @@ class Team extends React.Component {
   }
 }
 
-export default withRedux(initStore)(Team)
+function mapStateToProps (state) {
+  return {
+    titles: titleSelector(state)
+  }
+}
+
+export default withRedux(initStore, mapStateToProps)(Team)

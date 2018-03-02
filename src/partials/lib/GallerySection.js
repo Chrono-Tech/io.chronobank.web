@@ -8,6 +8,7 @@ import { Swiper } from 'src/plugins'
 import { GalleryModel } from 'src/models'
 
 import styles from './GallerySection.sass'
+import {constantSelector} from 'src/store'
 
 @connect(mapStateToProps)
 export default class GallerySection extends React.Component {
@@ -15,16 +16,7 @@ export default class GallerySection extends React.Component {
   static propTypes = {
     note: PropTypes.object,
     galleries: PropTypes.arrayOf(GalleryModel),
-  }
-
-  static defaultProps = {
-    note: {
-      brief: `
-        <h4>Searching for interesting job?<br/><a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>Join us!</a></h4>
-      `,
-      action: 'View openings',
-      url: '#global-jobs-section',
-    },
+    constants: PropTypes.func
   }
 
   componentDidMount () {
@@ -50,7 +42,7 @@ export default class GallerySection extends React.Component {
   }
 
   render () {
-    const { galleries, note } = this.props
+    const { galleries, note, constants } = this.props
     return (
       <div className='root gallery-section'>
         <style jsx>{styles}</style>
@@ -60,9 +52,17 @@ export default class GallerySection extends React.Component {
             {!note ? null : (
               <div className='popup' ref={(popup) => { this.popupElement = popup }}>
                 <div className='inner'>
-                  <div className='text' dangerouslySetInnerHTML={{ __html: note.brief }} />
+                  <div className='text'>
+                    <h4>
+                      { constants('searching-for-interesting-job') }
+                      <br/>
+                      <a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>
+                        { constants('join-us') }
+                      </a>
+                    </h4>
+                  </div>
                   <div className='buttons'>
-                    <a className='button' href={note.url}>{note.action}</a>
+                    <a className='button' href='#global-jobs-section'>{ constants('view-openings') }</a>
                   </div>
                 </div>
               </div>
@@ -86,5 +86,6 @@ export default class GallerySection extends React.Component {
 function mapStateToProps (state) {
   return {
     galleries: state.pages.galleries.array,
+    constants: constantSelector(state)
   }
 }

@@ -17,8 +17,8 @@ export default class TheTitle extends React.Component {
       <div className='root the-title'>
         <style jsx>{styles}</style>
         <div className='wrap'>
-          {title == null ? null : (<h2>{title}</h2>)}
-          {subtitle == null ? null : (<p>{subtitle}</p>)}
+          {title == null ? null : (<div className='title' dangerouslySetInnerHTML={{ __html: title }} />)}
+          {subtitle == null ? null : (<div className='subtitle' dangerouslySetInnerHTML={{ __html: subtitle }} />)}
         </div>
       </div>
     )

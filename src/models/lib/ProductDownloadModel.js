@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import { getLocaleModelFields } from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class ProductDownloadModel {
   constructor ({ id, title, url, icon }) {
@@ -20,12 +20,12 @@ export default class ProductDownloadModel {
   }
 
   static fromServerModel (data, { locales }) {
-    let localeModelFields = getLocaleModelFields(data, locales)
+    let localeModelFields = new LangFieldSet(data, locales)
 
     return data == null ? data : new ProductDownloadModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: localeModelFields && 'title' in localeModelFields ? localeModelFields.title : data.title ,
+      title: localeModelFields.getLocaleField('title') ,
       url: data.url,
       icon: data.icon
         ? ImageModel.fromServerModel(data.icon)

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import { getLocaleModelFields } from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class MemberModel {
   constructor ({ id, name, avatar, avatar2x, position, brief }) {
@@ -24,14 +24,14 @@ export default class MemberModel {
   }
 
   static fromServerModel (data, { locale }) {
-    let localeModelFields = getLocaleModelFields(data, locale)
+    let localeModelFields = new LangFieldSet(data, locale)
 
     return data == null ? data : new MemberModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      name: localeModelFields && 'name' in localeModelFields ? localeModelFields.name : data.name,
-      position: localeModelFields && 'position' in localeModelFields ? localeModelFields.position : data.position,
-      brief: localeModelFields && 'brief' in localeModelFields ? localeModelFields.brief : data.brief,
+      name: localeModelFields.getLocaleField('name'),
+      position: localeModelFields.getLocaleField('position'),
+      brief: localeModelFields.getLocaleField('brief'),
       avatar: ImageModel.fromServerModel(data.avatar),
       avatar2x: ImageModel.fromServerModel(data.avatar2x),
     })
