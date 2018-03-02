@@ -52,10 +52,12 @@ export const initMenus = () => async (dispatch, getState) => {
   if (state.pages.menus.isLoaded) {
     return
   }
+  const locale = state.pages.userLanguage
+
   const { data } = await BACKEND.get('menus')
   return dispatch({
     type: PAGES_INIT_MENUS,
-    menus: data.map(MenuModel.fromServerModel),
+    menus: data.map((item) => MenuModel.fromServerModel(item, { locale })),
   })
 }
 
@@ -208,13 +210,17 @@ export const initStories = () => async (dispatch, getState) => {
 
 export const initArticles = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.pages.userLanguage
+
   if (state.pages.articles.isLoaded) {
     return
   }
+
   const { data } = await BACKEND.get('articles')
   return dispatch({
     type: PAGES_INIT_ARTICLES,
-    articles: data.articles.map(ArticleModel.fromServerModel),
+    articles: data.articles.map((item) => ArticleModel.fromServerModel(item, { locale })),
   })
 }
 
@@ -266,9 +272,12 @@ export const initContacts = () => async (dispatch, getState) => {
     return
   }
   const { data } = await BACKEND.get('contacts')
+
+  const locale = state.pages.userLanguage
+
   return dispatch({
     type: PAGES_INIT_CONTACTS,
-    contacts: data.contacts.map(ContactModel.fromServerModel),
+    contacts: data.contacts.map((item) => ContactModel.fromServerModel(item, { locale })),
   })
 }
 
@@ -305,10 +314,13 @@ export const initPapers = () => async (dispatch, getState) => {
   if (state.pages.papers.isLoaded) {
     return
   }
+
+  const locale = state.pages.userLanguage
+
   const { data } = await BACKEND.get('papers')
   return dispatch({
     type: PAGES_INIT_PAPERS,
-    papers: data.papers.map(PaperModel.fromServerModel),
+    papers: data.papers.map((item) => PaperModel.fromServerModel(item, { locale })),
   })
 }
 
