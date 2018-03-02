@@ -78,13 +78,16 @@ export const initFeatures = () => async (dispatch, getState) => {
 
 export const initFaqTopics = () => async (dispatch, getState) => {
   const state = getState()
+
+  const locale = state.pages.userLanguage
+
   if (state.pages.faqTopics.isLoaded) {
     return
   }
   const { data } = await BACKEND.get('faq-topics')
   return dispatch({
     type: PAGES_INIT_FAQ_TOPICS,
-    faqTopics: data.map(FaqTopicModel.fromServerModel),
+    faqTopics: data.map((topic) => FaqTopicModel.fromServerModel(topic, { locale })),
   })
 }
 

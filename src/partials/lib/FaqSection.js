@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { debounce } from 'lodash'
 
-import { FaqTopicModel } from 'src/models'
+import { FaqTopicModel, FaqQuestionModel } from 'src/models'
 import { BACKEND } from 'src/endpoints'
 import { AccordeonPanel, ReferencePanel, SearchPanel, SectionsPanel } from 'src/components'
 
@@ -14,8 +14,9 @@ export default class FaqSection extends React.Component {
 
   static propTypes = {
     topics: PropTypes.arrayOf(
-      PropTypes.instanceOf(FaqTopicModel)
+      PropTypes.instanceOf(FaqTopicModel),
     ),
+    userLanguage: PropTypes.string,
   }
 
   constructor (props) {
@@ -41,10 +42,11 @@ export default class FaqSection extends React.Component {
   async handleSearch ({ query, topic }) {
     const state = this.state
     // eslint-disable-next-line
-
+    const locale = this.props.userLanguage
     if ((query !== null && query !== '' && query !== '*') || topic) {
       const { data } = await BACKEND.get('faq-questions/search', {
         params: {
+          locale,
           query: (query !== null && query !== '' && query !== '*') ? query : null,
           topic,
         },
@@ -52,23 +54,23 @@ export default class FaqSection extends React.Component {
 
       const results = new Map()
       let count = 0
-      for (const q of data.elements) {
-        if (q.document.topic) {
-          const t = state.topics.get(q.document.topic)
-          if (t) {
-            const storedTopic = results.get(q.document.topic)
-            const questions = storedTopic ? storedTopic.questions : []
-            results.set(t.id, {
-              ...t,
-              questions: [...questions, {
-                // eslint-disable-next-line no-underscore-dangle
-                id: q.document._id,
-                isOpen: !count || (q.score > 3),
-                title: q.document.title,
-                brief: q.document.brief,
-              }],
-            })
-            count++
+      if (data.elements) {
+        for (const q of data.elements) {
+          if (q.document.topic) {
+            const t = state.topics.get(q.document.topic)
+            if (t) {
+              const storedTopic = results.get(q.document.topic)
+              const questions = storedTopic ? storedTopic.questions : []
+              const qm = FaqQuestionModel.fromServerModel(q.document, { locale })
+              results.set(t.id, {
+                ...t,
+                questions: [...questions, {
+                  ...qm,
+                  isOpen: !count || (q.score > 3),
+                }],
+              })
+              count++
+            }
           }
         }
       }
@@ -157,5 +159,6 @@ export default class FaqSection extends React.Component {
 function mapStateToProps (state) {
   return {
     topics: state.pages.faqTopics.array,
+    userLanguage: state.pages.userLanguage,
   }
 }

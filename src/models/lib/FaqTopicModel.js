@@ -1,5 +1,6 @@
 import assert from 'assert'
 import FaqQuestionModel from './FaqQuestionModel'
+import { LangFieldSet } from './helpers'
 
 export default class FaqTopicModel {
   constructor ({ id, name, title, questions }) {
@@ -18,13 +19,15 @@ export default class FaqTopicModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    const localeModelFields = new LangFieldSet(data, locale)
+
     return data == null ? null : new FaqTopicModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       name: data.name,
-      title: data.title,
-      questions: data.questions == null ? null : data.questions.map(FaqQuestionModel.fromServerModel),
+      title: localeModelFields.getLocaleField('title'),
+      questions: data.questions == null ? null : data.questions.map((question) => FaqQuestionModel.fromServerModel(question, { locale })),
     })
   }
 }
