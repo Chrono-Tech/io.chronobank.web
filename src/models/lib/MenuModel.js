@@ -1,5 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
+import {LangFieldSet} from './helpers'
 
 export default class MenuModel {
   constructor ({ id, title, subtitle, url, symbol, icon32x32, icon40x40, isVisibleInHeader, isVisibleInFooter, children }) {
@@ -38,14 +39,16 @@ export default class MenuModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = new LangFieldSet(data, locale)
+
     return data == null ? data : new MenuModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
-      title: data.title,
-      subtitle: data.subtitle,
+      title: localeModelFields.getLocaleField('title'),
+      subtitle: localeModelFields.getLocaleField('subtitle'),
       url: data.url,
-      children: data.children == null ? null : data.children.map(MenuModel.fromServerModel),
+      children: data.children == null ? null : data.children.map((item) => MenuModel.fromServerModel(item, { locale })),
       symbol: ImageModel.fromServerModel(data.symbol),
       icon32x32: ImageModel.fromServerModel(data.icon32x32),
       icon40x40: ImageModel.fromServerModel(data.icon40x40),

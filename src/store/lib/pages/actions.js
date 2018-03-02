@@ -52,10 +52,12 @@ export const initMenus = () => async (dispatch, getState) => {
   if (state.pages.menus.isLoaded) {
     return
   }
+  const locale = state.pages.userLanguage
+
   const { data } = await BACKEND.get('menus')
   return dispatch({
     type: PAGES_INIT_MENUS,
-    menus: data.map(MenuModel.fromServerModel),
+    menus: data.map((item) => MenuModel.fromServerModel(item, { locale })),
   })
 }
 
