@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {constantSelector} from 'src/store'
+import {titleSelector} from 'src/store'
 
 import { ProductDistroModel } from 'src/models'
 import styles from './DistrosSection.sass'
@@ -14,11 +14,12 @@ export default class DistrosSection extends React.Component {
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
     ),
-    constants: PropTypes.func
+    constants: PropTypes.func,
+    titles: PropTypes.func
   }
 
   render () {
-    const { title, distros, constants } = this.props
+    const { title, distros, titles } = this.props
     return (
       <div className='root distros-section'>
         <style jsx>{styles}</style>
@@ -30,7 +31,7 @@ export default class DistrosSection extends React.Component {
           <div className='content'>
             <div className='group'>
               <div className='downloads'>
-                <h4>{ constants('desktop-app') }</h4>
+                <h4>{ titles('desktop-app') }</h4>
                 <ul>
                   {distros.filter((distro) => distro.type === 'desktop').map((distro) => (
                     <li key={distro.id}>
@@ -44,7 +45,7 @@ export default class DistrosSection extends React.Component {
             </div>
             <div className='group'>
               <div className='downloads'>
-                <h4>{ constants('mobile-app') }</h4>
+                <h4>{ titles('mobile-app') }</h4>
                 <ul>
                   {distros.filter((distro) => distro.type === 'mobile').map((distro) => (
                     <li key={distro.id}>
@@ -65,6 +66,6 @@ export default class DistrosSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    constants: constantSelector(state)
+    titles: titleSelector(state)
   }
 }

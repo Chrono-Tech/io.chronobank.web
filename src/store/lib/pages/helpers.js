@@ -18,6 +18,7 @@ import {
   StatisticModel,
   StoryModel,
   TestimonialModel,
+  TitleModel,
 } from 'src/models'
 
 export const makeArrayState = (isLoaded: Boolean, array: Array, transform: Function) => Object.freeze({
@@ -46,6 +47,7 @@ export const fromJS = (p) => {
     statistics: p.statistics && makeArrayState(p.statistics.isLoaded, p.statistics.array, StatisticModel.fromJS),
     stories: p.stories && makeArrayState(p.stories.isLoaded, p.stories.array, StoryModel.fromJS),
     testimonials: p.testimonials && makeArrayState(p.testimonials.isLoaded, p.testimonials.array, TestimonialModel.fromJS),
+    titles: p.titles && makeArrayState(p.titles.isLoaded, p.titles.array, TitleModel.fromJS),
   }
 }
 

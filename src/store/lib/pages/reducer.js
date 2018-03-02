@@ -17,6 +17,7 @@ import {
   PAGES_INIT_STATISTICS,
   PAGES_INIT_STORIES,
   PAGES_INIT_TESTIMONIALS,
+  PAGES_INIT_TITLES,
   PAGES_SET_USER_LANGUAGE,
 } from './actions'
 
@@ -47,6 +48,7 @@ const initialState = {
   statistics: makeArrayState(false, []),
   stories: makeArrayState(false, []),
   testimonials: makeArrayState(false, []),
+  titles: makeArrayState(false, []),
   userLanguage: 'en',
 }
 
@@ -92,6 +94,8 @@ export default (state = initialState, action) => {
       return { ...state, userLanguage: action.userLanguage }
     case PAGES_INIT_CONSTANTS:
       return { ...state, constants: makeArrayState(true, action.constants) }
+    case PAGES_INIT_TITLES:
+      return { ...state, titles: makeArrayState(true, action.titles) }
     default:
       return state
   }

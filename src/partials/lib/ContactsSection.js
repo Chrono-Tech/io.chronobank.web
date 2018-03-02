@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 import { BACKEND } from 'src/endpoints'
 import { ContactModel } from 'src/models'
-import { constantSelector } from 'src/store'
+import { constantSelector, titleSelector } from 'src/store'
 import styles from './ContactsSection.sass'
 
 const ENQUIRY_STATUS_COMPLETED = {
@@ -29,7 +29,8 @@ export default class ContactsSection extends React.Component {
     contacts: PropTypes.arrayOf(
       PropTypes.instanceOf(ContactModel)
     ),
-    constants: PropTypes.func
+    constants: PropTypes.func,
+    titles: PropTypes.func
   }
 
   constructor (props) {
@@ -68,7 +69,7 @@ export default class ContactsSection extends React.Component {
   }
 
   render () {
-    const { contacts, constants } = this.props
+    const { contacts, constants, titles } = this.props
     const { enquiryStatus } = this.state
     return (
       <div className='root contacts-section'>
@@ -78,11 +79,10 @@ export default class ContactsSection extends React.Component {
           <div className='background-right' />
         </div>
         <div className='wrap'>
-          <h3>{ constants('contact-us') }</h3>
           <div className='content'>
             <div className='left'>
               <div className='inner-wrap'>
-                <h3>{ constants('contact-us') }</h3>
+                <div className='header' dangerouslySetInnerHTML={{ __html: titles('contact-us') }} />
                 <ul>
                   {contacts.map((c) => (
                     <li key={c.id}>
@@ -165,6 +165,7 @@ export default class ContactsSection extends React.Component {
 function mapStateToProps (state) {
   return {
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInContacts),
-    constants: constantSelector(state)
+    constants: constantSelector(state),
+    titles: titleSelector(state)
   }
 }

@@ -22,6 +22,15 @@ export const constantSelector = createSelector(
   }
 )
 
+export const titleSelector = createSelector(
+  (state) => state.pages.titles.array,
+  (titles) => slug => {
+    let foundTitle = titles.find((p) => p.slug === slug)
+
+    return foundTitle && foundTitle.value || ''
+  }
+)
+
 export const languagesSelector = (/*langSelected*/) => createSelector(
   (/* state */) => [
     { code: 'en', name: 'Eng' },

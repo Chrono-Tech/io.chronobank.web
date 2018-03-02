@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import PropTypes from 'prop-types'
 
-import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage, constantSelector } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage, titleSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -15,7 +15,7 @@ class Team extends React.Component {
 
   static propTypes = {
 
-    constants: PropTypes.func
+    titles: PropTypes.func
 
   }
 
@@ -27,7 +27,7 @@ class Team extends React.Component {
   }
 
   render () {
-    const { constants } = this.props
+    const { titles } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
@@ -43,12 +43,12 @@ class Team extends React.Component {
         <partials.GallerySection />
         <main>
           <div className='statistics'>
-            <partials.TheTitle title={constants('chronobank-is')} />
+            <partials.TheTitle title={ titles('chronobank-is')} />
             <partials.StatisticsSection />
           </div>
           <partials.MembersSection />
           <div className='jobs'>
-            <partials.TheTitle title={ constants('jobs-at-chronobank-io') } />
+            <partials.TheTitle title={ titles('jobs-at-chronobank-io') } />
             <partials.JobsSection />
           </div>
         </main>
@@ -60,7 +60,7 @@ class Team extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    constants: constantSelector(state)
+    titles: titleSelector(state)
   }
 }
 

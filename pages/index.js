@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
-import initStore, { modalsClear, snackbarsClear, initUserLanguage, initIndexPage, constantSelector } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initIndexPage, titleSelector } from 'src/store'
 import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
@@ -21,7 +21,7 @@ class Index extends React.Component {
     watchInitMarket: PropTypes.func,
     unwatchInitMarket: PropTypes.func,
 
-    constants: PropTypes.func,
+    titles: PropTypes.func,
   }
 
   static async getInitialProps ({ store, isServer, req }) {
@@ -44,7 +44,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const { constants } = this.props
+    const { titles } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
@@ -64,8 +64,8 @@ class Index extends React.Component {
           <main className='main'>
             <div className='about'>
               <partials.TheTitle
-                title={ constants('what-is-chronobank-io') }
-                subtitle={ constants('what-is-chronobank-description') }
+                title={ titles('what-is-chronobank-io') }
+                subtitle={ titles('what-is-chronobank-io-description') }
               />
               {this.props.stories && this.props.stories.map((story) => (
                 <partials.StorySection key={story.id} story={story} />
@@ -80,7 +80,7 @@ class Index extends React.Component {
             </div>
             <div className='roadmap'>
               <partials.TheTitle
-                title={ constants('roadmap') }
+                title={ titles('roadmap') }
               />
               <partials.RoadmapSection />
             </div>
@@ -91,20 +91,20 @@ class Index extends React.Component {
             </div>
             <div className='partners'>
               <partials.TheTitle
-                title={ constants('partners') }
-                subtitle={ constants('we-are-proud-of-our-partners') }
+                title={ titles('partners') }
+                subtitle={ titles('we-are-proud-of-our-partners') }
               />
               <partials.PartnersSection />
             </div>
             <div className='press'>
               <partials.TheTitle
-                title={ constants('press') }
+                title={ titles('press') }
               />
               <partials.ArticlesSection />
             </div>
             <div className='posts'>
               <partials.TheTitle
-                title={ constants('latest-news') }
+                title={ titles('latest-news') }
               />
               <partials.PostsSection />
             </div>
@@ -121,7 +121,7 @@ function mapStateToProps (state) {
   return {
     stories: state.pages.stories.array,
     testimonials: state.pages.testimonials.array,
-    constants: constantSelector(state)
+    titles: titleSelector(state)
   }
 }
 

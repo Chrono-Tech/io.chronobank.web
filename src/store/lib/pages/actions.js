@@ -20,6 +20,7 @@ import {
   StatisticModel,
   StoryModel,
   TestimonialModel,
+  TitleModel,
 } from 'src/models'
 
 import { userLanguageFromCookies, userLanguageFromBrowser, USER_LANGUAGE_COOKIE_KEY } from './selectors'
@@ -43,6 +44,7 @@ export const PAGES_INIT_SOCIALS = 'pages/INIT_SOCIALS'
 export const PAGES_INIT_STATISTICS = 'pages/INIT_STATISTICS'
 export const PAGES_INIT_STORIES = 'pages/INIT_STORIES'
 export const PAGES_INIT_TESTIMONIALS = 'pages/INIT_TESTIMONIALS'
+export const PAGES_INIT_TITLES = 'pages/INIT_TITLES'
 export const PAGES_SET_USER_LANGUAGE = 'pages/SET_USER_LANGUAGE'
 
 export const initMenus = () => async (dispatch, getState) => {
@@ -126,6 +128,21 @@ export const initMembers = () => async (dispatch, getState) => {
   return dispatch({
     type: PAGES_INIT_MEMBERS,
     members: data.members.map((member) => MemberModel.fromServerModel(member, { locale })),
+  })
+}
+
+export const initTitles = () => async (dispatch, getState) => {
+  const state = getState()
+
+  const locale = state.pages.userLanguage
+
+  if (state.pages.members.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('titles')
+  return dispatch({
+    type: PAGES_INIT_TITLES,
+    titles: data.titles.map((title) => TitleModel.fromServerModel(title, { locale })),
   })
 }
 
@@ -345,6 +362,7 @@ export const initAnyPage = () => async (dispatch) => {
     dispatch(initPapers()),
     dispatch(initPosts()),
     dispatch(initProducts()),
+    dispatch(initTitles()),
   ])
 }
 
