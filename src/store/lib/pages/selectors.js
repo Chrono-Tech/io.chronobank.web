@@ -2,6 +2,7 @@ import locale from 'locale'
 import { createSelector } from 'reselect'
 
 export const USER_LANGUAGE_COOKIE_KEY = 'userLanguage'
+export const USER_LANGUAGE_DEFAULT = 'en'
 
 export const headerSelector = (slug) => createSelector(
   (state) => state.pages.headers.array,
@@ -15,7 +16,7 @@ export const productSelector = (slug) => createSelector(
 
 export const constantSelector = createSelector(
   (state) => state.pages.constants.array,
-  (constants) => slug => {
+  (constants) => (slug) => {
     let foundConst = constants.find((p) => p.slug === slug)
 
     return foundConst && foundConst.value || ''
@@ -24,7 +25,7 @@ export const constantSelector = createSelector(
 
 export const titleSelector = createSelector(
   (state) => state.pages.titles.array,
-  (titles) => slug => {
+  (titles) => (slug) => {
     let foundTitle = titles.find((p) => p.slug === slug)
 
     return foundTitle && foundTitle.value || ''
@@ -45,6 +46,16 @@ export const languagesSelector = (/*langSelected*/) => createSelector(
     { code: 'vi', name: 'Vie' },
     { code: 'ar', name: 'Ara' },
   ]
+)
+
+export const getLanguageByKey = (languageKey) => createSelector(
+  (state) => state.pages.languages.array,
+  (languages) => languages.find((lang) => lang.key === languageKey)
+)
+
+export const getFirstLanguage = createSelector(
+  (state) => state.pages.languages.array,
+  (languages) => languages && languages[0] && languages[0].key
 )
 
 export const userLanguageFromCookies = (header) => createSelector(

@@ -10,6 +10,7 @@ import {
   HeaderModel,
   IterationModel,
   JobModel,
+  LanguageModel,
   MemberModel,
   MenuModel,
   PaperModel,
@@ -23,7 +24,7 @@ import {
   TitleModel,
 } from 'src/models'
 
-import { userLanguageFromCookies, userLanguageFromBrowser, USER_LANGUAGE_COOKIE_KEY } from './selectors'
+import { userLanguageFromCookies, userLanguageFromBrowser, USER_LANGUAGE_COOKIE_KEY, getLanguageByKey, getFirstLanguage } from './selectors'
 
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
@@ -34,6 +35,7 @@ export const PAGES_INIT_GALLERIES = 'pages/INIT_GALLERIES'
 export const PAGES_INIT_HEADERS = 'pages/INIT_HEADERS'
 export const PAGES_INIT_ITERATIONS = 'pages/INIT_ITERATIONS'
 export const PAGES_INIT_JOBS = 'pages/INIT_JOBS'
+export const PAGES_INIT_LANGUAGES = 'pages/INIT_LANGUAGES'
 export const PAGES_INIT_MEMBERS = 'pages/INIT_MEMBERS'
 export const PAGES_INIT_MENUS = 'pages/INIT_MENUS'
 export const PAGES_INIT_PAPERS = 'pages/INIT_PAPERS'
@@ -293,7 +295,7 @@ export const initConstants = () => async (dispatch, getState) => {
 
   return dispatch({
     type: PAGES_INIT_CONSTANTS,
-    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locales }))
+    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locales })),
   })
 }
 
@@ -336,12 +338,31 @@ export const initGalleries = () => async (dispatch, getState) => {
   })
 }
 
-export const initUserLanguage = (req) => (dispatch, getState) => {
+export const initLanguages = () => async (dispatch, getState) => {
+  const state = getState()
+  if (state.pages.languages.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('languages')
+  return dispatch({
+    type: PAGES_INIT_LANGUAGES,
+    languages: data.languages.map(LanguageModel.fromServerModel),
+  })
+}
+
+export const initUserLanguage = (req) => async (dispatch, getState) => {
   if (req) {
+    await dispatch(initLanguages())
     const state = getState()
-    const language = userLanguageFromCookies(req.headers)(state)
+    let language = userLanguageFromCookies(req.headers)(state)
       || userLanguageFromBrowser(req.headers)(state)
-      || 'en'
+
+    const isLanguageAvailable = getLanguageByKey(language)(state)
+
+    if (!isLanguageAvailable) {
+      language = getFirstLanguage(state)
+    }
+
     dispatch(setUserLanguage(language))
   }
 }

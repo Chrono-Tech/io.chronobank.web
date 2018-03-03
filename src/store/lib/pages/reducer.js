@@ -7,6 +7,7 @@ import {
   PAGES_INIT_HEADERS,
   PAGES_INIT_ITERATIONS,
   PAGES_INIT_JOBS,
+  PAGES_INIT_LANGUAGES,
   PAGES_INIT_MEMBERS,
   PAGES_INIT_MENUS,
   PAGES_INIT_PAPERS,
@@ -38,6 +39,7 @@ const initialState = {
   headers: makeArrayState(false, []),
   iterations: makeArrayState(false, []),
   jobs: makeArrayState(false, []),
+  languages: makeArrayState(false, []),
   members: makeArrayState(false, []),
   menus: makeArrayState(false, []),
   papers: makeArrayState(false, []),
@@ -96,6 +98,8 @@ export default (state = initialState, action) => {
       return { ...state, constants: makeArrayState(true, action.constants) }
     case PAGES_INIT_TITLES:
       return { ...state, titles: makeArrayState(true, action.titles) }
+    case PAGES_INIT_LANGUAGES:
+      return { ...state, languages: makeArrayState(true, action.languages) }
     default:
       return state
   }

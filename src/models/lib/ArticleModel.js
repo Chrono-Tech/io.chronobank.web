@@ -1,6 +1,6 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import {LangFieldSet} from './helpers'
+import { LangFieldSet } from './helpers'
 
 export default class ArticleModel {
   constructor ({ id, title, source, url, icon, icon2x, brief }) {

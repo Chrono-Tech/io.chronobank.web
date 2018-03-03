@@ -11,7 +11,7 @@ export default class ArticlesSection extends React.Component {
 
   static propTypes = {
     articles: PropTypes.arrayOf(ArticleModel),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   render () {
@@ -64,6 +64,6 @@ export default class ArticlesSection extends React.Component {
 function mapStateToProps (state) {
   return {
     articles: state.pages.articles.array,
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

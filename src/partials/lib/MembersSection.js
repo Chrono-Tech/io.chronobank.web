@@ -72,7 +72,7 @@ export default class MembersSection extends React.Component {
 function mapStateToProps (state) {
   return {
     members: state.pages.members.array,
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }
 

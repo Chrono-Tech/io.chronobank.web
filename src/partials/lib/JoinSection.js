@@ -2,13 +2,13 @@ import React from 'react'
 import styles from './JoinSection.sass'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {constantSelector} from 'src/store'
+import { constantSelector } from 'src/store'
 
 @connect(mapStateToProps)
 export default class JoinSection extends React.Component {
 
   static propTypes = {
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
   render () {
     const { constants } = this.props
@@ -37,6 +37,6 @@ export default class JoinSection extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

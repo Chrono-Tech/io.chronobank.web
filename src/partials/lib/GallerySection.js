@@ -8,7 +8,7 @@ import { Swiper } from 'src/plugins'
 import { GalleryModel } from 'src/models'
 
 import styles from './GallerySection.sass'
-import {constantSelector} from 'src/store'
+import { constantSelector } from 'src/store'
 
 @connect(mapStateToProps)
 export default class GallerySection extends React.Component {
@@ -16,7 +16,7 @@ export default class GallerySection extends React.Component {
   static propTypes = {
     note: PropTypes.object,
     galleries: PropTypes.arrayOf(GalleryModel),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   componentDidMount () {
@@ -55,7 +55,7 @@ export default class GallerySection extends React.Component {
                   <div className='text'>
                     <h4>
                       { constants('searching-for-interesting-job') }
-                      <br/>
+                      <br />
                       <a href='https://chronobank.herokuapp.com/' target='_blank' rel='noopener noreferrer'>
                         { constants('join-us') }
                       </a>
@@ -86,6 +86,6 @@ export default class GallerySection extends React.Component {
 function mapStateToProps (state) {
   return {
     galleries: state.pages.galleries.array,
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

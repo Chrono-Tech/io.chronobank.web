@@ -7,7 +7,7 @@ import { ProductModel } from 'src/models'
 import { productSelector } from 'src/store'
 
 import styles from './MobileSection.sass'
-import {constantSelector} from "../../store"
+import { constantSelector } from "../../store"
 
 @connect(mapStateToProps)
 export default class MobileSection extends React.Component {
@@ -15,7 +15,7 @@ export default class MobileSection extends React.Component {
   static propTypes = {
     productSlug: PropTypes.string,
     product: PropTypes.instanceOf(ProductModel),
-    constants: PropTypes.func
+    constants: PropTypes.func,
   }
 
   render () {
@@ -70,6 +70,6 @@ export default class MobileSection extends React.Component {
 function mapStateToProps (state, op) {
   return {
     product: productSelector(op.productSlug)(state),
-    constants: constantSelector(state)
+    constants: constantSelector(state),
   }
 }

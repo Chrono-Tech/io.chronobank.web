@@ -15,7 +15,7 @@ class Team extends React.Component {
 
   static propTypes = {
 
-    titles: PropTypes.func
+    titles: PropTypes.func,
 
   }
 
@@ -43,12 +43,12 @@ class Team extends React.Component {
         <partials.GallerySection />
         <main>
           <div className='statistics'>
-            <partials.TheTitle title={ titles('chronobank-is')} />
+            <partials.TheTitle title={titles('chronobank-is')} />
             <partials.StatisticsSection />
           </div>
           <partials.MembersSection />
           <div className='jobs'>
-            <partials.TheTitle title={ titles('jobs-at-chronobank-io') } />
+            <partials.TheTitle title={titles('jobs-at-chronobank-io')} />
             <partials.JobsSection />
           </div>
         </main>
@@ -60,7 +60,7 @@ class Team extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    titles: titleSelector(state)
+    titles: titleSelector(state),
   }
 }
 
