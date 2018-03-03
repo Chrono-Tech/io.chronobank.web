@@ -1,3 +1,5 @@
+import { LangFieldSet } from './helpers'
+
 export default class FaqQuestionModel {
   constructor ({ id, name, title, brief }) {
     this.id = id
@@ -13,13 +15,15 @@ export default class FaqQuestionModel {
     })
   }
 
-  static fromServerModel (data) {
+  static fromServerModel (data, { locale }) {
+    const localeModelFields = new LangFieldSet(data, locale)
+    
     return data == null ? null : new FaqQuestionModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       name: data.name,
-      title: data.title,
-      brief: data.brief,
+      title: localeModelFields.getLocaleField('title'),
+      brief: localeModelFields.getLocaleField('brief'),
     })
   }
 }

@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
+import { constantSelector } from 'src/store'
 
 import styles from './ProductFeaturesSection.sass'
-import { constantSelector } from 'src/store'
 
 const transitionStyles = {
   entering: { opacity: 0 },

@@ -27,6 +27,7 @@ export const makeArrayState = (isLoaded: Boolean, array: Array, transform: Funct
   array: Object.freeze(transform ? array.map(transform) : [...array]),
 })
 
+// eslint-disable-next-line complexity
 export const fromJS = (p) => {
   return {
     articles: p.articles && makeArrayState(p.articles.isLoaded, p.articles.array, ArticleModel.fromJS),

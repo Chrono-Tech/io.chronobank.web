@@ -1,8 +1,8 @@
 import React from 'react'
-import styles from './JoinSection.sass'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { constantSelector } from 'src/store'
+import styles from './JoinSection.sass'
 
 @connect(mapStateToProps)
 export default class JoinSection extends React.Component {

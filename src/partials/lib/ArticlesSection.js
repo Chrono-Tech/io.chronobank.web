@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { ArticleModel } from 'src/models'
-import styles from './ArticlesSection.sass'
 import { constantSelector } from 'src/store'
+import styles from './ArticlesSection.sass'
 
 @connect(mapStateToProps)
 export default class ArticlesSection extends React.Component {

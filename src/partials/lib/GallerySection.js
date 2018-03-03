@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { constantSelector } from 'src/store'
 
 import swiperStyles from 'swiper/dist/css/swiper.css'
 
@@ -8,7 +9,6 @@ import { Swiper } from 'src/plugins'
 import { GalleryModel } from 'src/models'
 
 import styles from './GallerySection.sass'
-import { constantSelector } from 'src/store'
 
 @connect(mapStateToProps)
 export default class GallerySection extends React.Component {
