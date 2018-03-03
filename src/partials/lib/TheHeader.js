@@ -9,10 +9,10 @@ import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'dropins/events/src/components'
 import { RatesPanel } from 'dropins/market/src/components'
-import { HeaderModel, MenuModel, PostModel } from 'src/models'
-import { EventModel, LanguageModel } from 'dropins/events/src/models'
+import { HeaderModel, MenuModel, PostModel, LanguageModel } from 'src/models'
+import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, languagesSelector, changeUserLanguage, constantSelector } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector } from 'src/store'
 
 import styles from './TheHeader.sass'
 
