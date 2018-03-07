@@ -6,8 +6,8 @@ import styles from './TheTitle.sass'
 export default class TheTitle extends React.Component {
 
   static propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
+    title: PropTypes.element,
+    subtitle: PropTypes.element,
   }
 
   render () {
