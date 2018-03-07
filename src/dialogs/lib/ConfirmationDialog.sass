@@ -1,0 +1,50 @@
+@import "src/styles/partials/mixins"
+
+.root.confirmation-dialog
+  background: #FFFFFF
+  padding: 150px 70px 72px 180px
+  max-width: 672px
+  box-sizing: border-box
+  border-radius: 2px
+
+  .separator
+    background: #e1e1e1
+    height: 1px
+    position: absolute
+    width: 100%
+    left: 0
+    top: 105px
+  .icon
+    background: #ffffff
+    position: absolute
+    top: 60px
+    left: 60px
+    width: 90px
+    height: 90px
+  .icon:before
+    content: ''
+    display: block
+    width: 90px
+    height: 90px
+    position: absolute
+    top: 0
+    left: 0
+    background-color: #2562ff
+    -webkit-mask: url(/static/images/symbols/check.svg) no-repeat center
+    mask: url(/static/images/symbols/check.svg) no-repeat center
+
+  .content
+    font-size: 16px
+    line-height: 1.44
+    color: #313131
+    h2
+      font-size: 24px
+      color: #2962ff
+      font-weight: 500
+      margin-bottom: 37px
+
+    p
+      margin-bottom: 44px
+
+    .button
+      @include button(primary)
