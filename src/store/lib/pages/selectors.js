@@ -1,3 +1,4 @@
+import React from 'react'
 import locale from 'locale'
 import { createSelector } from 'reselect'
 
@@ -28,7 +29,7 @@ export const titleSelector = createSelector(
   (titles) => (slug) => {
     let foundTitle = titles.find((p) => p.slug === slug)
 
-    return foundTitle && foundTitle.value || ''
+    return foundTitle && <div id={foundTitle.slug} dangerouslySetInnerHTML={{ __html: foundTitle.value }} /> || ''
   }
 )
 
