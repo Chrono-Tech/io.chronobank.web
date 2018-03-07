@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { ModalDialog } from 'src/components'
-import { modalsClose } from 'src/store'
+import { modalsClose, titleSelector, constantSelector } from 'src/store'
 
 import styles from './ConfirmationDialog.sass'
 
@@ -12,26 +12,35 @@ export class ConfirmationDialog extends React.Component {
   static propTypes = {
     job: PropTypes.object,
     onClose: PropTypes.func,
+    titles: PropTypes.func,
+    constants: PropTypes.func,
   }
 
   render () {
-    const { job } = this.props
+    const { job, titles, constants } = this.props
     return (
       <ModalDialog onClose={() => this.props.onClose()}>
         <style jsx>{styles}</style>
         <div className='root confirmation-dialog'>
-          <div className='separator'></div>
-          <div className='icon' />
-          <div className='content'>
-            <h2>Your application has been submitted</h2>
-            <p>
-              Thank you for interest in <strong>Front-end developer</strong> at <strong>LaborX</strong>
-              We have received your application and we look forward to reviewing the applications soon.
-              We will call successful applicants for an interview at that time.
-            </p>
-            <a className='button' onClick={() => this.props.onClose()}>OK</a>
+          <div className='wrap'>
+            <div className='separator' />
+            <div className='icon-wrapper'>
+              <div className='icon' />
+            </div>
+            <div className='content'>
+              <div className='title'>
+                { titles('your-application-has-been-submitted') }
+              </div>
+              <p>
+                { constants('thank-you-for-interest-in')} <strong>{ job.title }.</strong>
+                <br />
+                { constants('confirm-vacancy-message') }
+              </p>
+              <div className='button-wrapper'>
+                <button onClick={() => this.props.onClose()}>OK</button>
+              </div>
+            </div>
           </div>
-
         </div>
       </ModalDialog>
     )
@@ -41,7 +50,15 @@ export class ConfirmationDialog extends React.Component {
 function mapDispatchToProps (dispatch) {
   return {
     onClose: () => dispatch(modalsClose()),
+
   }
 }
 
-export default connect(null, mapDispatchToProps)(ConfirmationDialog)
+function mapStateToProps (state) {
+  return {
+    titles: titleSelector(state),
+    constants: constantSelector(state),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmationDialog)

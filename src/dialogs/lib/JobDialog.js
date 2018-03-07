@@ -8,13 +8,13 @@ import { ConfirmationDialog } from 'src/dialogs'
 import { modalsClose, modalsOpen } from 'src/store'
 
 import styles from './JobDialog.sass'
-import * as dialogs from "../index";
 
 export class JobDialog extends React.Component {
 
   static propTypes = {
     job: PropTypes.object,
     onClose: PropTypes.func,
+    handleSave: PropTypes.func,
   }
 
   handleInput (el) {
@@ -88,7 +88,7 @@ export class JobDialog extends React.Component {
               <label htmlFor='apply-message'>Additional information, links: portfolio url, linkedin, github, telegram, skype etc.</label>
             </div>
             <div className='buttons'>
-              <input className='button' type='submit' value='Send' />
+              <button className='button'>Send</button>
             </div>
           </form>
         </div>
@@ -101,7 +101,6 @@ function mapDispatchToProps (dispatch, ownProps) {
   return {
     onClose: () => dispatch(modalsClose()),
     handleSave: () => {
-      console.log('handleSave')
       dispatch(modalsClose())
       dispatch(modalsOpen({
         component: ConfirmationDialog,

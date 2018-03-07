@@ -2,10 +2,11 @@
 
 .root.confirmation-dialog
   background: #FFFFFF
-  padding: 150px 70px 72px 180px
   max-width: 672px
   box-sizing: border-box
   border-radius: 2px
+  .wrap
+    padding: 150px 70px 72px 180px
 
   .separator
     background: #e1e1e1
@@ -14,15 +15,14 @@
     width: 100%
     left: 0
     top: 105px
-  .icon
+  .icon-wrapper
     background: #ffffff
     position: absolute
     top: 60px
     left: 60px
     width: 90px
     height: 90px
-  .icon:before
-    content: ''
+  .icon
     display: block
     width: 90px
     height: 90px
@@ -37,14 +37,41 @@
     font-size: 16px
     line-height: 1.44
     color: #313131
-    h2
-      font-size: 24px
-      color: #2962ff
-      font-weight: 500
-      margin-bottom: 37px
+  .title
+    margin-bottom: 37px
+  .title :global(h2)
+    font-size: 24px
+    color: #2962ff
+    font-weight: 500
+
+  p
+    margin-bottom: 44px
+
+  button
+    @include button(primary)
+
+  @include screen-max-width(1023px)
+    .wrap
+      padding: 109px 24px 20px 30px
+
+    .icon-wrapper
+      width: 60px
+      height: 60px
+      top: 27px
+      left: 30px
+    .icon
+      width: 60px
+      height: 60px
+
+
+    .separator
+      top: 58px
+
+    .title
+      margin-bottom: 32px
 
     p
-      margin-bottom: 44px
+      margin-bottom: 32px
 
-    .button
-      @include button(primary)
+    .button-wrapper
+      text-align: right
