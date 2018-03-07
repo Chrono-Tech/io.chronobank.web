@@ -88,7 +88,7 @@ export class JobDialog extends React.Component {
               <label htmlFor='apply-message'>Additional information, links: portfolio url, linkedin, github, telegram, skype etc.</label>
             </div>
             <div className='buttons'>
-              <button className='button'>Send</button>
+              <input className='button' type='submit' value='Send' />
             </div>
           </form>
         </div>
