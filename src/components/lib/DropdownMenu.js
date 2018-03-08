@@ -59,7 +59,6 @@ export class DropdownMenu extends React.Component {
 
   handleOpen () {
     // eslint-disable-next-line
-    console.log('open')
     this.setState({
       isOpen: true,
     })

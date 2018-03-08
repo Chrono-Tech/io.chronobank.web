@@ -29,7 +29,9 @@ export const titleSelector = createSelector(
   (titles) => (slug) => {
     let foundTitle = titles.find((p) => p.slug === slug)
 
-    return foundTitle && <div id={foundTitle.slug} dangerouslySetInnerHTML={{ __html: foundTitle.value }} /> || ''
+    return foundTitle
+      ? <div id={foundTitle.slug} dangerouslySetInnerHTML={{ __html: foundTitle.value }} />
+      : <div>{slug}</div>
   }
 )
 
