@@ -52,12 +52,13 @@ export default class ContactsSection extends React.Component {
       await BACKEND.post('enquiries', {
         name: this.nameElement.value,
         email: this.emailElement.value,
+        phone: this.phoneElement.value,
         message: this.messageElement.value,
       })
       this.setState({
         enquiryStatus: ENQUIRY_STATUS_COMPLETED,
       })
-      for (const el of [this.nameElement, this.emailElement, this.messageElement]) {
+      for (const el of [this.nameElement, this.emailElement, this.phoneElement, this.messageElement]) {
         el.value = ''
         this.handleInput(el)
       }
@@ -127,6 +128,16 @@ export default class ContactsSection extends React.Component {
                         onChange={(e) => this.handleInput(e.currentTarget)}
                       />
                       <label htmlFor='contacts-email'>{ constants('email') }</label>
+                    </div>
+                    <div className='field'>
+                      <input
+                        type='text'
+                        id='contacts-phone'
+                        required
+                        ref={(el) => this.phoneElement = el}
+                        onChange={(e) => this.handleInput(e.currentTarget)}
+                      />
+                      <label htmlFor='contacts-phone'>{ constants('phone') }</label>
                     </div>
                     <div className='field'>
                       <textarea
