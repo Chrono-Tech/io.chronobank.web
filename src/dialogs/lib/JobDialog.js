@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 
 import { BACKEND } from 'src/endpoints'
 import { ModalDialog } from 'src/components'
-import { modalsClose } from 'src/store'
+import { ConfirmationDialog } from 'src/dialogs'
+import { modalsClose, modalsOpen } from 'src/store'
 
 import styles from './JobDialog.sass'
 
@@ -13,6 +14,7 @@ export class JobDialog extends React.Component {
   static propTypes = {
     job: PropTypes.object,
     onClose: PropTypes.func,
+    handleSave: PropTypes.func,
   }
 
   handleInput (el) {
@@ -35,7 +37,7 @@ export class JobDialog extends React.Component {
       el.value = ''
       this.handleInput(el)
     }
-    this.props.onClose()
+    this.props.handleSave()
   }
 
   render () {
@@ -95,9 +97,18 @@ export class JobDialog extends React.Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps (dispatch, ownProps) {
   return {
     onClose: () => dispatch(modalsClose()),
+    handleSave: () => {
+      dispatch(modalsClose())
+      dispatch(modalsOpen({
+        component: ConfirmationDialog,
+        props: {
+          job: ownProps.job,
+        },
+      }))
+    },
   }
 }
 
