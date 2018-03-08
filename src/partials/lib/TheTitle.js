@@ -6,8 +6,8 @@ import styles from './TheTitle.sass'
 export default class TheTitle extends React.Component {
 
   static propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
+    title: PropTypes.element,
+    subtitle: PropTypes.element,
   }
 
   render () {
@@ -17,8 +17,8 @@ export default class TheTitle extends React.Component {
       <div className='root the-title'>
         <style jsx>{styles}</style>
         <div className='wrap'>
-          {title == null ? null : (<div className='title' dangerouslySetInnerHTML={{ __html: title }} />)}
-          {subtitle == null ? null : (<div className='subtitle' dangerouslySetInnerHTML={{ __html: subtitle }} />)}
+          {title == null ? null : title}
+          {subtitle == null ? null : subtitle}
         </div>
       </div>
     )

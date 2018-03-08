@@ -1,7 +1,9 @@
+import React from 'react'
 import locale from 'locale'
 import { createSelector } from 'reselect'
 
 export const USER_LANGUAGE_COOKIE_KEY = 'userLanguage'
+export const USER_LANGUAGE_DEFAULT = 'en'
 
 export const headerSelector = (slug) => createSelector(
   (state) => state.pages.headers.array,
@@ -27,7 +29,7 @@ export const titleSelector = createSelector(
   (titles) => (slug) => {
     let foundTitle = titles.find((p) => p.slug === slug)
 
-    return foundTitle && foundTitle.value || ''
+    return foundTitle && <div id={foundTitle.slug} dangerouslySetInnerHTML={{ __html: foundTitle.value }} /> || ''
   }
 )
 
@@ -45,6 +47,16 @@ export const languagesSelector = (/*langSelected*/) => createSelector(
     { code: 'vi', name: 'Vie' },
     { code: 'ar', name: 'Ara' },
   ]
+)
+
+export const getLanguageByKey = (languageKey) => createSelector(
+  (state) => state.pages.languages.array,
+  (languages) => languages.find((lang) => lang.key === languageKey)
+)
+
+export const getFirstLanguage = createSelector(
+  (state) => state.pages.languages.array,
+  (languages) => languages && languages[0] && languages[0].key
 )
 
 export const userLanguageFromCookies = (header) => createSelector(

@@ -6,7 +6,7 @@ export class LangFieldSet {
 
   getLocaleField (fieldName) {
     const { data, locale } = this
-    return data.i18n[locale] && data.i18n[locale].overrides && data.i18n[locale].overrides[fieldName] || data[fieldName]
+    return data.i18n && data.i18n[locale] && data.i18n[locale].overrides && data.i18n[locale].overrides[fieldName] || data[fieldName]
   }
 
 }

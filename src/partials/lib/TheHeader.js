@@ -9,10 +9,10 @@ import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'dropins/events/src/components'
 import { RatesPanel } from 'dropins/market/src/components'
-import { HeaderModel, MenuModel, PostModel } from 'src/models'
+import { HeaderModel, MenuModel, PostModel, LanguageModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, languagesSelector, changeUserLanguage, constantSelector } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector } from 'src/store'
 
 import styles from './TheHeader.sass'
 
@@ -27,12 +27,7 @@ export default class TheHeader extends React.Component {
     eventsShow: PropTypes.func,
     changeLanguage: PropTypes.func,
     userLanguage: PropTypes.string,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })
-    ),
+    languages: PropTypes.arrayOf(LanguageModel),
     menus: PropTypes.arrayOf(
       PropTypes.instanceOf(MenuModel)
     ),
@@ -169,8 +164,8 @@ export default class TheHeader extends React.Component {
                   <DropdownMenu
                     value={userLanguage}
                     options={languages.map((lang) => ({
-                      value: lang.code,
-                      title: lang.name,
+                      value: lang.key,
+                      title: lang.label,
                     }))}
                     className='language'
                     onChange={(value) => this.props.changeLanguage(value)}
@@ -251,7 +246,7 @@ function mapStateToProps (state, op) {
     header: headerSelector(op.headerSlug)(state),
     menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
     posts: state.pages.posts.array,
-    languages: languagesSelector()(state),
+    languages: state.pages.languages.array,
     userLanguage: state.pages.userLanguage,
     constants: constantSelector(state),
   }

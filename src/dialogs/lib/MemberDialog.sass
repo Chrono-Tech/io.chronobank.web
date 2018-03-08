@@ -9,6 +9,8 @@
   box-sizing: border-box
   .swiper-container
     position: static
+    display: flex
+    flex-direction: column
     .swiper-wrapper
       position: relative
       width: 100%
@@ -52,7 +54,8 @@
         width: 12px
         height: 12px
     .swiper-pagination
-      @include position(absolute, auto, 0, 37px, 0)
+      position: static
+      margin-top: 10px
       \:global(.swiper-pagination-bullet)
         border: 5px solid #FFFFFF
         box-sizing: content-box
