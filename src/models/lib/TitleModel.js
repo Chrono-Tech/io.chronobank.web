@@ -14,8 +14,8 @@ export default class TitleModel {
     })
   }
 
-  static fromServerModel (data, { locales }) {
-    let localeModelFields = new LangFieldSet(data, locales)
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = new LangFieldSet(data, locale)
 
     return data == null ? null : new TitleModel({
       slug: data.slug,

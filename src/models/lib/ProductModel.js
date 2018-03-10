@@ -45,8 +45,8 @@ export default class ProductModel {
     })
   }
 
-  static fromServerModel (data, { locales }) {
-    let localeModelFields = new LangFieldSet(data, locales)
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = new LangFieldSet(data, locale)
 
     return data == null ? data : new ProductModel({
       // eslint-disable-next-line no-underscore-dangle
@@ -62,9 +62,9 @@ export default class ProductModel {
       icon2x: ImageModel.fromServerModel(data.icon2x),
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
-      downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locales })),
-      distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locales })),
-      features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locales })),
+      downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locale })),
+      distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locale })),
+      features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locale })),
     })
   }
 }

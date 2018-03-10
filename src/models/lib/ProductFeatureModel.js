@@ -21,8 +21,8 @@ export default class ProductFeatureModel {
     })
   }
 
-  static fromServerModel (data, { locales }) {
-    let localeModelFields = new LangFieldSet(data, locales)
+  static fromServerModel (data, { locale }) {
+    let localeModelFields = new LangFieldSet(data, locale)
 
     return data == null ? data : new ProductFeatureModel({
       // eslint-disable-next-line no-underscore-dangle

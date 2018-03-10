@@ -292,13 +292,13 @@ export const initConstants = () => async (dispatch, getState) => {
     return
   }
 
-  const locales = state.pages.userLanguage
+  const locale = state.pages.userLanguage
 
   const { data } = await BACKEND.get('constants')
 
   return dispatch({
     type: PAGES_INIT_CONSTANTS,
-    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locales })),
+    constants: data.constants.map((item) => ConstantModel.fromServerModel(item, { locale })),
   })
 }
 
