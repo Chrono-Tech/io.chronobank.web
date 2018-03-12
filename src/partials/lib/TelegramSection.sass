@@ -1,0 +1,86 @@
+@import "src/styles/partials/mixins"
+
+.root.telegram-section
+  position: fixed
+  z-index: 205
+  width: 100%
+  left: 0
+  right: 0
+  bottom: 0
+  background: #7c4fc9
+  padding: 0
+  box-shadow: 0 0 15px rgba(0, 0, 0, .5)
+  //transform: translate3d(0, 120%, 0)
+  //opacity: 0
+  transition: transform .6s cubic-bezier(0.175, 0.885, 0.32, 1), opacity .2s ease
+  transform: translate3d(0, 0, 0)
+  opacity: 1
+  .link
+    display: block
+    width: 100%
+    padding: 2rem 0
+    text-align: center
+    &:hover path
+      fill: rgba(255,255,255,0.5)
+  .text
+    color: white
+    display: inline-block
+    vertical-align: middle
+    font-size: 2rem
+    margin-bottom: 0
+    line-height: 24px
+  .icon
+    display: inline-block
+    vertical-align: middle
+    width: 2rem
+    margin-left: .5rem
+    svg
+      display: block
+      width: 2.5rem
+      height: 2.5rem
+    path
+      fill: white
+      transition: .2s
+  .close
+    height: 100%
+    position: absolute
+    top: 50%
+    right: 0
+    z-index: 11
+    display: inline-block
+    border: none
+    background: #7c4fc9
+    padding: 1rem 2rem
+    box-sizing: border-box
+    transform: translate3d(0, -50%, 0)
+  .close-icon
+    display: block
+    width: 2rem
+    height: 2rem
+    path
+      fill: rgba(255, 255, 255, .5)
+      transition: .2s
+    &:hover path
+      fill: rgba(255, 255, 255, 1)
+
+  @include screen-max-width(360px)
+    .icon
+      margin-left: .5rem
+    .close-icon
+      width: 1.25rem
+      height: 1.25rem
+
+  @include screen-max-width(480px)
+    .link
+      padding: 1rem 0
+    .text
+      font-size: 1.5rem
+    .icon
+      svg
+        width: 2rem
+        height: 3rem
+    .close
+      padding: 1rem
+    .close-icon
+      width: 1.5rem
+      height: 1.5rem
