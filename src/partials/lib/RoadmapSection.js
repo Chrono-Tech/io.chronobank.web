@@ -28,6 +28,7 @@ export default class RoadmapSection extends React.Component {
       paginationBulletRender: function (swiper, index, className) {
         return `<div class="${className}"><p class="roadmap__data-value">${index + 1} '2017'></p></div>`
       },
+      keyboardControl: true,
       // spaceBetween: 40,
       grabCursor: true,
       onInit: (swiper) => {
