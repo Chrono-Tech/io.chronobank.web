@@ -26,6 +26,8 @@ export default class GallerySection extends React.Component {
       // setWrapperSize: true,
       calculateWidth: true,
       slidesPerView: 'auto',
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev',
       freeMode: true,
       freeModeFluid: true,
       onTouchStart: () => {
@@ -76,6 +78,12 @@ export default class GallerySection extends React.Component {
                 <img key={`${g.id}/${i.id}`} className='swiper-slide' src={i.image.url} />
               ))
             ))}
+          </div>
+          <div className='swiper-button-prev swiper-button'>
+            <div className='icon-left' />
+          </div>
+          <div className='swiper-button-next swiper-button'>
+            <div className='icon-right' />
           </div>
         </div>
       </div>
