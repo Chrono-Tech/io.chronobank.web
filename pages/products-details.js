@@ -62,6 +62,7 @@ class ProductsDetails extends React.Component {
           }
         </main>
         <partials.TheFooter productSlug='chronomint' />
+        <partials.TelegramSection />
       </div>
     )
   }

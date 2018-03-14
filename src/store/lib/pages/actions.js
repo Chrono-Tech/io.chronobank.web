@@ -24,7 +24,15 @@ import {
   TitleModel,
 } from 'src/models'
 
-import { userLanguageFromCookies, userLanguageFromBrowser, USER_LANGUAGE_COOKIE_KEY, getLanguageByKey, getFirstLanguage } from './selectors'
+import {
+  userLanguageFromCookies,
+  userLanguageFromBrowser,
+  USER_LANGUAGE_COOKIE_KEY,
+  STORAGE_TELEGRAM_PIN,
+  getLanguageByKey,
+  getFirstLanguage,
+  getValueLocalStorage,
+} from './selectors'
 
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
 export const PAGES_INIT_CONTACTS = 'pages/INIT_CONTACTS'
@@ -47,6 +55,7 @@ export const PAGES_INIT_STATISTICS = 'pages/INIT_STATISTICS'
 export const PAGES_INIT_STORIES = 'pages/INIT_STORIES'
 export const PAGES_INIT_TESTIMONIALS = 'pages/INIT_TESTIMONIALS'
 export const PAGES_INIT_TITLES = 'pages/INIT_TITLES'
+export const PAGES_SET_VISIBLE_TELEGRAM_BAR = 'pages/SET_VISIBLE_TELEGRAM_BAR'
 export const PAGES_SET_USER_LANGUAGE = 'pages/SET_USER_LANGUAGE'
 
 export const initMenus = () => async (dispatch, getState) => {
@@ -385,6 +394,29 @@ export const changeUserLanguage = (lang) => (dispatch) => {
 
   if (typeof document !== 'undefined'){
     document.location.reload(true)
+  }
+}
+
+export const setVisibleTelegramBar = (telegramPin) => (dispatch) => {
+  dispatch(saveToLocalStorage(STORAGE_TELEGRAM_PIN, telegramPin))
+
+  return dispatch({
+    type: PAGES_SET_VISIBLE_TELEGRAM_BAR,
+    telegramPin,
+  })
+}
+
+export const saveToLocalStorage = (key, value) => () => {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(key, value)
+  }
+}
+
+export const initTelegramPin = () => (dispatch) => {
+  if (typeof localStorage !== 'undefined') {
+    let telegramPin = getValueLocalStorage(STORAGE_TELEGRAM_PIN)(localStorage) !== 'false'
+
+    dispatch(setVisibleTelegramBar(telegramPin))
   }
 }
 

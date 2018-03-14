@@ -7,21 +7,24 @@
   left: 0
   right: 0
   bottom: 0
-  background: #7c4fc9
+  background: #614DBA
   padding: 0
   box-shadow: 0 0 15px rgba(0, 0, 0, .5)
-  //transform: translate3d(0, 120%, 0)
-  //opacity: 0
+  transform: translate3d(0, 120%, 0)
+  opacity: 0
   transition: transform .6s cubic-bezier(0.175, 0.885, 0.32, 1), opacity .2s ease
-  transform: translate3d(0, 0, 0)
-  opacity: 1
+  &.telegram-section-visible
+    transform: translate3d(0, 0, 0)
+    opacity: 1
+  &:hover
+    background: #FFB54E
+    .close
+      background: #FFB54E
   .link
     display: block
     width: 100%
     padding: 2rem 0
     text-align: center
-    &:hover path
-      fill: rgba(255,255,255,0.5)
   .text
     color: white
     display: inline-block
@@ -33,7 +36,7 @@
     display: inline-block
     vertical-align: middle
     width: 2rem
-    margin-left: .5rem
+    margin-right: .5rem
     svg
       display: block
       width: 2.5rem
@@ -43,25 +46,21 @@
       transition: .2s
   .close
     height: 100%
+    padding: 1rem 2rem
     position: absolute
-    top: 50%
+    top: 0
     right: 0
     z-index: 11
-    display: inline-block
+    display: flex
+    align-items: center
     border: none
-    background: #7c4fc9
-    padding: 1rem 2rem
-    box-sizing: border-box
-    transform: translate3d(0, -50%, 0)
-  .close-icon
-    display: block
-    width: 2rem
-    height: 2rem
+    background: #614DBA
     path
       fill: rgba(255, 255, 255, .5)
       transition: .2s
     &:hover path
       fill: rgba(255, 255, 255, 1)
+
 
   @include screen-max-width(360px)
     .icon
@@ -82,5 +81,5 @@
     .close
       padding: 1rem
     .close-icon
-      width: 1.5rem
-      height: 1.5rem
+      width: 2rem
+      height: 2rem

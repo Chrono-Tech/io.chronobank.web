@@ -35,6 +35,7 @@ class FAQ extends React.Component {
           <partials.FaqSection />
         </main>
         <partials.TheFooter productSlug='chronomint' />
+        <partials.TelegramSection />
       </div>
     )
   }

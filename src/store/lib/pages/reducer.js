@@ -19,6 +19,7 @@ import {
   PAGES_INIT_STORIES,
   PAGES_INIT_TESTIMONIALS,
   PAGES_INIT_TITLES,
+  PAGES_SET_VISIBLE_TELEGRAM_BAR,
   PAGES_SET_USER_LANGUAGE,
 } from './actions'
 
@@ -52,6 +53,7 @@ const initialState = {
   testimonials: makeArrayState(false, []),
   titles: makeArrayState(false, []),
   userLanguage: 'en',
+  telegramPin: false,
 }
 
 // eslint-disable-next-line complexity
@@ -101,6 +103,8 @@ export default (state = initialState, action) => {
       return { ...state, titles: makeArrayState(true, action.titles) }
     case PAGES_INIT_LANGUAGES:
       return { ...state, languages: makeArrayState(true, action.languages) }
+    case PAGES_SET_VISIBLE_TELEGRAM_BAR:
+      return { ...state, telegramPin: action.telegramPin }
     default:
       return state
   }
