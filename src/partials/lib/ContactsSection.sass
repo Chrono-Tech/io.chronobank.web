@@ -12,6 +12,9 @@
     .background-right
       @include position(absolute, 0, 0, 0, auto, 50%)
       background: #FFFFFF
+  .wrap :global(.root.the-title),
+  .wrap :global(.root.the-title .wrap)
+    padding: 0
   .wrap
     margin: 0 auto
     padding: 0 16px
@@ -37,6 +40,7 @@
           font-size: 4.8rem
           font-weight: 500
           margin-bottom: 30px
+          text-align: left
 
         .inner-wrap
           position: relative
@@ -84,6 +88,7 @@
               line-height: 34px
               font-weight: 300
               margin-bottom: 30px
+              text-align: left
             .inner
               position: relative
               .field
