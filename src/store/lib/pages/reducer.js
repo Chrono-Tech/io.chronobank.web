@@ -12,6 +12,7 @@ import {
   PAGES_INIT_MENUS,
   PAGES_INIT_PAPERS,
   PAGES_INIT_PARTNERS,
+  PAGES_INIT_EXCHANGES,
   PAGES_INIT_POSTS,
   PAGES_INIT_PRODUCTS,
   PAGES_INIT_SOCIALS,
@@ -44,6 +45,7 @@ const initialState = {
   menus: makeArrayState(false, []),
   papers: makeArrayState(false, []),
   partners: makeArrayState(false, []),
+  exchanges: makeArrayState(false, []),
   posts: makeArrayState(false, []),
   products: makeArrayState(false, []),
   socials: makeArrayState(false, []),
@@ -73,6 +75,8 @@ export default (state = initialState, action) => {
       return { ...state, members: makeArrayState(true, action.members) }
     case PAGES_INIT_PARTNERS:
       return { ...state, partners: makeArrayState(true, action.partners) }
+    case PAGES_INIT_EXCHANGES:
+      return { ...state, exchanges: makeArrayState(true, action.exchanges) }
     case PAGES_INIT_POSTS:
       return { ...state, posts: makeArrayState(true, action.posts) }
     case PAGES_INIT_STORIES:

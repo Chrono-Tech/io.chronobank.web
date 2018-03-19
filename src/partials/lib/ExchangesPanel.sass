@@ -1,0 +1,61 @@
+@import "src/styles/partials/variables"
+@import "src/styles/partials/mixins"
+
+@keyframes infinite-loop
+  0%
+    transform: translateX(0%)
+    margin-left: 0
+    margin-right: 0
+  50%
+    transform: translateX(-100%)
+    margin-right: -100%
+    margin-left: 100%
+  100%
+    transform: translateX(0%)
+    margin-left: 0
+    margin-right: 0
+.root.exchanges-panel
+  color: #FFFFFF
+  position: relative
+  // height: 110px
+  .content
+    position: relative
+    display: table
+    margin: 12px auto
+    &.content-animate
+      animation: infinite-loop 10s infinite linear
+      @include screen-max-width(1023px)
+        animation: infinite-loop 15s infinite linear
+      @include screen-max-width(640px)
+        animation: infinite-loop 30s infinite linear
+      @include screen-max-width(480px)
+        animation: infinite-loop 40s infinite linear
+    .item
+      position: relative
+      display: table-cell
+      padding: 12px
+      .exchange
+        display: flex
+        align-items: center
+        // width: 200px
+        box-sizing: border-box
+        background: #f7f9ff
+        border-radius: 2px
+        box-shadow: 0 8px 16px rgba(0,0,0,0.06)
+        width: 120px
+        height: 90px
+        &:hover
+          background: #FFFFFF
+          box-shadow: 0 8px 16px rgba(0,0,0,0.24)
+        .logo
+          flex: 0 0 auto
+          // margin: 12px
+          img
+            max-width: 80px
+            max-height: 80px
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+        .title
+          display: none

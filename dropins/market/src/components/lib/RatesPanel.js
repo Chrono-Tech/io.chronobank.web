@@ -19,13 +19,13 @@ export default class RatesPanel extends React.Component {
     this.handleResizeDebounced()
   }
 
+  componentDidUpdate () {
+    this.handleResizeDebounced()
+  }
+
   componentWillUnmount () {
     window.addEventListener('resize', this.handleResizeDebounced)
     this.handleResizeDebounced = null
-  }
-
-  componentDidUpdate () {
-    this.handleResizeDebounced()
   }
 
   handleResize () {
@@ -83,6 +83,6 @@ export default class RatesPanel extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    market: state.marketDropin['TIME/USD'],
+    market: state.marketDropin.pairs['TIME/USD'],
   }
 }
