@@ -18,6 +18,36 @@
         height: 100%
         opacity: 0
         transition: opacity .3s
+        .swiper-button
+          display: flex
+          justify-content: center
+          align-items: center
+          background: none
+          width: 40px
+          height: 40px
+          background-color: #2962ff
+          box-shadow: 3.5px 2px 13px 0 rgba(100, 78, 191, 0.42)
+          position: absolute
+          margin-top: -20px
+          top: 285px
+        .swiper-button-prev
+          border-top-right-radius: 20px
+          border-bottom-right-radius: 20px
+          left: 0
+          .icon-left
+            mask: url(/static/images/symbols/chevron-left.svg) no-repeat center
+            width: 10px
+            height: 16px
+            background-color: #fff
+        .swiper-button-next
+          border-top-left-radius: 20px
+          border-bottom-left-radius: 20px
+          right: 0
+          .icon-right
+            mask: url(/static/images/symbols/chevron-right.svg) no-repeat center
+            width: 10px
+            height: 16px
+            background-color: #fff
         .swiper-wrapper
           pointer-events: none
           display: flex
