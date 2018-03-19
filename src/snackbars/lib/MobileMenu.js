@@ -22,6 +22,14 @@ export default class MobileMenu extends React.Component {
     languages: PropTypes.arrayOf(LanguageModel),
   }
 
+  componentDidMount (){
+    document.body.classList.add('show-mobile-menu')
+  }
+
+  componentWillUnmount (){
+    document.body.classList.remove('show-mobile-menu')
+  }
+
   render () {
     const { menus, languages, userLanguage } = this.props
     return (
