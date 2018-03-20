@@ -315,6 +315,65 @@
           margin-top: 140px
           color: #00005F
 
+  &.background-middleware
+    background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#5745A5 ,#2F2A5B 100%)
+    background-position: center bottom
+    background-repeat: no-repeat
+    height: 847px
+    background-size: auto 100%
+    @include screen-max-width(420px)
+      background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#5745A5 ,#2F2A5B 100%)
+      background-position: -509px top, center bottom
+      background-repeat: no-repeat
+      height: 765px
+    + :global(.main)
+      background: url(/static/images/header-product-middleware-content.png)
+      background-position-x: calc(50% + 62px)
+      background-repeat: no-repeat
+      position: relative
+      top: -5px
+      @include screen-max-width(420px)
+        background: none
+
+
+    .rates
+      display: none
+    .wrap
+      .content
+        position: absolute
+        top: 44%
+        left: 49%
+        padding: 10px 0
+        @include screen-max-width(1023px)
+          top: 53%
+          left: 48%
+        @include screen-max-width(420px)
+          top: 400px
+          left: 145px
+          padding: 10px 0
+
+        .text
+          \:global(h1)
+            font-family: Proxima Nova
+            font-weight: 800
+            font-size: 50px
+            line-height: 55px
+            margin-bottom: 20px
+            @include screen-max-width(1023px)
+              font-size: 3.2rem
+              line-height: 35px
+
+          \:global(h2)
+            font-family: Proxima Nova
+            font-size: 40px
+            line-height: 44px
+            margin-bottom: 35px
+            @include screen-max-width(1023px)
+              font-size: 2rem
+              line-height: 22px
+
+
+
   @include screen-max-width(1023px)
     .wrap
       .top

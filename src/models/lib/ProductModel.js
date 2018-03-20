@@ -3,16 +3,18 @@ import ImageModel from './ImageModel'
 import ProductDownloadModel from './ProductDownloadModel'
 import ProductDistroModel from './ProductDistroModel'
 import ProductFeatureModel from './ProductFeatureModel'
+import ProductDescriptionModel from './ProductDescriptionModel'
 import { LangFieldSet } from './helpers'
 
 export default class ProductModel {
-  constructor ({ id, slug, name, title, stereotype, background, icon, icon2x, image, image2x, mission, brief, downloads, distros, features }) {
+  constructor ({ id, slug, name, title, stereotype, background, icon, icon2x, image, image2x, mission, brief, downloads, distros, features, featuresMode, descriptions }) {
     this.id = id
     this.slug = slug
     this.name = name
     this.title = title
     this.stereotype = stereotype
     this.background = background
+    this.featuresMode = featuresMode
     this.mission = mission
     this.brief = brief
     assert(icon == null || icon instanceof ImageModel)
@@ -29,6 +31,8 @@ export default class ProductModel {
     this.distros = distros
     assert(features == null || !features.find((child) => !(child instanceof ProductFeatureModel)))
     this.features = features
+    assert(descriptions == null || !descriptions.find((child) => !(child instanceof ProductDescriptionModel)))
+    this.descriptions = descriptions
     Object.freeze(this)
   }
 
@@ -42,6 +46,7 @@ export default class ProductModel {
       downloads: data.downloads == null ? null : data.downloads.map(ProductDownloadModel.fromJS),
       distros: data.distros == null ? null : data.distros.map(ProductDistroModel.fromJS),
       features: data.features == null ? null : data.features.map(ProductFeatureModel.fromJS),
+      descriptions: data.descriptions == null ? null : data.descriptions.map(ProductDescriptionModel.fromJS),
     })
   }
 
@@ -56,6 +61,7 @@ export default class ProductModel {
       title: localeModelFields.getLocaleField('title'),
       stereotype: data.stereotype,
       background: data.background,
+      featuresMode: data.featuresMode,
       mission: localeModelFields.getLocaleField('mission'),
       brief: localeModelFields.getLocaleField('brief'),
       icon: ImageModel.fromServerModel(data.icon),
@@ -65,6 +71,7 @@ export default class ProductModel {
       downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locale })),
       distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locale })),
       features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locale })),
+      descriptions: data.descriptions == null ? null : data.descriptions.map((data) => ProductDescriptionModel.fromServerModel(data, { locale })),
     })
   }
 }

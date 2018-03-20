@@ -3,9 +3,10 @@ import ImageModel from './ImageModel'
 import { LangFieldSet } from './helpers'
 
 export default class ProductFeatureModel {
-  constructor ({ id, title, image, image2x }) {
+  constructor ({ id, title, brief, image, image2x }) {
     this.id = id
     this.title = title
+    this.brief = brief
     assert(image == null || image instanceof ImageModel)
     this.image = image
     assert(image2x == null || image2x instanceof ImageModel)
@@ -28,6 +29,7 @@ export default class ProductFeatureModel {
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
       title: localeModelFields.getLocaleField('title') ,
+      brief: localeModelFields.getLocaleField('brief') ,
       image: data.image
         ? ImageModel.fromServerModel(data.image)
         : null,
