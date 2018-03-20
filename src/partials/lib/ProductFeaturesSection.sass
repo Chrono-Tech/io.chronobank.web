@@ -20,6 +20,35 @@
         font-weight: bold
     .content
       display: flex
+      ul
+        display: flex
+        justify-content: space-around
+        flex-wrap: wrap
+        margin: auto
+        .tile
+          font-family: Proxima Nova
+          width: 33%
+          box-sizing: border-box
+          padding: 0 32px 70px 0
+          @include screen-max-width(420px)
+            width: 100%
+            padding: 0 0 30px
+
+          .image
+            margin-bottom: 12px
+            img
+              width: 118px
+          .title
+            color: #5745A5
+            font-weight: 700
+            font-size: 3.2rem
+            line-height: 45px
+            margin-bottom: 5px
+          .brief
+            color: #333333
+            font-weight: 300
+            font-size: 2rem
+            line-height: 28px
       .left
         box-sizing: border-box
         flex: 0 0 40%
@@ -82,6 +111,26 @@
             height: auto
           &.active
             display: block
+
+  .feedback
+    text-align: center
+    font-family: Proxima Nova
+    font-weight: 400
+    font-size: 20px
+    .link
+      font-weight: 700
+      font-size: 32px
+      border-radius: 61px
+      width: 406px
+      line-height: 120px
+      display: inline-block
+      text-align: center
+      background-color: #5745A5
+      color: #fff
+      margin-bottom: 50px
+      @include screen-max-width(1023px)
+        width: 100%
+
 
   @include screen-max-width(1023px)
     .wrap

@@ -18,6 +18,7 @@ export default class ProductFeaturesSection extends React.Component {
     features: PropTypes.array.isRequired,
     interval: PropTypes.number,
     constants: PropTypes.func,
+    mode: PropTypes.string,
   }
 
   static defaultProps = {
@@ -32,7 +33,7 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   componentDidMount () {
-    if (this.props.features.length) {
+    if (this.props.features.length && this.props.mode === 'list') {
       this.interval = setInterval(() => {
         this.setState({
           active: (this.state.active + 1) % this.props.features.length,
@@ -64,9 +65,23 @@ export default class ProductFeaturesSection extends React.Component {
     }
   }
 
-  render () {
+  getContent (){
+    const { mode } = this.props
+
+    switch(mode){
+      case 'tile':
+        return this.renderFeaturesTile()
+      case 'list':
+        return this.renderFeaturesList()
+      default:
+        return this.renderFeaturesList()
+    }
+  }
+
+  renderFeaturesList (){
     const { features, constants } = this.props
     const activeFeature = features[this.state.active]
+
     return (
       <div className='root product-features-section'>
         <style jsx>{styles}</style>
@@ -114,6 +129,42 @@ export default class ProductFeaturesSection extends React.Component {
         </div>
       </div>
     )
+  }
+
+  renderFeaturesTile (){
+    const { features } = this.props
+
+    return (
+      <div className='root product-features-section'>
+        <style jsx>{styles}</style>
+        <div className='wrap'>
+          <div className='content'>
+            <ul>
+              {features.map((feature) => (
+                <li key={feature.id} className='tile'>
+                  {
+                    feature.image ?
+                      <div className='image'>
+                        <img src={feature.image.url} width='118' />
+                      </div>: null
+                  }
+                  <div className='title'>{feature.title}</div>
+                  <div className='brief'>{feature.brief}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='feedback'>
+            <a className='link' href='/#contact-us'>Contact us</a>
+            <p className='notice'>Yes, and it’s easy to deploy!</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  render () {
+    return this.getContent()
   }
 }
 

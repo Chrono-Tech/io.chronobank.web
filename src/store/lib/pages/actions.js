@@ -15,6 +15,7 @@ import {
   MenuModel,
   PaperModel,
   PartnerModel,
+  ExchangeModel,
   PostModel,
   ProductModel,
   SocialModel,
@@ -48,6 +49,7 @@ export const PAGES_INIT_MEMBERS = 'pages/INIT_MEMBERS'
 export const PAGES_INIT_MENUS = 'pages/INIT_MENUS'
 export const PAGES_INIT_PAPERS = 'pages/INIT_PAPERS'
 export const PAGES_INIT_PARTNERS = 'pages/INIT_PARTNERS'
+export const PAGES_INIT_EXCHANGES = 'pages/INIT_EXCHANGES'
 export const PAGES_INIT_POSTS = 'pages/INIT_POSTS'
 export const PAGES_INIT_PRODUCTS = 'pages/INIT_PRODUCTS'
 export const PAGES_INIT_SOCIALS = 'pages/INIT_SOCIALS'
@@ -189,6 +191,21 @@ export const initPartners = () => async (dispatch, getState) => {
   return dispatch({
     type: PAGES_INIT_PARTNERS,
     partners: data.partners.map((data) => PartnerModel.fromServerModel(data, { locale })),
+  })
+}
+
+export const initExchanges = () => async (dispatch, getState) => {
+  const state = getState()
+
+  const locale = state.pages.userLanguage
+
+  if (state.pages.exchanges.isLoaded) {
+    return
+  }
+  const { data } = await BACKEND.get('exchanges')
+  return dispatch({
+    type: PAGES_INIT_EXCHANGES,
+    exchanges: data.exchanges.map((data) => ExchangeModel.fromServerModel(data, { locale })),
   })
 }
 
@@ -430,6 +447,7 @@ export const initAnyPage = () => async (dispatch) => {
     dispatch(initPapers()),
     dispatch(initPosts()),
     dispatch(initProducts()),
+    dispatch(initExchanges()),
     dispatch(initTitles()),
   ])
 }

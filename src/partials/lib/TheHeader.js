@@ -8,11 +8,11 @@ import { DropdownMenu } from 'src/components'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'dropins/events/src/components'
-import { RatesPanel } from 'dropins/market/src/components'
 import { HeaderModel, MenuModel, PostModel, LanguageModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
 import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector } from 'src/store'
+import ExchangesPanel from './ExchangesPanel'
 
 import styles from './TheHeader.sass'
 
@@ -67,6 +67,7 @@ export default class TheHeader extends React.Component {
       <header className={cn('root', 'the-header', {
         'background-dark': header.background === 'dark',
         'background-light': header.background === 'light',
+        'background-middleware': header.background === 'middleware',
         'stereotype-default': header.stereotype === 'default',
         'stereotype-splash': header.stereotype === 'splash',
         'stereotype-product': header.stereotype === 'product',
@@ -233,7 +234,7 @@ export default class TheHeader extends React.Component {
         </div>
         {header.stereotype !== 'splash' ? null : (
           <div className='rates'>
-            <RatesPanel />
+            <ExchangesPanel />
           </div>
         )}
       </header>
