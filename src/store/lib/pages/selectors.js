@@ -26,8 +26,8 @@ export const constantSelector = createSelector(
 
 export const telegramUrlSelector = createSelector(
   (state) => state.pages.socials.array,
-  (socials) => {
-    let foundTelegram = socials.find((s) => s.id === '5a0b4a39c53f78715362dbee')
+  (socials) => (name) => {
+    let foundTelegram = socials.find((s) => s.title === name)
 
     return foundTelegram && foundTelegram.url || ''
   }

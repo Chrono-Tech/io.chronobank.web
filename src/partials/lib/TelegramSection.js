@@ -50,7 +50,7 @@ function mapStateToProps (state) {
   return {
     telegramPin: state.pages.telegramPin,
     constants: constantSelector(state),
-    telegramUrl: telegramUrlSelector(state),
+    telegramUrl: telegramUrlSelector(state)('Telegram'),
   }
 }
 
