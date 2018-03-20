@@ -67,6 +67,7 @@ export default class TheHeader extends React.Component {
       <header className={cn('root', 'the-header', {
         'background-dark': header.background === 'dark',
         'background-light': header.background === 'light',
+        'background-middleware': header.background === 'middleware',
         'stereotype-default': header.stereotype === 'default',
         'stereotype-splash': header.stereotype === 'splash',
         'stereotype-product': header.stereotype === 'product',

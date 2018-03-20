@@ -1,5 +1,6 @@
 export { default as ProductSection } from './lib/ProductSection'
 export { default as ProductFeaturesSection } from './lib/ProductFeaturesSection'
+export { default as ProductDescriptionsSection } from './lib/ProductDescriptionsSection'
 export { default as TestimonialSection } from './lib/TestimonialSection'
 export { default as MobileSection } from './lib/MobileSection'
 export { default as JoinSection } from './lib/JoinSection'

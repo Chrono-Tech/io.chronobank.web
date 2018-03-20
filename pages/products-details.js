@@ -53,10 +53,18 @@ class ProductsDetails extends React.Component {
             )
             : null
           }
+          {(product.descriptions && product.descriptions.length)
+            ? (
+              <partials.ProductDescriptionsSection
+                descriptions={product.descriptions}
+              />)
+            : null
+          }
           {(product.features && product.features.length)
             ? (
               <partials.ProductFeaturesSection
                 features={product.features}
+                mode={product.featuresMode}
               />)
             : null
           }
