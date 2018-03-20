@@ -1,8 +1,10 @@
 import {
   MARKET_RATES_UPDATE,
+  MARKET_STATS,
 } from './actions'
 
 const initialState = Object.freeze({
+  stats: null, // CoinMarketCap data
   pairs: Object.freeze({
     // 'BTC/USD': Object.freeze({
     //   last: null,
@@ -45,6 +47,12 @@ const initialState = Object.freeze({
 
 export default (state = initialState, { type, data }) => {
   switch (type) {
+    case MARKET_STATS: {
+      return {
+        ...state,
+        stats: Object.freeze(data),
+      }
+    }
     case MARKET_RATES_UPDATE: {
       const pair = [data.FROMSYMBOL, data.TOSYMBOL].join('/')
       if (pair in state.pairs) {
