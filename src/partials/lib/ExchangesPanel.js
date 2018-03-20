@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import { debounce } from 'lodash'
 import { ExchangeModel } from 'src/models'
+import { CoinMarketCap } from 'dropins/market/src/components'
 
 import styles from './ExchangesPanel.sass'
 
@@ -47,6 +48,9 @@ export default class ExchangesPanel extends React.Component {
             'content-animate': this.animate,
           })}
         >
+          <div className='item'>
+            <CoinMarketCap />
+          </div>
           {exchanges.map((exchange) => (
             <a className='item' key={exchange.id} target='_blank' rel='noopener noreferrer' href={exchange.url}>
               <div className='exchange'>

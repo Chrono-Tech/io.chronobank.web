@@ -1,0 +1,46 @@
+@import "src/styles/partials/variables"
+@import "src/styles/partials/mixins"
+
+.root.coinmarketcap
+  .content
+    background: #FFFFFF
+    color: #555
+    border-radius: 2px
+    width: 260px
+    .head
+      display: flex
+      align-items: center
+      .logo
+        flex: 0 0 auto
+        padding: 12px
+        img
+          width: 64px
+          height: 64px
+      .info
+        padding: 12px 12px 12px 0px
+        .title
+          font-size: 16px
+          white-space: nowrap
+        .price
+          font-size: 14px
+          color: #0039cb
+          .change
+            &-green
+              color: #00c853
+            &-red
+              color: #ff1744
+    .body
+      .stats
+        display: flex
+        margin: 0px 4px
+        .stats-item
+          flex: 0 0 33%
+          padding: 0px 8px 8px 8px
+          box-sizing: border-box
+          text-align: center
+          font-size: 14px
+          color: #0039cb
+          label
+            color: #555
+            font-weight: bold
+            font-size: 12px
