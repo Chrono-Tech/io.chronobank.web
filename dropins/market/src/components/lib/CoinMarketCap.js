@@ -9,27 +9,7 @@ import styles from './CoinMarketCap.sass'
 export default class CoinMarketCap extends React.Component {
 
   static propTypes = {
-    currencyid: PropTypes.string,
-    base: PropTypes.string,
-    secondary: PropTypes.string,
-    ticker: PropTypes.bool,
-    rank: PropTypes.bool,
-    marketcap: PropTypes.bool,
-    volume: PropTypes.bool,
-    stats: PropTypes.string,
-    statsticker: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    currencyid: '1556',
-    base: 'USD',
-    secondary: '',
-    ticker: false,
-    rank: false,
-    marketcap: false,
-    volume: false,
-    stats: 'USD',
-    statsticker: false,
+    stats: PropTypes.object,
   }
 
   render () {
