@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
+import cn from 'classnames'
+import { Link } from 'src/router'
 import { constantSelector } from 'src/store'
 
 import styles from './ProductFeaturesSection.sass'
@@ -18,10 +20,15 @@ export default class ProductFeaturesSection extends React.Component {
     features: PropTypes.array.isRequired,
     interval: PropTypes.number,
     constants: PropTypes.func,
+    mode: PropTypes.string,
+    productSlug: PropTypes.string,
   }
 
   static defaultProps = {
     interval: 5000,
+    productSlug: '',
+    constants: () => {},
+    mode: '',
   }
 
   constructor (props) {
@@ -32,7 +39,7 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   componentDidMount () {
-    if (this.props.features.length) {
+    if (this.props.features.length && this.props.mode === 'list') {
       this.interval = setInterval(() => {
         this.setState({
           active: (this.state.active + 1) % this.props.features.length,
@@ -64,11 +71,28 @@ export default class ProductFeaturesSection extends React.Component {
     }
   }
 
-  render () {
-    const { features, constants } = this.props
+  getContent (){
+    const { mode } = this.props
+
+    switch(mode){
+      case 'tile':
+        return this.renderFeaturesTile()
+      case 'list':
+        return this.renderFeaturesList()
+      default:
+        return this.renderFeaturesList()
+    }
+  }
+
+  renderFeaturesList (){
+    const { features, constants, productSlug } = this.props
     const activeFeature = features[this.state.active]
+
     return (
-      <div className='root product-features-section'>
+      <div className={cn('root', 'product-features-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='heading'>
@@ -114,6 +138,47 @@ export default class ProductFeaturesSection extends React.Component {
         </div>
       </div>
     )
+  }
+
+  renderFeaturesTile (){
+    const { features, constants, productSlug } = this.props
+
+    return (
+      <div className={cn('root', 'product-features-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
+        <style jsx>{styles}</style>
+        <div className='wrap'>
+          <div className='content'>
+            <ul>
+              {features.map((feature) => (
+                <li key={feature.id} className='tile'>
+                  {
+                    feature.image ?
+                      <div className='image'>
+                        <img src={feature.image.url} width='118' />
+                      </div>: null
+                  }
+                  <div className='title'>{feature.title}</div>
+                  <div className='brief'>{feature.brief}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='feedback'>
+            <Link route='/#contact-us'>
+              <a className='link'>{constants('contact-us')}</a>
+            </Link>
+            <p className='notice'>{constants('and-yes-its-easy-to-deploy')}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  render () {
+    return this.getContent()
   }
 }
 
