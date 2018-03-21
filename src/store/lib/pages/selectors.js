@@ -1,3 +1,4 @@
+import React from 'react'
 import locale from 'locale'
 import { createSelector } from 'reselect'
 
@@ -35,7 +36,13 @@ export const telegramUrlSelector = createSelector(
 
 export const titleSelector = createSelector(
   (state) => state.pages.titles.array,
-  (titles) => (slug) => titles.find((p) => p.slug === slug)
+  (titles) => (slug) => {
+    let foundTitle = titles.find((p) => p.slug === slug)
+
+    return foundTitle
+      ? <div id={foundTitle.slug} dangerouslySetInnerHTML={{ __html: foundTitle.value }} />
+      : <div>{slug}</div>
+  }
 )
 
 export const languagesSelector = (/*langSelected*/) => createSelector(

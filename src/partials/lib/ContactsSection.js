@@ -6,8 +6,6 @@ import cn from 'classnames'
 import { BACKEND } from 'src/endpoints'
 import { ContactModel } from 'src/models'
 import { constantSelector, titleSelector } from 'src/store'
-import * as partials from 'src/partials'
-
 import styles from './ContactsSection.sass'
 
 const ENQUIRY_STATUS_COMPLETED = {
@@ -85,7 +83,7 @@ export default class ContactsSection extends React.Component {
           <div className='content'>
             <div className='left'>
               <div className='inner-wrap'>
-                <partials.TheTitle title={titles('contact-us')} />
+                { titles('contact-us') }
                 <ul>
                   {contacts.map((c) => (
                     <li key={c.id}>
@@ -110,7 +108,7 @@ export default class ContactsSection extends React.Component {
               <div className='inner-wrap'>
                 <form ref={(el) => this.formElement = el} onSubmit={(e) => this.handleSubmit(e)}>
                   <div className='inner'>
-                    <partials.TheTitle title={titles('get-in-touch-with-our-team')} />
+                    { titles('get-in-touch-with-our-team') }
                     <div className='field'>
                       <input
                         type='text'

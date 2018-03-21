@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import { ModalDialog } from 'src/components'
 import { modalsClose, titleSelector, constantSelector } from 'src/store'
-import * as partials from 'src/partials'
 
 import styles from './ConfirmationDialog.sass'
 
@@ -30,7 +29,7 @@ export class ConfirmationDialog extends React.Component {
             </div>
             <div className='content'>
               <div className='title'>
-                <partials.TheTitle title={titles('your-application-has-been-submitted')} />
+                { titles('your-application-has-been-submitted') }
               </div>
               <p>
                 { constants('thank-you-for-interest-in')} <strong>{ job.title }.</strong>
