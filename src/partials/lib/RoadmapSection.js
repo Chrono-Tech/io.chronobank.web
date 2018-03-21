@@ -22,10 +22,13 @@ export default class RoadmapSection extends React.Component {
     this.swiper = new Swiper(this.swiperElement, {
       setWrapperSize: true,
       slidesPerView: 'auto',
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev',
       centeredSlides: true,
       paginationBulletRender: function (swiper, index, className) {
         return `<div class="${className}"><p class="roadmap__data-value">${index + 1} '2017'></p></div>`
       },
+      keyboardControl: true,
       // spaceBetween: 40,
       grabCursor: true,
       onInit: (swiper) => {
@@ -108,6 +111,12 @@ export default class RoadmapSection extends React.Component {
               </div>
               <div className='swiper-pagination-line-box'>
                 <div className='swiper-pagination-line' ref={(swiperPaginationLine) => { this.swiperPaginationLineElement = swiperPaginationLine}} />
+              </div>
+              <div className='swiper-button-prev swiper-button'>
+                <div className='icon-left' />
+              </div>
+              <div className='swiper-button-next swiper-button'>
+                <div className='icon-right' />
               </div>
             </div>
           </div>

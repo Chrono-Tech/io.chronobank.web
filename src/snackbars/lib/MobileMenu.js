@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import cn from 'classnames'
 
-import { MenuModel } from 'src/models'
+import { MenuModel, LanguageModel } from 'src/models'
 import { Link } from 'src/router'
 import { SnackbarPanel, DropdownMenu } from 'src/components'
-import { snackbarsClose, languagesSelector, changeUserLanguage } from 'src/store'
+import { snackbarsClose, changeUserLanguage } from 'src/store'
 
 import styles from './MobileMenu.sass'
 
@@ -19,12 +19,15 @@ export default class MobileMenu extends React.Component {
     onClose: PropTypes.func,
     changeLanguage: PropTypes.func,
     userLanguage: PropTypes.string,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })
-    ),
+    languages: PropTypes.arrayOf(LanguageModel),
+  }
+
+  componentDidMount (){
+    document.body.classList.add('show-mobile-menu')
+  }
+
+  componentWillUnmount (){
+    document.body.classList.remove('show-mobile-menu')
   }
 
   render () {
@@ -113,8 +116,8 @@ export default class MobileMenu extends React.Component {
               <DropdownMenu
                 value={userLanguage}
                 options={languages.map((lang) => ({
-                  value: lang.code,
-                  title: lang.name,
+                  value: lang.key,
+                  title: lang.label,
                 }))}
                 className='language'
                 onChange={(value) => this.props.changeLanguage(value)}
@@ -130,7 +133,7 @@ export default class MobileMenu extends React.Component {
 function mapStateToProps (state) {
   return {
     menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
-    languages: languagesSelector()(state),
+    languages: state.pages.languages.array,
     userLanguage: state.pages.userLanguage,
   }
 }

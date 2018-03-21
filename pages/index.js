@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 
 import initStore, { modalsClear, snackbarsClear, initUserLanguage, initIndexPage, titleSelector } from 'src/store'
-import { watchInitMarket, unwatchInitMarket } from 'dropins/market/src/store'
+import { watchInitMarket, unwatchInitMarket, initCoinMarketCap } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -20,6 +20,7 @@ class Index extends React.Component {
 
     watchInitMarket: PropTypes.func,
     unwatchInitMarket: PropTypes.func,
+    initCoinMarketCap: PropTypes.func,
 
     titles: PropTypes.func,
   }
@@ -37,6 +38,7 @@ class Index extends React.Component {
 
   componentDidMount () {
     this.props.watchInitMarket()
+    this.props.initCoinMarketCap()
   }
 
   componentWillUnmount () {
@@ -116,6 +118,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    initCoinMarketCap: () => dispatch(initCoinMarketCap()),
     watchInitMarket: () => dispatch(watchInitMarket()),
     unwatchInitMarket: () => dispatch(unwatchInitMarket()),
   }
