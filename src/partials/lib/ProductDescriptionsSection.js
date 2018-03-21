@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
+
 import { constantSelector } from 'src/store'
 
 import styles from './ProductDescriptionsSection.sass'
@@ -10,12 +12,16 @@ export default class ProductDescriptionsSection extends React.Component {
 
   static propTypes = {
     descriptions: PropTypes.array,
+    productSlug: PropTypes.string,
   }
 
   render () {
-    const { descriptions } = this.props
+    const { descriptions, productSlug } = this.props
     return (
-      <div className='root product-descriptions-section'>
+      <div className={cn('root', 'product-descriptions-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>

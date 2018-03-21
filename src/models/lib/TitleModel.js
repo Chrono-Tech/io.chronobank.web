@@ -1,10 +1,12 @@
 import { LangFieldSet } from "./helpers"
 
 export default class TitleModel {
-  constructor ({ slug, name, value }) {
+  constructor ({ slug, name, title, subtitle, stereotype }) {
     this.slug = slug
     this.name = name
-    this.value = value
+    this.title = title
+    this.subtitle = subtitle
+    this.stereotype = stereotype
     Object.freeze(this)
   }
 
@@ -20,7 +22,9 @@ export default class TitleModel {
     return data == null ? null : new TitleModel({
       slug: data.slug,
       name: data.name,
-      value: localeModelFields.getLocaleField('value'),
+      title: localeModelFields.getLocaleField('title'),
+      subtitle: localeModelFields.getLocaleField('subtitle'),
+      stereotype: data.stereotype,
     })
   }
 }

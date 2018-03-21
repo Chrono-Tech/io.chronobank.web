@@ -65,10 +65,7 @@ class Index extends React.Component {
           <partials.TheHeader headerSlug='main-page' />
           <main className='main'>
             <div className='about'>
-              <partials.TheTitle
-                title={titles('what-is-chronobank-io')}
-                subtitle={titles('what-is-chronobank-io-description')}
-              />
+              <partials.TheTitle title={titles('what-is-chronobank-io')} />
               {this.props.stories && this.props.stories.map((story) => (
                 <partials.StorySection key={story.id} story={story} />
               ))}
@@ -81,9 +78,7 @@ class Index extends React.Component {
               <partials.ProductSection productSlug='laborx' />
             </div>
             <div className='roadmap'>
-              <partials.TheTitle
-                title={titles('roadmap')}
-              />
+              <partials.TheTitle title={titles('roadmap')} />
               <partials.RoadmapSection />
             </div>
             <div className='ceo'>
@@ -92,27 +87,21 @@ class Index extends React.Component {
               ))}
             </div>
             <div className='partners'>
-              <partials.TheTitle
-                title={titles('partners')}
-                subtitle={titles('we-are-proud-of-our-partners')}
-              />
+              <partials.TheTitle title={titles('partners')} />
               <partials.PartnersSection />
             </div>
             <div className='press'>
-              <partials.TheTitle
-                title={titles('press')}
-              />
+              <partials.TheTitle title={titles('press')} />
               <partials.ArticlesSection />
             </div>
             <div className='posts'>
-              <partials.TheTitle
-                title={titles('latest-news')}
-              />
+              <partials.TheTitle title={titles('latest-news')} />
               <partials.PostsSection />
             </div>
             <partials.ContactsSection />
           </main>
           <partials.TheFooter productSlug='chronomint' />
+          <partials.TelegramSection />
         </div>
       </div>
     )
