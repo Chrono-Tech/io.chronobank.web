@@ -53,6 +53,7 @@ class Team extends React.Component {
           </div>
         </main>
         <partials.TheFooter productSlug='chronomint' />
+        <partials.TelegramSection />
       </div>
     )
   }
