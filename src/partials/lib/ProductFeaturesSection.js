@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
+import cn from 'classnames'
+import { Link } from 'src/router'
 import { constantSelector } from 'src/store'
 
 import styles from './ProductFeaturesSection.sass'
@@ -19,10 +21,14 @@ export default class ProductFeaturesSection extends React.Component {
     interval: PropTypes.number,
     constants: PropTypes.func,
     mode: PropTypes.string,
+    productSlug: PropTypes.string,
   }
 
   static defaultProps = {
     interval: 5000,
+    productSlug: '',
+    constants: () => {},
+    mode: '',
   }
 
   constructor (props) {
@@ -79,11 +85,14 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   renderFeaturesList (){
-    const { features, constants } = this.props
+    const { features, constants, productSlug } = this.props
     const activeFeature = features[this.state.active]
 
     return (
-      <div className='root product-features-section'>
+      <div className={cn('root', 'product-features-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='heading'>
@@ -132,10 +141,13 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   renderFeaturesTile (){
-    const { features } = this.props
+    const { features, constants, productSlug } = this.props
 
     return (
-      <div className='root product-features-section'>
+      <div className={cn('root', 'product-features-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>
@@ -155,8 +167,10 @@ export default class ProductFeaturesSection extends React.Component {
             </ul>
           </div>
           <div className='feedback'>
-            <a className='link' href='/#contact-us'>Contact us</a>
-            <p className='notice'>Yes, and it’s easy to deploy!</p>
+            <Link route='/#contact-us'>
+              <a className='link'>{constants('contact-us')}</a>
+            </Link>
+            <p className='notice'>{constants('and-yes-its-easy-to-deploy')}</p>
           </div>
         </div>
       </div>
