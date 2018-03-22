@@ -1,0 +1,31 @@
+@import "src/styles/partials/mixins"
+
+.root.contact-send-dialog
+  background: #FFFFFF
+  padding: 40px 32px 30px 32px
+  max-width: 672px
+  box-sizing: border-box
+  border-radius: 2px
+
+  .title
+    margin-bottom: 29px
+    font-size: 24px
+    color: #2962ff
+    font-weight: 500
+    line-height: 21px
+  form
+    max-width: 350px
+    .buttons
+      text-align: right
+      margin-top: 30px
+      .button
+        @include button(primary)
+
+    .field
+      position: relative
+      margin-bottom: 16px
+
+      @include form-field()
+
+  @include screen-min-width(1024px)
+    width: 352px

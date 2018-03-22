@@ -2,21 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { BACKEND } from 'src/endpoints'
 import { ModalDialog } from 'src/components'
 import { ConfirmationDialog } from 'src/dialogs'
-import { modalsClose, modalsOpen, constantSelector, titleSelector } from 'src/store'
+import { BACKEND } from 'src/endpoints'
+import { modalsClose, modalsOpen, titleSelector, constantSelector } from 'src/store'
 
-import styles from './JobDialog.sass'
+import styles from './ContactSendDialog.sass'
 
-export class JobDialog extends React.Component {
+export class ContactSendDialog extends React.Component {
 
   static propTypes = {
-    job: PropTypes.object,
     onClose: PropTypes.func,
-    handleSave: PropTypes.func,
     titles: PropTypes.func,
     constants: PropTypes.func,
+    handleSave: PropTypes.func,
   }
 
   handleInput (el) {
@@ -24,43 +23,37 @@ export class JobDialog extends React.Component {
   }
 
   async handleSubmit (e) {
-    const { constants, titles, job, handleSave } = this.props
+    const { constants, titles, handleSave } = this.props
+
     e.preventDefault()
 
     // TODO: Move to redux
-    await BACKEND.post('applications', {
+    await BACKEND.post('reports', {
       // eslint-disable-next-line no-underscore-dangle
-      job: this.props.job._id,
+      // job: this.props.job._id,
       name: this.nameElement.value,
       email: this.emailElement.value,
       phone: this.phoneElement.value,
       message: this.messageElement.value,
     })
-    for (const el of [this.nameElement, this.emailElement, this.messageElement]) {
+    for (const el of [this.nameElement, this.emailElement, this.phoneElement, this.messageElement]) {
       el.value = ''
       this.handleInput(el)
     }
+    const title = titles('your-message-has-been-sent')
 
-    const title = titles('your-application-has-been-submitted')
-
-    const content = (
-      <p>
-        { constants('thank-you-for-interest-in')} <strong>{ job.title }.</strong>
-        <br />
-        { constants('confirm-vacancy-message') }
-      </p>
-    )
+    const content = constants('thank-you-shortly')
 
     handleSave(title, content)
   }
 
   render () {
-    const { job, constants } = this.props
+    const { titles, constants, onClose } = this.props
     return (
-      <ModalDialog onClose={() => this.props.onClose()}>
+      <ModalDialog onClose={() => onClose()}>
         <style jsx>{styles}</style>
-        <div className='root job-dialog'>
-          <div className='text' dangerouslySetInnerHTML={{ __html: job.details }} />
+        <div className='root contact-send-dialog'>
+          <div className='title'>{ titles('contact-us') }</div>
           <form ref={(el) => this.formElement = el} onSubmit={(e) => this.handleSubmit(e)}>
             <div className='field'>
               <input
@@ -99,7 +92,7 @@ export class JobDialog extends React.Component {
                 ref={(el) => this.messageElement = el}
                 onChange={(e) => this.handleInput(e.currentTarget)}
               />
-              <label htmlFor='apply-message'>{constants('additional-information-links')}</label>
+              <label htmlFor='apply-message'>{constants('message')}*</label>
             </div>
             <div className='buttons'>
               <input className='button' type='submit' value={constants('send')} />
@@ -113,7 +106,6 @@ export class JobDialog extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    onClose: () => dispatch(modalsClose()),
     handleSave: (title, content) => {
       dispatch(modalsClose())
       dispatch(modalsOpen({
@@ -124,6 +116,7 @@ function mapDispatchToProps (dispatch) {
         },
       }))
     },
+    onClose: () => dispatch(modalsClose()),
   }
 }
 
@@ -134,4 +127,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(ContactSendDialog)

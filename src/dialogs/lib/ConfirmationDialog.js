@@ -10,16 +10,17 @@ import styles from './ConfirmationDialog.sass'
 export class ConfirmationDialog extends React.Component {
 
   static propTypes = {
-    job: PropTypes.object,
     onClose: PropTypes.func,
     titles: PropTypes.func,
     constants: PropTypes.func,
+    dialogTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    dialogContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   }
 
   render () {
-    const { job, titles, constants } = this.props
+    const { constants, dialogTitle, dialogContent, onClose } = this.props
     return (
-      <ModalDialog onClose={() => this.props.onClose()}>
+      <ModalDialog onClose={() => onClose()}>
         <style jsx>{styles}</style>
         <div className='root confirmation-dialog'>
           <div className='wrap'>
@@ -28,16 +29,10 @@ export class ConfirmationDialog extends React.Component {
               <div className='icon' />
             </div>
             <div className='content'>
-              <div className='title'>
-                { titles('your-application-has-been-submitted') }
-              </div>
-              <p>
-                { constants('thank-you-for-interest-in')} <strong>{ job.title }.</strong>
-                <br />
-                { constants('confirm-vacancy-message') }
-              </p>
+              { dialogTitle ? <div className='title'>{dialogTitle}</div> : null}
+              { dialogContent || null }
               <div className='button-wrapper'>
-                <button onClick={() => this.props.onClose()}>OK</button>
+                <button onClick={() => onClose()}>{constants('ok')}</button>
               </div>
             </div>
           </div>
