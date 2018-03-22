@@ -27,10 +27,8 @@ export class ContactSendDialog extends React.Component {
 
     e.preventDefault()
 
-    // TODO: Move to redux
     await BACKEND.post('reports', {
       // eslint-disable-next-line no-underscore-dangle
-      // job: this.props.job._id,
       name: this.nameElement.value,
       email: this.emailElement.value,
       phone: this.phoneElement.value,
