@@ -14,10 +14,10 @@ export default class CoinMarketCap extends React.Component {
 
   render () {
     const { stats } = this.props
-    console.log('stats', stats)
     return stats === null ? null : (
       <div className='root coinmarketcap'>
         <style jsx>{styles}</style>
+        <div className='title'>Exchange name</div>
         <div className='content'>
           <div className='head'>
             <div className='logo'>
@@ -71,5 +71,6 @@ export default class CoinMarketCap extends React.Component {
 function mapStateToProps (state) {
   return {
     stats: state.marketDropin.stats,
+
   }
 }

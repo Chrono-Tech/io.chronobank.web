@@ -3,14 +3,17 @@
 
 @keyframes infinite-loop
   0%
+    //left: 0
     transform: translateX(0%)
     margin-left: 0
     margin-right: 0
   50%
+    //left: 100%
     transform: translateX(-100%)
     margin-right: -100%
     margin-left: 100%
   100%
+    //left: 0
     transform: translateX(0%)
     margin-left: 0
     margin-right: 0
@@ -29,7 +32,7 @@
       @include screen-max-width(640px)
         animation: infinite-loop 30s infinite linear
       @include screen-max-width(480px)
-        animation: infinite-loop 40s infinite linear
+        animation: infinite-loop 30s infinite linear
     .item
       position: relative
       display: table-cell

@@ -2,13 +2,18 @@
 @import "src/styles/partials/mixins"
 
 .root.coinmarketcap
+  > .title
+    position: absolute
+    top: -8px
+    font: bold 10px Proxima Nova
+    text-transform: uppercase
+    color: #737390
   .content
     background: #FFFFFF
     color: #555
     border-radius: 2px
     min-width: 220px
     padding: 16px 15px 12px
-    overflow-x: scroll
     .head
       display: flex
       align-items: flex-start
