@@ -6,24 +6,31 @@
     background: #FFFFFF
     color: #555
     border-radius: 2px
-    width: 260px
+    min-width: 220px
+    padding: 16px 15px 12px
+    overflow-x: scroll
     .head
       display: flex
-      align-items: center
+      align-items: flex-start
+      margin-bottom: 20px
       .logo
-        flex: 0 0 auto
-        padding: 12px
+        //flex: 0 0 auto
+        margin-right: 15px
         img
-          width: 64px
-          height: 64px
+          height: 34px
       .info
-        padding: 12px 12px 12px 0px
+        //padding: 12px 12px 12px 0px
         .title
-          font-size: 16px
+          margin: -3px 0 6px
           white-space: nowrap
+          a
+            font: bold 12px Proxima Nova
+            line-height: 14px
+            color: #353266
         .price
-          font-size: 14px
-          color: #0039cb
+          color: #353266
+          font: 20px Proxima Nova
+          line-height: 14px
           .change
             &-green
               color: #00c853
@@ -34,13 +41,8 @@
         display: flex
         margin: 0px 4px
         .stats-item
-          flex: 0 0 33%
-          padding: 0px 8px 8px 8px
-          box-sizing: border-box
-          text-align: center
-          font-size: 14px
-          color: #0039cb
-          label
-            color: #555
-            font-weight: bold
-            font-size: 12px
+          flex: 1
+        .stats-item, label
+          font: 12px Proxima Nova
+          line-height: 14px
+          color: #9c9c9c

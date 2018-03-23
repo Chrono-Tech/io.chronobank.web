@@ -14,13 +14,14 @@ export default class CoinMarketCap extends React.Component {
 
   render () {
     const { stats } = this.props
+    console.log('stats', stats)
     return stats === null ? null : (
       <div className='root coinmarketcap'>
         <style jsx>{styles}</style>
         <div className='content'>
           <div className='head'>
             <div className='logo'>
-              <img src='/static/images/time-token.png' />
+              <img src='/static/images/svg/chrono-bank-icon.svg' />
             </div>
             <div className='info'>
               <div className='title'>
@@ -33,7 +34,7 @@ export default class CoinMarketCap extends React.Component {
                 </a>
               </div>
               <div className='price'>
-                <span>{new Number(stats.data.price_usd).toFixed(2)} USD</span>&nbsp;
+                <span>${new Number(stats.data.price_usd).toFixed(2)}</span>&nbsp;
                 <span
                   className={cn('change', {
                     'change-green': stats.data.percent_change_24h > 0,
