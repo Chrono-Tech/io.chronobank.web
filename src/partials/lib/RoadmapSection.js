@@ -5,6 +5,7 @@ import moment from 'moment'
 
 import swiperStyles from 'swiper/dist/css/swiper.css'
 
+import { constantSelector } from 'src/store'
 import { IterationModel } from 'src/models'
 import { Swiper } from 'src/plugins'
 
@@ -15,6 +16,7 @@ export default class RoadmapSection extends React.Component {
 
   static propTypes = {
     iterations: PropTypes.arrayOf(IterationModel),
+    constants: PropTypes.func,
   }
 
   componentDidMount () {
@@ -71,7 +73,7 @@ export default class RoadmapSection extends React.Component {
   }
 
   render () {
-    const { iterations } = this.props
+    const { iterations, constants } = this.props
     const items = [ ...iterations].sort((a,b) => {
       return moment.utc(a.date).diff(moment.utc(b.date))
     })
@@ -98,7 +100,7 @@ export default class RoadmapSection extends React.Component {
                   <div className='point' style={{ left: `${Math.round(progress * 100)}%` }}>
                     <div className='point-label'>
                       <img src='/static/images/symbols/geopoint.svg' />
-                      <span>We are here</span>
+                      <span>{constants('we-are-here')}</span>
                     </div>
                   </div>
                 </div>
@@ -129,5 +131,6 @@ export default class RoadmapSection extends React.Component {
 function mapStateToProps (state) {
   return {
     iterations: state.pages.iterations.array,
+    constants: constantSelector(state),
   }
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import { ProductModel } from 'src/models'
-import { productSelector } from 'src/store'
+import { productSelector, constantSelector } from 'src/store'
 
 import styles from './ProductSection.sass'
 
@@ -14,10 +14,11 @@ export default class ProductSection extends React.Component {
   static propTypes = {
     productSlug: PropTypes.string,
     product: PropTypes.instanceOf(ProductModel),
+    constants: PropTypes.func,
   }
 
   render () {
-    const { product } = this.props
+    const { product, constants } = this.props
     return (
       <div className={cn('root', 'product-section', {
         'background-dark': product.background === 'dark',
@@ -57,7 +58,7 @@ export default class ProductSection extends React.Component {
           {product.downloads && product.downloads.length
             ? (
               <nav className='downloads'>
-                <h4>Downloads</h4>
+                <h4>{constants('downloads')}</h4>
                 <ul>
                   {product.downloads.map((download) => (
                     <li key={download.id}>
@@ -80,5 +81,6 @@ export default class ProductSection extends React.Component {
 function mapStateToProps (state, op) {
   return {
     product: productSelector(op.productSlug)(state),
+    constants: constantSelector(state),
   }
 }

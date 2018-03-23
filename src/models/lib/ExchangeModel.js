@@ -1,6 +1,5 @@
 import assert from 'assert'
 import ImageModel from './ImageModel'
-import { LangFieldSet } from './helpers'
 
 export default class ExchangeModel {
   constructor ({ id, title, url, icon, icon2x }) {
@@ -22,9 +21,7 @@ export default class ExchangeModel {
     })
   }
 
-  static fromServerModel (data, { locale }) {
-    let localeModelFields = new LangFieldSet(data, locale)
-
+  static fromServerModel (data) {
     return data == null ? data : new ExchangeModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
