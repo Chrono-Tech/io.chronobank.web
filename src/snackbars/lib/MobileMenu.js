@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 import { MenuModel, LanguageModel } from 'src/models'
 import { Link } from 'src/router'
-import { SnackbarPanel, DropdownMenu } from 'src/components'
+import { SnackbarPanel } from 'src/components'
 import { snackbarsClose, changeUserLanguage } from 'src/store'
 
 import styles from './MobileMenu.sass'
@@ -31,7 +31,7 @@ export default class MobileMenu extends React.Component {
   }
 
   render () {
-    const { menus, languages, userLanguage } = this.props
+    const { menus } = this.props
     return (
       <SnackbarPanel onClose={() => this.props.onClose()} side='top'>
         <style jsx>{styles}</style>
@@ -113,15 +113,6 @@ export default class MobileMenu extends React.Component {
                   </li>
                 ))}
               </ul>
-              <DropdownMenu
-                value={userLanguage}
-                options={languages.map((lang) => ({
-                  value: lang.key,
-                  title: lang.label,
-                }))}
-                className='language'
-                onChange={(value) => this.props.changeLanguage(value)}
-              />
             </div>
           </div>
         </div>
@@ -132,7 +123,7 @@ export default class MobileMenu extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
+    menus: state.pages.menus.array.filter((m) => m.isVisibleInMobile),
     languages: state.pages.languages.array,
     userLanguage: state.pages.userLanguage,
   }

@@ -15,6 +15,11 @@ export const productSelector = (slug) => createSelector(
   (products) => products.find((p) => p.slug === slug)
 )
 
+export const menuSelector = createSelector(
+  (state) => state.pages.menus.array,
+  (menus) => (title) => menus.find((p) => p.title === title)
+)
+
 export const constantSelector = createSelector(
   (state) => state.pages.constants.array,
   (constants) => (slug) => {

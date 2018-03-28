@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
-import { debounce } from 'lodash'
 import { ExchangeModel } from 'src/models'
 import { CoinMarketCap } from 'dropins/market/src/components'
 

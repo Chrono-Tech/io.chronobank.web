@@ -16,6 +16,7 @@ export class DropdownMenu extends React.Component {
     className: PropTypes.string,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func,
+    getSelectedTitle: PropTypes.oneOf([null, PropTypes.func]),
   }
 
   constructor (props) {
@@ -60,7 +61,7 @@ export class DropdownMenu extends React.Component {
   handleOpen () {
     // eslint-disable-next-line
     this.setState({
-      isOpen: true,
+      isOpen: !this.state.isOpen,
     })
   }
 
@@ -71,6 +72,13 @@ export class DropdownMenu extends React.Component {
     if (this.props.onChange) {
       this.props.onChange(option.value)
     }
+  }
+
+  getSelectedTitle () {
+    const { getSelectedTitle } = this.props
+    const { active } = this.state
+
+    return getSelectedTitle && getSelectedTitle(active) || active.value || ''
   }
 
   render () {
@@ -88,7 +96,7 @@ export class DropdownMenu extends React.Component {
               this.handleOpen()
               return false
             }}
-          >{active ? active.title : null}
+          >{this.getSelectedTitle()}
           </div>
           <div className='dropdown-options'>
             {options.map((option) => (

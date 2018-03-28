@@ -61,10 +61,12 @@
       position: relative
       z-index: 10
       align-items: center
-      padding: 0px 20px
+      padding: 0px 16px
       .logo
         flex: 1 1 auto
         padding: 0px 5px
+        @include screen-max-width(1024px)
+          display: none
         img
           height: 31px
           //width: 300px
@@ -86,16 +88,40 @@
         >ul
           flex: 0 0 auto
           display: flex
+          align-items: stretch
+          height: 50px
           >li
             flex: 0 0 auto
-            padding: 0 24px
+            padding: 0px 16px
             position: relative
+            align-items: center
+            display: flex
+            &.lang-selector
+              padding: 0
             .link
-              color: #FFFFFF
               transition: all 0.3s
-              font-size: 1.8rem
-              font-weight: 500
-              line-height: 50px
+              line-height: 19px
+              color: #FFFFFF
+              font-size: 16px
+              font-weight: bold
+              &.link-rounded
+                color: #FFFFFF !important
+                line-height: 40px
+                text-align: center
+                border-radius: 21px
+                font-size: 16px
+                background-color: #5DB3ED
+                display: inline-block
+                padding: 0 25px
+                font-weight: bold
+                margin-left: 18px
+                &:hover
+                  background-color: #E2A864
+                  color: #fff
+                  border-color: #E2A864
+                  opacity: 1
+                img
+                  display: none
               >img
                 width: 18px
                 height: 18px
@@ -104,6 +130,9 @@
                 opacity: 0.6
             .dropdown
               position: relative
+              display: flex
+              align-self: stretch
+              align-items: center
               .dropdown-panel
                 opacity: 0
                 @include position(absolute, 0, auto, auto, 0)
@@ -162,6 +191,7 @@
         .menu-buttons
           flex: 1
           justify-content: flex-end
+          align-items: flex-end
           display: flex
           .login-button
             color: #FFFFFF
@@ -176,23 +206,8 @@
             font-weight: bold
             &:hover
               background-color: #E2A864
-          .language-selector-button
-            color: #5DB3ED
-            border: 1px solid #5DB3ED
-            border-radius: 21px
-            line-height: 40px
-            text-align: center
-            font-size: 16px
-            display: inline-block
-            padding: 0 14px
-            font-weight: bold
 
-            &:hover
-              background-color: #E2A864
-              color: #fff
-              border-color: #E2A864
         >.dropdown-toggle
-          flex: 1
           >img
             width: 24px
             height: 24px
@@ -349,13 +364,13 @@
           color: #00005F
 
   &.background-middleware
-    background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#5745A5 ,#2F2A5B 100%)
+    background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#2F2A5B,#5745A5 100%)
     background-position: center bottom
     background-repeat: no-repeat
     height: 847px
     background-size: auto 100%
     @include screen-max-width(420px)
-      background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#5745A5 ,#2F2A5B 100%)
+      background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#2F2A5B,#5745A5 100%)
       background-position: -509px top, center bottom
       background-repeat: no-repeat
       height: 765px
@@ -462,6 +477,7 @@
       width: 100%
       font: 14px Proxima Nova
       color: #fff
+
       .wrap
         max-width: 1120px
         width: 100%
@@ -488,7 +504,6 @@
         flex-direction: column
         margin-right: 30px
         .panel-content
-          flex: 1
           margin: 30px 0
           overflow: scroll
           height: 140px
@@ -511,18 +526,15 @@
       .panel-rates
         flex: 1
         margin-left: 30px
-        overflow: scroll
 
     @include screen-max-width(1023px)
       height: auto
       padding-bottom: 0
       .wrap
         margin: 0
-        height: 100vh
-        max-height: 470px
+        max-height: 80vh
+        min-height: 470px
         .top
-          .logo
-            display: none
         .content
           padding: 10px 20px
           margin-top: 50px
@@ -574,3 +586,12 @@
           .text
             margin-top: 30px
             max-width: 288px
+
+::-webkit-scrollbar
+  -webkit-appearance: none
+  width: 7px
+::-webkit-scrollbar-thumb
+  border-radius: 4px
+  background-color: rgba(255,255,255,0.2)
+::-webkit-scrollbar-corner
+  background: transparent

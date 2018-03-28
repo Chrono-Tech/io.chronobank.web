@@ -3,7 +3,7 @@ import ImageModel from './ImageModel'
 import { LangFieldSet } from './helpers'
 
 export default class MenuModel {
-  constructor ({ id, title, subtitle, url, symbol, icon32x32, icon40x40, isVisibleInHeader, isVisibleInFooter, children }) {
+  constructor ({ id, title, subtitle, url, symbol, icon32x32, icon40x40, style, isVisibleInHeader, isVisibleInFooter, isVisibleInMobile, children }) {
     this.id = id
     this.title = title
     this.subtitle = subtitle
@@ -16,8 +16,10 @@ export default class MenuModel {
     this.icon40x40 = icon40x40
     assert(children == null || !children.find((child) => !(child instanceof MenuModel)))
     this.children = children
+    this.style = style || null
     this.isVisibleInHeader = isVisibleInHeader
     this.isVisibleInFooter = isVisibleInFooter
+    this.isVisibleInMobile = isVisibleInMobile
     Object.freeze(this)
   }
 
@@ -52,8 +54,10 @@ export default class MenuModel {
       symbol: ImageModel.fromServerModel(data.symbol),
       icon32x32: ImageModel.fromServerModel(data.icon32x32),
       icon40x40: ImageModel.fromServerModel(data.icon40x40),
+      style: data.style,
       isVisibleInHeader: data.isVisibleInHeader,
       isVisibleInFooter: data.isVisibleInFooter,
+      isVisibleInMobile: data.isVisibleInMobile,
     })
   }
 }
