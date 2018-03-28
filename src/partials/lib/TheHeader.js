@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import moment from 'moment'
 
 import { Link } from 'src/router'
 import { DropdownMenu } from 'src/components'
@@ -11,7 +12,7 @@ import { EventsRotator } from 'dropins/events/src/components'
 import { HeaderModel, MenuModel, PostModel, LanguageModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector, menuSelector } from 'src/store'
 import ExchangesPanel from './ExchangesPanel'
 
 import styles from './TheHeader.sass'
@@ -26,6 +27,7 @@ export default class TheHeader extends React.Component {
     showMobileMenu: PropTypes.func,
     eventsShow: PropTypes.func,
     changeLanguage: PropTypes.func,
+    menuSelector: PropTypes.func,
     userLanguage: PropTypes.string,
     languages: PropTypes.arrayOf(LanguageModel),
     menus: PropTypes.arrayOf(
@@ -61,10 +63,11 @@ export default class TheHeader extends React.Component {
   }
 
   render () {
-    const { menus, header, languages, userLanguage, constants } = this.props
+    const { menus, header, languages, userLanguage, constants, headerSlug, menuSelector } = this.props
+    const loginMenuItem = menuSelector('Login')
 
     return (
-      <header className={cn('root', 'the-header', {
+      <header className={cn('root', 'the-header', headerSlug, {
         'background-dark': header.background === 'dark',
         'background-light': header.background === 'light',
         'background-middleware': header.background === 'middleware',
@@ -80,8 +83,7 @@ export default class TheHeader extends React.Component {
             <div className='logo'>
               <Link route='/'>
                 <a>
-                  <img className='logo-mobile' src='/static/images/logo/logo-mobile-header.svg' />
-                  <img className='logo-desktop' src='/static/images/logo/logo-desktop-header.svg' />
+                  <img className='logo-desktop' src='/static/images/logo/logo-chrono-bank-full.svg' />
                 </a>
               </Link>
             </div>
@@ -115,7 +117,7 @@ export default class TheHeader extends React.Component {
                                     </Link>
                                   )
                                   : (
-                                    <a href={child.url} target='_blank' rel='noopener noreferrer'>
+                                    <a href={child.url} className={cn({ 'link-rounded': m.style === 'rounded' })} target='_blank' rel='noopener noreferrer'>
                                       <div className='product'>
                                         <div className='product-icon'>
                                           {!child.icon40x40 ? null : (
@@ -141,7 +143,7 @@ export default class TheHeader extends React.Component {
                         m.isRoute()
                           ? (
                             <Link route={m.url}>
-                              <a className='link'>
+                              <a className={cn('link', { 'link-rounded': m.style === 'rounded' })}>
                                 {m.symbol == null ? null : (
                                   <img src='/static/images/symbols/login.svg' />
                                 )}
@@ -150,7 +152,7 @@ export default class TheHeader extends React.Component {
                             </Link>
                           )
                           : (
-                            <a className='link' href={m.url} target='_blank' rel='noopener noreferrer'>
+                            <a className={cn('link', { 'link-rounded': m.style === 'rounded' })} href={m.url} target='_blank' rel='noopener noreferrer'>
                               {m.symbol == null ? null : (
                                 <img src='/static/images/symbols/login.svg' />
                               )}
@@ -161,12 +163,12 @@ export default class TheHeader extends React.Component {
                     }
                   </li>
                 ))}
-                <li>
+                <li className='lang-selector'>
                   <DropdownMenu
                     value={userLanguage}
                     options={languages.map((lang) => ({
                       value: lang.key,
-                      title: lang.label,
+                      title: `${lang.key && lang.key.toUpperCase()} - ${lang.title}`,
                     }))}
                     className='language'
                     onChange={(value) => this.props.changeLanguage(value)}
@@ -175,8 +177,23 @@ export default class TheHeader extends React.Component {
               </ul>
             </div>
             <div className='menu-mobile'>
-              <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu.svg' /></a>
-              <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-dark.svg' /></a>
+              <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-white.svg' /></a>
+              <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-blue.svg' /></a>
+              <div className='menu-buttons'>
+                { loginMenuItem ?
+                  <a className='login-button' href={loginMenuItem.url}>{loginMenuItem.title}</a>
+                  : null }
+                <DropdownMenu
+                  value={userLanguage}
+                  options={languages.map((lang) => ({
+                    value: lang.key,
+                    title: `${lang.key && lang.key.toUpperCase()} - ${lang.title}`,
+                  }))}
+                  className='language'
+                  onChange={(value) => this.props.changeLanguage(value)}
+
+                />
+              </div>
             </div>
           </div>
           <div className='news'>
@@ -187,7 +204,7 @@ export default class TheHeader extends React.Component {
             {!header.video ? null : (
               <div className='video'>
                 <a onClick={() => this.props.showVideo(header.video)}>
-                  <img src='/static/images/symbols/video.svg' />
+                  <img src='/static/images/svg/play-circle.svg' />
                   <span>{ constants('watch-the-introduction') }</span>
                 </a>
               </div>
@@ -232,9 +249,38 @@ export default class TheHeader extends React.Component {
             />
           )}
         </div>
-        {header.stereotype !== 'splash' ? null : (
-          <div className='rates'>
-            <ExchangesPanel />
+        {headerSlug !== 'main-page' ? null : (
+          <div className='index-panel'>
+            <div className='wrap'>
+
+              <div className='panel-news'>
+                <div className='panel-header'>
+                  <div className='header-wrapper'>
+                    <div className='header-news'>News</div>
+                  </div>
+                </div>
+                <div className='panel-content'>
+                  {this.props.posts.map((post) => (
+                    <div key={post.id} className='news-item'>
+                      <div className='news-item-date'>{moment(post.publishedDate).format('MMM DD')}</div>
+                      <a className='news-item-text' href={post.url}>{post.title}</a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className='panel-rates'>
+                <div className='panel-header'>
+                  <div className='header-wrapper'>
+                    <div className='header-exchange'>Buy time tokens</div>
+                  </div>
+                </div>
+                <div className='panel-content'>
+                  <ExchangesPanel />
+                </div>
+              </div>
+
+            </div>
           </div>
         )}
       </header>
@@ -246,6 +292,7 @@ function mapStateToProps (state, op) {
   return {
     header: headerSelector(op.headerSlug)(state),
     menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
+    menuSelector: menuSelector(state),
     posts: state.pages.posts.array,
     languages: state.pages.languages.array,
     userLanguage: state.pages.userLanguage,

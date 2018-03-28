@@ -2,28 +2,45 @@
 @import "src/styles/partials/mixins"
 
 .root.coinmarketcap
+  margin-right: 18px
+  .percent-change
+    position: absolute
+    top: -20px
+    right: 0
+    font: bold 14px Proxima Nova
+    text-transform: uppercase
+    color: #E2A864
   .content
-    background: #FFFFFF
-    color: #555
-    border-radius: 2px
-    width: 260px
+    color: #E2A864
+    @include screen-max-width(1023px)
+      display: flex
     .head
       display: flex
-      align-items: center
+      align-items: flex-start
+      margin-bottom: 15px
+      @include screen-max-width(1023px)
+        margin-right: 55px
+        margin-bottom: 30px
+      @include screen-max-width(420px)
+        margin-right: 10px
+        flex: 1
+
       .logo
-        flex: 0 0 auto
-        padding: 12px
+        margin-right: 15px
         img
-          width: 64px
-          height: 64px
+          height: 34px
       .info
-        padding: 12px 12px 12px 0px
         .title
-          font-size: 16px
+          margin: -3px 0 6px
           white-space: nowrap
+          a
+            font: bold 12px Proxima Nova
+            line-height: 14px
+            color: #353266
         .price
-          font-size: 14px
-          color: #0039cb
+          font: 800 40px Proxima Nova
+          line-height: 32px
+          position: relative
           .change
             &-green
               color: #00c853
@@ -32,15 +49,13 @@
     .body
       .stats
         display: flex
-        margin: 0px 4px
+        margin: 0
         .stats-item
-          flex: 0 0 33%
-          padding: 0px 8px 8px 8px
-          box-sizing: border-box
-          text-align: center
-          font-size: 14px
-          color: #0039cb
-          label
-            color: #555
-            font-weight: bold
-            font-size: 12px
+          flex: 1
+          margin-right: 12px
+        label
+          margin-bottom: 2px
+        .stats-item, label
+          font: 700 14px Proxima Nova
+          line-height: 14px
+          color: #E2A864

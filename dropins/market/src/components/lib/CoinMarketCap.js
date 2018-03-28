@@ -19,45 +19,26 @@ export default class CoinMarketCap extends React.Component {
         <style jsx>{styles}</style>
         <div className='content'>
           <div className='head'>
-            <div className='logo'>
-              <img src='/static/images/time-token.png' />
-            </div>
             <div className='info'>
-              <div className='title'>
-                <a
-                  href='https://coinmarketcap.com/currencies/chronobank/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  ChronoBank (TIME)
-                </a>
-              </div>
               <div className='price'>
-                <span>{new Number(stats.data.price_usd).toFixed(2)} USD</span>&nbsp;
-                <span
-                  className={cn('change', {
-                    'change-green': stats.data.percent_change_24h > 0,
-                    'change-red': stats.data.percent_change_24h < 0,
-                  })}
-                >
-                  ({new Number(stats.data.percent_change_24h || 0).toFixed(2)}%)
-                </span>
+                <span>${new Number(stats.data.price_usd).toFixed(2)}</span>
+                <div className='percent-change'>{new Number(stats.data.percent_change_24h || 0).toFixed(0)}%</div>
               </div>
             </div>
           </div>
           <div className='body'>
             <div className='stats'>
               <div className='stats-item'>
-                <label>RANK</label>
+                <label>Rank</label>
                 <div>{stats.data.rank}</div>
               </div>
               <div className='stats-item'>
                 <label>CAP</label>
-                <div>${new Number((stats.data.market_cap_usd / 1000000)  || 0).toFixed(2)}&nbsp;M</div>
+                <div>${new Number((stats.data.market_cap_usd / 1000000)  || 0).toFixed(2)}M</div>
               </div>
               <div className='stats-item'>
                 <label>V24H</label>
-                <div>${new Number((stats.data.volume_24h_usd / 1000000) || 0).toFixed(2)}&nbsp;M</div>
+                <div>${new Number((stats.data.volume_24h_usd / 1000000) || 0).toFixed(2)}M</div>
               </div>
             </div>
           </div>
@@ -70,5 +51,6 @@ export default class CoinMarketCap extends React.Component {
 function mapStateToProps (state) {
   return {
     stats: state.marketDropin.stats,
+
   }
 }
