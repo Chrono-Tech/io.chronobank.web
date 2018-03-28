@@ -4,6 +4,7 @@ import { createSelector } from 'reselect'
 
 export const USER_LANGUAGE_COOKIE_KEY = 'userLanguage'
 export const USER_LANGUAGE_DEFAULT = 'en'
+export const STORAGE_TELEGRAM_PIN = 'telegramPin'
 
 export const headerSelector = (slug) => createSelector(
   (state) => state.pages.headers.array,
@@ -26,6 +27,15 @@ export const constantSelector = createSelector(
     let foundConst = constants.find((p) => p.slug === slug)
 
     return foundConst && foundConst.value || ''
+  }
+)
+
+export const telegramUrlSelector = createSelector(
+  (state) => state.pages.socials.array,
+  (socials) => (name) => {
+    let foundTelegram = socials.find((s) => s.title === name)
+
+    return foundTelegram && foundTelegram.url || ''
   }
 )
 
@@ -85,6 +95,11 @@ export const userLanguageFromCookies = (header) => createSelector(
       ? cookie.split(`${USER_LANGUAGE_COOKIE_KEY}=`)[1]
       : null
   }
+)
+
+export const getValueLocalStorage = (key) => createSelector(
+  (localStorage) => localStorage,
+  (l) => l && l.getItem(key)
 )
 
 // getSupposedUserLanguage

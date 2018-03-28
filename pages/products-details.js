@@ -57,6 +57,7 @@ class ProductsDetails extends React.Component {
             ? (
               <partials.ProductDescriptionsSection
                 descriptions={product.descriptions}
+                productSlug={product.slug}
               />)
             : null
           }
@@ -65,11 +66,13 @@ class ProductsDetails extends React.Component {
               <partials.ProductFeaturesSection
                 features={product.features}
                 mode={product.featuresMode}
+                productSlug={product.slug}
               />)
             : null
           }
         </main>
         <partials.TheFooter productSlug='chronomint' />
+        <partials.TelegramSection />
       </div>
     )
   }

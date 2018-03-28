@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
+import cn from 'classnames'
+
 import { ContactSendDialog } from 'src/dialogs'
 import { constantSelector, modalsOpen } from 'src/store'
 
@@ -21,10 +23,14 @@ export default class ProductFeaturesSection extends React.Component {
     constants: PropTypes.func,
     openContactDialog: PropTypes.func,
     mode: PropTypes.string,
+    productSlug: PropTypes.string,
   }
 
   static defaultProps = {
     interval: 5000,
+    productSlug: '',
+    constants: () => {},
+    mode: '',
   }
 
   constructor (props) {
@@ -81,11 +87,14 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   renderFeaturesList (){
-    const { features, constants } = this.props
+    const { features, constants, productSlug } = this.props
     const activeFeature = features[this.state.active]
 
     return (
-      <div className='root product-features-section'>
+      <div className={cn('root', 'product-features-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='heading'>
@@ -134,10 +143,13 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   renderFeaturesTile (){
-    const { features, openContactDialog } = this.props
+    const { features, constants, openContactDialog, productSlug } = this.props
 
     return (
-      <div className='root product-features-section'>
+      <div className={cn('root', 'product-features-section', {
+        [`product-page-${productSlug}`]: productSlug,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <div className='content'>
@@ -157,8 +169,8 @@ export default class ProductFeaturesSection extends React.Component {
             </ul>
           </div>
           <div className='feedback'>
-            <button className='link' onClick={openContactDialog}>Contact us</button>
-            <p className='notice'>Yes, and it’s easy to deploy!</p>
+            <button className='link' onClick={openContactDialog}>{constants('contact-us')}</button>
+            <p className='notice'>{constants('and-yes-its-easy-to-deploy')}</p>
           </div>
         </div>
       </div>
