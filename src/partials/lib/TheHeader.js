@@ -193,9 +193,7 @@ export default class TheHeader extends React.Component {
                   onChange={(value) => this.props.changeLanguage(value)}
 
                 />
-                {/*<a className='language-selector-button' href='#'>EN</a>*/}
               </div>
-              {/*<a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-white.svg' /></a>*/}
             </div>
           </div>
           <div className='news'>
