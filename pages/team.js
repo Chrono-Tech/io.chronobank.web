@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import PropTypes from 'prop-types'
 
-import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage, titleSelector } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initTeamPage, titleSelector, constantSelector } from 'src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
 
@@ -16,6 +16,7 @@ class Team extends React.Component {
   static propTypes = {
 
     titles: PropTypes.func,
+    constants: PropTypes.func,
 
   }
 
@@ -27,13 +28,13 @@ class Team extends React.Component {
   }
 
   render () {
-    const { titles } = this.props
+    const { titles, constants } = this.props
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
         <style jsx>{styles}</style>
         <Head>
-          <title>ChronoBank.io: Team</title>
+          <title>ChronoBank.io: {constants('team')}</title>
           <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
           <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width' />
         </Head>
@@ -62,6 +63,7 @@ class Team extends React.Component {
 function mapStateToProps (state) {
   return {
     titles: titleSelector(state),
+    constants: constantSelector(state),
   }
 }
 

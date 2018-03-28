@@ -21,7 +21,7 @@ export default class ExchangeModel {
     })
   }
 
-  static fromServerModel (data,) {
+  static fromServerModel (data) {
     return data == null ? data : new ExchangeModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,

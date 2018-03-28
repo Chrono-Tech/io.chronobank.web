@@ -5,6 +5,8 @@ import { debounce } from 'lodash'
 
 import { FaqTopicModel, FaqQuestionModel } from 'src/models'
 import { BACKEND } from 'src/endpoints'
+import { constantSelector } from 'src/store'
+
 import { AccordeonPanel, ReferencePanel, SearchPanel, SectionsPanel } from 'src/components'
 
 import styles from './FaqSection.sass'
@@ -102,7 +104,7 @@ export default class FaqSection extends React.Component {
   }
 
   render () {
-    const { query, topic, reference, results } = this.state
+    const { query, topic, reference, results, constants } = this.state
     return (
       <div className='root faq-section'>
         <style jsx>{styles}</style>
@@ -123,7 +125,7 @@ export default class FaqSection extends React.Component {
               <div className='results'>
                 {!results.length
                   ? (
-                    <div className='no-results'>No relevant results</div>
+                    <div className='no-results'>{constants('no-relevant-results')}</div>
                   )
                   : (
                     <SectionsPanel
@@ -160,5 +162,6 @@ function mapStateToProps (state) {
   return {
     topics: state.pages.faqTopics.array,
     userLanguage: state.pages.userLanguage,
+    constants: constantSelector(state),
   }
 }
