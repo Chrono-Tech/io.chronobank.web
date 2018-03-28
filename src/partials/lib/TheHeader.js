@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import moment from 'moment'
 
 import { Link } from 'src/router'
 import { DropdownMenu } from 'src/components'
@@ -61,10 +62,10 @@ export default class TheHeader extends React.Component {
   }
 
   render () {
-    const { menus, header, languages, userLanguage, constants } = this.props
+    const { menus, header, languages, userLanguage, constants, headerSlug } = this.props
 
     return (
-      <header className={cn('root', 'the-header', {
+      <header className={cn('root', 'the-header', headerSlug, {
         'background-dark': header.background === 'dark',
         'background-light': header.background === 'light',
         'background-middleware': header.background === 'middleware',
@@ -81,7 +82,7 @@ export default class TheHeader extends React.Component {
               <Link route='/'>
                 <a>
                   <img className='logo-mobile' src='/static/images/logo/logo-mobile-header.svg' />
-                  <img className='logo-desktop' src='/static/images/logo/logo-desktop-header.svg' />
+                  <img className='logo-desktop' src='/static/images/logo/logo-chrono-bank-full.svg' />
                 </a>
               </Link>
             </div>
@@ -175,8 +176,13 @@ export default class TheHeader extends React.Component {
               </ul>
             </div>
             <div className='menu-mobile'>
-              <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu.svg' /></a>
+              <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-white.svg' /></a>
               <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-dark.svg' /></a>
+              <div className='menu-buttons'>
+                <a className='login-button' href='#'>Login</a>
+                <a className='language-selector-button' href='#'>EN</a>
+              </div>
+              {/*<a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-white.svg' /></a>*/}
             </div>
           </div>
           <div className='news'>
@@ -187,7 +193,7 @@ export default class TheHeader extends React.Component {
             {!header.video ? null : (
               <div className='video'>
                 <a onClick={() => this.props.showVideo(header.video)}>
-                  <img src='/static/images/symbols/video.svg' />
+                  <img src='/static/images/svg/play-circle.svg' />
                   <span>{ constants('watch-the-introduction') }</span>
                 </a>
               </div>
@@ -232,9 +238,38 @@ export default class TheHeader extends React.Component {
             />
           )}
         </div>
-        {header.stereotype !== 'splash' ? null : (
-          <div className='rates'>
-            <ExchangesPanel />
+        {headerSlug !== 'main-page' ? null : (
+          <div className='index-panel'>
+            <div className='wrap'>
+
+              <div className='panel-news'>
+                <div className='panel-header'>
+                  <div className='header-wrapper'>
+                    <div className='header-news'>News</div>
+                  </div>
+                </div>
+                <div className='panel-content'>
+                  {this.props.posts.map((post, index) => (
+                    <div key={'post-'+index} className='news-item'>
+                      <div className='news-item-date'>{moment(post.publishedDate).format('MMM DD')}</div>
+                      <a className='news-item-text' href={post.url}>{post.title}</a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className='panel-rates'>
+                <div className='panel-header'>
+                  <div className='header-wrapper'>
+                    <div className='header-exchange'>Buy time tokens</div>
+                  </div>
+                </div>
+                <div className='panel-content'>
+                  <ExchangesPanel />
+                </div>
+              </div>
+
+            </div>
           </div>
         )}
       </header>

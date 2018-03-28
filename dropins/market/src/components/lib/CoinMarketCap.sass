@@ -2,22 +2,25 @@
 @import "src/styles/partials/mixins"
 
 .root.coinmarketcap
-  > .title
+  margin-right: 18px
+  .percent-change
     position: absolute
-    top: -8px
-    font: bold 10px Proxima Nova
+    top: -20px
+    right: 0
+    font: bold 14px Proxima Nova
     text-transform: uppercase
-    color: #737390
+    color: #E2A864
   .content
-    background: #FFFFFF
-    color: #555
-    border-radius: 2px
-    min-width: 220px
-    padding: 16px 15px 12px
+    color: #E2A864
+    @include screen-max-width(1023px)
+      display: flex
     .head
       display: flex
       align-items: flex-start
-      margin-bottom: 20px
+      margin-bottom: 15px
+      @include screen-max-width(1023px)
+        margin-right: 55px
+        margin-bottom: 30px
       .logo
         //flex: 0 0 auto
         margin-right: 15px
@@ -33,9 +36,9 @@
             line-height: 14px
             color: #353266
         .price
-          color: #353266
-          font: 20px Proxima Nova
-          line-height: 14px
+          font: 800 40px Proxima Nova
+          line-height: 32px
+          position: relative
           .change
             &-green
               color: #00c853
@@ -44,10 +47,13 @@
     .body
       .stats
         display: flex
-        margin: 0px 4px
+        margin: 0
         .stats-item
           flex: 1
+          margin-right: 12px
+        label
+          margin-bottom: 2px
         .stats-item, label
-          font: 12px Proxima Nova
+          font: 700 14px Proxima Nova
           line-height: 14px
-          color: #9c9c9c
+          color: #E2A864

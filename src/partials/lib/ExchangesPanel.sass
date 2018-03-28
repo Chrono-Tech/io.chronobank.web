@@ -23,8 +23,13 @@
   overflow-y: scroll
   .content
     position: relative
-    display: table
-    margin: 12px auto
+    display: flex
+    margin: 34px 0 0
+    @include screen-max-width(1023px)
+      flex-direction: column
+    .exchanges-list
+      flex-direction: row
+      display: flex
     &.content-animate
       animation: infinite-loop 10s infinite linear
       @include screen-max-width(1023px)
@@ -33,33 +38,34 @@
         animation: infinite-loop 30s infinite linear
       @include screen-max-width(480px)
         animation: infinite-loop 30s infinite linear
+    .item .logo
+      transform: scale(1)
+      transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms
     .item
       position: relative
-      display: table-cell
-      vertical-align: middle
-      padding: 12px
+      margin-right: 18px
+      &:hover .logo
+        transform: scale(1.1)
+
       .exchange
-        display: flex
-        align-items: center
-        // width: 200px
-        box-sizing: border-box
-        background: #f7f9ff
-        border-radius: 2px
-        box-shadow: 0 8px 16px rgba(0,0,0,0.06)
-        width: 120px
-        height: 90px
-        &:hover
-          background: #FFFFFF
-          box-shadow: 0 8px 16px rgba(0,0,0,0.24)
-        .logo
-          flex: 0 0 auto
-          // margin: 12px
-          img
-            max-width: 80px
-            max-height: 80px
-            position: absolute
-            top: 50%
-            left: 50%
-            transform: translate(-50%, -50%)
+        text-align: center
         .title
-          display: none
+          transition: color 150ms linear 100ms
+        &:hover .title
+          color: #E2A864
+        .logo
+          background: #FFF
+          width: 56px
+          height: 56px
+          line-height: 56px
+          text-align: center
+          border-radius: 28px
+          margin-bottom: 8px
+          img
+            width: 32px
+            height: 32px
+          //flex: 0 0 auto
+        .title
+          font-size: 10px
+          color: #FFF
+//display: none
