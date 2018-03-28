@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Transition } from 'react-transition-group'
-import { constantSelector } from 'src/store'
+import { ContactSendDialog } from 'src/dialogs'
+import { constantSelector, modalsOpen } from 'src/store'
 
 import styles from './ProductFeaturesSection.sass'
 
@@ -11,13 +12,14 @@ const transitionStyles = {
   entered:  { opacity: 1 },
 }
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class ProductFeaturesSection extends React.Component {
 
   static propTypes = {
     features: PropTypes.array.isRequired,
     interval: PropTypes.number,
     constants: PropTypes.func,
+    openContactDialog: PropTypes.func,
     mode: PropTypes.string,
   }
 
@@ -132,7 +134,7 @@ export default class ProductFeaturesSection extends React.Component {
   }
 
   renderFeaturesTile (){
-    const { features } = this.props
+    const { features, openContactDialog } = this.props
 
     return (
       <div className='root product-features-section'>
@@ -155,7 +157,7 @@ export default class ProductFeaturesSection extends React.Component {
             </ul>
           </div>
           <div className='feedback'>
-            <a className='link' href='/#contact-us'>Contact us</a>
+            <button className='link' onClick={openContactDialog}>Contact us</button>
             <p className='notice'>Yes, and it’s easy to deploy!</p>
           </div>
         </div>
@@ -171,5 +173,16 @@ export default class ProductFeaturesSection extends React.Component {
 function mapStateToProps (state) {
   return {
     constants: constantSelector(state),
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    openContactDialog: () => {
+      dispatch(modalsOpen({
+        component: ContactSendDialog,
+        props: {},
+      }))
+    },
   }
 }
