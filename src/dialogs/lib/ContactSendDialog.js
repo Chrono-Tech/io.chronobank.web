@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { ModalDialog } from 'src/components'
 import { ConfirmationDialog } from 'src/dialogs'
 import { BACKEND } from 'src/endpoints'
+import * as partials from 'src/partials'
 import { modalsClose, modalsOpen, titleSelector, constantSelector } from 'src/store'
 
 import styles from './ContactSendDialog.sass'
@@ -38,7 +39,7 @@ export class ContactSendDialog extends React.Component {
       el.value = ''
       this.handleInput(el)
     }
-    const title = titles('your-message-has-been-sent')
+    const title = <partials.TheTitle title={titles('your-message-has-been-sent')} />
 
     const content = constants('thank-you-shortly')
 
@@ -51,7 +52,9 @@ export class ContactSendDialog extends React.Component {
       <ModalDialog onClose={() => onClose()}>
         <style jsx>{styles}</style>
         <div className='root contact-send-dialog'>
-          <div className='title'>{ titles('contact-us') }</div>
+          <div className='title'>
+            <partials.TheTitle title={titles('contact-us')} />
+          </div>
           <form ref={(el) => this.formElement = el} onSubmit={(e) => this.handleSubmit(e)}>
             <div className='field'>
               <input

@@ -256,13 +256,13 @@ export default class TheHeader extends React.Component {
               <div className='panel-news'>
                 <div className='panel-header'>
                   <div className='header-wrapper'>
-                    <div className='header-news'>News</div>
+                    <div className='header-news'>{constants('news')}</div>
                   </div>
                 </div>
                 <div className='panel-content'>
                   {this.props.posts.map((post) => (
                     <div key={post.id} className='news-item'>
-                      <div className='news-item-date'>{moment(post.publishedDate).format('MMM DD')}</div>
+                      <div className='news-item-date'>{moment(post.publishedDate).locale(userLanguage).format('MMM DD')}</div>
                       <a className='news-item-text' href={post.url}>{post.title}</a>
                     </div>
                   ))}
@@ -272,7 +272,7 @@ export default class TheHeader extends React.Component {
               <div className='panel-rates'>
                 <div className='panel-header'>
                   <div className='header-wrapper'>
-                    <div className='header-exchange'>Buy time tokens</div>
+                    <div className='header-exchange'>{constants('buy-time-tokens')}</div>
                   </div>
                 </div>
                 <div className='panel-content'>
