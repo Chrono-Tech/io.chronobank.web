@@ -53,7 +53,7 @@ export class ContactSendDialog extends React.Component {
         <style jsx>{styles}</style>
         <div className='root contact-send-dialog'>
           <div className='title'>
-            <partials.TheTitle title={titles('contact-us')} />
+            <partials.TheTitle title={titles('contact-us-popup-title')} />
           </div>
           <form ref={(el) => this.formElement = el} onSubmit={(e) => this.handleSubmit(e)}>
             <div className='field'>

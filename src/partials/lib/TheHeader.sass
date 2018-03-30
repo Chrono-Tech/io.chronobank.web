@@ -264,6 +264,8 @@
       .video
         display: table
         margin-top: 14px
+        @include screen-max-width(639px)
+          max-width: 260px
         a
           font-size: 20px
           font-weight: 700
@@ -420,6 +422,7 @@
       display: none
     .wrap
       width: 100%
+      height: auto
       .content
         font-family: Proxima Nova
         .text
@@ -456,12 +459,12 @@
           right: -220px
         @include screen-max-width(479px)
           top: 11%
-          left: -20px
+          left: 0
 
 
     .index-panel
       height: 220px
-      z-index: 100
+      z-index: 1
       background: linear-gradient(to bottom,rgba(0, 0, 0, 0.25),rgba(0, 18, 25, 0.25) 100%)
       position: absolute
       bottom: 0
@@ -500,7 +503,7 @@
           height: 140px
           .news-item
             display: flex
-            margin-bottom: 25px
+            margin-bottom: 20px
             line-height: 20px
             font-weight: bold
             &:last-child

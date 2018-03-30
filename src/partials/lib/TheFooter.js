@@ -124,7 +124,7 @@ export default class TheFooter extends React.Component {
             </div>
             <div className='col-3'>
               <div className='contacts'>
-                <h4>{ constants('contacts-us') }</h4>
+                <h4>{ constants('contact-us-footer') }</h4>
                 {contacts.map((c) => (
                   <dl key={c.id}>
                     <dt>{c.title}:</dt>

@@ -424,14 +424,14 @@ export const setVisibleTelegramBar = (telegramPin) => (dispatch) => {
 }
 
 export const saveToLocalStorage = (key, value) => () => {
-  if (typeof localStorage !== 'undefined') {
-    localStorage.setItem(key, value)
+  if (typeof sessionStorage !== 'undefined') {
+    sessionStorage.setItem(key, value)
   }
 }
 
 export const initTelegramPin = () => (dispatch) => {
-  if (typeof localStorage !== 'undefined') {
-    let telegramPin = getValueLocalStorage(STORAGE_TELEGRAM_PIN)(localStorage) !== 'false'
+  if (typeof sessionStorage !== 'undefined') {
+    let telegramPin = getValueLocalStorage(STORAGE_TELEGRAM_PIN)(sessionStorage) !== 'false'
 
     dispatch(setVisibleTelegramBar(telegramPin))
   }
