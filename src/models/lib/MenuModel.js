@@ -3,7 +3,7 @@ import ImageModel from './ImageModel'
 import { LangFieldSet } from './helpers'
 
 export default class MenuModel {
-  constructor ({ id, title, subtitle, url, symbol, icon32x32, icon40x40, style, isVisibleInHeader, isVisibleInFooter, isVisibleInMobile, children }) {
+  constructor ({ id, title, subtitle, url, symbol, name, icon32x32, icon40x40, style, isVisibleInHeader, isVisibleInFooter, isVisibleInMobile, children }) {
     this.id = id
     this.title = title
     this.subtitle = subtitle
@@ -16,6 +16,7 @@ export default class MenuModel {
     this.icon40x40 = icon40x40
     assert(children == null || !children.find((child) => !(child instanceof MenuModel)))
     this.children = children
+    this.name = name
     this.style = style || null
     this.isVisibleInHeader = isVisibleInHeader
     this.isVisibleInFooter = isVisibleInFooter
@@ -47,6 +48,7 @@ export default class MenuModel {
     return data == null ? data : new MenuModel({
       // eslint-disable-next-line no-underscore-dangle
       id: data._id,
+      name: data.title,
       title: localeModelFields.getLocaleField('title'),
       subtitle: localeModelFields.getLocaleField('subtitle'),
       url: data.url,

@@ -78,7 +78,7 @@ export class DropdownMenu extends React.Component {
     const { getSelectedTitle } = this.props
     const { active } = this.state
 
-    return getSelectedTitle && getSelectedTitle(active) || active.value || ''
+    return getSelectedTitle && getSelectedTitle(active) || active && active.value || ''
   }
 
   render () {
