@@ -6,7 +6,7 @@
   background: linear-gradient(to bottom,#2F2A5B ,#5745A5 100%)
   padding: 22px 0 80px
   position: relative
-  overflow: hidden
+  //overflow: hidden
   box-sizing: border-box
   .rates
     @include position(absolute, auto, 0, 0, 0)
@@ -503,9 +503,13 @@
           height: 140px
           .news-item
             display: flex
-            margin-bottom: 20px
-            line-height: 20px
+            margin-bottom: 1.45em
+            line-height: 1.45em
+            font-size: 1em
             font-weight: bold
+            @include screen-max-width(1023px)
+              margin-bottom: 1.5em
+              line-height: 1.5em
             &:last-child
               margin-bottom: 0
             .news-item-date
@@ -558,6 +562,16 @@
             margin-left: 0
             .panel-header
               padding-top: 10px
+
+  &.laborx-page
+    .image
+      img
+        bottom: -48px !important
+        .image-1280
+          height: 560px
+          left: -95px
+          max-width: none
+          max-height: none
 
 
 

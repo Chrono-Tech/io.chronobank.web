@@ -40,6 +40,7 @@ export default class TheFooter extends React.Component {
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
     ),
+    telegramPin: PropTypes.bool,
   }
 
   constructor (props) {
@@ -86,10 +87,12 @@ export default class TheFooter extends React.Component {
   }
 
   render () {
-    const { menus, papers, contacts, socials, distros, constants } = this.props
+    const { menus, papers, contacts, socials, distros, constants, telegramPin } = this.props
     const { subscriptionStatus } = this.state
     return (
-      <footer className='root footer-section'>
+      <footer className={cn('root', 'footer-section', {
+        'telegram-section-enabled': telegramPin,
+      })}>
         <style jsx>{styles}</style>
         <div className='wrap'>
           <a className='scrolltop' onClick={() => this.scrollTo({ top: 0 })}>Scroll to top</a>
@@ -190,6 +193,7 @@ function mapStateToProps (state, op) {
     papers: state.pages.papers.array,
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInFooter),
     socials: state.pages.socials.array,
+    telegramPin: state.pages.telegramPin,
     constants: constantSelector(state),
   }
 }
