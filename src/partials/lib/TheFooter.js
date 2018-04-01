@@ -92,7 +92,8 @@ export default class TheFooter extends React.Component {
     return (
       <footer className={cn('root', 'footer-section', {
         'telegram-section-enabled': telegramPin,
-      })}>
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <a className='scrolltop' onClick={() => this.scrollTo({ top: 0 })}>Scroll to top</a>

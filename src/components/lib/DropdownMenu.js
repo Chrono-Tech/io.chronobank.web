@@ -82,7 +82,7 @@ export class DropdownMenu extends React.Component {
   }
 
   render () {
-    const { options, dropdownSlug } = this.props
+    const { options } = this.props
     const { active, isOpen } = this.state
     return (
       <div className={cn('root', 'dropdown-menu', this.props.className, { 'dropdown-menu-open': isOpen })}>
