@@ -22,7 +22,10 @@ export default class CoinMarketCap extends React.Component {
             <div className='info'>
               <div className='price'>
                 <span>${new Number(stats.data.price_usd).toFixed(2)}</span>
-                <div className='percent-change'>{new Number(stats.data.percent_change_24h || 0).toFixed(0)}%</div>
+                <div className='percent-change'>
+                  {stats.data.percent_change_24h > 0 ? '+' : null}
+                  {new Number(stats.data.percent_change_24h || 0).toFixed(0)}%
+                </div>
               </div>
             </div>
           </div>
