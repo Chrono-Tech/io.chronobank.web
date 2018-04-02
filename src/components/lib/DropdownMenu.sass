@@ -28,20 +28,24 @@
         border-color: #E2A864
     >.dropdown-options
       @include position(absolute, 54px, 0, auto, auto)
-      display: none
       border-style: solid
       border-color: #FFA74F
       background-color: #FFFFFF
+      box-shadow: 0 8px 16px rgba(0,0,0,0.24)
       border-radius: 25px
       font-size: 16px
       text-align: center
       line-height: 22px
       border-width: 5px 0px 0px
       overflow: hidden
+      visibility: hidden
+      transition: all 0.3s, transform 0.5s
+      opacity: 0
       >.dropdown-option
         color: #000
-        min-width: 50px
-        width: 145px
+        padding: 0 20px 0 32px
+        text-align: left
+        white-space: nowrap
         line-height: 52px
         font-family: Proxima Nova
         &-active
@@ -62,3 +66,5 @@
           border-bottom: 0.4rem solid currentColor
       >.dropdown-options
         display: block
+        opacity: 1
+        visibility: visible

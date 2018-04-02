@@ -40,6 +40,7 @@ export default class TheFooter extends React.Component {
     distros: PropTypes.arrayOf(
       PropTypes.instanceOf(ProductDistroModel)
     ),
+    telegramPin: PropTypes.bool,
   }
 
   constructor (props) {
@@ -86,10 +87,13 @@ export default class TheFooter extends React.Component {
   }
 
   render () {
-    const { menus, papers, contacts, socials, distros, constants } = this.props
+    const { menus, papers, contacts, socials, distros, constants, telegramPin } = this.props
     const { subscriptionStatus } = this.state
     return (
-      <footer className='root footer-section'>
+      <footer className={cn('root', 'footer-section', {
+        'telegram-section-enabled': telegramPin,
+      })}
+      >
         <style jsx>{styles}</style>
         <div className='wrap'>
           <a className='scrolltop' onClick={() => this.scrollTo({ top: 0 })}>Scroll to top</a>
@@ -124,7 +128,7 @@ export default class TheFooter extends React.Component {
             </div>
             <div className='col-3'>
               <div className='contacts'>
-                <h4>{ constants('contacts-us') }</h4>
+                <h4>{ constants('contact-us-footer') }</h4>
                 {contacts.map((c) => (
                   <dl key={c.id}>
                     <dt>{c.title}:</dt>
@@ -190,6 +194,7 @@ function mapStateToProps (state, op) {
     papers: state.pages.papers.array,
     contacts: state.pages.contacts.array.filter((c) => c.isVisibleInFooter),
     socials: state.pages.socials.array,
+    telegramPin: state.pages.telegramPin,
     constants: constantSelector(state),
   }
 }

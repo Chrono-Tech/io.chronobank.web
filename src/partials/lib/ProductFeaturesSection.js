@@ -169,7 +169,7 @@ export default class ProductFeaturesSection extends React.Component {
             </ul>
           </div>
           <div className='feedback'>
-            <button className='link' onClick={openContactDialog}>{constants('contact-us')}</button>
+            <button className='link' onClick={openContactDialog}>{constants('contact-us-button-middleware')}</button>
             <p className='notice'>{constants('and-yes-its-easy-to-deploy')}</p>
           </div>
         </div>

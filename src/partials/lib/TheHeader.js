@@ -181,7 +181,9 @@ export default class TheHeader extends React.Component {
               <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-blue.svg' /></a>
               <div className='menu-buttons'>
                 { loginMenuItem ?
-                  <a className='login-button' href={loginMenuItem.url}>{loginMenuItem.title}</a>
+                  (loginMenuItem.isRoute() ?
+                    <a className='login-button' href={loginMenuItem.url}>{loginMenuItem.title}</a>
+                    : <a className='login-button' href={loginMenuItem.url} target='_blank' rel='noopener noreferrer'>{loginMenuItem.title}</a>)
                   : null }
                 <DropdownMenu
                   value={userLanguage}

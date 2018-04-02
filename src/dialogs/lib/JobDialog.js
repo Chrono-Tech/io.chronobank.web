@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { BACKEND } from 'src/endpoints'
 import { ModalDialog } from 'src/components'
 import { ConfirmationDialog } from 'src/dialogs'
+import * as partials from 'src/partials'
 import { modalsClose, modalsOpen, constantSelector, titleSelector } from 'src/store'
 
 import styles from './JobDialog.sass'
@@ -41,7 +42,7 @@ export class JobDialog extends React.Component {
       this.handleInput(el)
     }
 
-    const title = titles('your-application-has-been-submitted')
+    const title = <partials.TheTitle title={titles('your-application-has-been-submitted')} />
 
     const content = (
       <p>

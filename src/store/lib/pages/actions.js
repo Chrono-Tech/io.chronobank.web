@@ -415,7 +415,7 @@ export const changeUserLanguage = (lang) => (dispatch) => {
 }
 
 export const setVisibleTelegramBar = (telegramPin) => (dispatch) => {
-  dispatch(saveToLocalStorage(STORAGE_TELEGRAM_PIN, telegramPin))
+  dispatch(saveToSessionStorage(STORAGE_TELEGRAM_PIN, telegramPin))
 
   return dispatch({
     type: PAGES_SET_VISIBLE_TELEGRAM_BAR,
@@ -423,15 +423,15 @@ export const setVisibleTelegramBar = (telegramPin) => (dispatch) => {
   })
 }
 
-export const saveToLocalStorage = (key, value) => () => {
-  if (typeof localStorage !== 'undefined') {
-    localStorage.setItem(key, value)
+export const saveToSessionStorage = (key, value) => () => {
+  if (typeof sessionStorage !== 'undefined') {
+    sessionStorage.setItem(key, value)
   }
 }
 
 export const initTelegramPin = () => (dispatch) => {
-  if (typeof localStorage !== 'undefined') {
-    let telegramPin = getValueLocalStorage(STORAGE_TELEGRAM_PIN)(localStorage) !== 'false'
+  if (typeof sessionStorage !== 'undefined') {
+    let telegramPin = getValueLocalStorage(STORAGE_TELEGRAM_PIN)(sessionStorage) !== 'false'
 
     dispatch(setVisibleTelegramBar(telegramPin))
   }
