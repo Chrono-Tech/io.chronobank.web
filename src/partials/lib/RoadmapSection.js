@@ -48,7 +48,6 @@ export default class RoadmapSection extends React.Component {
   }
 
   renderItem (iteration, index) {
-    const { userLanguage } = this.props
     return (
       <div className='item'>
         <style jsx>{styles}</style>
@@ -68,7 +67,7 @@ export default class RoadmapSection extends React.Component {
         <div className='text' dangerouslySetInnerHTML={{ __html: iteration.brief }} />
         <div className='bullet' onClick={() => this.swiper.slideTo(index)} />
         <div className='label'>
-          <div>{moment(iteration.date).locale(userLanguage).utc().format('MMM, YYYY')}</div>
+          <div>{moment(iteration.date).utc().format('MMM, YYYY')}</div>
         </div>
       </div>
     )

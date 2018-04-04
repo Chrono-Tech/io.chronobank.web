@@ -12,7 +12,7 @@ import { EventsRotator } from 'dropins/events/src/components'
 import { HeaderModel, MenuModel, PostModel, LanguageModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector, menuSelector } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector, menuSelector, monthsShortSelector } from 'src/store'
 import ExchangesPanel from './ExchangesPanel'
 
 import styles from './TheHeader.sass'
@@ -264,7 +264,7 @@ export default class TheHeader extends React.Component {
                 <div className='panel-content'>
                   {this.props.posts.map((post) => (
                     <div key={post.id} className='news-item'>
-                      <div className='news-item-date'>{moment(post.publishedDate).locale(userLanguage).format('MMM DD')}</div>
+                      <div className='news-item-date'>{moment(post.publishedDate).format('MMM DD')}</div>
                       <a className='news-item-text' href={post.url}>{post.title}</a>
                     </div>
                   ))}
@@ -304,6 +304,7 @@ function mapStateToProps (state, op) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    monthsShortSelector: (lang) => monthsShortSelector(lang),
     changeLanguage: (value) => {
       dispatch(changeUserLanguage(value))
     },

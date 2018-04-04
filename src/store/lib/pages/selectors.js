@@ -43,6 +43,25 @@ export const titleSelector = createSelector(
   (titles) => (slug) => titles.find((p) => p.slug === slug)
 )
 
+export const monthsShortSelector = createSelector(
+  () => [
+    { locale: 'en', monthsShort: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_') },
+    { locale: 'ru', monthsShort: 'Янв_Фев_Март_Апр_Май_Июнь_Июль_Авг_Сен_Окт_Ноя_Дек'.split('_') },
+    { locale: 'cn', monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_') },
+    { locale: 'de', monthsShort: 'Jan_Feb_März_Apr_Mai_Juni_Juli_Aug_Sep_Okt_Nov_Dez'.split('_') },
+    { locale: 'ko', monthsShort: '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_') },
+    { locale: 'ms', monthsShort: 'Jan_Feb_Mac_Apr_Mei_Jun_Jul_Ogs_Sep_Okt_Nov_Dis'.split('_') },
+    { locale: 'th', monthsShort: 'ม.ค._ก.พ._มี.ค._เม.ย._พ.ค._มิ.ย._ก.ค._ส.ค._ก.ย._ต.ค._พ.ย._ธ.ค.'.split('_') },
+    { locale: 'es', monthsShort: 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_') },
+    { locale: 'vi', monthsShort: 'Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12'.split('_') },
+    { locale: 'ar', monthsShort: 'يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_') },
+  ],
+  (locales) => (langCode) => {
+    const foundLocale = locales.find((l) => l.locale === langCode)
+    return foundLocale && foundLocale.monthsShort || []
+  }
+)
+
 export const languagesSelector = (/*langSelected*/) => createSelector(
   (/* state */) => [
     { code: 'en', name: 'Eng' },
