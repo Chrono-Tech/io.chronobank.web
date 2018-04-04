@@ -54,11 +54,10 @@ export const monthsShortSelector = createSelector(
     { locale: 'th', monthsShort: 'ม.ค._ก.พ._มี.ค._เม.ย._พ.ค._มิ.ย._ก.ค._ส.ค._ก.ย._ต.ค._พ.ย._ธ.ค.'.split('_') },
     { locale: 'es', monthsShort: 'Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic'.split('_') },
     { locale: 'vi', monthsShort: 'Th01_Th02_Th03_Th04_Th05_Th06_Th07_Th08_Th09_Th10_Th11_Th12'.split('_') },
-    { locale: 'ar', monthsShort: 'يناير_فبراير_مارس_أبريل_مايو_يونيو_يوليو_أغسطس_سبتمبر_أكتوبر_نوفمبر_ديسمبر'.split('_') },
   ],
   (locales) => (langCode) => {
     const foundLocale = locales.find((l) => l.locale === langCode)
-    return foundLocale && foundLocale.monthsShort || []
+    return foundLocale && foundLocale.monthsShort || null
   }
 )
 
