@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
-import initStore, { modalsClear, snackbarsClear, initUserLanguage, initIndexPage, titleSelector } from 'src/store'
+import initStore, { modalsClear, snackbarsClear, initUserLanguage, initIndexPage, titleSelector, initMomentLocale } from 'src/store'
 import { watchInitMarket, unwatchInitMarket, initCoinMarketCap } from 'dropins/market/src/store'
 import * as components from 'src/components'
 import * as partials from 'src/partials'
@@ -21,6 +21,7 @@ class Index extends React.Component {
     watchInitMarket: PropTypes.func,
     unwatchInitMarket: PropTypes.func,
     initCoinMarketCap: PropTypes.func,
+    initMomentLocale: PropTypes.func,
 
     titles: PropTypes.func,
   }
@@ -34,6 +35,10 @@ class Index extends React.Component {
     if (!isServer) {
       store.dispatch(watchInitMarket())
     }
+  }
+
+  componentWillMount (){
+    this.props.initMomentLocale()
   }
 
   componentDidMount () {
@@ -121,6 +126,7 @@ function mapDispatchToProps (dispatch) {
     initCoinMarketCap: () => dispatch(initCoinMarketCap()),
     watchInitMarket: () => dispatch(watchInitMarket()),
     unwatchInitMarket: () => dispatch(unwatchInitMarket()),
+    initMomentLocale: () => dispatch(initMomentLocale()),
   }
 }
 

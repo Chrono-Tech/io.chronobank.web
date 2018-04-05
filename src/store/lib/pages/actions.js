@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { BACKEND } from 'src/endpoints'
 
 import {
@@ -33,6 +34,7 @@ import {
   getLanguageByKey,
   getFirstLanguage,
   getValueLocalStorage,
+  monthsShortSelector,
 } from './selectors'
 
 export const PAGES_INIT_ARTICLES = 'pages/INIT_ARTICLES'
@@ -437,6 +439,22 @@ export const initTelegramPin = () => (dispatch) => {
   }
 }
 
+export const initMomentLocale = () => (dispatch, getState) => {
+  const state = getState()
+  const userLang = state.pages.userLanguage
+  if (userLang === moment.locale()){
+    return
+  }
+
+  const months = monthsShortSelector()(userLang)
+
+  if (months) {
+    moment.locale(userLang, { monthsShort: months })
+  } else {
+    moment.locale(userLang)
+  }
+}
+
 export const initAnyPage = () => async (dispatch) => {
   return Promise.all([
     dispatch(initHeaders()),
@@ -460,6 +478,7 @@ export const initIndexPage = () => (dispatch) => {
     dispatch(initArticles()),
     dispatch(initTestimonials()),
     dispatch(initIterations()),
+    dispatch(initMomentLocale()),
     dispatch(initAnyPage()),
   ])
 }
