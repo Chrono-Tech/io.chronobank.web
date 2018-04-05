@@ -442,7 +442,12 @@ export const initTelegramPin = () => (dispatch) => {
 export const initMomentLocale = () => (dispatch, getState) => {
   const state = getState()
   const userLang = state.pages.userLanguage
+  if (userLang === moment.locale()){
+    return
+  }
+
   const months = monthsShortSelector()(userLang)
+
   if (months) {
     moment.locale(userLang, { monthsShort: months })
   } else {
@@ -462,7 +467,6 @@ export const initAnyPage = () => async (dispatch) => {
     dispatch(initProducts()),
     dispatch(initExchanges()),
     dispatch(initTitles()),
-    dispatch(initMomentLocale()),
   ])
 }
 
@@ -474,6 +478,7 @@ export const initIndexPage = () => (dispatch) => {
     dispatch(initArticles()),
     dispatch(initTestimonials()),
     dispatch(initIterations()),
+    dispatch(initMomentLocale()),
     dispatch(initAnyPage()),
   ])
 }

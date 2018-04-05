@@ -264,7 +264,7 @@ export default class TheHeader extends React.Component {
                 <div className='panel-content'>
                   {this.props.posts.map((post) => (
                     <div key={post.id} className='news-item'>
-                      <div className='news-item-date'>{moment(post.publishedDate).format('MMM DD')}</div>
+                      <div className='news-item-date'>{moment(post.publishedDate).format('MMM D')}</div>
                       <a className='news-item-text' href={post.url}>{post.title}</a>
                     </div>
                   ))}
