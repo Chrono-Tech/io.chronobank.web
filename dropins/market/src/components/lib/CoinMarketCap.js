@@ -12,20 +12,32 @@ export default class CoinMarketCap extends React.Component {
     stats: PropTypes.object,
   }
 
+  renderPercentChange(){
+    const { stats } = this.props
+    let numberDigit = stats.percent_change_24h > 0 ? '+' : ''
+
+    let num = new Number(stats.percent_change_24h || 0)
+
+    if (num < 1 && num > -1) {
+      num = num.toFixed(1)
+    } else {
+      num = num.toFixed(0)
+    }
+
+    return `${numberDigit}${num}%`
+  }
+
   render () {
     const { stats } = this.props
-    return stats === null ? null : (
+    return stats ? (
       <div className='root coinmarketcap'>
         <style jsx>{styles}</style>
         <div className='content'>
           <div className='head'>
             <div className='info'>
               <div className='price'>
-                <span>${new Number(stats.data.price_usd).toFixed(2)}</span>
-                <div className='percent-change'>
-                  {stats.data.percent_change_24h > 0 ? '+' : null}
-                  {new Number(stats.data.percent_change_24h || 0).toFixed(0)}%
-                </div>
+                <span>${new Number(stats.price_usd).toFixed(2)}</span>
+                <div className='percent-change'>{this.renderPercentChange()}</div>
               </div>
             </div>
           </div>
@@ -33,21 +45,21 @@ export default class CoinMarketCap extends React.Component {
             <div className='stats'>
               <div className='stats-item'>
                 <label>Rank</label>
-                <div>{stats.data.rank}</div>
+                <div>{stats.rank}</div>
               </div>
               <div className='stats-item'>
                 <label>CAP</label>
-                <div>${new Number((stats.data.market_cap_usd / 1000000)  || 0).toFixed(2)}M</div>
+                <div>${new Number((stats.market_cap_usd / 1000000)  || 0).toFixed(2)}M</div>
               </div>
               <div className='stats-item'>
                 <label>V24H</label>
-                <div>${new Number((stats.data.volume_24h_usd / 1000000) || 0).toFixed(2)}M</div>
+                <div>${new Number((stats['24h_volume_usd'] / 1000000) || 0).toFixed(2)}M</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
+    ) : null
   }
 }
 
