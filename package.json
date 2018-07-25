@@ -10,7 +10,7 @@
     "build:demo": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://stage-adm.chronobank.io/api/v1 IMAGES_ENDPOINT=https://stage-www.chronobank.io/files next build",
     "start": "cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 IMAGES_ENDPOINT=http://files.chronobank.tp.ntr1x.com next start",
     "start:prod": "cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 IMAGES_ENDPOINT=https://files.chronobank.io next start",
-    "start:demo": "cross-env NODE_ENV=production API_ENDPOINT=https://test-2.chronobank.io/api/v1 IMAGES_ENDPOINT=https://test-2-images.chronobank.io next start",
+    "start:demo": "cross-env NODE_ENV=production API_ENDPOINT=https://stage-adm.chronobank.io/api/v1 IMAGES_ENDPOINT=https://stage-www.chronobank.io/files next start",
     "test": "npm run lint:test && echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx --fix src pages specs",
     "lint:test": "./node_modules/eslint/bin/eslint.js --ext .js,.jsx src pages specs"

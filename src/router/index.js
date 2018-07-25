@@ -1,4 +1,11 @@
+const NextRouter = require('next/router')
+const gtag = require('./gtag')
+
 const routes = module.exports = require('next-routes')()
+
+NextRouter.onRouteChangeComplete = (url) => {
+  gtag.pageview(url)
+}
 
 routes
   .add('index', '/')
