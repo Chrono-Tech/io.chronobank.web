@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://localhost:3000/api/v1 IMAGES_ENDPOINT=http://localhost:3000 node server.js",
+    "dev:demo": "cross-env NODE_ENV=development API_ENDPOINT=https://stage-adm.chronobank.io/api/v1 IMAGES_ENDPOINT=https://stage-www.chronobank.io/files node server.js",
     "build": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=http://backend.chronobank.tp.ntr1x.com/api/v1 IMAGES_ENDPOINT=http://files.chronobank.tp.ntr1x.com next build",
     "build:prod": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://backend.chronobank.io/api/v1 IMAGES_ENDPOINT=https://files.chronobank.io next build",
     "build:demo": "rm -rf build && cross-env NODE_ENV=production API_ENDPOINT=https://stage-adm.chronobank.io/api/v1 IMAGES_ENDPOINT=https://stage-www.chronobank.io/files next build",
