@@ -5,7 +5,7 @@ import cn from 'classnames'
 import moment from 'moment'
 
 import { Link } from 'src/router'
-import { DropdownMenu } from 'src/components'
+import { DropdownMenuWithOptions, DropdownMenu } from 'src/components'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'dropins/events/src/components'
@@ -65,6 +65,8 @@ export default class TheHeader extends React.Component {
   render () {
     const { menus, header, languages, userLanguage, constants, headerSlug, menuSelector } = this.props
     const loginMenuItem = menuSelector('Login')
+    const productsMenuItem = menuSelector('Our Products')
+    console.log('products', productsMenuItem)
 
     return (
       <header className={cn('root', 'the-header', headerSlug, {
@@ -164,7 +166,7 @@ export default class TheHeader extends React.Component {
                   </li>
                 ))}
                 <li className='lang-selector'>
-                  <DropdownMenu
+                  <DropdownMenuWithOptions
                     value={userLanguage}
                     options={languages.map((lang) => ({
                       value: lang.key,
@@ -174,6 +176,33 @@ export default class TheHeader extends React.Component {
                     onChange={(value) => this.props.changeLanguage(value)}
                   />
                 </li>
+                {
+                  productsMenuItem ?
+                    (<li className='our-products'>
+                      <DropdownMenu
+                        buttonText={productsMenuItem.title}
+                        buttonClassName={cn('our-products-button')}
+                        menu={productsMenuItem.children.map((child, i) => (
+                          <Link key={i} route={child.url}>
+                            <div className='our-products-inner'>
+                              <div className='our-products-img'>
+                                {!child.icon40x40 ? null : (
+                                  <img src={child.icon40x40.url} />
+                                )}
+                              </div>
+                              <div className='our-products-'>
+                                <div className='info-title'>{child.title}</div>
+                                {!child.subtitle ? null : (
+                                  <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle }} />
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      />
+                    </li>)
+                    : null
+                }
               </ul>
             </div>
             <div className='menu-mobile'>
@@ -185,7 +214,7 @@ export default class TheHeader extends React.Component {
                     <a className='login-button' href={loginMenuItem.url}>{loginMenuItem.title}</a>
                     : <a className='login-button' href={loginMenuItem.url} target='_blank' rel='noopener noreferrer'>{loginMenuItem.title}</a>)
                   : null }
-                <DropdownMenu
+                <DropdownMenuWithOptions
                   value={userLanguage}
                   options={languages.map((lang) => ({
                     value: lang.key,
@@ -195,6 +224,7 @@ export default class TheHeader extends React.Component {
                   onChange={(value) => this.props.changeLanguage(value)}
 
                 />
+
               </div>
             </div>
           </div>

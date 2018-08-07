@@ -1,4 +1,5 @@
 @import "src/styles/partials/mixins"
+@import "src/styles/partials/variables"
 
 .root.the-header
   min-height: 568px
@@ -97,9 +98,10 @@
             .link
               transition: all 0.3s
               line-height: 19px
-              color: #FFFFFF
+              color: #5DB3ED
               font-size: 16px
               font-weight: bold
+              font-family: $proxima
               &.link-rounded
                 color: #FFFFFF !important
                 line-height: 40px
@@ -625,3 +627,22 @@
   background-color: rgba(255,255,255,0.2)
 ::-webkit-scrollbar-corner
   background: transparent
+
+\:global(.our-products-button)
+  font-family: $proxima
+  background-color: #5DB3ED
+  color: #fff
+  line-height: 40px
+  margin: 0
+  text-align: center
+  border-radius: 21px
+  font-size: 16px
+  display: inline-block
+  padding: 0 22px
+  font-weight: bold
+  user-select: none
+  &:hover
+    background-color: #E2A864
+
+.our-products
+  margin-left: 5px
