@@ -53,7 +53,7 @@ class Team extends React.Component {
             <partials.JobsSection />
           </div>
         </main>
-        <partials.TheFooter productSlug='chronomint' />
+        <partials.TheFooter productSlug='chronowallet' />
         <partials.TelegramSection />
       </div>
     )

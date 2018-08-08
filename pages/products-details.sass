@@ -1,5 +1,29 @@
+@import "src/styles/partials/mixins"
+@import "src/styles/partials/variables"
+
 .root
   overflow: hidden
+  font-family: $proxima
 .main
   min-height: 1000px
   position: relative
+
+.nav-link-wrapper
+  text-align: center
+
+  .nav-link
+    font-family: $proxima
+    font-size: 26px
+    font-weight: bold
+    background-color: #5745A5
+    color: #fff
+    line-height: 40px
+    margin: 0 auto 40px
+    text-align: center
+    cursor: pointer
+    border-radius: 60px
+    display: inline-block
+    padding: 26px 60px
+    user-select: none
+    &:hover
+      background-color: #E2A864

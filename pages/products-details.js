@@ -31,6 +31,11 @@ class ProductsDetails extends React.Component {
 
   render () {
     const { product, constants } = this.props
+
+    if (!product) {
+      return null
+    }
+
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
@@ -42,17 +47,8 @@ class ProductsDetails extends React.Component {
         </Head>
         <components.ModalStack />
         <components.SnackbarStack />
-        <partials.TheHeader headerSlug={`${product.slug}-page`} />
+        <partials.TheHeader productSlug={product.slug} headerSlug={`${product.slug}-page`} />
         <main className='main'>
-          {(product.distros && product.distros.length)
-            ? (
-              <partials.DistrosSection
-                title={`${product.title} ${ constants('downloads').toLowerCase()}`}
-                distros={product.distros}
-              />
-            )
-            : null
-          }
           {(product.descriptions && product.descriptions.length)
             ? (
               <partials.ProductDescriptionsSection
@@ -70,8 +66,18 @@ class ProductsDetails extends React.Component {
               />)
             : null
           }
+          {
+            product.navigationButtonLink ? (
+              <div className='nav-link-wrapper'>
+                <a className='nav-link' href={product.navigationButtonLink}>
+                  {product.navigationButtonText}
+                </a>
+              </div>
+            ) : null
+          }
+
         </main>
-        <partials.TheFooter productSlug='chronomint' />
+        <partials.TheFooter productSlug='chronowallet' />
         <partials.TelegramSection />
       </div>
     )

@@ -3,7 +3,7 @@ import ImageModel from './ImageModel'
 import { LangFieldSet } from './helpers'
 
 export default class HeaderModel {
-  constructor ({ id, slug, title, stereotype, background, video, brief, image, image2x, image320, image2x320, image480, image2x480, image640, image2x640 }) {
+  constructor ({ id, slug, title, stereotype, background, video, brief, image, image2x, image320, image2x320, image480, image2x480, image640, image2x640, projectIcon }) {
     this.id = id
     this.slug = slug
     this.title = title
@@ -31,6 +31,8 @@ export default class HeaderModel {
     this.image640 = image640
     assert(image2x640 == null || image2x640 instanceof ImageModel)
     this.image2x640 = image2x640
+    assert(projectIcon == null || projectIcon instanceof ImageModel)
+    this.projectIcon = projectIcon
 
     Object.freeze(this)
   }
@@ -46,6 +48,7 @@ export default class HeaderModel {
       image2x480: ImageModel.fromJS(data.image2x480),
       image640: ImageModel.fromJS(data.image640),
       image2x640: ImageModel.fromJS(data.image2x640),
+      projectIcon: ImageModel.fromJS(data.projectIcon),
     })
   }
 
@@ -70,6 +73,7 @@ export default class HeaderModel {
       image2x480: ImageModel.fromServerModel(data.image2x480),
       image640: ImageModel.fromServerModel(data.image640),
       image2x640: ImageModel.fromServerModel(data.image2x640),
+      projectIcon: ImageModel.fromServerModel(data.projectIcon),
     })
   }
 }

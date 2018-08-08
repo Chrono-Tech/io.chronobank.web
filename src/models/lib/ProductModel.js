@@ -7,7 +7,28 @@ import ProductDescriptionModel from './ProductDescriptionModel'
 import { LangFieldSet } from './helpers'
 
 export default class ProductModel {
-  constructor ({ id, slug, name, title, stereotype, background, icon, icon2x, image, image2x, mission, brief, downloads, distros, features, featuresMode, descriptions }) {
+  constructor ({
+    id,
+    slug,
+    name,
+    title,
+    stereotype,
+    background,
+    icon,
+    icon2x,
+    image,
+    image2x,
+    mission,
+    brief,
+    downloads,
+    distros,
+    features,
+    featuresMode,
+    descriptions,
+    projectIcon,
+    navigationButtonText,
+    navigationButtonLink,
+  }) {
     this.id = id
     this.slug = slug
     this.name = name
@@ -24,6 +45,10 @@ export default class ProductModel {
     assert(image == null || image instanceof ImageModel)
     this.image = image
     assert(image2x == null || image2x instanceof ImageModel)
+    this.projectIcon = image
+    // assert(projectIcon == null || projectIcon instanceof ImageModel)
+    this.navigationButtonText = navigationButtonText
+    this.navigationButtonLink = navigationButtonLink
     this.image2x = image2x
     assert(downloads == null || !downloads.find((child) => !(child instanceof ProductDownloadModel)))
     this.downloads = downloads
@@ -68,6 +93,9 @@ export default class ProductModel {
       icon2x: ImageModel.fromServerModel(data.icon2x),
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
+      projectIcon: ImageModel.fromServerModel(data.projectIcon),
+      navigationButtonText: localeModelFields.getLocaleField('navigationButtonText'),
+      navigationButtonLink: data.navigationButtonLink,
       downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locale })),
       distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locale })),
       features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locale })),
