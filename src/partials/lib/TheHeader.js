@@ -9,10 +9,10 @@ import { DropdownMenuWithOptions, DropdownMenu } from 'src/components'
 import * as dialogs from 'src/dialogs'
 import * as snackbars from 'src/snackbars'
 import { EventsRotator } from 'dropins/events/src/components'
-import { HeaderModel, MenuModel, PostModel, LanguageModel } from 'src/models'
+import { HeaderModel, MenuModel, PostModel, LanguageModel, ProductModel } from 'src/models'
 import { EventModel } from 'dropins/events/src/models'
 import { eventsEnqueue } from 'dropins/events/src/store'
-import { modalsOpen, snackbarsOpen, headerSelector, changeUserLanguage, constantSelector, menuSelector, monthsShortSelector } from 'src/store'
+import { modalsOpen, snackbarsOpen, headerSelector, productSelector, changeUserLanguage, constantSelector, menuSelector, monthsShortSelector } from 'src/store'
 import ExchangesPanel from './ExchangesPanel'
 
 import styles from './TheHeader.sass'
@@ -22,7 +22,9 @@ export default class TheHeader extends React.Component {
 
   static propTypes = {
     headerSlug: PropTypes.string,
+    productSlug: PropTypes.string,
     header: PropTypes.instanceOf(HeaderModel),
+    product: PropTypes.instanceOf(ProductModel),
     showVideo: PropTypes.func,
     showMobileMenu: PropTypes.func,
     eventsShow: PropTypes.func,
@@ -63,10 +65,10 @@ export default class TheHeader extends React.Component {
   }
 
   render () {
-    const { menus, header, languages, userLanguage, constants, headerSlug, menuSelector } = this.props
+    const { menus, header, languages, userLanguage, constants, headerSlug, menuSelector, product } = this.props
     const loginMenuItem = menuSelector('Login')
     const productsMenuItem = menuSelector('Our Products')
-    console.log('products', productsMenuItem)
+    console.log('rend', header, product, headerSlug)
 
     return (
       <header className={cn('root', 'the-header', headerSlug, {
@@ -182,23 +184,36 @@ export default class TheHeader extends React.Component {
                       <DropdownMenu
                         buttonText={productsMenuItem.title}
                         buttonClassName={cn('our-products-button')}
-                        menu={productsMenuItem.children.map((child, i) => (
-                          <Link key={i} route={child.url}>
-                            <div className='our-products-inner'>
-                              <div className='our-products-img'>
-                                {!child.icon40x40 ? null : (
-                                  <img src={child.icon40x40.url} />
-                                )}
-                              </div>
-                              <div className='our-products-'>
-                                <div className='info-title'>{child.title}</div>
-                                {!child.subtitle ? null : (
-                                  <div className='info-details' dangerouslySetInnerHTML={{ __html: child.subtitle }} />
-                                )}
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
+                        menu={
+                          <div className='our-products-wrapper'>
+                            {productsMenuItem.children.map((child, i) => (
+                              <Link route={child.url}>
+                                <div className='our-products-inner'>
+                                  <div className='our-products-content'>
+                                    <div className='our-products-img'>
+                                      {!child.icon40x40 ? null : (
+                                        <img src={child.icon40x40.url} width='40' />
+                                      )}
+                                    </div>
+                                    <div className='our-products-text'>
+                                      <div className='our-products-title'>{child.title}</div>
+                                      <div className='our-products-subtitle'>{constants('learn-more')}</div>
+                                    </div>
+                                  </div>
+                                  { child.projectLink ? (
+                                    <a href={child.projectLink} onClick={(e) => {
+                                      e.stopPropagation()
+                                      e.nativeEvent.stopImmediatePropagation()
+                                      return false
+                                    }} className='our-products-project-nav'>
+                                      <div className='our-products-project-nav-text'>{child.projectLinkText}</div>
+                                    </a>
+                                  ): null }
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        }
                       />
                     </li>)
                     : null
@@ -233,6 +248,13 @@ export default class TheHeader extends React.Component {
           </div>
           <div className='content'>
             <div className='text' dangerouslySetInnerHTML={{ __html: header.brief }} />
+            {
+              product.navigationButtonLink ? (
+                <a className='nav-link' href={product.navigationButtonLink}>
+                  {product.navigationButtonText}
+                </a>
+              ) : null
+            }
             {!header.video ? null : (
               <div className='video'>
                 <a onClick={() => this.props.showVideo(header.video)}>
@@ -280,6 +302,14 @@ export default class TheHeader extends React.Component {
               }}
             />
           )}
+          {!header.projectIcon ? null : (
+            <img
+              className='project-icon'
+              {...{
+                src: header.projectIcon.url,
+              }}
+            />
+          )}
         </div>
         {headerSlug !== 'main-page' ? null : (
           <div className='index-panel'>
@@ -321,8 +351,10 @@ export default class TheHeader extends React.Component {
 }
 
 function mapStateToProps (state, op) {
+  console.log('soso', productSelector(op.productSlug)(state))
   return {
     header: headerSelector(op.headerSlug)(state),
+    product: productSelector(op.productSlug)(state),
     menus: state.pages.menus.array.filter((m) => m.isVisibleInHeader),
     menuSelector: menuSelector(state),
     posts: state.pages.posts.array,

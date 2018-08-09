@@ -262,6 +262,22 @@
           margin-bottom: 10px
           @include screen-min-width(1024px)
             font-size: 1.6rem
+      .nav-link
+        font-family: $proxima
+        background-color: #5DB3ED
+        color: #fff
+        line-height: 40px
+        margin: 0
+        text-align: center
+        cursor: pointer
+        border-radius: 21px
+        font-size: 16px
+        display: inline-block
+        padding: 0 22px
+        font-weight: bold
+        user-select: none
+        &:hover
+          background-color: #E2A864
       .video
         display: table
         margin-top: 14px
@@ -586,18 +602,41 @@
           max-width: none
           max-height: none
 
-  &.chronomint-page
+  &.chronowallet-page
+    padding-bottom: 0
+    min-height: 836px
+    .wrap
+      position: initial
+    .content
+      position: absolute !important
+      bottom: 134px
+      left: 49%
+      .text
+        \:global(h1)
+          font-size: 50px !important
+          line-height: 55px !important
+          font-weight: bold !important
+          margin-bottom: 20px !important
+        \:global(h2)
+          font-size: 40px !important
+          line-height: 44px !important
     .image
+      .project-icon
+        position: absolute !important
+        z-index: 100
+        width: 40px
+        height: 40px
+        top: 175px !important
+        right: 94px !important
+        display: block !important
       img
         bottom: -48px !important
         &.image-1280
-          height: 610px
-          left: -90px
-          top: 122px
+          height: 846px
+          left: -117px
+          bottom: 0px !important
           max-width: none
           max-height: none
-
-
 
   @include screen-max-width(1023px)
     .wrap
@@ -646,3 +685,51 @@
 
 .our-products
   margin-left: 5px
+
+.our-products-wrapper
+  width: 320px
+  padding: 10px
+
+.our-products-inner
+  display: flex
+  align-items: stretch
+  font-size: 14px
+  min-height: 70px
+  font-family: $proxima
+  border: 1px solid transparent
+  border-radius: 15px
+  overflow: hidden
+  &:hover
+    border-color: #F7F7F7
+
+  .our-products-img
+    padding: 0 15px
+    img
+      width: 40px
+  .our-products-content
+    display: flex
+    align-items: center
+    flex: 1
+    border-top-left-radius: 15px
+    border-bottom-left-radius: 15px
+    &:hover
+      background-color: #F7F7F7
+    .our-products-text
+      text-align: left
+      line-height: 17px
+  .our-products-title
+    font-weight: bold
+  .our-products-project-nav-text
+    font-weight: 500
+  .our-products-project-nav
+    color: #333
+    width: 100px
+    align-items: center
+    justify-content: center
+    display: flex
+    align-self: stretch
+    border-top-right-radius: 15px
+    border-bottom-right-radius: 15px
+    border-left: 2px solid #fff
+    &:hover
+      background-color: #F7F7F7
