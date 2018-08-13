@@ -4,6 +4,7 @@ import ProductDownloadModel from './ProductDownloadModel'
 import ProductDistroModel from './ProductDistroModel'
 import ProductFeatureModel from './ProductFeatureModel'
 import ProductDescriptionModel from './ProductDescriptionModel'
+import ProductLinkModel from './ProductLinkModel'
 import { LangFieldSet } from './helpers'
 
 export default class ProductModel {
@@ -25,9 +26,8 @@ export default class ProductModel {
     features,
     featuresMode,
     descriptions,
-    projectIcon,
-    navigationButtonText,
-    navigationButtonLink,
+    iconText,
+    links,
   }) {
     this.id = id
     this.slug = slug
@@ -45,10 +45,8 @@ export default class ProductModel {
     assert(image == null || image instanceof ImageModel)
     this.image = image
     assert(image2x == null || image2x instanceof ImageModel)
-    this.projectIcon = image
+    this.iconText = iconText
     // assert(projectIcon == null || projectIcon instanceof ImageModel)
-    this.navigationButtonText = navigationButtonText
-    this.navigationButtonLink = navigationButtonLink
     this.image2x = image2x
     assert(downloads == null || !downloads.find((child) => !(child instanceof ProductDownloadModel)))
     this.downloads = downloads
@@ -58,10 +56,16 @@ export default class ProductModel {
     this.features = features
     assert(descriptions == null || !descriptions.find((child) => !(child instanceof ProductDescriptionModel)))
     this.descriptions = descriptions
+    assert(links == null || !links.find((child) => !(child instanceof ProductLinkModel)))
+    this.links = links
+    console.log('fromserverConstructor', arguments)
+
     Object.freeze(this)
   }
 
   static fromJS (data) {
+    console.log('fromserverJS', data)
+
     return data == null ? data : new ProductModel({
       ...data,
       icon: ImageModel.fromJS(data.icon),
@@ -72,11 +76,13 @@ export default class ProductModel {
       distros: data.distros == null ? null : data.distros.map(ProductDistroModel.fromJS),
       features: data.features == null ? null : data.features.map(ProductFeatureModel.fromJS),
       descriptions: data.descriptions == null ? null : data.descriptions.map(ProductDescriptionModel.fromJS),
+      links: data.links == null ? null : data.links.map(ProductLinkModel.fromJS),
     })
   }
 
   static fromServerModel (data, { locale }) {
     let localeModelFields = new LangFieldSet(data, locale)
+    console.log('fromserver', data)
 
     return data == null ? data : new ProductModel({
       // eslint-disable-next-line no-underscore-dangle
@@ -90,16 +96,16 @@ export default class ProductModel {
       mission: localeModelFields.getLocaleField('mission'),
       brief: localeModelFields.getLocaleField('brief'),
       icon: ImageModel.fromServerModel(data.icon),
+      iconText: localeModelFields.getLocaleField('iconText'),
       icon2x: ImageModel.fromServerModel(data.icon2x),
       image: ImageModel.fromServerModel(data.image),
       image2x: ImageModel.fromServerModel(data.image2x),
       projectIcon: ImageModel.fromServerModel(data.projectIcon),
-      navigationButtonText: localeModelFields.getLocaleField('navigationButtonText'),
-      navigationButtonLink: data.navigationButtonLink,
       downloads: data.downloads == null ? null : data.downloads.map((data) => ProductDownloadModel.fromServerModel(data, { locale })),
       distros: data.distros == null ? null : data.distros.map((data) => ProductDistroModel.fromServerModel(data, { locale })),
       features: data.features == null ? null : data.features.map((data) => ProductFeatureModel.fromServerModel(data, { locale })),
       descriptions: data.descriptions == null ? null : data.descriptions.map((data) => ProductDescriptionModel.fromServerModel(data, { locale })),
+      links: data.links == null ? null : data.links.map((data) => ProductLinkModel.fromServerModel(data, { locale })),
     })
   }
 }

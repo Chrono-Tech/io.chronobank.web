@@ -13,7 +13,7 @@
     z-index: 2
   .image
     @include position(absolute, 0, 0, 0, 0)
-    z-index: 1
+    z-index: 0
     max-width: 1120px
     margin: 0 auto
     img
@@ -28,14 +28,7 @@
         &.image-1280
           display: block
           right: -25px
-      @include screen-between-width(640px, 1023px)
-        &.image-640
-          display: block
-          position: absolute
-          top: 35%
-          right: 50%
-          transform: translate(50%, -50%)
-      @include screen-between-width(480px, 639px)
+      @include screen-between-width(480px, 1023px)
         &.image-480
           display: block
           position: absolute
@@ -54,7 +47,7 @@
     height: 100%
     margin: 0 auto
     position: relative
-    z-index: 2
+    z-index: 5
     .top
       display: flex
       position: relative
@@ -247,6 +240,7 @@
           display: block
           font-size: 2.8rem
           margin-bottom: 9px
+          white-space: nowrap
           @include screen-min-width(1024px)
             font-size: 6.3rem
         \:global(h2)
@@ -320,7 +314,55 @@
           right: 50%
   &.stereotype-product
     height: auto
-    min-height: 640px
+    //min-height: 640px
+    padding-bottom: 0
+    min-height: 836px
+    .wrap
+      position: initial
+      .content
+        position: absolute !important
+        bottom: 134px
+        left: 49%
+        .text
+          \:global(h1)
+            font-size: 50px
+            line-height: 55px
+            font-weight: bold
+            margin-bottom: 20px
+          \:global(h2)
+            font-size: 40px
+            line-height: 44px
+    .image
+      .project-icon
+        position: absolute !important
+        z-index: 100
+        width: 40px
+        height: 40px
+        top: 175px !important
+        right: 94px !important
+        display: block !important
+      img
+        bottom: -48px !important
+        &.image-1280
+          height: 846px
+          left: -117px
+          bottom: 0px !important
+          max-width: none
+          max-height: none
+        &.image-480
+          transform: none !important
+          left: 0 !important
+          right: 0 !important
+          bottom: auto !important
+          top: 52px !important
+          width: 100% !important
+        &.image-320
+          transform: none !important
+          left: 0 !important
+          right: 0 !important
+          bottom: auto !important
+          top: 52px !important
+          width: 100% !important
     .wrap
       .content
         .text
@@ -341,6 +383,19 @@
           bottom: 0%
     @include screen-max-width(1023px)
       min-height: 550px
+      .wrap
+      .content
+        margin: 0 0 55px 125px !important
+        position: relative !important
+        left: 0 !important
+        right: 0 !important
+        bottom: 0 !important
+        \:global(h1)
+          font-size: 32px !important
+          line-height: 35px !important
+        \:global(h2)
+          font-size: 20px !important
+          line-height: 22px !important
   &.stereotype-text
     height: auto
     min-height: 480px
@@ -378,57 +433,7 @@
           margin-top: 140px
           color: #00005F
 
-  &.background-middleware
-    background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#2F2A5B,#5745A5 100%)
-    background-position: center bottom
-    background-repeat: no-repeat
-    height: 847px
-    background-size: auto 100%
-    @include screen-max-width(1023px)
-      background: url(/static/images/header-product-middleware.png), linear-gradient(to bottom,#5745A5 ,#2F2A5B 100%)
-      background-position: -509px top, center bottom
-      background-repeat: no-repeat
-      height: 765px
-    + :global(.main)
-      background: url(/static/images/header-product-middleware-content.png)
-      background-position-x: calc(50% + 62px)
-      background-repeat: no-repeat
-      position: relative
-      top: -5px
-      @include screen-max-width(1023px)
-        background: none
-    .rates
-      display: none
-    .wrap
-      .content
-        position: absolute
-        top: 44%
-        left: 49%
-        padding: 10px 0
-        @include screen-max-width(1023px)
-          top: 400px
-          left: 145px
-          padding: 10px 0
 
-        .text
-          \:global(h1)
-            font-family: Proxima Nova
-            font-weight: 800
-            font-size: 50px
-            line-height: 55px
-            margin-bottom: 20px
-            @include screen-max-width(1023px)
-              font-size: 3.2rem
-              line-height: 35px
-
-          \:global(h2)
-            font-family: Proxima Nova
-            font-size: 40px
-            line-height: 44px
-            margin-bottom: 30px
-            @include screen-max-width(1023px)
-              font-size: 2rem
-              line-height: 22px
 
   &.main-page
     display: flex
@@ -592,51 +597,46 @@
             .panel-header
               padding-top: 10px
 
+  &.chronowallet-page
+    .content
+      bottom: 93px
+      left: 51.5%
+    .image
+      img
+        &.image-1280
+          right: -158px
+
   &.laborx-page
+    .content
+      left: 52%
     .image
       img
         bottom: -48px !important
         &.image-1280
-          height: 560px
-          left: -95px
-          max-width: none
-          max-height: none
+          left: -8%
+          height: 847px
+          bottom: 0px !important
 
-  &.chronowallet-page
-    padding-bottom: 0
-    min-height: 836px
-    .wrap
-      position: initial
+  &.dmt-page
+    .image
+      img
+        bottom: -48px !important
+        &.image-1280
+          left: 50%
+          margin-left: -683px
+          width: 1365px
+
+  &.timex-page
     .content
       position: absolute !important
-      bottom: 134px
-      left: 49%
-      .text
-        \:global(h1)
-          font-size: 50px !important
-          line-height: 55px !important
-          font-weight: bold !important
-          margin-bottom: 20px !important
-        \:global(h2)
-          font-size: 40px !important
-          line-height: 44px !important
+      left: 52%
+      bottom: 80px
     .image
-      .project-icon
-        position: absolute !important
-        z-index: 100
-        width: 40px
-        height: 40px
-        top: 175px !important
-        right: 94px !important
-        display: block !important
       img
         bottom: -48px !important
         &.image-1280
-          height: 846px
-          left: -117px
-          bottom: 0px !important
-          max-width: none
-          max-height: none
+          left: -132px
+          bottom: 9px !important
 
   @include screen-max-width(1023px)
     .wrap
@@ -656,7 +656,6 @@
         .content
           .text
             margin-top: 30px
-            max-width: 288px
 
 ::-webkit-scrollbar
   -webkit-appearance: none
@@ -733,3 +732,42 @@
     border-left: 2px solid #fff
     &:hover
       background-color: #F7F7F7
+
+.project-icon-block-wrapper
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: auto
+  height: auto
+  z-index: 0
+  max-width: 1120px
+  margin: 0 auto
+  .project-icon-block
+    position: absolute
+    top: 134px
+    right: 32px
+    width: 86px
+    overflow: visible
+    .project-icon-wrapper
+      background: #2F2A5B
+      border-radius: 25px 25px 25px 0
+      display: inline-block
+      padding: 18px
+      margin-bottom: 15px
+      .project-icon
+        display: block !important
+        position: relative !important
+        top: 0 !important
+        left: 0 !important
+        width: 50px !important
+        transform: none !important
+
+    .project-icon-text
+      color: #fff
+      font-size: 16.5px
+      line-height: 100%
+      white-space: nowrap
+      @include screen-max-width(1024px)
+        display: none

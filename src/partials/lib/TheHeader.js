@@ -30,6 +30,7 @@ export default class TheHeader extends React.Component {
     eventsShow: PropTypes.func,
     changeLanguage: PropTypes.func,
     menuSelector: PropTypes.func,
+    openContactDialog: PropTypes.func,
     userLanguage: PropTypes.string,
     languages: PropTypes.arrayOf(LanguageModel),
     menus: PropTypes.arrayOf(
@@ -68,13 +69,11 @@ export default class TheHeader extends React.Component {
     const { menus, header, languages, userLanguage, constants, headerSlug, menuSelector, product } = this.props
     const loginMenuItem = menuSelector('Login')
     const productsMenuItem = menuSelector('Our Products')
-    console.log('rend', header, product, headerSlug)
 
     return (
       <header className={cn('root', 'the-header', headerSlug, {
         'background-dark': header.background === 'dark',
         'background-light': header.background === 'light',
-        'background-middleware': header.background === 'middleware',
         'stereotype-default': header.stereotype === 'default',
         'stereotype-splash': header.stereotype === 'splash',
         'stereotype-product': header.stereotype === 'product',
@@ -82,6 +81,59 @@ export default class TheHeader extends React.Component {
       })}
       >
         <style jsx>{styles}</style>
+        <div className='image'>
+          {!header.image ? null : (
+            <img
+              className='image-1280'
+              {...{
+                src: header.image.url,
+                srcSet: header.image2x ? `${header.image2x.url} 2x` : undefined,
+              }}
+            />
+          )}
+          {!header.image320 ? null : (
+            <img
+              className='image-320'
+              {...{
+                src: header.image320.url,
+              }}
+            />
+          )}
+          {!header.image480 ? null : (
+            <img
+              className='image-480'
+              {...{
+                src: header.image480.url,
+              }}
+            />
+          )}
+          {!header.image640 ? null : (
+            <img
+              className='image-640'
+              {...{
+                src: header.image640.url,
+                srcSet: header.image2x640 ? `${header.image2x640.url} 2x` : undefined,
+              }}
+            />
+          )}
+        </div>
+        { !(product && product.icon) ? null : (
+          <div className='project-icon-block-wrapper'>
+            <div className='project-icon-block'>
+              <div className='project-icon-wrapper'>
+                <img
+                  className='project-icon'
+                  {...{
+                    src: product.icon.url,
+                  }}
+                />
+              </div>
+              {
+                product.iconText ? (<div className='project-icon-text' dangerouslySetInnerHTML={{ __html: product.iconText }} />) : null
+              }
+            </div>
+          </div>
+        )}
         <div className='wrap'>
           <div className='top'>
             <div className='logo'>
@@ -224,11 +276,6 @@ export default class TheHeader extends React.Component {
               <a className='dropdown-toggle dropdown-toggle-light' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-white.svg' /></a>
               <a className='dropdown-toggle dropdown-toggle-dark' onClick={() => this.props.showMobileMenu()}><img src='/static/images/symbols/menu-blue.svg' /></a>
               <div className='menu-buttons'>
-                { loginMenuItem ?
-                  (loginMenuItem.isRoute() ?
-                    <a className='login-button' href={loginMenuItem.url}>{loginMenuItem.title}</a>
-                    : <a className='login-button' href={loginMenuItem.url} target='_blank' rel='noopener noreferrer'>{loginMenuItem.title}</a>)
-                  : null }
                 <DropdownMenuWithOptions
                   value={userLanguage}
                   options={languages.map((lang) => ({
@@ -239,6 +286,46 @@ export default class TheHeader extends React.Component {
                   onChange={(value) => this.props.changeLanguage(value)}
 
                 />
+                {
+                  productsMenuItem ?
+                    (<li className='our-products'>
+                      <DropdownMenu
+                        buttonText={productsMenuItem.title}
+                        buttonClassName={cn('our-products-button')}
+                        menu={
+                          <div className='our-products-wrapper'>
+                            {productsMenuItem.children.map((child, i) => (
+                              <Link route={child.url}>
+                                <div className='our-products-inner'>
+                                  <div className='our-products-content'>
+                                    <div className='our-products-img'>
+                                      {!child.icon40x40 ? null : (
+                                        <img src={child.icon40x40.url} width='40' />
+                                      )}
+                                    </div>
+                                    <div className='our-products-text'>
+                                      <div className='our-products-title'>{child.title}</div>
+                                      <div className='our-products-subtitle'>{constants('learn-more')}</div>
+                                    </div>
+                                  </div>
+                                  { child.projectLink ? (
+                                    <a href={child.projectLink} onClick={(e) => {
+                                      e.stopPropagation()
+                                      e.nativeEvent.stopImmediatePropagation()
+                                      return false
+                                    }} className='our-products-project-nav'>
+                                      <div className='our-products-project-nav-text'>{child.projectLinkText}</div>
+                                    </a>
+                                  ): null }
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        }
+                      />
+                    </li>)
+                    : null
+                }
 
               </div>
             </div>
@@ -249,11 +336,13 @@ export default class TheHeader extends React.Component {
           <div className='content'>
             <div className='text' dangerouslySetInnerHTML={{ __html: header.brief }} />
             {
-              product.navigationButtonLink ? (
-                <a className='nav-link' href={product.navigationButtonLink}>
-                  {product.navigationButtonText}
-                </a>
-              ) : null
+              product && Array.isArray(product.links) ? product.links.filter((link) => link.isVisibleInHeader).map((link) => {
+                return (
+                  <a className={cn('nav-link', `nav-link-${link.slug}`)} href={link.link}>
+                    {link.text}
+                  </a>
+                )
+              }) : null
             }
             {!header.video ? null : (
               <div className='video'>
@@ -264,52 +353,6 @@ export default class TheHeader extends React.Component {
               </div>
             )}
           </div>
-        </div>
-        <div className='image'>
-          {!header.image ? null : (
-            <img
-              className='image-1280'
-              {...{
-                src: header.image.url,
-                srcSet: header.image2x ? `${header.image2x.url} 2x` : undefined,
-              }}
-            />
-          )}
-          {!header.image320 ? null : (
-            <img
-              className='image-320'
-              {...{
-                src: header.image320.url,
-                srcSet: header.image2x320 ? `${header.image2x320.url} 2x` : undefined,
-              }}
-            />
-          )}
-          {!header.image480 ? null : (
-            <img
-              className='image-480'
-              {...{
-                src: header.image480.url,
-                srcSet: header.image2x480 ? `${header.image2x480.url} 2x` : undefined,
-              }}
-            />
-          )}
-          {!header.image640 ? null : (
-            <img
-              className='image-640'
-              {...{
-                src: header.image640.url,
-                srcSet: header.image2x640 ? `${header.image2x640.url} 2x` : undefined,
-              }}
-            />
-          )}
-          {!header.projectIcon ? null : (
-            <img
-              className='project-icon'
-              {...{
-                src: header.projectIcon.url,
-              }}
-            />
-          )}
         </div>
         {headerSlug !== 'main-page' ? null : (
           <div className='index-panel'>
@@ -385,5 +428,11 @@ function mapDispatchToProps (dispatch) {
       })),
     ],
     eventsShow: (event: EventModel) => dispatch(eventsEnqueue(event, 1)),
+    openContactDialog: () => {
+      dispatch(modalsOpen({
+        component: dialogs.ContactSendDialog,
+        props: {},
+      }))
+    },
   }
 }

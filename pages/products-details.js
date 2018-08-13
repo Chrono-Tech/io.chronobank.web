@@ -2,6 +2,7 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
 import { ProductModel } from 'src/models'
 import initStore, { modalsClear, snackbarsClear, initUserLanguage, initAnyPage, productSelector, constantSelector } from 'src/store'
@@ -48,7 +49,7 @@ class ProductsDetails extends React.Component {
         <components.ModalStack />
         <components.SnackbarStack />
         <partials.TheHeader productSlug={product.slug} headerSlug={`${product.slug}-page`} />
-        <main className='main'>
+        <main className={cn('main', `${product.slug}-page`)}>
           {(product.descriptions && product.descriptions.length)
             ? (
               <partials.ProductDescriptionsSection
@@ -67,13 +68,16 @@ class ProductsDetails extends React.Component {
             : null
           }
           {
-            product.navigationButtonLink ? (
+            Array.isArray(product.links) ? (
               <div className='nav-link-wrapper'>
-                <a className='nav-link' href={product.navigationButtonLink}>
-                  {product.navigationButtonText}
-                </a>
-              </div>
-            ) : null
+                {product.links.filter((link) => link.isVisibleInContent).map((link) => {
+                  return (
+                    <a className={cn('nav-link', `nav-link-${link.slug}`)} href={link.link}>
+                      {link.text}
+                    </a>
+                  )
+                })}
+              </div>) : null
           }
 
         </main>
