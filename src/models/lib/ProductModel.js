@@ -58,13 +58,11 @@ export default class ProductModel {
     this.descriptions = descriptions
     assert(links == null || !links.find((child) => !(child instanceof ProductLinkModel)))
     this.links = links
-    console.log('fromserverConstructor', arguments)
 
     Object.freeze(this)
   }
 
   static fromJS (data) {
-    console.log('fromserverJS', data)
 
     return data == null ? data : new ProductModel({
       ...data,
@@ -82,7 +80,6 @@ export default class ProductModel {
 
   static fromServerModel (data, { locale }) {
     let localeModelFields = new LangFieldSet(data, locale)
-    console.log('fromserver', data)
 
     return data == null ? data : new ProductModel({
       // eslint-disable-next-line no-underscore-dangle

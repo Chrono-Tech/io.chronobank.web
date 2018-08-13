@@ -7,6 +7,9 @@
 .main
   min-height: 1000px
   position: relative
+  @include screen-max-width(1023px)
+    min-height: auto
+    max-width: 100%
   &.dmt-page
     background: url(/static/images/header-product-middleware-content.png)
     background-position-x: calc(50% + 62px)

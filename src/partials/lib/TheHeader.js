@@ -338,7 +338,7 @@ export default class TheHeader extends React.Component {
             {
               product && Array.isArray(product.links) ? product.links.filter((link) => link.isVisibleInHeader).map((link) => {
                 return (
-                  <a className={cn('nav-link', `nav-link-${link.slug}`)} href={link.link}>
+                  <a id={`nav-link-${link.slug}`} className={cn('nav-link')} href={link.link}>
                     {link.text}
                   </a>
                 )
@@ -394,7 +394,6 @@ export default class TheHeader extends React.Component {
 }
 
 function mapStateToProps (state, op) {
-  console.log('soso', productSelector(op.productSlug)(state))
   return {
     header: headerSelector(op.headerSlug)(state),
     product: productSelector(op.productSlug)(state),
