@@ -3,10 +3,28 @@ import ImageModel from './ImageModel'
 import { LangFieldSet } from './helpers'
 
 export default class MenuModel {
-  constructor ({ id, title, subtitle, url, symbol, name, icon32x32, icon40x40, style, isVisibleInHeader, isVisibleInFooter, isVisibleInMobile, children }) {
+  constructor ({
+    id,
+    title,
+    subtitle,
+    url,
+    symbol,
+    name,
+    icon32x32,
+    icon40x40,
+    style,
+    isVisibleInHeader,
+    isVisibleInFooter,
+    isVisibleInMobile,
+    children,
+    projectLinkText,
+    projectLink,
+  }) {
     this.id = id
     this.title = title
     this.subtitle = subtitle
+    this.projectLink = projectLink
+    this.projectLinkText = projectLinkText
     this.url = url
     assert(symbol == null || symbol instanceof ImageModel)
     this.symbol = symbol
@@ -51,6 +69,8 @@ export default class MenuModel {
       name: data.title,
       title: localeModelFields.getLocaleField('title'),
       subtitle: localeModelFields.getLocaleField('subtitle'),
+      projectLinkText: localeModelFields.getLocaleField('projectLinkText'),
+      projectLink: data.projectLink,
       url: data.url,
       children: data.children == null ? null : data.children.map((item) => MenuModel.fromServerModel(item, { locale })),
       symbol: ImageModel.fromServerModel(data.symbol),

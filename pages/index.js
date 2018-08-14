@@ -77,8 +77,8 @@ class Index extends React.Component {
               <partials.FeaturesSection />
             </div>
             <div className='app'>
-              <partials.ProductSection productSlug='chronomint' />
-              <partials.MobileSection productSlug='chronomint-mobile' />
+              <partials.ProductSection productSlug='chronowallet' />
+              <partials.MobileSection productSlug='chronowallet-mobile' />
               <partials.JoinSection />
               <partials.ProductSection productSlug='laborx' />
             </div>
@@ -105,7 +105,7 @@ class Index extends React.Component {
             </div>
             <partials.ContactsSection />
           </main>
-          <partials.TheFooter productSlug='chronomint' />
+          <partials.TheFooter productSlug='chronowallet' />
           <partials.TelegramSection />
         </div>
       </div>

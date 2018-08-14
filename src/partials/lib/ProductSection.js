@@ -19,6 +19,11 @@ export default class ProductSection extends React.Component {
 
   render () {
     const { product, constants } = this.props
+
+    if (!product) {
+      return null
+    }
+
     return (
       <div className={cn('root', 'product-section', {
         'background-dark': product.background === 'dark',
