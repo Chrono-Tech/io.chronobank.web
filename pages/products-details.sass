@@ -1,5 +1,51 @@
+@import "src/styles/partials/mixins"
+@import "src/styles/partials/variables"
+
 .root
   overflow: hidden
+  font-family: $proxima
 .main
   min-height: 1000px
   position: relative
+  &.dmt-page
+    background: url(/static/images/header-product-middleware-content.png)
+    background-position-x: calc(50% + 62px)
+    background-repeat: no-repeat
+    position: relative
+    top: -5px
+    @include screen-max-width(1023px)
+      background: none
+  &.timex-page
+    background: url(/static/images/content-graphics-time-x.png)
+    background-position-x: calc(50% + 62px)
+    background-repeat: no-repeat
+    position: relative
+    top: -5px
+    @include screen-min-width(1024px)
+      top: -71px
+      left: -25px
+    @include screen-max-width(1023px)
+      background: none
+
+
+.nav-link-wrapper
+  text-align: center
+
+  .nav-link
+    font-family: $proxima
+    font-size: 26px
+    font-weight: bold
+    background-color: #5745A5
+    color: #fff
+    line-height: 80px
+    margin: 0 auto 60px
+    text-align: center
+    cursor: pointer
+    border-radius: 60px
+    display: inline-block
+    padding: 0 60px
+    user-select: none
+    &:hover
+      background-color: #E2A864
+    &.nav-link-timex-view-beta
+      width: 220px

@@ -2,6 +2,7 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
 import { ProductModel } from 'src/models'
 import initStore, { modalsClear, snackbarsClear, initUserLanguage, initAnyPage, productSelector, constantSelector } from 'src/store'
@@ -31,6 +32,11 @@ class ProductsDetails extends React.Component {
 
   render () {
     const { product, constants } = this.props
+
+    if (!product) {
+      return null
+    }
+
     return (
       <div className='root'>
         <style global jsx>{globalStyles}</style>
@@ -42,17 +48,8 @@ class ProductsDetails extends React.Component {
         </Head>
         <components.ModalStack />
         <components.SnackbarStack />
-        <partials.TheHeader headerSlug={`${product.slug}-page`} />
-        <main className='main'>
-          {(product.distros && product.distros.length)
-            ? (
-              <partials.DistrosSection
-                title={`${product.title} ${ constants('downloads').toLowerCase()}`}
-                distros={product.distros}
-              />
-            )
-            : null
-          }
+        <partials.TheHeader productSlug={product.slug} headerSlug={`${product.slug}-page`} />
+        <main className={cn('main', `${product.slug}-page`)}>
           {(product.descriptions && product.descriptions.length)
             ? (
               <partials.ProductDescriptionsSection
@@ -70,8 +67,21 @@ class ProductsDetails extends React.Component {
               />)
             : null
           }
+          {
+            Array.isArray(product.links) ? (
+              <div className='nav-link-wrapper'>
+                {product.links.filter((link) => link.isVisibleInContent).map((link) => {
+                  return (
+                    <a className={cn('nav-link', `nav-link-${link.slug}`)} href={link.link}>
+                      {link.text}
+                    </a>
+                  )
+                })}
+              </div>) : null
+          }
+
         </main>
-        <partials.TheFooter productSlug='chronomint' />
+        <partials.TheFooter productSlug='chronowallet' />
         <partials.TelegramSection />
       </div>
     )

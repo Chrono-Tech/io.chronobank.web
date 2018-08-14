@@ -1,4 +1,5 @@
 @import "src/styles/partials/mixins"
+@import "src/styles/partials/variables"
 
 .root.product-features-section
   padding-top: 65px
@@ -19,7 +20,8 @@
         line-height: 34px
         font-weight: bold
     .content
-      display: flex
+      width: 980px
+      margin: 0 auto
       .left
         box-sizing: border-box
         flex: 0 0 40%
@@ -72,16 +74,38 @@
                   transform: translateY(0%)
       .main
         box-sizing: border-box
-        flex: 0 0 60%
-        padding: 0 0 0 48px
-        .image
-          min-height: 600px
-          img
-            max-width: 100%
-            transition: all 0.3s
-            height: auto
-          &.active
-            display: block
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        .feature
+          list-style: none
+          text-align: center
+          width: 50%
+          margin-bottom: 20px
+          .image-wrapper
+            margin-bottom: 15px
+            .image
+              width: 460px
+              max-width: 100%
+              transition: all 0.3s
+              height: auto
+            &.active
+              display: block
+          .title-wrapper
+            max-width: 90%
+            margin: 0 auto
+          .title
+            font-size: 20px
+            font-family: $proxima
+            font-weight: bold
+            line-height: 24px
+            margin-bottom: 5px
+            color: #5745A5
+          .brief
+            font-size: 16px
+            padding-bottom: 40px
+            line-height: 19px
+            color: #333
 
   .feedback
     text-align: center
@@ -89,11 +113,11 @@
     font-weight: 400
     font-size: 20px
     .link
+      line-height: 80px
+      font-size: 26px
       font-weight: 700
-      font-size: 32px
+      width: 330px
       border-radius: 61px
-      width: 406px
-      line-height: 120px
       display: inline-block
       text-align: center
       background-color: #5745A5
@@ -137,7 +161,7 @@
     .wrap
       max-width: 480px
 
-  &.product-page-middleware
+  &.product-page-dmt
     @include screen-max-width(1023px)
       padding-top: 0
 
@@ -178,3 +202,7 @@
               font-weight: 300
               font-size: 2rem
               line-height: 28px
+
+  &.product-page-laborx
+    .main
+      display: block

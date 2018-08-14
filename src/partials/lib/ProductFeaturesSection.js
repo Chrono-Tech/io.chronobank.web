@@ -97,44 +97,33 @@ export default class ProductFeaturesSection extends React.Component {
       >
         <style jsx>{styles}</style>
         <div className='wrap'>
-          <div className='heading'>
-            <h3>{ constants('key-features') }</h3>
-          </div>
           <div className='content'>
-            <div className='left'>
-              <ul>
-                {features.map((feature, index) => (
+            <div className='main'>
+              {
+                features.map((feature, index) => (
                   <li
                     key={feature.id}
-                    className={(index === this.state.active) ? 'active' : null}
-                    onClick={() => this.handleSelect(index)}
+                    className='feature'
                   >
-                    <a>{feature.title}</a>
-                    <div className='inline'>
+                    <div className='image-wrapper'>
                       <img {...{
-                        src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
-                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined,
+                        className: cn('image'),
+                        src: feature.image ? `${feature.image.url}` : undefined,
+                        srcSet: feature.image2x ? `${feature.image2x.url} 2x` : undefined,
                       }}
                       />
                     </div>
+                    <div className='title-wrapper'>
+                      <div className='title'>
+                        {feature.title}
+                      </div>
+                      <div className='brief'>
+                        {feature.brief}
+                      </div>
+                    </div>
                   </li>
-                ))}
-              </ul>
-            </div>
-            <div className='main'>
-              <div className='image'>
-                <Transition in key={activeFeature.id} timeout={300} appear>
-                  {(state) => (
-                    <img
-                      style={transitionStyles[state]}
-                      {...{
-                        src: activeFeature.image ? `${activeFeature.image.url}` : undefined,
-                        srcSet: activeFeature.image2x ? `${activeFeature.image2x.url} 2x` : undefined,
-                      }}
-                    />
-                  )}
-                </Transition>
-              </div>
+                ))
+              }
             </div>
           </div>
         </div>
