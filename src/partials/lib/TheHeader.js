@@ -288,7 +288,7 @@ export default class TheHeader extends React.Component {
                 />
                 {
                   productsMenuItem ?
-                    (<li className='our-products'>
+                    (<div className='our-products'>
                       <DropdownMenu
                         buttonText={productsMenuItem.title}
                         buttonClassName={cn('our-products-button')}
@@ -323,7 +323,7 @@ export default class TheHeader extends React.Component {
                           </div>
                         }
                       />
-                    </li>)
+                    </div>)
                     : null
                 }
 
