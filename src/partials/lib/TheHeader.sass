@@ -240,7 +240,6 @@
           display: block
           font-size: 2.8rem
           margin-bottom: 9px
-          white-space: nowrap
           @include screen-min-width(1024px)
             font-size: 6.3rem
         \:global(h2)
@@ -367,6 +366,7 @@
       .content
         .text
           max-width: 550px
+          margin-bottom: 5px
     .image
       img
         &.image-1280
@@ -385,11 +385,6 @@
       min-height: 550px
       .wrap
       .content
-        margin: 0 0 55px 125px !important
-        position: relative !important
-        left: 0 !important
-        right: 0 !important
-        bottom: 0 !important
         \:global(h1)
           font-size: 32px !important
           line-height: 35px !important
@@ -599,25 +594,66 @@
 
   &.chronowallet-page
     .content
-      bottom: 93px
-      left: 51.5%
+      bottom: 90px !important
+      left: 49% !important
     .image
       img
         &.image-1280
-          right: -158px
+          width: 1364px
+          left: 50%
+          margin-left: -682px
+    @include screen-max-width(1023px)
+      .content
+        left: 140px !important
+        bottom: 90px !important
+      .image
+        img
+          &.image-320,&.image-480
+            top: auto !important
+            bottom: 0 !important
+            width: auto !important
+            margin-bottom: 35px !important
+    @include screen-max-width(319px)
+      .content
+        left: 0 !important
+        bottom: 90px !important
+
 
   &.laborx-page
+    @include screen-max-width(1023px)
+      min-height: 570px
     .content
-      left: 52%
+      bottom: 90px !important
+      left: 50% !important
     .image
       img
         bottom: -48px !important
         &.image-1280
-          left: -8%
-          height: 847px
+          width: 1366px
+          left: 50%
+          margin-left: -663px
           bottom: 0px !important
+    @include screen-max-width(1023px)
+      .content
+        left: 120px !important
+        bottom: 62px !important
+      .image
+        img
+          &.image-320,&.image-480
+            width: auto !important
+            top: auto !important
+            bottom: 80px !important
+    @include screen-max-width(319px)
+      .content
+        left: 0 !important
+        bottom: 90px !important
 
   &.dmt-page
+    .content
+      bottom: 110px !important
+      left: 49% !important
+    @include screen-max-width(1023px)
+      min-height: 611px
     .image
       img
         bottom: -48px !important
@@ -625,18 +661,59 @@
           left: 50%
           margin-left: -683px
           width: 1365px
+    @include screen-max-width(1023px)
+      .content
+        left: 140px !important
+        bottom: 30px !important
+      .image
+        img
+          &.image-320,&.image-480
+            width: auto !important
+            top: auto !important
+            bottom: 0 !important
+    @include screen-max-width(379px)
+      .content
+        left: 110px !important
+        bottom: 25px !important
+    @include screen-max-width(319px)
+      .content
+        left: 0 !important
+        bottom: 90px !important
+
+
 
   &.timex-page
+    @include screen-max-width(1023px)
+      min-height: 590px
     .content
       position: absolute !important
-      left: 52%
-      bottom: 80px
+      left: 52.5% !important
+      bottom: 65px !important
     .image
       img
         bottom: -48px !important
         &.image-1280
-          left: -132px
-          bottom: 9px !important
+          width: 1364px
+          left: 50%
+          margin-left: -682px
+    @include screen-max-width(1023px)
+      .content
+        left: 140px !important
+        bottom: 62px !important
+      .image
+        img
+          &.image-320,&.image-480
+            width: auto !important
+            top: auto !important
+            bottom: 0 !important
+    @include screen-max-width(379px)
+      .content
+        left: 110px !important
+        bottom: 25px !important
+    @include screen-max-width(319px)
+      .content
+        left: 0 !important
+        bottom: 90px !important
 
   @include screen-max-width(1023px)
     .wrap
@@ -746,9 +823,8 @@
   margin: 0 auto
   .project-icon-block
     position: absolute
-    top: 134px
+    top: 140px
     right: 32px
-    width: 86px
     overflow: visible
     .project-icon-wrapper
       background: #2F2A5B
@@ -769,5 +845,6 @@
       font-size: 16.5px
       line-height: 100%
       white-space: nowrap
+      text-transform: uppercase
       @include screen-max-width(1024px)
         display: none

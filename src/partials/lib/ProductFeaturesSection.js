@@ -40,6 +40,11 @@ export default class ProductFeaturesSection extends React.Component {
     }
   }
 
+  handleOpenDialogClick(e) {
+    e.preventDefault()
+    this.props.openContactDialog()
+  }
+
   componentDidMount () {
     if (this.props.features.length && this.props.mode === 'list') {
       this.interval = setInterval(() => {
@@ -48,12 +53,20 @@ export default class ProductFeaturesSection extends React.Component {
         })
       }, this.props.interval)
     }
+    if (typeof window !== 'undefined') {
+      const contactButton = window.document.getElementById('nav-link-dmt-contact-us')
+      contactButton && contactButton.addEventListener('click', this.handleOpenDialogClick.bind(this))
+    }
   }
 
   componentWillUnmount () {
     if (this.interval) {
       clearInterval(this.interval)
       this.interval = null
+    }
+    if (typeof window !== 'undefined') {
+      const contactButton = window.document.getElementById('nav-link-dmt-contact-us')
+      contactButton && contactButton.removeEventListener('click', this.handleOpenDialogClick.bind(this))
     }
   }
 
@@ -158,7 +171,7 @@ export default class ProductFeaturesSection extends React.Component {
             </ul>
           </div>
           <div className='feedback'>
-            <button className='link' onClick={openContactDialog}>{constants('contact-us-button-middleware')}</button>
+            <button className='link' onClick={this.handleOpenDialogClick.bind(this)}>{constants('contact-us-button-middleware')}</button>
             <p className='notice'>{constants('and-yes-its-easy-to-deploy')}</p>
           </div>
         </div>

@@ -1,4 +1,9 @@
+@import "src/styles/partials/mixins"
+@import "src/styles/partials/variables"
+
 .root.events-rotator
+  @include screen-max-width(1023px)
+    display: none
   .content
     position: relative
     overflow: hidden

@@ -70,9 +70,9 @@ class ProductsDetails extends React.Component {
           {
             Array.isArray(product.links) ? (
               <div className='nav-link-wrapper'>
-                {product.links.filter((link) => link.isVisibleInContent).map((link) => {
+                {product.links.filter((link) => link.isVisibleInContent).map((link, i) => {
                   return (
-                    <a className={cn('nav-link', `nav-link-${link.slug}`)} href={link.link}>
+                    <a key={i} className={cn('nav-link', `nav-link-${link.slug}`)} href={link.link}>
                       {link.text}
                     </a>
                   )
