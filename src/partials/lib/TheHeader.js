@@ -239,7 +239,7 @@ export default class TheHeader extends React.Component {
                         menu={
                           <div className='our-products-wrapper'>
                             {productsMenuItem.children.map((child, i) => (
-                              <Link route={child.url}>
+                              <Link key={i} route={child.url}>
                                 <div className='our-products-inner'>
                                   <div className='our-products-content'>
                                     <div className='our-products-img'>
@@ -295,7 +295,7 @@ export default class TheHeader extends React.Component {
                         menu={
                           <div className='our-products-wrapper'>
                             {productsMenuItem.children.map((child, i) => (
-                              <Link route={child.url}>
+                              <Link key={i} route={child.url}>
                                 <div className='our-products-inner'>
                                   <div className='our-products-content'>
                                     <div className='our-products-img'>
@@ -336,9 +336,14 @@ export default class TheHeader extends React.Component {
           <div className='content'>
             <div className='text' dangerouslySetInnerHTML={{ __html: header.brief }} />
             {
-              product && Array.isArray(product.links) ? product.links.filter((link) => link.isVisibleInHeader).map((link) => {
+              product && Array.isArray(product.links) ? product.links.filter((link) => link.isVisibleInHeader).map((link, i) => {
                 return (
-                  <a id={`nav-link-${link.slug}`} className={cn('nav-link')} href={link.link}>
+                  <a
+                    key={i}
+                    id={`nav-link-${link.slug}`}
+                    className={cn('nav-link')}
+                    href={link.link}
+                  >
                     {link.text}
                   </a>
                 )
