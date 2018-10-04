@@ -12,3 +12,4 @@ routes
   .add('team', '/team')
   .add('faq', '/faq')
   .add('products-details', '/products/:slug')
+  .add('cookies-policies', '/cookies-policies')

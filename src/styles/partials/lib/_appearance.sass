@@ -62,3 +62,9 @@
 @mixin screen-between-width($min, $max)
   @media only screen and (min-width: $min) and (max-width: $max)
     @content
+
+@mixin flex ($flex-direction, $justify-content, $align-items)
+  display: flex
+  flex-direction: $flex-direction
+  justify-content: $justify-content
+  align-items: $align-items

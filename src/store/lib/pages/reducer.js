@@ -21,6 +21,7 @@ import {
   PAGES_INIT_TESTIMONIALS,
   PAGES_INIT_TITLES,
   PAGES_SET_VISIBLE_TELEGRAM_BAR,
+  PAGES_SET_VISIBLE_COOKIES_BAR,
   PAGES_SET_USER_LANGUAGE,
 } from './actions'
 
@@ -56,6 +57,7 @@ const initialState = {
   titles: makeArrayState(false, []),
   userLanguage: 'en',
   telegramPin: false,
+  isCookiesBarVisible: false,
 }
 
 // eslint-disable-next-line complexity
@@ -109,6 +111,8 @@ export default (state = initialState, action) => {
       return { ...state, languages: makeArrayState(true, action.languages) }
     case PAGES_SET_VISIBLE_TELEGRAM_BAR:
       return { ...state, telegramPin: action.telegramPin }
+    case PAGES_SET_VISIBLE_COOKIES_BAR:
+      return { ...state, isCookiesBarVisible: action.isCookiesBarVisible }
     default:
       return state
   }
