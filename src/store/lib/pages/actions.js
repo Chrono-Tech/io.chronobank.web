@@ -31,6 +31,7 @@ import {
   userLanguageFromBrowser,
   USER_LANGUAGE_COOKIE_KEY,
   STORAGE_TELEGRAM_PIN,
+  STORAGE_COOKIES_BAR,
   getLanguageByKey,
   getFirstLanguage,
   getValueLocalStorage,
@@ -60,6 +61,7 @@ export const PAGES_INIT_STORIES = 'pages/INIT_STORIES'
 export const PAGES_INIT_TESTIMONIALS = 'pages/INIT_TESTIMONIALS'
 export const PAGES_INIT_TITLES = 'pages/INIT_TITLES'
 export const PAGES_SET_VISIBLE_TELEGRAM_BAR = 'pages/SET_VISIBLE_TELEGRAM_BAR'
+export const PAGES_SET_VISIBLE_COOKIES_BAR = 'pages/SET_VISIBLE_COOKIES_BAR'
 export const PAGES_SET_USER_LANGUAGE = 'pages/SET_USER_LANGUAGE'
 
 export const initMenus = () => async (dispatch, getState) => {
@@ -437,6 +439,21 @@ export const initTelegramPin = () => (dispatch) => {
 
     dispatch(setVisibleTelegramBar(telegramPin))
   }
+}
+
+export const initCookiesBar = () => (dispatch) => {
+  if (typeof sessionStorage !== 'undefined') {
+    const isCookiesBarVisible = getValueLocalStorage(STORAGE_COOKIES_BAR)(sessionStorage) !== 'false'
+    dispatch(setCookiesBarVisible(isCookiesBarVisible))
+  }
+}
+
+export const setCookiesBarVisible = (isCookiesBarVisible) => (dispatch) => {
+  dispatch(saveToSessionStorage(STORAGE_COOKIES_BAR, isCookiesBarVisible))
+  return dispatch({
+    type: PAGES_SET_VISIBLE_COOKIES_BAR,
+    isCookiesBarVisible,
+  })
 }
 
 export const initMomentLocale = () => (dispatch, getState) => {

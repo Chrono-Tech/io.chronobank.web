@@ -1,0 +1,43 @@
+@import "src/styles/partials/mixins"
+
+.root.cookies-policies-section
+  position: relative
+  padding-bottom: 48px
+  .wrap
+    margin: 0 auto
+    max-width: 1120px
+    position: relative
+    padding: 0 16px
+    box-sizing: border-box
+    .policies
+      padding: 40px
+      border-radius: 2px
+      background-color: #fff
+      box-shadow: 0 16px 24px 0 rgba(118, 143, 255, 0.2)
+      margin-bottom: 32px
+      h1
+        margin-bottom: 20px
+        font-family: Proxima Nova
+        font-feature-settings: "liga"
+        font-size: 30px
+        font-weight: 700
+        line-height: 33px
+        color: #333333
+      p
+        margin-bottom: 30px
+        font-family: Proxima Nova
+        font-feature-settings: "liga"
+        font-size: 16px
+        font-weight: 400
+        line-height: 22px
+        color: #333333
+
+      &:last-child
+        margin-bottom: 0
+
+  @include screen-max-width(1023px)
+    .wrap
+      padding: 0 16px
+      box-sizing: border-box
+      margin: 0 auto
+      max-width: 480px

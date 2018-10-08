@@ -38,6 +38,7 @@ class FAQ extends React.Component {
         </Head>
         <components.ModalStack />
         <components.SnackbarStack />
+        <partials.TheCookies />
         <partials.TheHeader headerSlug='faq-page' />
         <main>
           <partials.FaqSection />

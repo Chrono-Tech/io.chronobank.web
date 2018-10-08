@@ -4,6 +4,7 @@ import { createSelector } from 'reselect'
 export const USER_LANGUAGE_COOKIE_KEY = 'userLanguage'
 export const USER_LANGUAGE_DEFAULT = 'en'
 export const STORAGE_TELEGRAM_PIN = 'telegramPin'
+export const STORAGE_COOKIES_BAR = 'cookiesBar'
 
 export const headerSelector = (slug) => createSelector(
   (state) => state.pages.headers.array,

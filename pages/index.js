@@ -67,6 +67,7 @@ class Index extends React.Component {
           {/* <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'></svg> */}
         </div>
         <div className='page'>
+          <partials.TheCookies />
           <partials.TheHeader headerSlug='main-page' />
           <main className='main'>
             <div className='about'>

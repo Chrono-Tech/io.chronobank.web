@@ -48,6 +48,7 @@ class ProductsDetails extends React.Component {
         </Head>
         <components.ModalStack />
         <components.SnackbarStack />
+        <partials.TheCookies />
         <partials.TheHeader productSlug={product.slug} headerSlug={`${product.slug}-page`} />
         <main className={cn('main', `${product.slug}-page`)}>
           {(product.descriptions && product.descriptions.length)
